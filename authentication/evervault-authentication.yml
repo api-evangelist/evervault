@@ -1,0 +1,30 @@
+generated: '2026-07-19'
+method: searched
+source: openapi/evervault-openapi-original.json + https://docs.evervault.com/developers/api-keys
+docs: https://docs.evervault.com/developers/api-keys
+summary:
+  types:
+  - http
+  http_schemes: [basic, bearer]
+  note: API keys can be created, scoped, rotated, and revoked. Short-lived bearer tokens are minted for client-side and Function-run contexts.
+schemes:
+- name: ApiKey
+  type: http
+  scheme: basic
+  description: Authentication using an API key. The username is the App ID and the password is the API Key (base64 App-ID:API-Key).
+  sources:
+  - openapi/evervault-openapi-original.json
+- name: TokenAuth
+  type: http
+  scheme: bearer
+  bearerFormat: RunToken
+  description: 'Authentication using a short-lived Function run token shareable with clients. Authorization header: "RunToken <Function Run Token>".'
+  sources:
+  - openapi/evervault-openapi-original.json
+- name: ClientSideToken
+  type: http
+  scheme: bearer
+  bearerFormat: Token
+  description: 'Authentication using a short-lived client-side token. Authorization header: "Token <Client-Side Token>".'
+  sources:
+  - openapi/evervault-openapi-original.json
