@@ -1,0 +1,1383 @@
+openapi: 3.1.0
+info:
+  title: Evervault 3D Secure API
+  version: 0.0.1
+  description: The Evervault API allows developers to interact programmatically with their Evervault apps using HTTP requests.
+  contact:
+    email: support@evervault.com
+    name: Evervault Support Team
+    url: https://evervault.com
+servers:
+- url: https://api.evervault.com
+  description: The Evervault API server
+tags:
+- name: 3D Secure
+  description: '3D Secure is a security protocol designed to prevent fraud in online card transactions. It adds an additional layer of authentication during the payment process.
+
+    '
+paths:
+  /payments/3ds-sessions:
+    post:
+      x-section: Payments
+      x-group: 3D Secure
+      summary: Create a 3DS Session
+      description: 'Creates a 3DS Session to initiate the 3DS Authentication process. The session ID must then be passed to our client-side SDK to complete the authentication process. [Learn more](/sdks/javascript#ui.threedsecure())
+
+        '
+      operationId: createThreeDSSession
+      tags:
+      - 3D Secure
+      security:
+      - ApiKey:
+        - threeDSSession:create
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                merchant:
+                  description: The merchant details. Either an inline merchant object or the unique identifier of a Merchant created with the [Merchants API](/api#merchants).
+                  oneOf:
+                  - type: object
+                    description: An inline merchant object.
+                    properties:
+                      name:
+                        type: string
+                        description: The name of the merchant.
+                        example: Ollivanders Wand Shop
+                      website:
+                        type: string
+                        description: The website of the merchant.
+                        example: https://www.ollivanders.co.uk
+                      categoryCode:
+                        type: string
+                        description: The category code of the merchant.
+                        example: '5945'
+                      country:
+                        type: string
+                        format: iso-3166-1-alpha-2
+                        description: The country code of the merchant.
+                        example: ie
+                    required:
+                    - name
+                    - website
+                    - categoryCode
+                    - country
+                  - type: string
+                    description: The unique identifier of a Merchant created with the [Merchants API](/api#merchants).
+                    example: merchant_eead1d640d7c
+                card:
+                  description: The card details. Either an inline card object or the unique identifier of a Card created with the [Cards API](/api#cards).
+                  oneOf:
+                  - type: object
+                    description: An inline card object.
+                    properties:
+                      number:
+                        type: string
+                        description: The card number. Needs to be an Evervault-encrypted card number or a plaintext card number.
+                        example: '4242424242424242'
+                      expiry:
+                        $ref: '#/components/schemas/CardExpiry'
+                    required:
+                    - number
+                    - expiry
+                  - type: string
+                    description: The unique identifier of a Card created with the [Cards API](/api#cards).
+                    example: card_eead1d640d7c
+                acquirer:
+                  description: 'The acquirer details to use for the 3DS session. Either an inline acquirer object or the unique identifier of an acquirer created with the [Acquirers API](/api#acquirers). If omitted, Evervault resolves the default acquirer configuration for the card''s network.
+
+                    '
+                  oneOf:
+                  - $ref: '#/components/schemas/Acquirer'
+                  - type: string
+                    description: The unique identifier of an acquirer created with the [Acquirers API](/api#acquirers).
+                    example: acquirer_adk3kdljc3
+                customer:
+                  type: object
+                  description: The details of the customer who initiated the transaction.
+                  properties:
+                    name:
+                      type: string
+                      description: The name of the customer.
+                      pattern: ^[a-zA-Z0-9 !"#$%&'()*+,-./:;<=>?@[\]^_`{|}~]{2,45}$
+                      example: Seamus Finnigan
+                    phone:
+                      type: array
+                      description: The phone number of the customer.
+                      items:
+                        type: object
+                        properties:
+                          type:
+                            type: string
+                            description: The type of phone number.
+                            enum:
+                            - mobile
+                            - home
+                            - work
+                            example: mobile
+                          countryCode:
+                            type: string
+                            description: The numerical country calling code of the phone number.
+                            example: '353'
+                          number:
+                            type: string
+                            description: The phone number of the customer.
+                            example: '873451276'
+                        required:
+                        - type
+                        - countryCode
+                        - number
+                    email:
+                      type: string
+                      format: email
+                      description: The email address of the customer.
+                      example: seamus@hogwarts.edu
+                    shipping:
+                      type: object
+                      description: The shipping details of the customer.
+                      properties:
+                        address:
+                          description: The shipping address.
+                          $ref: '#/components/schemas/Address'
+                    billing:
+                      type: object
+                      description: The billing details of the customer.
+                      properties:
+                        address:
+                          $ref: '#/components/schemas/Address'
+                        taxIdentifier:
+                          type: string
+                          description: The tax identifier of the cardholder.
+                          example: IE123456789
+                payment:
+                  type: object
+                  description: The payment details of the 3D Secure Authentication. This field is mandatory for transactions involving payment authentications but not required for non-payment authentications.
+                  oneOf:
+                  - $ref: '#/components/schemas/PaymentOneOff'
+                  - $ref: '#/components/schemas/PaymentInstallment'
+                  - $ref: '#/components/schemas/PaymentRecurring'
+                preferredVersions:
+                  type: array
+                  description: 'A prioritized list of preferred 3D Secure versions. If the first version is not supported, the next version in the list is attempted. If no preferred version is provided, the most optimal version is selected. If none of the specified versions are supported by the issuer, the session fails.
+
+                    '
+                  items:
+                    type: string
+                    enum:
+                    - 2.2.0
+                challenge:
+                  $ref: '#/components/schemas/ThreeDSChallenge'
+                initiator:
+                  $ref: '#/components/schemas/ThreeDSInitiator'
+              required:
+              - card
+              - merchant
+            examples:
+              SimpleExample:
+                value:
+                  merchant:
+                    name: Ollivanders Wand Shop
+                    website: https://www.ollivanders.co.uk
+                    categoryCode: '5945'
+                    country: gb
+                  card:
+                    number: '4242424242424242'
+                    expiry:
+                      month: 09
+                      year: '26'
+                  payment:
+                    type: one-off
+                    amount: 1000
+                    currency: eur
+      responses:
+        '201':
+          description: Returns a 3DS Session object.
+          x-content: 'Returns the [3DS Session object](#the-3ds-session-object) that was created.
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ThreeDSSession'
+              examples:
+                ActionRequired:
+                  summary: Action Required
+                  value:
+                    id: tds_57aa862f8bf7
+                    merchant:
+                      name: Ollivanders Wand Shop
+                      website: https://www.ollivanders.co.uk
+                      categoryCode: '5945'
+                      country: gb
+                    card:
+                      lastFour: '4242'
+                      expiry:
+                        month: 09
+                        year: '26'
+                      brand: visa
+                      funding: debit
+                      segment: consumer
+                      country: gb
+                      currency: gbp
+                    initiator:
+                      type: customer
+                    challenge:
+                      preference: no-preference
+                      reason: null
+                    acquirer:
+                      bin: '567834'
+                      merchantIdentifier: '530249576123943'
+                      country: gb
+                    payment:
+                      type: one-off
+                      amount: 1000
+                      currency: eur
+                    version: 2.2.0
+                    status: action-required
+                    nextAction:
+                      type: use-sdk
+                    ares:
+                      transStatus:
+                        value: C
+                        detail: Challenge Required; Additional authentication is required using the CReq/CRes
+                      transStatusReason: null
+                    cres: null
+                    rreq: null
+                    accessControlServer:
+                      transactionIdentifier: 0f651348-c519-4cfb-b349-0b302af9861f
+                      referenceNumber: 3DS_LOA_ACS_STIN_020200_00417
+                    directoryServer:
+                      transactionIdentifier: 71c5d726-5d4b-426c-9d7d-131970f41c5c
+                      referenceNumber: 3DS_LOA_DIS_VISA_020200_00828
+                      network: visa
+                    threeDSServer:
+                      transactionIdentifier: a623edc1-54bc-455d-9dea-c909783a37c3
+                    createdAt: 1692972623233
+                    updatedAt: 1692972623768
+                Successful:
+                  summary: Successful
+                  value:
+                    id: tds_57aa862f8bf7
+                    merchant:
+                      name: Ollivanders Wand Shop
+                      website: https://www.ollivanders.co.uk
+                      categoryCode: '5945'
+                      country: gb
+                    card:
+                      lastFour: '4242'
+                      expiry:
+                        month: 09
+                        year: '26'
+                      brand: visa
+                      funding: debit
+                      segment: consumer
+                      country: gb
+                      currency: gbp
+                    initiator:
+                      type: customer
+                    challenge:
+                      preference: no-preference
+                      reason: null
+                    acquirer:
+                      bin: '567834'
+                      merchantIdentifier: '530249576123943'
+                      country: gb
+                    payment:
+                      type: one-off
+                      amount: 1000
+                      currency: eur
+                    accessControlServer:
+                      transactionIdentifier: d351441b-f9e6-46e3-a726-9fc4f39bbaaa
+                      referenceNumber: 3DS_LOA_ACS_STIN_020200_00417
+                    directoryServer:
+                      transactionIdentifier: 18030e14-fafa-462e-bfc0-da733196e808
+                      referenceNumber: 3DS_LOA_DIS_VISA_020200_00828
+                      network: visa
+                    threeDSServer:
+                      transactionIdentifier: a623edc1-54bc-455d-9dea-c909783a37c3
+                    version: 2.2.0
+                    status: success
+                    authentication:
+                      flow: frictionless
+                    cryptogram: MTIzNDU2Nzg5MDA5ODc2NTQzMjE=
+                    eci:
+                      value: '05'
+                      descriptor: fully-authenticated
+                      liabilityShift: true
+                    ares:
+                      transStatus:
+                        value: Y
+                        detail: Authentication/Account Verification Successful
+                      transStatusReason: null
+                    cres: null
+                    rreq: null
+                    createdAt: 1692972623233
+                    updatedAt: 1692972623768
+                Failure:
+                  summary: Failed
+                  value:
+                    id: tds_57aa862f8bf7
+                    merchant:
+                      name: Ollivanders Wand Shop
+                      website: https://www.ollivanders.co.uk
+                      categoryCode: '5945'
+                      country: gb
+                    card:
+                      lastFour: '4242'
+                      expiry:
+                        month: 09
+                        year: '26'
+                      brand: visa
+                      funding: debit
+                      segment: consumer
+                      country: gb
+                      currency: gbp
+                    initiator:
+                      type: customer
+                    challenge:
+                      preference: no-preference
+                      reason: null
+                    acquirer:
+                      bin: '567834'
+                      merchantIdentifier: '530249576123943'
+                      country: gb
+                    payment:
+                      type: one-off
+                      amount: 1000
+                      currency: eur
+                    version: 2.2.0
+                    status: failure
+                    failureReason: card-not-enrolled
+                    ares:
+                      transStatus:
+                        value: N
+                        detail: Not Authenticated/Account Not Verified; Transaction denied
+                      transStatusReason:
+                        value: '13'
+                        detail: Cardholder not enrolled in service
+                    cres: null
+                    rreq: null
+                    accessControlServer:
+                      transactionIdentifier: 0f651348-c519-4cfb-b349-0b302af9861f
+                      referenceNumber: 3DS_LOA_ACS_STIN_020200_00417
+                    directoryServer:
+                      transactionIdentifier: 71c5d726-5d4b-426c-9d7d-131970f41c5c
+                      referenceNumber: 3DS_LOA_DIS_VISA_020200_00828
+                      network: visa
+                    threeDSServer:
+                      transactionIdentifier: a623edc1-54bc-455d-9dea-c909783a37c3
+                    createdAt: 1692972623233
+                    updatedAt: 1692972623768
+        '400':
+          description: 'The request was invalid or cannot be otherwise served.
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                ShortNameRequired:
+                  summary: Short Name Required
+                  value:
+                    code: payments/3ds-sessions/short-name-required
+                    title: Short Name Required
+                    detail: Merchant merchant_eead1d640d7c's name is 50 characters, which exceeds the 3DS 40-character limit. Set a `shortName` on the merchant to use it for 3DS sessions.
+  /payments/3ds-sessions/{3ds_session_id}:
+    get:
+      summary: Retrieve a 3DS Session
+      description: 'Retrieve a 3DS Session.
+
+        '
+      operationId: retrieveThreeDSSession
+      tags:
+      - 3D Secure
+      security:
+      - ApiKey:
+        - threeDSSession:read
+      parameters:
+      - name: 3ds_session_id
+        in: path
+        description: The id of the session
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Returns a 3DS Session object.
+          x-content: 'Returns the [3DS Session object](#the-3ds-session-object).
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ThreeDSSession'
+              examples:
+                ActionRequired:
+                  summary: Action Required
+                  value:
+                    id: tds_57aa862f8bf7
+                    merchant:
+                      name: Ollivanders Wand Shop
+                      website: https://www.ollivanders.co.uk
+                      categoryCode: '5945'
+                      country: gb
+                    card:
+                      lastFour: '4242'
+                      expiry:
+                        month: 09
+                        year: '26'
+                      brand: visa
+                      funding: debit
+                      segment: consumer
+                      country: gb
+                      currency: gbp
+                    initiator:
+                      type: customer
+                    challenge:
+                      preference: no-preference
+                      reason: null
+                    acquirer:
+                      bin: '567834'
+                      merchantIdentifier: '530249576123943'
+                      country: gb
+                    payment:
+                      type: one-off
+                      amount: 1000
+                      currency: eur
+                    version: 2.2.0
+                    status: action-required
+                    nextAction:
+                      type: use-sdk
+                    threeDSServer:
+                      transactionIdentifier: a623edc1-54bc-455d-9dea-c909783a37c3
+                    createdAt: 1692972623233
+                    updatedAt: 1692972623768
+                Successful:
+                  summary: Successful
+                  value:
+                    id: tds_57aa862f8bf7
+                    merchant:
+                      name: Ollivanders Wand Shop
+                      website: https://www.ollivanders.co.uk
+                      categoryCode: '5945'
+                      country: gb
+                    card:
+                      lastFour: '4242'
+                      expiry:
+                        month: 09
+                        year: '26'
+                      brand: visa
+                      funding: debit
+                      segment: consumer
+                      country: gb
+                      currency: gbp
+                    initiator:
+                      type: customer
+                    challenge:
+                      preference: no-preference
+                      reason: null
+                    acquirer:
+                      bin: '567834'
+                      merchantIdentifier: '530249576123943'
+                      country: gb
+                    payment:
+                      type: one-off
+                      amount: 1000
+                      currency: eur
+                    version: 2.2.0
+                    status: success
+                    authentication:
+                      flow: challenge
+                      methods:
+                      - sms-otp
+                    cryptogram: MTIzNDU2Nzg5MDA5ODc2NTQzMjE=
+                    eci:
+                      value: '05'
+                      descriptor: fully-authenticated
+                      liabilityShift: true
+                    ares:
+                      transStatus:
+                        value: C
+                        detail: Challenge Required; Additional authentication is required using the CReq/CRes
+                      transStatusReason: null
+                    cres:
+                      transStatus:
+                        value: Y
+                        detail: Authentication/Account Verification Successful
+                    rreq:
+                      transStatus:
+                        value: Y
+                        detail: Authentication Verification Successful.
+                    accessControlServer:
+                      transactionIdentifier: 0f651348-c519-4cfb-b349-0b302af9861f
+                      referenceNumber: 3DS_LOA_ACS_STIN_020200_00417
+                    directoryServer:
+                      transactionIdentifier: 71c5d726-5d4b-426c-9d7d-131970f41c5c
+                      referenceNumber: 3DS_LOA_DIS_VISA_020200_00828
+                      network: visa
+                    threeDSServer:
+                      transactionIdentifier: a623edc1-54bc-455d-9dea-c909783a37c3
+                    createdAt: 1692972623233
+                    updatedAt: 1692972623768
+                Failure:
+                  summary: Failed
+                  value:
+                    id: tds_57aa862f8bf7
+                    merchant:
+                      name: Ollivanders Wand Shop
+                      website: https://www.ollivanders.co.uk
+                      categoryCode: '5945'
+                      country: gb
+                    card:
+                      lastFour: '4242'
+                      expiry:
+                        month: 09
+                        year: '26'
+                      brand: visa
+                      funding: debit
+                      segment: consumer
+                      country: gb
+                      currency: gbp
+                    initiator:
+                      type: customer
+                    challenge:
+                      preference: no-preference
+                      reason: null
+                    acquirer:
+                      bin: '567834'
+                      merchantIdentifier: '530249576123943'
+                      country: gb
+                    payment:
+                      type: one-off
+                      amount: 1000
+                      currency: eur
+                    version: 2.2.0
+                    status: failure
+                    failureReason: suspected-fraud
+                    accessControlServer:
+                      transactionIdentifier: 0f651348-c519-4cfb-b349-0b302af9861f
+                      referenceNumber: 3DS_LOA_ACS_STIN_020200_00417
+                    directoryServer:
+                      transactionIdentifier: 71c5d726-5d4b-426c-9d7d-131970f41c5c
+                      referenceNumber: 3DS_LOA_DIS_VISA_020200_00828
+                      network: visa
+                    threeDSServer:
+                      transactionIdentifier: a623edc1-54bc-455d-9dea-c909783a37c3
+                    createdAt: 1692972623233
+                    updatedAt: 1692972623768
+  /payments/3ds-sessions/{3ds_session_id}/messages:
+    get:
+      x-hidden: true
+      summary: Retrieve 3DS Messages
+      description: 'Retrieve messages for a 3DS Session. This endpoint can be helpful for debugging 3DS sessions, providing insight into the raw 3DS messages that were exchanged between the 3DS Server and the Directory Server.
+
+        '
+      operationId: retrieveThreeDSMessages
+      tags:
+      - 3D Secure
+      security:
+      - ApiKey:
+        - threeDSSession:read
+      parameters:
+      - name: 3ds_session_id
+        in: path
+        description: The id of the 3DS session
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Returns 3DS messages for the session.
+          x-content: 'Returns an array of [3DS Message objects](#the-3ds-message-object).
+
+            '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  messages:
+                    type: array
+                    description: Array of 3DS messages for the session
+                    items:
+                      type: object
+                      properties:
+                        type:
+                          type: string
+                          description: The type of 3DS message (e.g., AReq, ARes, CReq, CRes, RReq, RRes)
+                          example: AReq
+                        created_at:
+                          type: integer
+                          description: Timestamp when the message was created
+                          example: 1751039450228
+                        data:
+                          type: object
+                          description: The message data payload
+              examples:
+                MessagesExample:
+                  summary: 3DS Messages
+                  value:
+                    messages:
+                    - type: AReq
+                      created_at: 1751039450228
+                      data:
+                        type: AReq
+                        threeDSCompInd: N
+                        threeDSRequestorAuthenticationInd: '01'
+                        threeDSRequestorChallengeInd: '82'
+                        threeDSRequestorID: 10085939*Example
+                        threeDSRequestorName: Example 3DSS_Merchant
+                        threeDSRequestorURL: https://example.com/
+                        threeDSServerRefNumber: EXAMPLE_3DS_REF_NUMBER
+                        threeDSServerOperatorID: '10085939'
+                        threeDSServerTransID: 274af11d-2f5a-4050-b70e-8eda1e76f782
+                        threeDSServerURL: https://example.3ds.com/result
+                        acctType: '03'
+                        acquirerBIN: '123456'
+                        acquirerMerchantID: '123456789012'
+                        browserAcceptHeader: '*/*'
+                        browserIP: 192.168.1.1
+                        browserJavaEnabled: false
+                        browserJavascriptEnabled: true
+                        browserLanguage: en-GB
+                        browserColorDepth: '24'
+                        browserScreenHeight: '1080'
+                        browserScreenWidth: '1920'
+                        browserTZ: '0'
+                        browserUserAgent: Mozilla/5.0 (Example Browser)
+                        cardExpiryDate: '2712'
+                        acctNumber: '************1234'
+                        deviceChannel: '02'
+                        mcc: '1234'
+                        merchantCountryCode: '372'
+                        merchantName: Example Merchant
+                        messageCategory: '01'
+                        notificationURL: https://example.3ds.com/notification
+                        purchaseAmount: '100000'
+                        purchaseCurrency: '978'
+                        purchaseExponent: '2'
+                        purchaseDate: '20250627155050'
+                        transType: '01'
+                    - type: ARes
+                      created_at: 1751039450626
+                      data:
+                        type: ARes
+                        threeDSServerTransID: 274af11d-2f5a-4050-b70e-8eda1e76f782
+                        acsChallengeMandated: Y
+                        acsOperatorID: '123456789'
+                        acsReferenceNumber: EXAMPLE_ACS_REF_NUMBER
+                        acsTransID: '123456789012'
+                        acsURL: https://example.3ds.com/creq
+                        authenticationType: '02'
+                        dsReferenceNumber: EXAMPLE_DS_REF_NUMBER
+                        dsTransID: 4912cee8-3c89-4504-ac5b-0b2a3ef9489d
+                        transStatus: Y
+                        eci: '05'
+components:
+  schemas:
+    PaymentOneOff:
+      type: object
+      summary: One-Off Payment
+      description: A payment that is made in a single transaction.
+      properties:
+        type:
+          type: string
+          description: The value `one-off`.
+          enum:
+          - one-off
+          example: one-off
+        amount:
+          type: integer
+          description: The amount of the payment in the smallest currency unit (e.g. cents).
+          example: 1000
+        currency:
+          type: string
+          format: iso-4217-alphabetic
+          description: The currency of the payment.
+          example: gbp
+      required:
+      - type
+      - amount
+      - currency
+    ThreeDSSession:
+      type: object
+      summary: The 3DS Session Object
+      description: 'The 3D Secure API can be used in combination with our [Client-Side SDK''s](/sdks/javascript#uithreedsecure) to authenticate cardholders using 3D Secure. This API allows you to create, retrieve and update 3D Secure sessions.
+
+        '
+      properties:
+        id:
+          type: string
+          description: A unique identifier assigned to each 3DS Authentication.
+          example: tds_57aa862f8bf7
+        card:
+          type: object
+          properties:
+            lastFour:
+              type: string
+              description: The last four digits of the card number.
+              example: '4242'
+            expiry:
+              $ref: '#/components/schemas/CardExpiry'
+            brand:
+              type: string
+              description: The card brand.
+              example: visa
+            funding:
+              type: string
+              description: The card funding type.
+              example: debit
+            segment:
+              type: string
+              description: The card segment.
+              example: consumer
+            issuer:
+              type: string
+              description: The name of the card issuer.
+              example: Fifth Third Bank, The
+            country:
+              type: string
+              format: iso-3166-1-alpha-2
+              description: The country code of the card.
+              example: gb
+            currency:
+              type: string
+              description: The currency code of the card. (ISO 4217 three-letter code)
+              example: gbp
+          required:
+          - lastFour
+          - expiry
+          - brand
+          - funding
+          - segment
+          - country
+          - currency
+        acquirer:
+          $ref: '#/components/schemas/Acquirer'
+        merchant:
+          type: object
+          description: The merchant details.
+          properties:
+            name:
+              type: string
+              description: The name of the merchant.
+              example: Ollivanders Wand Shop
+            website:
+              type: string
+              description: The website of the merchant.
+              example: https://www.ollivanders.co.uk
+            categoryCode:
+              type: string
+              description: The category code of the merchant.
+              example: '5945'
+            country:
+              type: string
+              format: iso-3166-1-alpha-2
+              description: The country code of the merchant.
+              example: ie
+          required:
+          - name
+          - website
+          - categoryCode
+          - country
+        payment:
+          type: object
+          description: The payment details of the 3D Secure Authentication.
+          oneOf:
+          - $ref: '#/components/schemas/PaymentInstallment'
+          - $ref: '#/components/schemas/PaymentOneOff'
+          - $ref: '#/components/schemas/PaymentRecurring'
+        challenge:
+          $ref: '#/components/schemas/ThreeDSChallenge'
+        initiator:
+          $ref: '#/components/schemas/ThreeDSInitiator'
+        accessControlServer:
+          $ref: '#/components/schemas/ThreeDSAccessControlServer'
+        directoryServer:
+          $ref: '#/components/schemas/ThreeDSDirectoryServer'
+        threeDSServer:
+          type: object
+          description: Details about the 3DS Server involved in the 3DS transaction.
+          properties:
+            transactionIdentifier:
+              type: string
+              description: The unique identifier for the 3DS transaction.
+              example: a623edc1-54bc-455d-9dea-c909783a37c3
+        version:
+          type: string
+          enum:
+          - 2.2.0
+          description: The 3D Secure version used to authenticate the session.
+          example: 2.2.0
+        status:
+          type: string
+          enum:
+          - action-required
+          - success
+          - failure
+          description: The status of the 3DS Authentication.
+          example: action-required
+        authentication:
+          type: object
+          description: The details of the 3DS Authentication. This field is present when the status is `success`.
+          properties:
+            flow:
+              type: string
+              enum:
+              - frictionless
+              - challenge
+              - attempt
+              description: The authentication flow.
+              example: frictionless
+            methods:
+              type: array
+              items:
+                type: string
+                enum:
+                - static-passcode
+                - sms-otp
+                - emv-card-reader-otp
+                - app-otp
+                - other-otp
+                - knowledge-based
+                - push-confirmation
+                - oob-biometrics
+                - oob-login
+                - oob-other
+                - webauthn
+                - secure-payment-confirmation
+                - behavioral-biometrics
+                - electronic
+                - decoupled
+              description: The authentication method(s). This field is only present when the flow is `challenge`.
+              example:
+              - sms-otp
+              - push-confirmation
+          required:
+          - flow
+        nextAction:
+          type: object
+          description: The next action required to complete the 3DS Authentication.
+          properties:
+            type:
+              type: string
+              description: 'The next action required to progress the 3DS Authentication. If the type is `use-sdk` you must use our [Client-Side SDK](/sdks/javascript#ui.threedsecure()) to complete the 3DS Authentication.
+
+                '
+              enum:
+              - use-sdk
+              example: use-sdk
+          required:
+          - type
+        cryptogram:
+          type: string
+          description: The 3DS cryptogram (also called Authentication Value). This value must be retrieved and provided to the payment gateway when processing the payment. This value is only present when the status is `success` and is retained for one hour.
+          example: MTIzNDU2Nzg5MDA5ODc2NTQzMjE=
+        eci:
+          type: object
+          description: The details of the Electronic Commerce Indicator. This value is only present when the status is `success`.
+          properties:
+            value:
+              type: string
+              enum:
+              - '00'
+              - '01'
+              - '02'
+              - '04'
+              - '05'
+              - '06'
+              - '07'
+              description: "The value of the ECI. Below are descriptions of each of the possible values:\n\nMastercard:\n  - `00`: Not authenticated. No liability shift.\n  - `01`: Attempted (Stand-in) authentication. Liability shift applies.\n  - `02`: Successful authentication. Liability shift applies.\n  - `04`: Data only authentication. No liability shift.\n  - `06`: Transaction is exempt from SCA. No liability shift.\n  - `07`: Recurring transaction authenticated. Liability shift applies for initial transaction only.\n\nVisa, American Express, Discover, Diners Club, JCB:\n  - `05`: Successful authentication. Liability shift applies.\n  - `06`: Attempted (Stand-in) authentication. Liability shift applies.\n  - `07`: Not authenticated. No liability shift.\n"
+              example: '05'
+            descriptor:
+              type: string
+              enum:
+              - fully-authenticated
+              - attempted
+              - not-authenticated
+              description: The descriptor of the ECI. This value must be retrieved and provided to the payment gateway when processing the payment.
+              example: fully-authenticated
+            liabilityShift:
+              type: boolean
+              description: A boolean value indicating whether the liability shift has occurred.
+              example: true
+        failureReason:
+          type: string
+          enum:
+          - failed-authentication
+          - card-not-enrolled
+          - no-card-record
+          - suspected-fraud
+          - invalid-acquirer-details
+          - cancelled
+          - unsupported-version
+          - challenge-required
+          - authentication-timed-out
+          - acs-unavailable
+          - directory-server-unavailable
+          - transient-system-failure
+          - invalid-card-details
+          - transaction-not-permitted
+          - required-data-element-missing
+          - protocol-error
+          x-enum-description:
+            failed-authentication: The authentication failed. Typically this is due to the cardholder failing to provide the correct 3DS authentication details. This transaction should be considered as potentially fraudulent.
+            card-not-enrolled: The card is not enrolled in 3DS and therefore cannot be authenticated.
+            no-card-record: The issuer has no record of the card. Verify the card details with the cardholder before retrying.
+            suspected-fraud: The transaction is suspected to be fraudulent. You should not process this transaction.
+            invalid-acquirer-details: The acquirer details are invalid. Please check the `acquirer` object for the correct details.
+            cancelled: The cardholder cancelled the transaction.
+            unsupported-version: The 3DS version is not supported.
+            challenge-required: This failure mode indicates that the cardholder is required to complete a challenge but the SDK has been mounted with the `failOnChallenge` option set to `true`.
+            authentication-timed-out: The authentication timed out. This is likely because the cardholder abandoned the transaction.
+            acs-unavailable: The Access Control Server associated with the card issuer was unavailable. Please try again later.
+            directory-server-unavailable: The Directory Server associated with the card network was unavailable. Please try again later.
+            transient-system-failure: A transient system failure occurred. This is likely due to a technical issue with the 3DS authentication process. Please try again later.
+            invalid-card-details: The card details are invalid. Please check the `card` object for the correct details and ensure the card is not expired.
+            transaction-not-permitted: The current session configuration is not permitted for this card. For example, defining a merchant intiated transaction reason of `secure-corporate-payment` for non-commercial cards.
+            required-data-element-missing: A required data element is missing. Please check the `card` object for the correct details and ensure all required data elements are present.
+            protocol-error: A protocol error occurred. This is likely due to a technical issue with the 3DS authentication process. Please try again later.
+          description: 'The reason for the 3DS Authentication failure. This field is present when the status is `failure` and can be used for troubleshooting.
+
+            '
+        ares:
+          type: object
+          description: The details of the 3DS Authentication Response (ARes).
+          properties:
+            transStatus:
+              type: object
+              description: The transaction status.
+              properties:
+                value:
+                  type: string
+                  enum:
+                  - Y
+                  - N
+                  - U
+                  - A
+                  - C
+                  - D
+                  - R
+                  - I
+                  description: The raw value of the transaction status.
+                  example: Y
+                detail:
+                  type: string
+                  description: The detailed description of the transaction status.
+                  example: Authentication/Account Verification Successful
+            transStatusReason:
+              type:
+              - 'null'
+              - object
+              description: The reason for the transaction status if transStatus is 'N', 'U' or 'R'.
+              properties:
+                value:
+                  type: string
+                  description: The raw value of the transaction status reason.
+                  example: '11'
+                detail:
+                  type: string
+                  description: The detailed description of the transaction status reason.
+                  example: Suspected fraud
+            cardholderInfo:
+              type:
+              - 'null'
+              - string
+              description: A message from the card issuer to display to the cardholder, such as guidance to contact their bank. Maximum 128 characters.
+              example: Please contact your bank.
+        cres:
+          type:
+          - 'null'
+          - object
+          description: The details of the 3DS Challenge Response (CRes).
+          properties:
+            transStatus:
+              type: object
+              description: The transaction status.
+              properties:
+                value:
+                  type: string
+                  enum:
+                  - Y
+                  - N
+                  description: The raw value of the transaction status.
+                  example: Y
+                detail:
+                  type: string
+                  description: The detailed description of the transaction status.
+                  example: Authentication/Account Verification Successful
+        rreq:
+          type:
+          - 'null'
+          - object
+          description: The result of the 3DS authentication when a challenge has occurred.
+          properties:
+            transStatus:
+              type: object
+              description: The transaction status.
+              properties:
+                value:
+                  type: string
+                  enum:
+                  - Y
+                  - N
+                  - U
+                  - A
+                  - R
+                  description: The raw value of the transaction status.
+                  example: Y
+                detail:
+                  type: string
+                  description: 'The detailed description of the transaction status. Below are descriptions of each of the possible values:
+
+                    - `Y` - Authentication Verification Successful.
+
+                    - `N` - Not Authenticated/Account Not Verified; Transaction denied.
+
+                    - `U` - Authentication/Account Verification Could Not Be Performed; Technical or other problem.
+
+                    - `A` - Attempts Processing Performed; Not Authenticated/Verified, but a proof of attempted authentication/verification is provided.
+
+                    - `R` - Authentication/Account Verification Rejected; Issuer is rejecting.'
+                  example: Authentication Verification Successful.
+        createdAt:
+          type: integer
+          format: int64
+          description: The exact time, in epoch milliseconds, when this 3DS-Session was created.
+          example: 1692972623233
+        updatedAt:
+          type: integer
+          format: int64
+          description: The exact time, in epoch milliseconds, when this 3DS-Session was last updated.
+          example: 1692972623768
+      required:
+      - id
+      - merchant
+      - card
+      - acquirer
+      - version
+      - status
+      - createdAt
+    PaymentInstallment:
+      type: object
+      summary: Installment Payment
+      description: A repeating payment for paying a total amount in multiple installments.
+      properties:
+        type:
+          type: string
+          description: The value `installment`.
+          enum:
+          - installment
+        amount:
+          type: integer
+          description: The amount of the payment in the smallest currency unit (e.g. cents).
+          example: 1000
+        currency:
+          type: string
+          format: iso-4217-alphabetic
+          description: The currency of the payment.
+          example: gbp
+        installments:
+          type: integer
+          description: The number of installments.
+          example: 12
+        frequency:
+          type: string
+          description: Indicates the minimum time between authorizations.
+          enum:
+          - daily
+          - weekly
+          - monthly
+          - quarterly
+          - annually
+          example: monthly
+        expiry:
+          type: integer
+          description: The epoch time in seconds when the installment expires. Maximum value is 4102394400 (equivalent to 2099-12-31).
+      required:
+      - type
+      - amount
+      - currency
+      - installments
+      - frequency
+    ThreeDSChallenge:
+      type: object
+      description: Details about the 3DS challenge.
+      properties:
+        preference:
+          type: string
+          description: The 3DS challenge preference.
+          enum:
+          - no-preference
+          - challenge-requested
+          - challenge-mandated
+          - no-challenge-requested
+        reason:
+          type:
+          - 'null'
+          - string
+          description: The reason for not requesting a challenge. This value should only be present when the preference is `no-challenge-requested`.
+          enum:
+          - null
+          - data-sharing
+          - low-value
+          - low-risk
+          - secure-corporate-payment
+          - authentication-already-performed
+      required:
+      - preference
+    ThreeDSAccessControlServer:
+      type: object
+      description: Details about the Access Control Server involved in the 3DS transaction.
+      properties:
+        transactionIdentifier:
+          type: string
+          description: The Access Control Server's transaction identifier.
+          example: d351441b-f9e6-46e3-a726-9fc4f39bbaaa
+        referenceNumber:
+          type: string
+          description: The Access Control Server's reference number assigned by EMVCo.
+          example: 3DS_LOA_ACS_STIN_020200_00417
+        operatorIdentifier:
+          type:
+          - 'null'
+          - string
+          description: The identifier of the Access Control Server's operator, when the ACS provides it.
+          example: Evervault
+    Address:
+      type: object
+      properties:
+        line1:
+          type: string
+          description: 'The first line of the address.
+
+            '
+          pattern: ^[À-ÖØ-öø-ǿa-zA-Z0-9().\-_#,;/@$!% ]+$
+          example: 123 Main St
+        line2:
+          type: string
+          description: 'The second line of the address.
+
+            '
+          pattern: ^[À-ÖØ-öø-ǿa-zA-Z0-9().\-_#,;/@$!% ]+$
+          example: Floor 4
+        city:
+          type: string
+          description: The city where the address is located.
+          pattern: "^[0-9a-zA-Z _\\-¡-\uFFFF]+$"
+          example: Springfield
+        state:
+          type: string
+          description: The state or province code. Required when `country` is `us`, `ca`, or `au`.
+          format: iso-3166-2-subdivision
+          example: ny
+        postalCode:
+          type: string
+          description: The postal code of the address.
+          pattern: ^[0-9a-zA-Z ]*$
+          example: 13468
+        country:
+          type: string
+          format: iso-3166-1-alpha-2
+          description: The country where the address is located.
+          example: us
+      required:
+      - line1
+      - city
+      - postalCode
+      - country
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+          description: A distinct error code, presented in slug format, that identifies a specific error.
+          example: invalid-request
+        title:
+          type: string
+          description: A short, human-readable summary of the error.
+          example: Invalid Request
+        status:
+          type: integer
+          description: The HTTP status code for the error.
+          example: 400
+        detail:
+          type: string
+          description: A human-readable explanation of the error.
+          example: The provided action was invalid
+        fields:
+          type: array
+          items:
+            type: object
+            properties:
+              pointer:
+                type: string
+                description: The JSON pointer to the field that caused the error.
+                example: /card/number
+              reason:
+                type: string
+                description: A human-readable explanation of the error for this field.
+                example: The card number is required
+          example:
+          - pointer: /card/number
+            reason: The card number is required
+    Acquirer:
+      type: object
+      description: The acquirer of the payment.
+      properties:
+        bin:
+          type: string
+          pattern: ^[0-9]{6,11}$
+          minLength: 6
+          maxLength: 11
+          description: The Bank Identification Number (BIN) of the acquirer. Must be 6 to 11 digits.
+          example: '42424242'
+        merchantIdentifier:
+          type: string
+          description: The merchant identifier assigned by the acquirer.
+          example: '5945'
+        country:
+          type: string
+          description: The country code of the acquirer
+          format: iso-3166-1-alpha-2
+          example: ie
+      required:
+      - bin
+      - merchantIdentifier
+      - country
+    PaymentRecurring:
+      type: object
+      summary: Recurring Payment
+      description: A repeating payment with a regular interval.
+      properties:
+        type:
+          type: string
+          description: The value `recurring`.
+          enum:
+          - recurring
+        amount:
+          type: integer
+          description: The amount of the payment in the smallest currency unit (e.g. cents).
+          example: 1000
+        currency:
+          type: string
+          format: iso-4217-alphabetic
+          description: The currency of the payment.
+          example: gbp
+        frequency:
+          type: string
+          description: Indicates the minimum time between authorizations.
+          enum:
+          - daily
+          - weekly
+          - monthly
+          - quarterly
+          - annually
+          example: monthly
+        expiry:
+          type: integer
+          description: The epoch time in seconds when the recurring payment expires. Maximum value is 4102394400 (equivalent to 2099-12-31).
+      required:
+      - type
+      - amount
+      - currency
+      - frequency
+      - expiry
+    ThreeDSDirectoryServer:
+      type: object
+      description: Details about the Directory Server involved in the 3DS transaction.
+      properties:
+        transactionIdentifier:
+          type: string
+          description: The Directory Server's transaction identifier.
+          example: 18030e14-fafa-462e-bfc0-da733196e808
+        referenceNumber:
+          type: string
+          description: The Directory Server's reference number assigned by EMVCo.
+          example: 3DS_LOA_DIS_VISA_020200_00828
+        network:
+          type: string
+          enum:
+          - visa
+          - mastercard
+          - american-express
+          - discover
+          - jcb
+          - unionpay
+          - rupay
+          description: The network of the Directory Server.
+          example: visa
+    CardExpiry:
+      type: object
+      properties:
+        month:
+          type: string
+          description: The card expiry month, in MM format (e.g. 12 for December)
+          example: 09
+        year:
+          type: string
+          description: The card expiry year, in YY format (e.g. 26 for 2026)
+          example: '26'
+      required:
+      - month
+      - year
+    ThreeDSInitiator:
+      type: object
+      description: Details about the transaction initiation process.
+      oneOf:
+      - type: object
+        summary: Customer-Initiated Transaction (CIT)
+        properties:
+          type:
+            type: string
+            enum:
+            - customer
+            description: The value `customer`.
+      - type: object
+        summary: Merchant-Initiated Transaction (MIT)
+        properties:
+          type:
+            type: string
+            enum:
+            - merchant
+            description: The value `merchant`.
+          reason:
+            type: string
+            enum:
+            - recurring
+            - installment
+            - mail-order
+            - telephone-order
+            - add-card
+            - maintain-card
+            - other-payment
+            - account-verification
+            - split-shipment
+            - delayed-shipment
+            description: The reason for the transaction to be initiated by the merchant. This field is mandatory when the `type` is `merchant`.
+          initialSession:
+            type: string
+            description: 'The ID of the initial session. This can either be an Evervault 3DS Session ID or a `threeDSServer.transactionIdentifier`. This field should be provided if the merchant has previously authenticated the cardholder using 3DS.
+
+              The API does not currently enforce this requirement, but it is recommended to always provide this field. In some cases Authentications will error if this field is not populated.
+
+              '
+  securitySchemes:
+    ApiKey:
+      type: http
+      scheme: basic
+      description: Authentication using an API key. The username is the App ID and the password is the Api Key.
+    TokenAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: RunToken
+      description: 'Authentication using a short lived run token that you can share with clients. The Authorization header must be formatted as follow: "RunToken <Function Run Token>"'
+    ClientSideToken:
+      type: http
+      scheme: bearer
+      bearerFormat: Token
+      description: 'Authentication using a short lived token that you can share with clients. The Authorization header must be formatted as follow: "Token <Client-Side Token>"'

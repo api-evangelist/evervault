@@ -1,0 +1,693 @@
+openapi: 3.1.0
+info:
+  title: Evervault Relays API
+  version: 0.0.1
+  description: The Evervault API allows developers to interact programmatically with their Evervault apps using HTTP requests.
+  contact:
+    email: support@evervault.com
+    name: Evervault Support Team
+    url: https://evervault.com
+servers:
+- url: https://api.evervault.com
+  description: The Evervault API server
+tags:
+- name: Relays
+  description: 'Relay is a network proxy that can be configured to encrypt or decrypt sensitive data as it passes between a client and a destination server. Relay can be used with your own API or with third-party APIs. It is designed to be easy to use and requires minimal changes to your existing code.
+
+    '
+paths:
+  /relays:
+    post:
+      operationId: createRelay
+      summary: Create a Relay
+      description: Creates a new [Relay](/relay).
+      tags:
+      - Relays
+      security:
+      - ApiKey: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                destinationDomain:
+                  type: string
+                  description: The domain in front of which you would like to configure a Relay
+                  example: example.com
+                routes:
+                  type: array
+                  description: A collection of route configurations for the Relay.
+                  items:
+                    $ref: '#/components/schemas/RelayRoute'
+                encryptEmptyStrings:
+                  type: boolean
+                  description: Whether or not empty strings should be encrypted. Defaults to true.
+                  example: true
+                authentication:
+                  type:
+                  - string
+                  - 'null'
+                  enum:
+                  - api-key
+                  - null
+                  x-enum-description:
+                    api-key: Requires API key
+                    'null': Allows unauthenticated requests
+                  description: 'The type of authentication required for the Relay
+
+                    '
+              required:
+              - destinationDomain
+              - routes
+            examples:
+              Basic:
+                value:
+                  destinationDomain: example.com
+                  encryptEmptyStrings: true
+                  authentication: null
+                  routes:
+                  - method: POST
+                    path: /checkout
+                    request:
+                    - action: encrypt
+                      selections:
+                      - type: json
+                        selector: $.cardNumber
+                    response:
+                    - action: decrypt
+                      selections:
+                      - type: json
+                        selector: $..*
+      responses:
+        '201':
+          description: The Relay has been created
+          x-content: 'Returns the [Relay object](#the-relay-object) that was created.
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Relay'
+              examples:
+                Basic:
+                  value:
+                    id: relay_destination_d4ja57js9lnh
+                    destinationDomain: example.com
+                    evervaultDomain: example-com.app-12345.relay.evervault.app
+                    encryptEmptyStrings: true
+                    routes:
+                    - method: POST
+                      path: /checkout
+                      request:
+                      - action: encrypt
+                        selections:
+                        - type: json
+                          role: pci
+                          selector: $.cardNumber
+                      response:
+                      - action: decrypt
+                        selections:
+                        - type: json
+                          selector: $..*
+                    app: app_cc7fcd533649
+                    createdAt: 1692972623233
+                    updatedAt: 1692972623234
+    get:
+      operationId: listRelays
+      summary: List all Relays
+      description: Lists all [Relays](/relay) for the App.
+      tags:
+      - Relays
+      security:
+      - ApiKey: []
+      responses:
+        '200':
+          description: The App's Relays have been fetched.
+          x-content: 'Returns a list of [Relay objects](#the-relay-object).
+
+            '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    description: An array of Relays belonging to the App.
+                    items:
+                      $ref: '#/components/schemas/Relay'
+              examples:
+                Basic:
+                  value:
+                    data:
+                    - id: relay_destination_d4ja57js9lnh
+                      destinationDomain: example.com
+                      evervaultDomain: example-com.app-12345.relay.evervault.app
+                      encryptEmptyStrings: true
+                      authentication: api-key
+                      routes:
+                      - method: POST
+                        path: /checkout
+                        request:
+                        - action: encrypt
+                          selections:
+                          - type: json
+                            role: pci
+                            selector: $.cardNumber
+                        response:
+                        - action: decrypt
+                          selections:
+                          - type: json
+                            selector: $..*
+                      app: app_cc7fcd533649
+                      createdAt: 1692972623233
+                      updatedAt: 1692972623234
+  /relays/{id}:
+    get:
+      operationId: fetchRelay
+      summary: Retrieve a Relay
+      description: Retrieves a [Relay](/relay) by its ID.
+      tags:
+      - Relays
+      security:
+      - ApiKey: []
+      parameters:
+      - name: id
+        in: path
+        description: The id of the Relay to be fetched.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: The Relay has been fetched.
+          x-content: 'Returns the [Relay object](#the-relay-object).
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Relay'
+              examples:
+                Basic:
+                  value:
+                    id: relay_destination_d4ja57js9lnh
+                    destinationDomain: example.com
+                    evervaultDomain: example-com.app-12345.relay.evervault.app
+                    encryptEmptyStrings: true
+                    authentication: api-key
+                    routes:
+                    - method: POST
+                      path: /checkout
+                      request:
+                      - action: encrypt
+                        selections:
+                        - type: json
+                          role: pci
+                          selector: $.cardNumber
+                      response: []
+                    app: app_cc7fcd533649
+                    createdAt: 1692972623233
+    patch:
+      operationId: updateRelay
+      summary: Updates a Relay
+      description: Updates a [Relay](/relay). Any properties not provided are left unchanged.
+      tags:
+      - Relays
+      security:
+      - ApiKey: []
+      parameters:
+      - name: id
+        in: path
+        description: The id of the Relay to be updated.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                routes:
+                  type: array
+                  description: 'A collection of route configurations for the Relay. Any existing route configurations will be replaced with the new configurations.
+
+                    '
+                  items:
+                    $ref: '#/components/schemas/RelayRoute'
+                encryptEmptyStrings:
+                  type: boolean
+                  description: Whether or not empty strings should be encrypted.
+                  example: true
+                authentication:
+                  type:
+                  - string
+                  - 'null'
+                  enum:
+                  - api-key
+                  - null
+                  description: The type of authentication required for the Relay.
+            examples:
+              Basic:
+                value:
+                  routes:
+                  - method: POST
+                    path: /checkout
+                    request:
+                    - action: encrypt
+                      selections:
+                      - type: json
+                        selector: $.cardNumber
+                    response: []
+      responses:
+        '200':
+          description: The Relay has been updated
+          x-content: 'Returns the updated [Relay object](#the-relay-object).
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Relay'
+              examples:
+                Basic:
+                  value:
+                    id: relay_destination_d4ja57js9lnh
+                    destinationDomain: example.com
+                    evervaultDomain: example-com.app-12345.relay.evervault.app
+                    encryptEmptyStrings: true
+                    authentication: null
+                    routes:
+                    - method: POST
+                      path: /checkout
+                      request:
+                      - action: encrypt
+                        selections:
+                        - type: json
+                          role: pci
+                          selector: $.cardNumber
+                      response: []
+                    app: app_cc7fcd533649
+                    createdAt: 1692972623233
+                    updatedAt: 1692972623234
+    delete:
+      operationId: deleteRelay
+      summary: Delete a Relay
+      description: Deletes a [Relay](/relay). This action cannot be undone and the Relay domain will no longer forward requests to its destination domain.
+      tags:
+      - Relays
+      security:
+      - ApiKey: []
+      parameters:
+      - name: id
+        in: path
+        description: The id of the Relay to be deleted.
+        required: true
+        schema:
+          type: string
+      responses:
+        '202':
+          description: The Relay has been deleted
+  /relays/{relay_id}/custom-domains:
+    post:
+      summary: Create a Custom Domain
+      description: Creates a custom domain for the Relay
+      operationId: createCustomDomain
+      tags:
+      - Relays
+      security:
+      - ApiKey: []
+      parameters:
+      - name: relay_id
+        in: path
+        description: The id of the Relay to which the custom domain should be added.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                customDomain:
+                  type: string
+                  description: The customer managed domain to which requests to be relayed to your domain should be sent.
+                  example: subdomain.example.com
+              required:
+              - customDomain
+            examples:
+              success:
+                value:
+                  customDomain: subdomain.example.com
+      responses:
+        '201':
+          description: The custom domain has been created
+          x-content: 'Returns the [Custom Domain object](#the-custom-domain-object) that was created.
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomDomain'
+              examples:
+                success:
+                  value:
+                    id: custom_domain_j3od9Bl0WV1n
+                    customDomain: subdomain.example.com
+                    status: active
+                    validationRecord: 986f3008-86e7-4caf-bd8b-a5d312844153
+                    relay: relay_destination_d4ja57js9lnh
+                    createdAt: 1692972623233
+                    updatedAt: 1692972623233
+    get:
+      summary: List all Custom Domains
+      operationId: fetchCustomDomainsForRelay
+      description: Lists all custom domains for a [Relay](/relay).
+      tags:
+      - Relays
+      security:
+      - ApiKey: []
+      parameters:
+      - name: relay_id
+        in: path
+        description: The id of the Relay whose custom domains should be fetched.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: The Relay's custom domains have been fetched.
+          x-content: 'Returns a list of [Custom Domain objects](#the-custom-domain-object).
+
+            '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/CustomDomain'
+              examples:
+                success:
+                  value:
+                    data:
+                    - id: custom_domain_j3od9Bl0WV1n
+                      customDomain: subdomain.example.com
+                      status: active
+                      validationRecord: 986f3008-86e7-4caf-bd8b-a5d312844153
+                      relay: relay_destination_d4ja57js9lnh
+                      createdAt: 1692972623233
+                      updatedAt: 1692972623234
+  /relays/{relay_id}/custom-domains/{id}:
+    get:
+      summary: Retrieve a Custom Domain
+      operationId: retrieveCustomDomain
+      description: Retrieves a custom domain for a [Relay](/relay).
+      tags:
+      - Relays
+      security:
+      - ApiKey: []
+      parameters:
+      - name: relay_id
+        in: path
+        description: The id of the Relay to which the custom domain belongs.
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        description: The id of the custom domain to be fetched.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: The custom domain has been fetched.
+          x-content: 'Returns the [Custom Domain object](#the-custom-domain-object).
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomDomain'
+              examples:
+                success:
+                  value:
+                    id: custom_domain_j3od9Bl0WV1n
+                    customDomain: subdomain.example.com
+                    status: active
+                    validationRecord: 986f3008-86e7-4caf-bd8b-a5d312844153
+                    relay: relay_destination_d4ja57js9lnh
+                    createdAt: 1692972623233
+                    updatedAt: 1692972623233
+    delete:
+      summary: Delete a Custom Domain
+      operationId: deleteCustomDomain
+      description: Deletes a custom domain for a [Relay](/relay). This action cannot be undone.
+      tags:
+      - Relays
+      security:
+      - ApiKey: []
+      parameters:
+      - name: relay_id
+        in: path
+        description: The id of the Relay to which the custom domain belongs.
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        description: The id of the custom domain to be deleted.
+        required: true
+        schema:
+          type: string
+      responses:
+        '202':
+          description: The custom domain has been deleted
+components:
+  schemas:
+    RelayRoute:
+      type: object
+      properties:
+        method:
+          type: string
+          description: The HTTP method that must be matched for the operation to be performed. For any method, use null.
+          enum:
+          - GET
+          - HEAD
+          - POST
+          - PUT
+          - DELETE
+          - PATCH
+          example: POST
+        path:
+          type: string
+          description: The path that must be matched for the operation to be performed. For wildcards, use '*'. For a catchall of all subsequent paths, use '**'.
+          example: /**
+        request:
+          type: array
+          maxItems: 1
+          description: The actions to be performed on the data on request.
+          items:
+            $ref: '#/components/schemas/RelayAction'
+        response:
+          type: array
+          maxItems: 1
+          description: The actions to be performed on the data on response.
+          items:
+            $ref: '#/components/schemas/RelayAction'
+      required:
+      - path
+      - request
+      - response
+    Relay:
+      x-section: Relays
+      type: object
+      summary: The Relay Object
+      properties:
+        id:
+          type: string
+          description: The unique identifier for the Relay.
+          example: relay_destination_d4ja57js9lnh
+        destinationDomain:
+          type: string
+          description: The domain in front of which the Relay should be configured.
+          example: example.com
+        evervaultDomain:
+          type: string
+          description: The Evervault managed domain to which requests to be relayed to the destination domain should be sent.
+          example: example-com.app-12345.relay.evervault.app
+        routes:
+          type: array
+          description: A collection of route configurations for the Relay.
+          items:
+            $ref: '#/components/schemas/RelayRoute'
+        authentication:
+          type:
+          - string
+          - 'null'
+          description: The type of authentication required for the Relay
+          enum:
+          - api-key
+          - null
+          x-enum-description:
+            api-key: Requires API key
+            'null': Allows unauthenticated requests
+        encryptEmptyStrings:
+          type: boolean
+          description: Whether or not empty strings should be encrypted.
+          example: true
+        app:
+          type: string
+          description: The unique identifier for the app to which the Relay belongs.
+        createdAt:
+          type: integer
+          format: int64
+          description: The exact time, in epoch milliseconds, when this Relay was created.
+          example: 1692972623233
+        updatedAt:
+          type: integer
+          format: int64
+          description: The exact time, in epoch milliseconds, when this Relay was updated.
+          example: 1692972623234
+      example:
+        id: relay_destination_d4ja57js9lnh
+        destinationDomain: example.com
+        evervaultDomain: example-com.app-12345.relay.evervault.app
+        encryptEmptyStrings: true
+        authentication: null
+        routes:
+        - method: POST
+          path: /checkout
+          request:
+          - action: encrypt
+            selections:
+            - type: json
+              role: pci
+              selector: $.cardNumber
+          response:
+          - action: decrypt
+            selections:
+            - type: json
+              selector: $..*
+        app: app_cc7fcd533649
+        createdAt: 1692972623233
+        updatedAt: 1692972623234
+    RelaySelection:
+      type: object
+      properties:
+        type:
+          type: string
+          description: The type of the selector used to identify the data on which the action should be performed.
+          enum:
+          - header
+          - json
+          - form
+          x-enum-description:
+            header: '`selector` should be a case-insensitive header name'
+            json: '`selector` should be a valid JSONPath string to select fields in the JSON payload'
+            form: '`selector` should be an exact form field name'
+          example: json
+        role:
+          type: string
+          description: The role of the encrypted field that must be matched for the operation to be performed.
+          example: pci
+        selector:
+          type: string
+          description: 'The selector that identifies the data on which the action should be performed
+
+            '
+          example: $.cardNumber
+      required:
+      - selector
+    RelayAction:
+      type: object
+      properties:
+        action:
+          type: string
+          description: The operation to perform on the selected data.
+          enum:
+          - encrypt
+          - decrypt
+          example: encrypt
+        selections:
+          type: array
+          description: The selections of data on which the operation will be performed.
+          items:
+            $ref: '#/components/schemas/RelaySelection'
+      required:
+      - action
+      - selections
+    CustomDomain:
+      x-section: Relays
+      x-group: Custom Domains
+      type: object
+      summary: The Custom Domain Object
+      properties:
+        id:
+          type: string
+          description: The unique identifier for the custom domain.
+          example: custom_domain_j3od9Bl0WV1n
+        customDomain:
+          type: string
+          description: The customer managed domain to which requests to be relayed to your domain should be sent.
+          example: subdomain.example.com
+        relay:
+          type: string
+          description: The ID of the Relay with which this custom domain is associated.
+          example: relay_destination_d4ja57js9lnh
+        status:
+          type: string
+          enum:
+          - active
+          - inactive
+          description: The status of the domains DNS verification.
+          x-enum-description:
+            active: The domain is active and can be used for requests
+            inactive: The domain is inactive and cannot be used for requests
+        validationRecord:
+          type: string
+          format: uuidv4
+          description: Validation TXT record to be added on the `_ev-custom-relay` subdomain of your custom domain
+          example: 986f3008-86e7-4caf-bd8b-a5d312844153
+        createdAt:
+          type: integer
+          format: int64
+          description: The exact time, in epoch milliseconds, when this custom domain was created.
+          example: 1692972623233
+        updatedAt:
+          type: integer
+          format: int64
+          description: The exact time, in epoch milliseconds, when this custom domain was last updated.
+          example: 1692972623233
+      example:
+        id: custom_domain_j3od9Bl0WV1n
+        customDomain: subdomain.example.com
+        status: active
+        validationRecord: 986f3008-86e7-4caf-bd8b-a5d312844153
+        relay: relay_destination_d4ja57js9lnh
+        createdAt: 1692972623233
+        updatedAt: 1692972623233
+  securitySchemes:
+    ApiKey:
+      type: http
+      scheme: basic
+      description: Authentication using an API key. The username is the App ID and the password is the Api Key.
+    TokenAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: RunToken
+      description: 'Authentication using a short lived run token that you can share with clients. The Authorization header must be formatted as follow: "RunToken <Function Run Token>"'
+    ClientSideToken:
+      type: http
+      scheme: bearer
+      bearerFormat: Token
+      description: 'Authentication using a short lived token that you can share with clients. The Authorization header must be formatted as follow: "Token <Client-Side Token>"'

@@ -1,0 +1,654 @@
+openapi: 3.1.0
+info:
+  title: Evervault Merchants API
+  version: 0.0.1
+  description: The Evervault API allows developers to interact programmatically with their Evervault apps using HTTP requests.
+  contact:
+    email: support@evervault.com
+    name: Evervault Support Team
+    url: https://evervault.com
+servers:
+- url: https://api.evervault.com
+  description: The Evervault API server
+tags:
+- name: Merchants
+paths:
+  /payments/merchants:
+    post:
+      summary: Create a Merchant
+      description: 'Enrolls a Merchant with Card Networks.
+
+
+        In rare cases it can take up to 48 hours to enroll a merchant with each of the card networks. If you are still unable to provision network tokens after this period, please contact support@evervault.com
+
+        '
+      operationId: createMerchant
+      tags:
+      - Merchants
+      security:
+      - ApiKey:
+        - merchant:create
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: The official name of the Merchant as recognized in transactions and communications. This name is used for display purposes and may be the company's trade name or a derived nickname.
+                  pattern: ^[a-zA-Z0-9 ]{1,60}$
+                  example: Acme
+                shortName:
+                  type: string
+                  description: 'A shorter version of the Merchant''s name. Optional. When creating a 3D Secure session that references this Merchant by ID, `shortName` is used in place of `name` if `name` exceeds the 40-character limit imposed by the 3D Secure specification.
+
+                    '
+                  pattern: ^[a-zA-Z0-9 ]{1,40}$
+                  example: Acme
+                website:
+                  type: string
+                  description: The official website URL of the Merchant. The domain must use a valid IANA top-level domain. See https://data.iana.org/TLD/tlds-alpha-by-domain.txt
+                  example: https://www.acme.com
+                categoryCode:
+                  type: string
+                  description: The 4-digit Merchant Category Code (MCC).
+                  example: '5945'
+                business:
+                  type: object
+                  description: The business details of the Merchant.
+                  properties:
+                    legalName:
+                      type: string
+                      description: The legal name under which the Merchant's business is registered.
+                      pattern: ^[a-zA-Z0-9 ]{1,60}$
+                      example: Acme Corp
+                    address:
+                      $ref: '#/components/schemas/Address'
+                      description: The physical address of the Merchant's principal place of business.
+                  required:
+                  - legalName
+                  - address
+                networkTokens:
+                  type: object
+                  description: The Merchant's Network Tokens configuration. This field should only be populated if the Merchant has already been enrolled in one of the Card Network programs and can use an existing Token Requestor ID (TRID).
+                  properties:
+                    enrolment:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          cardBrand:
+                            type: string
+                            description: The Card Brand for which the configuration belongs to.
+                            example: mastercard
+                          tokenRequestorIdentifier:
+                            type:
+                            - string
+                            - 'null'
+                            description: The existing Token Requestor ID assigned by the Card Brand.
+                            example: '50165156978'
+                applePay:
+                  type: object
+                  description: The Merchant's Apple Pay configuration.
+                  properties:
+                    domains:
+                      type: array
+                      description: 'The domains the Merchant wants registered with Apple Pay. Only the domain name is required, without the protocol or path. For example, `example.com` is a valid domain, but `https://example.com` is not.
+
+                        '
+                      items:
+                        type: string
+                        example: ollivanders.co.uk
+              required:
+              - name
+              - website
+              - categoryCode
+              - business
+            examples:
+              SimpleExample:
+                value:
+                  name: Ollivanders Wand Shop
+                  website: https://www.ollivanders.co.uk
+                  categoryCode: '5945'
+                  business:
+                    legalName: Ollivanders Wand Shop Ltd
+                    address:
+                      line1: Diagon Alley
+                      city: London
+                      postalCode: WD1 1AA
+                      country: gb
+                  applePay:
+                    domains:
+                    - ollivanders.co.uk
+      responses:
+        '201':
+          description: Returns a Merchant object.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Merchant'
+              examples:
+                SuccessfulCreation:
+                  summary: Merchant successfully created
+                  value:
+                    id: merchant_eead1d640d7c
+                    name: Ollivanders Wand Shop
+                    website: https://www.ollivanders.co.uk
+                    categoryCode: '5945'
+                    business:
+                      legalName: Ollivanders Wand Shop Ltd
+                      address:
+                        line1: Diagon Alley
+                        city: London
+                        postalCode: WD1 1AA
+                        country: gb
+                    networkTokens:
+                      enrolment:
+                      - cardBrand: mastercard
+                        tokenRequestorIdentifier: '50165156978'
+                        status: active
+                      - cardBrand: visa
+                        tokenRequestorIdentifier: '40238123804'
+                        status: active
+                      - cardBrand: american-express
+                        tokenRequestorIdentifier: null
+                        status: inactive
+                    applePay:
+                      domains:
+                      - domain: ollivanders.co.uk
+                        status: pending
+                    createdAt: 1692972623233
+                    updatedAt: 1692972623768
+    get:
+      x-section: Payments
+      x-group: Merchants
+      summary: List Merchants
+      description: 'Lists all Merchants that have been created.
+
+        '
+      operationId: listMerchants
+      tags:
+      - Merchants
+      security:
+      - ApiKey:
+        - merchant:read
+      parameters:
+      - name: page
+        in: query
+        description: The page number to retrieve.
+        required: false
+        schema:
+          type: integer
+          default: 0
+      - name: pageSize
+        in: query
+        description: The number of Merchants to retrieve per page (default is 50).
+        required: false
+        schema:
+          type: integer
+          default: 50
+      - name: q
+        in: query
+        description: Filter the Merchants by name.
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Returns a list of Merchant objects.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Merchant'
+                  pageSize:
+                    type: integer
+                    description: The number of Merchants retrieved per page.
+                  nextPage:
+                    type:
+                    - integer
+                    - 'null'
+                    description: The next page number to retrieve. If there are no additional Merchants, this will be `null`.
+                  total:
+                    type: integer
+                    description: The total count of all Merchants, after any filters.
+                required:
+                - data
+                - pageSize
+                - nextPage
+                - total
+              examples:
+                SuccessfulCreation:
+                  summary: Successful List
+                  description: The Merchants were retrieved successfully.
+                  value:
+                    data:
+                    - id: merchant_eead1d640d7c
+                      name: Ollivanders Wand Shop
+                      website: https://www.ollivanders.co.uk
+                      categoryCode: '5945'
+                      business:
+                        legalName: Ollivanders Wand Shop Ltd
+                        address:
+                          line1: Diagon Alley
+                          city: London
+                          postalCode: WD1 1AA
+                          country: gb
+                      networkTokens:
+                        enrolment:
+                        - cardBrand: mastercard
+                          tokenRequestorIdentifier: '50165156978'
+                          status: active
+                        - cardBrand: visa
+                          tokenRequestorIdentifier: '40238123804'
+                          status: active
+                        - cardBrand: american-express
+                          tokenRequestorIdentifier: null
+                          status: inactive
+                      createdAt: 1692972623233
+                      updatedAt: 1692972623768
+                    pageSize: 50
+                    nextPage: null
+                    total: 1
+  /payments/merchants/{merchant_id}:
+    get:
+      x-section: Payments
+      x-group: Merchants
+      summary: Retrieve a Merchant
+      description: 'Retrieves a Merchant by its unique identifier.
+
+        '
+      operationId: getMerchant
+      tags:
+      - Merchants
+      security:
+      - ApiKey:
+        - merchant:read
+      parameters:
+      - name: merchant_id
+        in: path
+        description: The unique identifier of the merchant.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Returns a Merchant object.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Merchant'
+              examples:
+                SuccessfulCreation:
+                  summary: Merchant successfully created
+                  value:
+                    id: merchant_eead1d640d7c
+                    name: Ollivanders Wand Shop
+                    website: https://www.ollivanders.co.uk
+                    categoryCode: '5945'
+                    business:
+                      legalName: Ollivanders Wand Shop Ltd.
+                      address:
+                        line1: Diagon Alley
+                        city: London
+                        postalCode: WD1 1AA
+                        country: gb
+                    networkTokens:
+                      enrolment:
+                      - cardBrand: mastercard
+                        tokenRequestorIdentifier: '50165156978'
+                        status: active
+                      - cardBrand: visa
+                        tokenRequestorIdentifier: '40238123804'
+                        status: active
+                      - cardBrand: american-express
+                        tokenRequestorIdentifier: null
+                        status: inactive
+                    applePay:
+                      domains:
+                      - domain: ollivanders.co.uk
+                        status: active
+                    createdAt: 1692972623233
+                    updatedAt: 1692972623768
+    patch:
+      x-section: Payments
+      x-group: Merchants
+      summary: Update a Merchant
+      description: 'Updates a Merchant by its unique identifier.
+
+        '
+      operationId: updateMerchant
+      tags:
+      - Merchants
+      security:
+      - ApiKey:
+        - merchant:update
+      parameters:
+      - name: merchant_id
+        in: path
+        description: The id of the Merchant to be updated.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                shortName:
+                  type: string
+                  description: 'A shorter version of the Merchant''s name. When creating a 3D Secure session that references this Merchant by ID, `shortName` is used in place of `name` if `name` exceeds the 40-character limit imposed by the 3D Secure specification.
+
+                    '
+                  pattern: ^[a-zA-Z0-9 ]{1,40}$
+                  example: Acme
+                applePay:
+                  type: object
+                  description: The Merchant's Apple Pay configuration.
+                  properties:
+                    domains:
+                      type: array
+                      description: 'The domains the Merchant wants registered with Apple Pay. To remove a domain previously registered with Apple Pay, exclude it from the list. Only the domain name is required, without the protocol or path. For example, `example.com` is a valid domain, but `https://example.com` is not.
+
+                        '
+                      items:
+                        type: string
+                        example: ollivanders.co.uk
+            examples:
+              SimpleExample:
+                value:
+                  shortName: Ollivanders
+                  applePay:
+                    domains:
+                    - ollivanders.co.uk
+      responses:
+        '200':
+          description: Returns the updated Merchant object.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Merchant'
+              examples:
+                SuccessfulCreation:
+                  summary: Merchant successfully updated
+                  value:
+                    id: merchant_eead1d640d7c
+                    name: Ollivanders Wand Shop
+                    shortName: Ollivanders
+                    website: https://www.ollivanders.co.uk
+                    categoryCode: '5945'
+                    business:
+                      legalName: Ollivanders Wand Shop Ltd.
+                      address:
+                        line1: Diagon Alley
+                        city: London
+                        postalCode: WD1 1AA
+                        country: gb
+                    networkTokens:
+                      enrolment:
+                      - cardBrand: mastercard
+                        tokenRequestorIdentifier: '50165156978'
+                        status: active
+                      - cardBrand: visa
+                        tokenRequestorIdentifier: '402338123804'
+                        status: active
+                      - cardBrand: american-express
+                        tokenRequestorIdentifier: null
+                        status: inactive
+                    applePay:
+                      domains:
+                      - domain: ollivanders.co.uk
+                        status: pending
+                    createdAt: 1692972623233
+                    updatedAt: 1692972623768
+    delete:
+      summary: Delete a Merchant
+      description: 'Deletes a Merchant by its unique identifier.
+
+        '
+      operationId: deleteMerchant
+      tags:
+      - Merchants
+      security:
+      - ApiKey:
+        - merchant:delete
+      parameters:
+      - name: merchant_id
+        in: path
+        description: The id of the Merchant to be deleted.
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Merchant successfully deleted.
+components:
+  schemas:
+    MerchantNetworkTokenStatus:
+      type: object
+      properties:
+        enrolment:
+          type: array
+          description: 'An array detailing the Merchant''s enrollment status for network token issuance across different card brands.
+
+            '
+          items:
+            type: object
+            properties:
+              cardBrand:
+                $ref: '#/components/schemas/CardBrand'
+                description: The card brand (e.g., Visa, Mastercard, American Express) for which the enrollment status is being described. Currently, Network Tokens is only supported for Visa, Mastercard and American Express.
+              tokenRequestorIdentifier:
+                type:
+                - string
+                - 'null'
+                description: The unique Token Requestor Identifier (TRID) associated with the Merchant for the specific card brand. This identifier is used when creating Network Tokens for the Merchant.
+                example: '50165156978'
+              status:
+                type: string
+                enum:
+                - active
+                - inactive
+                description: 'The current stage of the Merchant''s enrolment process for network token issuance with the specified card brand.
+
+                  '
+                example: active
+                x-enum-description:
+                  active: The Merchant is fully enrolled and can create Network Tokens for the card brand.
+                  inactive: The Merchant is not enrolled for the card brand.
+    Address:
+      type: object
+      properties:
+        line1:
+          type: string
+          description: 'The first line of the address.
+
+            '
+          pattern: ^[À-ÖØ-öø-ǿa-zA-Z0-9().\-_#,;/@$!% ]+$
+          example: 123 Main St
+        line2:
+          type: string
+          description: 'The second line of the address.
+
+            '
+          pattern: ^[À-ÖØ-öø-ǿa-zA-Z0-9().\-_#,;/@$!% ]+$
+          example: Floor 4
+        city:
+          type: string
+          description: The city where the address is located.
+          pattern: "^[0-9a-zA-Z _\\-¡-\uFFFF]+$"
+          example: Springfield
+        state:
+          type: string
+          description: The state or province code. Required when `country` is `us`, `ca`, or `au`.
+          format: iso-3166-2-subdivision
+          example: ny
+        postalCode:
+          type: string
+          description: The postal code of the address.
+          pattern: ^[0-9a-zA-Z ]*$
+          example: 13468
+        country:
+          type: string
+          format: iso-3166-1-alpha-2
+          description: The country where the address is located.
+          example: us
+      required:
+      - line1
+      - city
+      - postalCode
+      - country
+    MerchantApplePay:
+      type: object
+      properties:
+        domains:
+          type: array
+          description: 'The domains the Merchant has enrolled with Apple Pay and the status of the enrollment.
+
+            '
+          items:
+            type: object
+            properties:
+              domain:
+                type: string
+                description: The top-level domain name of the Merchant's website.
+                example: ollivanders.co.uk
+              status:
+                type: string
+                enum:
+                - active
+                - pending
+                - failed
+                description: 'The current status of the Merchant''s Apple Pay enrollment for the
+
+                  specified domain. `active` means the Merchant is fully enrolled and
+
+                  can accept Apple Pay payments on the domain.
+
+                  '
+                example: active
+    CardBrand:
+      type: string
+      enum:
+      - visa
+      - mastercard
+      - american-express
+      - discover
+      - diners-club
+      - jcb
+      - unionpay
+      description: The card brand associated with the payment card.
+      example: visa
+    Merchant:
+      type: object
+      summary: The Merchant Object
+      properties:
+        id:
+          type: string
+          description: A unique identifier assigned to each Merchant.
+          example: merchant_eead1d640d7c
+        name:
+          type: string
+          description: The official name of the Merchant as recognized in transactions and communications. This name is used for display purposes and may be the company's trade name or a derived nickname.
+          pattern: ^[a-zA-Z0-9 ]{1,60}$
+          example: Acme
+        shortName:
+          type: string
+          description: 'A shorter version of the Merchant''s name. When creating a 3D Secure session that references this Merchant by ID, `shortName` is used in place of `name` if `name` exceeds the 40-character limit imposed by the 3D Secure specification.
+
+            '
+          pattern: ^[a-zA-Z0-9 ]{1,40}$
+          example: Acme
+        website:
+          type: string
+          description: The official website URL of the Merchant. The domain must use a valid IANA top-level domain. See https://data.iana.org/TLD/tlds-alpha-by-domain.txt
+          example: https://www.acme.com
+        business:
+          type: object
+          description: The business details of the Merchant.
+          properties:
+            legalName:
+              type: string
+              description: The legal name under which the Merchant's business is registered.
+              pattern: ^[a-zA-Z0-9 ]{1,60}$
+              example: Acme Corp
+            address:
+              $ref: '#/components/schemas/Address'
+              description: The physical address of the Merchant's principal place of business.
+        categoryCode:
+          type: string
+          description: The 4-digit Merchant Category Code (MCC).
+          example: '5945'
+        networkTokens:
+          $ref: '#/components/schemas/MerchantNetworkTokenStatus'
+          description: The Merchant's Network Token configuration.
+        applePay:
+          $ref: '#/components/schemas/MerchantApplePay'
+          description: The Merchant's Apple Pay configuration.
+        createdAt:
+          type: integer
+          format: int64
+          description: The exact time, in epoch milliseconds, when this Merchant was created.
+          example: 1692972623233
+        updatedAt:
+          type: integer
+          format: int64
+          description: The exact time, in epoch milliseconds, when this Merchant was last updated.
+          example: 1692972623768
+      required:
+      - id
+      - name
+      - website
+      - createdAt
+      example:
+        id: merchant_eead1d640d7c
+        name: Ollivanders Wand Shop
+        website: https://www.ollivanders.co.uk
+        categoryCode: '5945'
+        business:
+          legalName: Ollivanders Wand Shop Ltd
+          address:
+            line1: Diagon Alley
+            city: London
+            postalCode: WD1 1AA
+            country: gb
+        networkTokens:
+          enrolment:
+          - cardBrand: mastercard
+            tokenRequestorIdentifier: '50165156978'
+            status: active
+          - cardBrand: visa
+            tokenRequestorIdentifier: '40238123804'
+            status: active
+          - cardBrand: american-express
+            tokenRequestorIdentifier: null
+            status: inactive
+        applePay:
+          domains:
+          - domain: store.ollivanders.co.uk
+            status: active
+        createdAt: 1692972623233
+        updatedAt: 1692972623768
+  securitySchemes:
+    ApiKey:
+      type: http
+      scheme: basic
+      description: Authentication using an API key. The username is the App ID and the password is the Api Key.
+    TokenAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: RunToken
+      description: 'Authentication using a short lived run token that you can share with clients. The Authorization header must be formatted as follow: "RunToken <Function Run Token>"'
+    ClientSideToken:
+      type: http
+      scheme: bearer
+      bearerFormat: Token
+      description: 'Authentication using a short lived token that you can share with clients. The Authorization header must be formatted as follow: "Token <Client-Side Token>"'

@@ -1,0 +1,228 @@
+openapi: 3.1.0
+info:
+  title: Evervault Functions API
+  version: 0.0.1
+  description: The Evervault API allows developers to interact programmatically with their Evervault apps using HTTP requests.
+  contact:
+    email: support@evervault.com
+    name: Evervault Support Team
+    url: https://evervault.com
+servers:
+- url: https://api.evervault.com
+  description: The Evervault API server
+tags:
+- name: Functions
+  description: 'Evervault [Functions](/functions) are secure serverless functions which allow you to process data encrypted by Evervault products. When you pass encrypted data to a Function, it is automatically decrypted. You can then process this data by running custom logic written in Node.js or Python as you usually would, but without ever handling it in plaintext on your infrastructure.
+
+    '
+paths:
+  /functions/{function_name}/runs:
+    post:
+      x-section: Functions
+      summary: Run a Function
+      operationId: createFunctionRun
+      description: 'The Function run endpoint lets you invoke an [Evervault Function](/primitives/functions). The body of the request should contain a payload, the value of which will be decrypted and passed as an argument to the Function.
+
+        '
+      tags:
+      - Functions
+      security:
+      - ApiKey: []
+      - TokenAuth: []
+      parameters:
+      - name: function_name
+        in: path
+        description: The name of the Function to be executed.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                payload:
+                  type: object
+                  description: The data payload that the Function will use during its execution. Any encrypted values will be decrypted before being passed to the function.
+                  example:
+                    name: ev:debug:Tk9D:oVPHsPvwFHNk73DU:AglNWOgZekolcrxdxSpZJOusBgE+C9eWSapGIZkgTsUj:JKeSkdhVE9SCXqQINID4oBRCE/VhTb56VWGqyObP:$
+                async:
+                  type: boolean
+                  description: If you want your Function to run asynchronously and notify a callback URL, this can be set to `true` and the API will queue your Function run and return a `202` response code.
+                  example: false
+              required:
+              - payload
+            examples:
+              SimpleExample:
+                value:
+                  payload:
+                    name: ev:Tk9D:oVPHsPvwFHNk73DU:AglNWOgZekolcrxdxSpZJOusBgE+C9eWSapGIZkgTsUj:JKeSkdhVE9SCXqQINID4oBRCE/VhTb56VWGqyObP:$
+      responses:
+        '200':
+          description: The Function run has completed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FunctionRun'
+              examples:
+                SuccessfulRun:
+                  summary: Successful Run
+                  value:
+                    id: func_run_eead1d640d7c
+                    status: success
+                    result:
+                      message: Hello from a Function! It seems you have 14 letters in your name
+                    createdAt: 1692972623233
+                  description: The Function ran successfully
+                FailedRun:
+                  summary: Failed Run
+                  value:
+                    id: func_run_b4b2afe37083
+                    status: failure
+                    error:
+                      message: Some error message
+                      stack: 'Error: Some error message!\n    at exports.handler (/runtime/app/index.js:5:11)\n    at /runtime/index.js:64:26\n    at new Promise (<anonymous>)\n    at /runtime/index.js:51:16'
+                    createdAt: 1692972623233
+                  description: An error occurred during Function execution
+        '202':
+          description: The asynchronous Function invocation has been queued.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FunctionRun'
+              examples:
+                QueuedRun:
+                  summary: Queued Run
+                  value:
+                    status: scheduled
+        '408':
+          description: The request has timed out.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                RequestTimeout:
+                  summary: Request Timeout
+                  value:
+                    code: functions/request-timeout
+                    title: Request Timeout
+                    status: 408
+                    detail: Function execution exceeded the allotted time and has timed out. Please review your code to ensure it finishes within the time limit set in function.toml.
+        '409':
+          description: 'The Function is not ready to be invoked yet. This can occur when
+
+            it hasn''t been executed in a while. Retrying to run the Function after a short
+
+            time should resolve this.
+
+            '
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                FunctionNotReady:
+                  summary: Function Not Ready
+                  value:
+                    code: functions/function-not-ready
+                    title: Function Not Ready
+                    status: 409
+                    detail: The Function is not ready to be invoked yet. This can occur when it hasn't been executed recently. Please try again shortly.
+components:
+  schemas:
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+          description: A distinct error code, presented in slug format, that identifies a specific error.
+          example: invalid-request
+        title:
+          type: string
+          description: A short, human-readable summary of the error.
+          example: Invalid Request
+        status:
+          type: integer
+          description: The HTTP status code for the error.
+          example: 400
+        detail:
+          type: string
+          description: A human-readable explanation of the error.
+          example: The provided action was invalid
+        fields:
+          type: array
+          items:
+            type: object
+            properties:
+              pointer:
+                type: string
+                description: The JSON pointer to the field that caused the error.
+                example: /card/number
+              reason:
+                type: string
+                description: A human-readable explanation of the error for this field.
+                example: The card number is required
+          example:
+          - pointer: /card/number
+            reason: The card number is required
+    FunctionRun:
+      type: object
+      properties:
+        id:
+          type: string
+          description: A unique identifier representing this specific Function execution instance.
+          example: func_run_eead1d640d7c
+        status:
+          type: string
+          description: The outcome of the Function execution.
+          enum:
+          - success
+          - failure
+          - scheduled
+          x-enum-description:
+            success: The Function executed successfully
+            failure: The Function encountered an error
+            scheduled: The Function execution has been queued
+          example: success
+        result:
+          type: object
+          description: This field represents the output returned by the Function. This is provided only when the Function execution status is 'success'.
+          example:
+            message: Hello, World
+        error:
+          type:
+          - object
+          - 'null'
+          description: This field details any error that occurred during Function execution. This is present only if the status is 'failure'.
+          properties:
+            message:
+              type: string
+              description: A concise explanation of the error that occurred during Function execution.
+              example: Some error message!
+            stack:
+              type: string
+              description: A trace detailing the sequence of events leading to the error, useful for debugging purposes.
+              example: "Error: Some error message!\n    at exports.handler (/runtime/app/index.js:5:11)\n    at /runtime/index.js:64:26\n    at new Promise (<anonymous>)\n    at /runtime/index.js:51:16"
+        createdAt:
+          type: integer
+          format: int64
+          description: The exact time, in epoch milliseconds, when this Function execution was triggered.
+          example: 1692972623233
+  securitySchemes:
+    ApiKey:
+      type: http
+      scheme: basic
+      description: Authentication using an API key. The username is the App ID and the password is the Api Key.
+    TokenAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: RunToken
+      description: 'Authentication using a short lived run token that you can share with clients. The Authorization header must be formatted as follow: "RunToken <Function Run Token>"'
+    ClientSideToken:
+      type: http
+      scheme: bearer
+      bearerFormat: Token
+      description: 'Authentication using a short lived token that you can share with clients. The Authorization header must be formatted as follow: "Token <Client-Side Token>"'

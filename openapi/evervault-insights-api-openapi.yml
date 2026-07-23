@@ -1,0 +1,933 @@
+openapi: 3.1.0
+info:
+  title: Evervault Insights API
+  version: 0.0.1
+  description: The Evervault API allows developers to interact programmatically with their Evervault apps using HTTP requests.
+  contact:
+    email: support@evervault.com
+    name: Evervault Support Team
+    url: https://evervault.com
+servers:
+- url: https://api.evervault.com
+  description: The Evervault API server
+tags:
+- name: Insights
+  description: 'The Evervault API provides several endpoints which can be used to retrieve additional information for cards and bin ranges. This can be used for tasks such as fraud detection and payment routing.
+
+    '
+paths:
+  /insights/cards:
+    post:
+      summary: Card Insights
+      description: 'The Card Insights API allows you to perform address verification (AVS), name verification (ANI), and CVV verification checks. You can also check the card''s push and pull transaction capabilities.
+
+        '
+      operationId: createCardInsight
+      tags:
+      - Insights
+      security:
+      - ApiKey:
+        - insights:create
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                card:
+                  type: object
+                  description: The card details.
+                  properties:
+                    number:
+                      type: string
+                      description: The card number. This should be a valid Evervault encrypted card number or a valid plaintext card number.
+                      example: '4111111111111111'
+                    expiry:
+                      type: object
+                      description: The card expiry. Required if the `address`, `cardholder`, or `cvv` extensions are requested.
+                      properties:
+                        month:
+                          type: string
+                          description: The card expiry month
+                          example: '12'
+                        year:
+                          type: string
+                          description: The card expiry year
+                          example: '29'
+                    cvv:
+                      type: string
+                      description: The card security code. This should be a valid Evervault encrypted CVV or a valid plaintext CVV. Required if the `cvv` extension is requested.
+                      example: '123'
+                  required:
+                  - number
+                extensions:
+                  type: array
+                  description: The extensions to the card insight request.
+                  items:
+                    type: string
+                    description: The extensions
+                    enum:
+                    - capabilities
+                    - cvv
+                    - cardholder
+                    - address
+                    x-enum-description:
+                      capabilities: Check the card's push and pull transaction capabilities
+                      cvv: Check the card's CVV verification
+                      cardholder: Check the cardholder's name verification
+                      address: Check the cardholder's address verification
+                cardholder:
+                  type: object
+                  description: Details about the cardholder that the name verification (ANI) is for. Required if the `cardholder` extension is requested.
+                  properties:
+                    firstName:
+                      type: string
+                      description: The first name of the cardholder
+                      example: John
+                    lastName:
+                      type: string
+                      description: The last name of the cardholder
+                      example: Doe
+                address:
+                  type: object
+                  description: Details about the cardholder's address that the address verification (AVS) is for. Required if the `address` extension is requested.
+                  properties:
+                    postalCode:
+                      type: string
+                      description: The ZIP or postal code.
+                      example: '10001'
+                    line1:
+                      type: string
+                      description: Street address line 1
+                      example: 123 Main Street
+                    line2:
+                      type: string
+                      description: Street address line 2
+                      example: Apt 4B
+                    city:
+                      type: string
+                      description: The city name
+                      example: New York
+                    state:
+                      type: string
+                      description: The state or province code. Required when `country` is `us`, `ca`, or `au`.
+                      format: iso-3166-2-subdivision
+                      example: ny
+                    country:
+                      type: string
+                      description: The country code.
+                      format: iso-3166-1-alpha-2
+                      example: us
+                  required:
+                  - postalCode
+              required:
+              - card
+            examples:
+              SimpleExample:
+                value:
+                  card:
+                    number: '4111111111111111'
+                    expiry:
+                      month: 09
+                      year: '29'
+                    cvv: '123'
+                  extensions:
+                  - capabilities
+                  - cvv
+                  - address
+                  - cardholder
+                  cardholder:
+                    firstName: John
+                    lastName: Doe
+                  address:
+                    postalCode: '10001'
+                    line1: 123 Main Street
+                    line2: Apt 4B
+                    city: New York
+                    state: ny
+                    country: us
+      responses:
+        '201':
+          description: Returns the Card Insight object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CardInsight'
+              examples:
+                Success:
+                  summary: Successful Card Insight createFunctionRun
+                  value:
+                    id: card_insight_1234567890
+                    fingerprint: WUlcOAgQcTN1GEUaoaKrLH1wL2PZrjsUS7byUGZyUEA
+                    bin:
+                      brand: visa
+                      funding: credit
+                      segment: consumer
+                      country: us
+                      currency: usd
+                      issuer: Gringotts Wizarding Bank and Trust Company
+                      productName: Visa Credit
+                      fastFunds:
+                        domestic: true
+                        crossBorder: true
+                      threeDS:
+                        supportedVersions:
+                          accessControlServer:
+                          - 2.2.0
+                          directoryServer:
+                          - 2.2.0
+                          - 2.3.1
+                        acsInfoIndicators:
+                        - code: acs-auth-available
+                          indicator: '01'
+                          description: Authentication Available at ACS
+                      type: card
+                    capabilities:
+                      push:
+                        enabled: true
+                        network: visa
+                        type: credit
+                        availability: immediate
+                        regulated: true
+                        currency:
+                          alphaCode: usd
+                          numericCode: '840'
+                        country:
+                          alphaCode: us
+                          numericCode: '840'
+                      pull:
+                        enabled: true
+                        network: visa
+                        type: credit
+                        regulated: true
+                        currency:
+                          alphaCode: usd
+                          numericCode: '840'
+                        country:
+                          alphaCode: us
+                          numericCode: '840'
+                    fees: null
+                    cvv:
+                      code: match
+                      value: M
+                    address:
+                      avsIdentifier: aBcdeFGhIJKlmnoPqR
+                      networkIdentifier: '1234567890'
+                      networkResponseCode:
+                        value: '85'
+                      result:
+                        value: Y
+                        address: match
+                        zip: match
+                    cardholder:
+                      result:
+                        value: M
+                        code: match-performed
+                      fullName:
+                        value: M
+                        code: match
+                      firstName:
+                        value: M
+                        code: match
+                      lastName:
+                        value: M
+                        code: match
+                    paymentAccountReference: V0010011111111111111111111111
+                    createdAt: 169297262323
+  /payments/bin-lookups:
+    post:
+      summary: BIN Lookup
+      description: 'Performs a BIN lookup for the provided card number and retrieves associated information such as the card brand, country, issuer, and more.
+
+        '
+      operationId: createBinLookup
+      tags:
+      - Insights
+      security:
+      - ApiKey:
+        - binLookup:create
+      requestBody:
+        description: 'The BIN (Bank Identification Number) lookup request body, which includes the card number.
+
+          '
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                number:
+                  type: string
+                  description: 'The card number for which the BIN lookup is being requested.
+
+                    It can be a plaintext Card number (FPAN) / Network Token number (DPAN), an encrypted
+
+                    Card number / Network Token number or simply just a BIN (6-10 first digits of a Card Number) for range lookup.
+
+                    '
+              required:
+              - number
+            examples:
+              BinLookupExample:
+                summary: Example BIN lookup request
+                value:
+                  number: '4242424242424242'
+      responses:
+        '201':
+          description: Returns BIN details for the provided card number.
+          x-content: 'Returns the [BIN Lookup object](#the-bin-lookup-object) that was created.
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BinLookup'
+              examples:
+                SuccessfulLookup:
+                  summary: Successful BIN lookup
+                  value:
+                    id: bin_lookup_1234567890
+                    brand: visa
+                    funding: credit
+                    segment: consumer
+                    country: gb
+                    currency: gbp
+                    issuer: Gringotts Wizarding Bank and Trust Company
+                    productName: Visa Debit
+                    fastFunds:
+                      domestic: true
+                      crossBorder: true
+                    threeDS:
+                      supportedVersions:
+                        accessControlServer:
+                        - 2.2.0
+                        directoryServer:
+                        - 2.2.0
+                        - 2.3.1
+                      acsInfoIndicators:
+                      - code: acs-auth-available
+                        indicator: '01'
+                        description: Authentication Available at ACS
+                    type: card
+                    createdAt: 169297262323
+components:
+  schemas:
+    CardInsightCardholder:
+      type: object
+      summary: The result of the name verification (ANI)
+      properties:
+        result:
+          type: object
+          description: The result
+          properties:
+            value:
+              type: string
+              description: The raw result code returned for the ANI check
+              enum:
+              - M
+              - N
+              - U
+            code:
+              type: string
+              description: A human readable version of the ANI result code
+              enum:
+              - match-performed
+              - no-match-performed
+              - unsupported
+        fullName:
+          type: object
+          description: The result
+          properties:
+            value:
+              type: string
+              description: The raw match code returned for the ANI check for the full name
+              enum:
+              - M
+              - P
+              - N
+            code:
+              type: string
+              description: A human readable version of the ANI match code
+              enum:
+              - match
+              - partial-match
+              - no-match
+        firstName:
+          type: object
+          description: The result
+          properties:
+            value:
+              type: string
+              description: The raw match code returned for the ANI check for the first name
+              enum:
+              - M
+              - P
+              - N
+            code:
+              type: string
+              description: A human readable version of the ANI match code
+              enum:
+              - match
+              - partial-match
+              - no-match
+        lastName:
+          type: object
+          description: The result
+          properties:
+            value:
+              type: string
+              description: The raw match code returned for the ANI check for the last name
+              enum:
+              - M
+              - P
+              - N
+            code:
+              type: string
+              description: A human readable version of the ANI match code
+              enum:
+              - match
+              - partial-match
+              - no-match
+    CardThreeDSMetadata:
+      type: object
+      summary: 3DS
+      description: "Metadata about 3DS capabilities, including supported versions \nand ACS (Access Control Server) indicators.\n"
+      properties:
+        supportedVersions:
+          type: object
+          description: The 3DS versions supported by the ACS and DS
+          properties:
+            accessControlServer:
+              type: array
+              items:
+                type: string
+                description: Array of 3DS versions supported by the Access Control Server
+                example: 2.2.0
+            directoryServer:
+              type: array
+              items:
+                type: string
+                description: Array of 3DS versions supported by the Directory Server
+                example: 2.3.1
+        acsInfoIndicators:
+          type: array
+          description: Array of ACS information indicators
+          items:
+            type: object
+            properties:
+              code:
+                type: string
+                description: 'The indicator code, the following values are supported:
+
+
+                  - `authentication-available`
+
+                  - `attempts-supported`
+
+                  - `decoupled-authentication-supported`
+
+                  - `trustlist-supported`
+
+                  - `device-binding-supported`
+
+                  - `webauthn-authentication-supported`
+
+                  - `spc-authentication-supported`
+
+                  - `tra-exemption-supported`
+
+                  - `trustlist-exemption-supported`
+
+                  - `low-value-exemption-supported`
+
+                  - `secure-corporate-payments-exemption-supported`
+
+                  - `emvco-reserved`
+
+                  - `ds-reserved`
+
+
+                  **American Express only:**
+
+                  - `issuer-tra-exemption-supported`
+
+                  - `issuer-trustlist-exemption-supported`
+
+                  - `issuer-low-value-exemption-supported`
+
+                  - `issuer-secure-corporate-payments-exemption-supported`
+
+                  - `bridging-message-extension-supported`
+
+
+                  **Mastercard only:**
+
+                  - `smart-auth-direct-stand-in-only`
+
+                  - `smart-auth-direct`
+
+                  - `payment-transactions-supported`
+
+                  - `non-payment-transactions-supported`
+
+                  - `app-channel-supported`
+
+                  - `browser-channel-supported`
+
+                  - `app-acs-challenge-supported`
+
+                  - `browser-acs-challenge-supported`
+
+
+                  **Visa only:**
+
+                  - `issuer-tra-exemption-supported`
+
+                  - `data-only-supported`
+
+                  - `delegated-authentication-supported`
+
+                  - `digital-auth-framework-supported`
+
+                  '
+              indicator:
+                type: string
+                description: The raw numeric indicator value, ranges from 01 to 99
+              description:
+                type: string
+                description: Human-readable description of the indicator
+    CardFastFunds:
+      type: object
+      summary: Fast Funds
+      description: 'Specifies the availability of instant payment capabilities for card transactions,
+
+        indicating whether funds can be transferred immediately both within the same country
+
+        and across international borders.
+
+        '
+      properties:
+        domestic:
+          type: boolean
+          description: 'When true, indicates that instant payments are supported for transactions
+
+            within the same country/domestic market. This allows for immediate funds
+
+            availability for local transfers.
+
+            '
+        crossBorder:
+          type: boolean
+          description: 'When true, indicates that instant payments are supported for international
+
+            transactions between different countries. This enables immediate funds
+
+            availability for cross-border transfers.
+
+            '
+    CardSegment:
+      type: string
+      enum:
+      - consumer
+      - commercial
+      - business
+      - government
+      - payouts
+      - all
+      x-enum-description:
+        consumer: Personal use cards
+        commercial: Cards used by large organizations or corporations
+        business: Small to medium-sized business use
+        government: Cards used by government entities
+        payouts: Cards designed to disburse payments like payroll or cashback
+        all: General-purpose cards not confined to a specific segment
+      description: 'The card segment indicates the primary market or usage category of the
+
+        card.
+
+        '
+      example: consumer
+    CardInsightCapabilities:
+      type: object
+      summary: The push or pull capability of the card.
+      properties:
+        enabled:
+          type: boolean
+          description: Indicates if push or pull transactions are enabled for the supplied card
+          example: true
+        network:
+          type: string
+          description: The card network for the supplied card
+          example: visa
+        type:
+          type: string
+          description: The funding type of the card
+          example: credit
+        availability:
+          type: string
+          description: Indicates the typical time for payouts
+          enum:
+          - immediate
+          - next-day
+          - next-few
+        regulated:
+          type: boolean
+          description: Indicates if the issuer is a regulated institution
+          example: true
+        currency:
+          type: object
+          description: The currency of the card
+          properties:
+            alphaCode:
+              type: string
+              description: The ISO 4217 alphabetic code for the currency
+              example: usd
+            numericCode:
+              type: string
+              description: The ISO 4217 numeric code for the currency
+              example: '840'
+        country:
+          type: object
+          description: The country the card is issued in
+          properties:
+            alphaCode:
+              type: string
+              description: The ISO 3166-1 two character alphabetic code for the country
+              example: us
+            numericCode:
+              type: string
+              description: The ISO 3166-1 three digit code for the country
+              example: '840'
+    CardInsight:
+      type: object
+      summary: The Card Insight Object
+      properties:
+        id:
+          type: string
+          description: The unique identifier for the Card Insight
+          example: card_insight_1234567890
+        fingerprint:
+          type: string
+          description: A unique, cryptographically secure identifier for the card number. Useful for deduplication.
+          example: WUlcOAgQcTN1GEUaoaKrLH1wL2PZrjsUS7byUGZyUEA
+        bin:
+          type: object
+          description: The BIN details for the supplied card. This includes details such as the card brand, funding type, issuer, 3D Secure support and more.
+          properties:
+            brand:
+              $ref: '#/components/schemas/CardBrand'
+            funding:
+              $ref: '#/components/schemas/CardFunding'
+            segment:
+              $ref: '#/components/schemas/CardSegment'
+            country:
+              type: string
+              format: iso-3166-1-alpha-2
+              description: The country associated with the card.
+              example: us
+            currency:
+              type: string
+              description: The currency associated with the card (ISO 4217)
+              example: usd
+            issuer:
+              type: string
+              description: The name of the issuer bank
+              example: Gringotts Wizarding Bank and Trust Company
+            type:
+              type:
+              - 'null'
+              - string
+              enum:
+              - null
+              - card
+              - network-token
+              description: Type of card or network token identified during the lookup.
+              example: null
+            productName:
+              type: string
+              description: The name of the product associated with the card
+              example: Visa Debit
+            fastFunds:
+              $ref: '#/components/schemas/CardFastFunds'
+            threeDS:
+              $ref: '#/components/schemas/CardThreeDSMetadata'
+        capabilities:
+          type: object
+          description: The push and pull capabilities of the card
+          properties:
+            push:
+              $ref: '#/components/schemas/CardInsightCapabilities'
+            pull:
+              $ref: '#/components/schemas/CardInsightCapabilities'
+        fees:
+          type: 'null'
+          deprecated: true
+          description: Deprecated. Always returns `null`. Previously the estimated network and interchange fees for push and pull transactions.
+        cardholder:
+          $ref: '#/components/schemas/CardInsightCardholder'
+        address:
+          $ref: '#/components/schemas/CardInsightAddress'
+        cvv:
+          type: object
+          description: The result of the CVV verification check
+          properties:
+            value:
+              type: string
+              description: The raw match code returned from the CVV verification check
+              example: Y
+            code:
+              type: string
+              description: A human readable version of the CVV match code
+              example: match
+        paymentAccountReference:
+          type: string
+          description: The unique identifier of the Payment Account associated with this card.
+          example: 512381d9f8e0629211e3949a08002
+        createdAt:
+          type: integer
+          description: Unix timestamp of when the card insight was created
+          example: 169297262323
+      required:
+      - id
+      - fingerprint
+      - bin
+      - createdAt
+      example:
+        id: card_insight_1234567890
+        fingerprint: WUlcOAgQcTN1GEUaoaKrLH1wL2PZrjsUS7byUGZyUEA
+        bin:
+          brand: visa
+          funding: credit
+          segment: consumer
+          country: us
+          currency: usd
+          issuer: Gringotts Wizarding Bank and Trust Company
+          productName: Visa Credit
+          fastFunds:
+            domestic: true
+            crossBorder: true
+          threeDS:
+            supportedVersions:
+              accessControlServer:
+              - 2.2.0
+              directoryServer:
+              - 2.2.0
+              - 2.3.1
+            acsInfoIndicators:
+            - code: acs-auth-available
+              indicator: '01'
+              description: Authentication Available at ACS
+          type: card
+        capabilities:
+          push:
+            enabled: true
+            network: visa
+            type: credit
+            availability: immediate
+            regulated: true
+            currency:
+              alphaCode: usd
+              numericCode: '840'
+            country:
+              alphaCode: us
+              numericCode: '840'
+          pull:
+            enabled: true
+            network: visa
+            type: credit
+            regulated: true
+            currency:
+              alphaCode: usd
+              numericCode: '840'
+            country:
+              alphaCode: us
+              numericCode: '840'
+        fees: null
+        cvv:
+          code: match
+          value: M
+        address:
+          avsIdentifier: aBcdeFGhIJKlmnoPqR
+          networkIdentifier: '1234567890'
+          networkResponseCode:
+            value: '85'
+          result:
+            value: Y
+            address: match
+            zip: match
+        cardholder:
+          result:
+            value: M
+            code: match-performed
+          fullName:
+            value: M
+            code: match
+          firstName:
+            value: M
+            code: match
+          lastName:
+            value: M
+            code: match
+        paymentAccountReference: V0010011111111111111111111111
+        createdAt: 169297262323
+    BinLookup:
+      x-section: Payments
+      x-group: BIN Lookups
+      type: object
+      summary: The BIN Lookup Object
+      properties:
+        id:
+          type: string
+          description: The unique identifier for the BIN lookup
+          example: bin_lookup_1234567890
+        brand:
+          $ref: '#/components/schemas/CardBrand'
+        funding:
+          $ref: '#/components/schemas/CardFunding'
+        segment:
+          $ref: '#/components/schemas/CardSegment'
+        country:
+          type: string
+          format: iso-3166-1-alpha-2
+          description: The country associated with the card.
+          example: gb
+        currency:
+          type: string
+          description: The currency associated with the card (ISO 4217)
+          example: gbp
+        issuer:
+          type: string
+          description: The name of the issuer bank
+          example: Gringotts Wizarding Bank and Trust Company
+        type:
+          type:
+          - 'null'
+          - string
+          enum:
+          - null
+          - card
+          - network-token
+          x-enum-description:
+            card: A card range was identified
+            network-token: A network token range was identified
+            'null': None identified
+          description: Type of card range identified during the lookup
+          example: null
+        productName:
+          type: string
+          description: The name of the product associated with the card
+          example: Visa Debit
+        fastFunds:
+          $ref: '#/components/schemas/CardFastFunds'
+        threeDS:
+          $ref: '#/components/schemas/CardThreeDSMetadata'
+        createdAt:
+          type: integer
+          description: Unix timestamp of when the BIN lookup was created
+          example: 169297262323
+      example:
+        id: bin_lookup_1234567890
+        brand: visa
+        funding: credit
+        segment: consumer
+        country: gb
+        currency: gbp
+        issuer: Gringotts Wizarding Bank and Trust Company
+        productName: Visa Debit
+        fastFunds:
+          domestic: true
+          crossBorder: false
+        type: card
+        createdAt: 169297262323
+    CardInsightAddress:
+      type: object
+      summary: The result of the address verification check (AVS)
+      properties:
+        avsIdentifier:
+          type: string
+          description: A unique identifier generated for this AVS verification
+          example: aBcdeFGhIJKlmnoPqR
+        networkIdentifier:
+          type: string
+          description: A network generated transaction identifier that is unique to every authorization and financial request.
+          example: '1234567890'
+        networkResponseCode:
+          type: object
+          description: Network response code returned when an authorization fails at the network or beyond
+          properties:
+            value:
+              type: string
+              description: The raw network response code
+              example: '85'
+        result:
+          type: object
+          description: The result of the address verification check (AVS)
+          properties:
+            value:
+              type: string
+              description: The raw result code
+              example: Y
+            address:
+              type: string
+              description: The match code for the address portion of the AVS (excludes zip code)
+              enum:
+              - match
+              - no-match
+              - unknown
+              - unavailable
+            zip:
+              type: string
+              description: The match code for the zip code portion of the address (excludes line1, line2, etc.)
+              enum:
+              - match
+              - no-match
+              - unknown
+              - unavailable
+    CardFunding:
+      type: string
+      enum:
+      - debit
+      - credit
+      - prepaid
+      - deferred-debit
+      - charge
+      x-enum-description:
+        debit: Draw funds directly from a linked bank account
+        credit: Provide a line of credit from which users can borrow funds for transactions
+        prepaid: Loaded with a set amount of funds in advance and can be used until the balance is depleted
+        deferred-debit: Combine aspects of debit and credit cards, allowing transactions to be debited from a linked account at a later date, usually monthly
+        charge: Require full payment of the balance at the end of each billing cycle, but do not have a pre-set spending limit
+      description: 'The card funding type specifies the method by which transactions are
+
+        financed.
+
+        '
+      example: debit
+    CardBrand:
+      type: string
+      enum:
+      - visa
+      - mastercard
+      - american-express
+      - discover
+      - diners-club
+      - jcb
+      - unionpay
+      description: The card brand associated with the payment card.
+      example: visa
+  securitySchemes:
+    ApiKey:
+      type: http
+      scheme: basic
+      description: Authentication using an API key. The username is the App ID and the password is the Api Key.
+    TokenAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: RunToken
+      description: 'Authentication using a short lived run token that you can share with clients. The Authorization header must be formatted as follow: "RunToken <Function Run Token>"'
+    ClientSideToken:
+      type: http
+      scheme: bearer
+      bearerFormat: Token
+      description: 'Authentication using a short lived token that you can share with clients. The Authorization header must be formatted as follow: "Token <Client-Side Token>"'

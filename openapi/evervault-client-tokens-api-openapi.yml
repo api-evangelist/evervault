@@ -1,0 +1,108 @@
+openapi: 3.1.0
+info:
+  title: Evervault Client Tokens API
+  version: 0.0.1
+  description: The Evervault API allows developers to interact programmatically with their Evervault apps using HTTP requests.
+  contact:
+    email: support@evervault.com
+    name: Evervault Support Team
+    url: https://evervault.com
+servers:
+- url: https://api.evervault.com
+  description: The Evervault API server
+tags:
+- name: Client Tokens
+  description: 'Client-Side Tokens are short-lived tokens that can be used to perform actions from your frontend applications.
+
+    '
+paths:
+  /client-side-tokens:
+    post:
+      summary: Create a Client Token
+      operationId: create-client-side-token
+      description: 'Client-Side Tokens are restricted to specific payloads. By default, a Client-Side Token will expire after 5 minutes. The maximum expiration time of a token is 10 minutes. When using the REST API, the expiry field must be in epoch milliseconds.
+
+        '
+      tags:
+      - Client Tokens
+      security:
+      - ApiKey: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - action
+              properties:
+                action:
+                  type: string
+                  enum:
+                  - api:decrypt
+                  description: The action that the token should permit
+                payload:
+                  type: object
+                  description: The payload that the token must be used with
+                  example:
+                    name: ev:debug:Tk9D:OJzdN+H2FxM86+Oa:AuUCGfKH8yYkzUvg0EjFgBOI/95D3RDZp5nwz3f2eqwJ:Zg7lsCwr2liYQOkjaRI6mwHScyn4f/Y2cxlayglTTYk1VmmDxBa5:$
+                expiry:
+                  type: integer
+                  description: The expiry of the token in milliseconds format. Must be less than 10 minutes from now.
+                  example: 1619712000000
+            examples:
+              Decrypt:
+                value:
+                  action: api:decrypt
+                  payload:
+                    phoneNumber: ev:Tk9D:GWgxSXezEFNw10b/:A6JZWe29uiZpP72w+nc0RXOdWdvgCulNqJv8aJpLE/gH:3V/PD54obBv0j+EJMaNNa/ny2tmZq7QM:$
+      responses:
+        '201':
+          description: A client side token and its expiry
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClientSideToken'
+              examples:
+                Decrypt:
+                  summary: Decrypt Token
+                  value:
+                    id: client_side_token_TDbEef6lgIs
+                    token: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ2ZXJzaW9uIjoxLCJhcHBfdXVpZCI6ImFwcF82YWJlZDM1ZDc2YjkiLCJ0ZWFtX3V1aWQiOiJ0ZWFtX2FiZjU1YTk5MTY0NSIsImp0aSI6ImNsaWVudF9zaWRlX3Rva2VuX1REYkVlZjZsZ0lzIiwiZXhwIjoxNzA3MjMzODQxOTgxLCJhY3Rpb24iOiJhcGk6ZGVjcnlwdCIsInJlc291cmNlIjpudWxsLCJoYXNoZWRfYm9keSI6IlJCTnZvMVd6WjRvUlJxMFc5LWhrbnBUN1Q4SWY1MzZERU1CZzloeXFfNG8iLCJjbGllbnRfaXAiOm51bGx9.ea1w3TlZ7p-OLVs-NOAUMij4V5w-9vMAD8W2WEoklsDwwgy8HANXP4e8eAjTA0CkELoUL2FgNesS6S77Z-coG1Yw9TGnkEchgkA6RAXqF65t1bLrW0rvl2AzwFZNwJpEbJc37YqyC2xGeermmYKZCu6in97_fe4rAXSYQiuVtN6V8uLSlAgP9Mr0BmNIf49fnskbc0y2-2qewvZfRM7mPQ6NXcQE_jhUjy3OhaohdvU1FpaLs3OrzW2Ej8wE1hOjc5hRtT2cslaY4Bl2x4YNMRVObWg7GYCdETG280ilXTUu9jIPmkXt8QBzouZOP5nuhCjYxFJ2fYZMLj7vYukwdiyBtiUADXDzmnFyh7icAWib76z_hW3VLRjQSlq-fgvQJfM71j5RGBEmLrQNAPRREYjCiM8cwmOh5sFaLdmu4wM6-lgPn8dvHSqENwggs_nfxPyavHChNn8KOo4FS64YYeB28hqSvBAMT-umCdv7n2I-YF6fJOpgJrQOK35MPt4kKfqULJ45wpSnzsSpT9kTrLw0-9-6JpMtsQio0UJ27aXHMPErFcNMcW2hEhPdNsjSfIEmK7lCaUOed-wETkkfIaoTe5ly051baj-VWbAbNXH2jduia2rCZoofXTABADRzeBrFyDNRZXNQ205n0xh3PpIcazKw_vCAD_EDXmcCsFo
+                    expiry: 1707233841981
+                    createdAt: 1707233541981
+components:
+  schemas:
+    ClientSideToken:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The id of the token
+          example: client_side_token_TDbEef6lgIs
+        token:
+          type: string
+          description: The token
+          example: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ2ZXJzaW9uIjoxLCJhcHBfdXVpZCI6ImFwcF82YWJlZDM1ZDc2YjkiLCJ0ZWFtX3V1aWQiOiJ0ZWFtX2FiZjU1YTk5MTY0NSIsImp0aSI6ImNsaWVudF9zaWRlX3Rva2VuX1REYkVlZjZsZ0lzIiwiZXhwIjoxNzA3MjMzODQxOTgxLCJhY3Rpb24iOiJhcGk6ZGVjcnlwdCIsInJlc291cmNlIjpudWxsLCJoYXNoZWRfYm9keSI6IlJCTnZvMVd6WjRvUlJxMFc5LWhrbnBUN1Q4SWY1MzZERU1CZzloeXFfNG8iLCJjbGllbnRfaXAiOm51bGx9.ea1w3TlZ7p-OLVs-NOAUMij4V5w-9vMAD8W2WEoklsDwwgy8HANXP4e8eAjTA0CkELoUL2FgNesS6S77Z-coG1Yw9TGnkEchgkA6RAXqF65t1bLrW0rvl2AzwFZNwJpEbJc37YqyC2xGeermmYKZCu6in97_fe4rAXSYQiuVtN6V8uLSlAgP9Mr0BmNIf49fnskbc0y2-2qewvZfRM7mPQ6NXcQE_jhUjy3OhaohdvU1FpaLs3OrzW2Ej8wE1hOjc5hRtT2cslaY4Bl2x4YNMRVObWg7GYCdETG280ilXTUu9jIPmkXt8QBzouZOP5nuhCjYxFJ2fYZMLj7vYukwdiyBtiUADXDzmnFyh7icAWib76z_hW3VLRjQSlq-fgvQJfM71j5RGBEmLrQNAPRREYjCiM8cwmOh5sFaLdmu4wM6-lgPn8dvHSqENwggs_nfxPyavHChNn8KOo4FS64YYeB28hqSvBAMT-umCdv7n2I-YF6fJOpgJrQOK35MPt4kKfqULJ45wpSnzsSpT9kTrLw0-9-6JpMtsQio0UJ27aXHMPErFcNMcW2hEhPdNsjSfIEmK7lCaUOed-wETkkfIaoTe5ly051baj-VWbAbNXH2jduia2rCZoofXTABADRzeBrFyDNRZXNQ205n0xh3PpIcazKw_vCAD_EDXmcCsFo
+        expiry:
+          type: integer
+          description: The expiry of the token in unix millis format
+          example: 1707233841981
+        createdAt:
+          type: integer
+          description: The creation time of the token in unix millis format
+          example: 1707233541981
+  securitySchemes:
+    ApiKey:
+      type: http
+      scheme: basic
+      description: Authentication using an API key. The username is the App ID and the password is the Api Key.
+    TokenAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: RunToken
+      description: 'Authentication using a short lived run token that you can share with clients. The Authorization header must be formatted as follow: "RunToken <Function Run Token>"'
+    ClientSideToken:
+      type: http
+      scheme: bearer
+      bearerFormat: Token
+      description: 'Authentication using a short lived token that you can share with clients. The Authorization header must be formatted as follow: "Token <Client-Side Token>"'

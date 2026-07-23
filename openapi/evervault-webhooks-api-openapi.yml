@@ -1,0 +1,349 @@
+openapi: 3.1.0
+info:
+  title: Evervault Webhooks API
+  version: 0.0.1
+  description: The Evervault API allows developers to interact programmatically with their Evervault apps using HTTP requests.
+  contact:
+    email: support@evervault.com
+    name: Evervault Support Team
+    url: https://evervault.com
+servers:
+- url: https://api.evervault.com
+  description: The Evervault API server
+tags:
+- name: Webhooks
+  x-category: true
+paths:
+  /webhook-endpoints:
+    post:
+      summary: Create a Webhook Endpoint
+      operationId: createWebhookEndpoint
+      description: Create a Webhook Endpoint
+      tags:
+      - Webhooks
+      security:
+      - ApiKey:
+        - webhookEndpoint:create
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                url:
+                  type: string
+                  description: The URL of the Webhook Endpoint.
+                  example: https://example.com/webhook
+                events:
+                  type: array
+                  description: A list of Events that the Webhook Endpoint should subscribe to.
+                  items:
+                    $ref: '#/components/schemas/WebhookEvent'
+              required:
+              - url
+              - events
+            examples:
+              CreateWebhookEndpoint:
+                value:
+                  url: https://example.com/webhook
+                  events:
+                  - payments.merchant.updated
+                  - payments.network-token.updated
+      responses:
+        '201':
+          description: The Webhook Endpoint was created successfully.
+          x-content: 'Returns the [Webhook Endpoint object](#the-webhook-endpoint-object) that was created.
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebhookEndpoint'
+              examples:
+                SuccessfulCreation:
+                  summary: Successful Creation
+                  description: The Webhook Endpoint was created successfully.
+                  value:
+                    id: webhook_endpoint_eead1d640d7c
+                    url: https://example.com/webhook
+                    events:
+                    - payments.merchant.updated
+                    - payments.network-token.updated
+                    createdAt: 169297262323
+                    updatedAt: null
+    get:
+      summary: List all Webhook Endpoints
+      operationId: listWebhookEndpoints
+      description: 'Lists all Webhook Endpoints
+
+        '
+      tags:
+      - Webhooks
+      security:
+      - ApiKey:
+        - webhookEndpoint:list
+      parameters:
+      - name: limit
+        in: query
+        required: false
+        description: The maximum number of Webhook Endpoints to return (Default is 10).
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 100
+          default: 10
+        example: 10
+      - name: startingAfter
+        in: query
+        required: false
+        description: The identifier of the last Webhook Endpoint in the previous page of results.
+        schema:
+          type: string
+        example: webhook_endpoint_wd7c640d1daee
+      responses:
+        '200':
+          description: The Webhook Endpoints were retrieved successfully.
+          x-content: 'Returns a list of [Webhook Endpoint objects](#the-webhook-endpoint-object).
+
+            '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/WebhookEndpoint'
+                  hasMore:
+                    type: boolean
+                    description: Indicates whether there are more Webhook Endpoints to retrieve.
+                    example: true
+              examples:
+                SuccessfulCreation:
+                  summary: Successful List
+                  description: The Webhook Endpoints were retrieved successfully.
+                  value:
+                    data:
+                    - id: webhook_endpoint_eead1d640d7c
+                      url: https://example.com/webhook
+                      events:
+                      - payments.merchant.updated
+                      - payments.network-token.updated
+                      createdAt: 169297262323
+                      updatedAt: null
+                    hasMore: true
+  /webhook-endpoints/{webhook_endpoint_id}:
+    get:
+      summary: Retrieve a Webhook Endpoint
+      operationId: getWebhookEndpoint
+      description: 'Retrieves a Webhook Endpoint
+
+        '
+      tags:
+      - Webhooks
+      security:
+      - ApiKey:
+        - webhookEndpoint:read
+      parameters:
+      - name: webhook_endpoint_id
+        in: path
+        required: true
+        description: The identifier of the Webhook Endpoint to retrieve.
+        schema:
+          type: string
+        example: webhook_endpoint_eead1d640d7c
+      responses:
+        '200':
+          description: The Webhook Endpoint was retrieved successfully.
+          x-content: 'Returns the [Webhook Endpoint object](#the-webhook-endpoint-object).
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebhookEndpoint'
+              examples:
+                SuccessfulCreation:
+                  summary: Successful Retrieval
+                  description: The Webhook Endpoint was retrieved successfully.
+                  value:
+                    id: webhook_endpoint_eead1d640d7c
+                    url: https://example.com/webhook
+                    events:
+                    - payments.merchant.updated
+                    - payments.network-token.updated
+                    createdAt: 169297262323
+                    updatedAt: null
+    patch:
+      summary: Update a Webhook Endpoint
+      operationId: updateWebhookEndpoint
+      description: 'Updates a Webhook Endpoint
+
+        '
+      tags:
+      - Webhooks
+      security:
+      - ApiKey:
+        - webhookEndpoint:update
+      parameters:
+      - name: webhook_endpoint_id
+        in: path
+        required: true
+        description: The identifier of the Webhook Endpoint to update.
+        schema:
+          type: string
+        example: webhook_endpoint_eead1d640d7c
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                events:
+                  type: array
+                  description: A list of Events that the Webhook Endpoint should subscribe to.
+                  items:
+                    $ref: '#/components/schemas/WebhookEvent'
+                  example:
+                  - payments.merchant.updated
+              required:
+              - events
+            examples:
+              UpdateWebhookEndpoint:
+                value:
+                  events:
+                  - merchant.updated
+      responses:
+        '200':
+          description: The Webhook Endpoint was updated successfully.
+          x-content: 'Returns the [Webhook Endpoint object](#the-webhook-endpoint-object) that was updated.
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebhookEndpoint'
+              examples:
+                SuccessfulCreation:
+                  summary: Successful Update
+                  description: The Webhook Endpoint was updated successfully.
+                  value:
+                    id: webhook_endpoint_eead1d640d7c
+                    url: https://example.com/webhook
+                    events:
+                    - payments.merchant.updated
+                    createdAt: 169297262323
+                    updatedAt: 169297269867
+    delete:
+      summary: Delete a Webhook Endpoint
+      operationId: deleteWebhookEndpoint
+      description: 'Delete a Webhook Endpoint
+
+        '
+      tags:
+      - Webhooks
+      security:
+      - ApiKey:
+        - webhookEndpoint:delete
+      parameters:
+      - name: webhook_endpoint_id
+        in: path
+        required: true
+        description: The identifier of the Webhook Endpoint to delete.
+        schema:
+          type: string
+        example: webhook_endpoint_eead1d640d7c
+      responses:
+        '204':
+          description: The Webhook Endpoint was successfully deleted.
+components:
+  schemas:
+    WebhookEvent:
+      type: string
+      enum:
+      - '*'
+      - function.run.completed
+      - function.deployment.started
+      - function.deployment.updated
+      - function.deployment.finished
+      - enclave.deployment.started
+      - enclave.deployment.updated
+      - enclave.deployment.finished
+      - audit-log.event
+      - payments.network-token.updated
+      - payments.merchant.updated
+      - payments.card.updated
+      - payments.3ds-session.success
+      - payments.3ds-session.failure
+      x-enum-description:
+        '*': All events
+        function.run.completed: An asynchronous Function Run was completed
+        function.deployment.started: A Function Deployment was started
+        function.deployment.updated: A Function Deployment was updated
+        function.deployment.finished: A Function Deployment was finished
+        enclave.deployment.started: An Enclave Deployment was started
+        enclave.deployment.updated: An Enclave Deployment was updated
+        enclave.deployment.finished: An Enclave Deployment was finished
+        audit-log.event: An Audit Log Event was triggered
+        payments.network-token.updated: A Network Token was updated
+        payments.merchant.updated: A Merchant was updated
+        payments.card.updated: A Card was updated
+        payments.3ds-session.success: A 3DS Session was successful
+        payments.3ds-session.failure: A 3DS Session failed
+      description: 'A list of Events that the Webhook Endpoint is subscribed to.
+
+        '
+    WebhookEndpoint:
+      x-section: Webhooks
+      type: object
+      summary: The Webhook Endpoint Object
+      properties:
+        id:
+          type: string
+          description: A unique identifier representing a specific Webhook Endpoint.
+          example: func_run_eead1d640d7c
+        url:
+          type: string
+          description: The URL of the Webhook Endpoint.
+          example: https://example.com/webhook
+        events:
+          type: array
+          description: A list of Events that the Webhook Endpoint is subscribed to. The Webhook will receive a POST request when any of these Events occur.
+          items:
+            $ref: '#/components/schemas/WebhookEvent'
+        createdAt:
+          type: integer
+          format: int64
+          description: The exact time, in epoch milliseconds, when this Webhook Endpoint was created.
+          example: 1692972623233
+        updatedAt:
+          type:
+          - integer
+          - 'null'
+          format: int64
+          description: The exact time, in epoch milliseconds, when this Webhook Endpoint was last updated.
+          example: 1692972623233
+      example:
+        id: webhook_endpoint_eead1d640d7c
+        url: https://example.com/webhook
+        events:
+        - payments.merchant.updated
+        - payments.network-token.updated
+        createdAt: 169297262323
+        updatedAt: null
+  securitySchemes:
+    ApiKey:
+      type: http
+      scheme: basic
+      description: Authentication using an API key. The username is the App ID and the password is the Api Key.
+    TokenAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: RunToken
+      description: 'Authentication using a short lived run token that you can share with clients. The Authorization header must be formatted as follow: "RunToken <Function Run Token>"'
+    ClientSideToken:
+      type: http
+      scheme: bearer
+      bearerFormat: Token
+      description: 'Authentication using a short lived token that you can share with clients. The Authorization header must be formatted as follow: "Token <Client-Side Token>"'

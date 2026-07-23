@@ -1,0 +1,450 @@
+openapi: 3.1.0
+info:
+  title: Evervault Acquirers API
+  version: 0.0.1
+  description: The Evervault API allows developers to interact programmatically with their Evervault apps using HTTP requests.
+  contact:
+    email: support@evervault.com
+    name: Evervault Support Team
+    url: https://evervault.com
+servers:
+- url: https://api.evervault.com
+  description: The Evervault API server
+tags:
+- name: Acquirers
+  description: 'The Acquirer API allows you to enroll Acquirer details with Card Networks to enable use of other payment APIs such as [3D Secure](#3d-secure).
+
+    '
+paths:
+  /payments/acquirers:
+    post:
+      summary: Create an Acquirer
+      description: 'Creates an Acquirer to be used with 3DS sessions.
+
+        '
+      operationId: createAcquirer
+      tags:
+      - Acquirers
+      security:
+      - ApiKey:
+        - acquirer:create
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: The name of the Acquirer.
+                description:
+                  type: string
+                  description: The description of the Acquirer.
+                default:
+                  type: boolean
+                  description: Specifies whether this Acquirer is the default. Only one default Acquirer configuration can exist at a time; setting a new one clears the previous default. If none is defined, the first Acquirer created becomes the default. See the [Acquirers API](/api#acquirers) for details.
+                configurations:
+                  type: array
+                  description: The Acquirer configurations. Configurations are set according to each card network the Acquirer is associated with, and each `network` can only appear once. To use a different `bin`, `acquirerMerchantIdentifier`, or `country` for the same network, create a separate Acquirer.
+                  items:
+                    type: object
+                    properties:
+                      network:
+                        type: string
+                        enum:
+                        - visa
+                        - mastercard
+                        - american-express
+                        - discover
+                        description: The card network of the Acquirer. `discover` covers Discover, Diners Club, and JCB (US only).
+                        example: mastercard
+                      bin:
+                        type: string
+                        pattern: ^[0-9]{6,11}$
+                        minLength: 6
+                        maxLength: 11
+                        description: The Bank Identification Number (BIN) of the Acquirer. Must be 6 to 11 digits.
+                        example: '424242'
+                      acquirerMerchantIdentifier:
+                        type: string
+                        description: The merchant identifier associated with the configuration.
+                        example: '38191048173'
+                      country:
+                        type: string
+                        format: iso-3166-1-alpha-2
+                        description: The country of the Acquirer configuration, used when creating 3DS sessions.
+                        example: ie
+                    required:
+                    - network
+                    - bin
+                    - acquirerMerchantIdentifier
+                    - country
+              required:
+              - name
+              - configurations
+      responses:
+        '201':
+          description: Returns the created Acquirer object.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AcquirerConfiguration'
+              examples:
+                SimpleExample:
+                  summary: Acquirer created successfully
+                  value:
+                    id: acquirer_adk3kdljc3
+                    name: Ollivanders Wand Shop Production Configuration
+                    description: Ollivanders Wand Shop Production Configuration
+                    default: true
+                    configurations:
+                    - network: mastercard
+                      bin: '424242'
+                      acquirerMerchantIdentifier: '38191048173'
+                      state: active
+                      country: ie
+                    - network: visa
+                      bin: '424242'
+                      acquirerMerchantIdentifier: '38191048173'
+                      state: active
+                      country: ie
+    get:
+      summary: List Acquirers
+      description: 'Lists all Acquirers that have been created.
+
+        '
+      operationId: listAcquirers
+      tags:
+      - Acquirers
+      security:
+      - ApiKey:
+        - acquirer:read
+      parameters:
+      - name: page
+        in: query
+        description: The page number to retrieve.
+        required: false
+        schema:
+          type: integer
+          default: 0
+      - name: pageSize
+        in: query
+        description: The number of Acquirers to retrieve per page. The default is 50, which is also the maximum.
+        required: false
+        schema:
+          type: integer
+          default: 50
+          maximum: 50
+      responses:
+        '200':
+          description: Returns a list of Acquirer objects.
+          x-content: 'Returns an array of [Acquirer objects](#the-acquirer-object).
+
+            '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/AcquirerConfiguration'
+                  pageSize:
+                    type: integer
+                    description: The number of Acquirers retrieved per page.
+                  nextPage:
+                    type:
+                    - integer
+                    - 'null'
+                    description: The next page number to retrieve. If there are no additional Acquirers, this will be `null`.
+                  total:
+                    type: integer
+                    description: The total count of all Acquirers.
+                required:
+                - data
+                - pageSize
+                - nextPage
+                - total
+              examples:
+                SimpleExample:
+                  summary: Successful List
+                  description: The Acquirers were retrieved successfully
+                  value:
+                    data:
+                    - id: acquirer_adk3kdljc3
+                      name: Ollivanders Wand Shop Production Configuration
+                      description: Ollivanders Wand Shop Production Configuration
+                      default: true
+                      configurations:
+                      - network: mastercard
+                        bin: '424242'
+                        acquirerMerchantIdentifier: '38191048173'
+                        state: active
+                        country: ie
+                      - network: visa
+                        bin: '424242'
+                        acquirerMerchantIdentifier: '38191048173'
+                        state: active
+                        country: ie
+                    pageSize: 50
+                    nextPage: null
+                    total: 1
+  /payments/acquirers/{acquirer_id}:
+    get:
+      summary: Retrieve an Acquirer
+      description: 'Retrieves an Acquirer by its unique identifier.
+
+        '
+      operationId: getAcquirer
+      tags:
+      - Acquirers
+      security:
+      - ApiKey:
+        - acquirer:read
+      parameters:
+      - name: acquirer_id
+        in: path
+        description: The unique identifier of the Acquirer.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Returns an Acquirer object.
+          x-content: 'Returns the [Acquirer object](#the-acquirer-object).
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AcquirerConfiguration'
+              examples:
+                SimpleExample:
+                  summary: Acquirer successfully retrieved
+                  value:
+                    id: acquirer_adk3kdljc3
+                    name: Ollivanders Wand Shop Production Configuration
+                    description: Ollivanders Wand Shop Production Configuration
+                    default: true
+                    configurations:
+                    - network: mastercard
+                      bin: '424242'
+                      acquirerMerchantIdentifier: '38191048173'
+                      state: active
+                      country: ie
+                    - network: visa
+                      bin: '424242'
+                      acquirerMerchantIdentifier: '38191048173'
+                      state: active
+                      country: ie
+    patch:
+      summary: Update an Acquirer
+      description: 'Updates an Acquirer by its unique identifier.
+
+        '
+      operationId: updateAcquirer
+      tags:
+      - Acquirers
+      security:
+      - ApiKey:
+        - acquirer:update
+      parameters:
+      - name: acquirer_id
+        in: path
+        description: The id of the Acquirer to be updated.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: The name of the Acquirer.
+                description:
+                  type: string
+                  description: The description of the Acquirer.
+                default:
+                  type: boolean
+                  description: Specifies whether this Acquirer is the default. Only one default Acquirer configuration can exist at a time; setting a new one clears the previous default. See the [Acquirers API](/api#acquirers) for details.
+                configurations:
+                  type: array
+                  description: The Acquirer configurations. Configurations are set according to each card network the Acquirer is associated with, and each `network` can only appear once. To use a different `bin`, `acquirerMerchantIdentifier`, or `country` for the same network, create a separate Acquirer.
+                  items:
+                    type: object
+                    properties:
+                      network:
+                        type: string
+                        enum:
+                        - visa
+                        - mastercard
+                        - american-express
+                        - discover
+                        example: mastercard
+                        description: The card network to use the configuration for. `discover` covers Discover, Diners Club, and JCB (US only).
+                      bin:
+                        type: string
+                        pattern: ^[0-9]{6,11}$
+                        minLength: 6
+                        maxLength: 11
+                        description: The Bank Identification Number (BIN) of the acquirer. Must be 6 to 11 digits.
+                      acquirerMerchantIdentifier:
+                        type: string
+                        description: The merchant identifier the configuration is associated with.
+                      country:
+                        type: string
+                        format: iso-3166-1-alpha-2
+                        example: ie
+                        description: The country of the acquirer configuration, used when creating 3DS sessions.
+                    required:
+                    - network
+      responses:
+        '200':
+          description: Returns the updated Acquirer object.
+          x-content: 'Returns the updated [Acquirer object](#the-acquirer-object).
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AcquirerConfiguration'
+              examples:
+                SimpleExample:
+                  summary: Acquirer successfully updated
+                  value:
+                    id: acquirer_adk3kdljc3
+                    name: Ollivanders Wand Shop Production Configuration
+                    description: Ollivanders Wand Shop Production Configuration
+                    default: true
+                    configurations:
+                    - network: mastercard
+                      bin: '424242'
+                      acquirerMerchantIdentifier: '38191048173'
+                      state: active
+                      country: ie
+                    - network: visa
+                      bin: '424242'
+                      acquirerMerchantIdentifier: '38191048173'
+                      state: active
+                      country: ie
+    delete:
+      summary: Delete an Acquirer
+      description: 'Deletes an Acquirer by its unique identifier.
+
+        '
+      operationId: deleteAcquirer
+      tags:
+      - Acquirers
+      security:
+      - ApiKey:
+        - acquirer:delete
+      parameters:
+      - name: acquirer_id
+        in: path
+        description: The id of the Acquirer to be deleted.
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Acquirer successfully deleted.
+components:
+  schemas:
+    AcquirerConfiguration:
+      type: object
+      summary: The Acquirer Object
+      properties:
+        id:
+          type: string
+          description: The unique identifier of the acquirer configuration.
+          example: acquirer_eead1d640d7c
+        name:
+          type: string
+          description: The name of the acquirer configuration.
+        description:
+          type: string
+          description: The description of the acquirer configuration.
+        default:
+          type: boolean
+        configurations:
+          type: array
+          description: The acquirer configuration settings.
+          items:
+            type: object
+            properties:
+              network:
+                type: string
+                enum:
+                - visa
+                - mastercard
+                - american-express
+                - discover
+                example: mastercard
+                description: The card network of the Acquirer. `discover` covers Discover, Diners Club, and JCB (US only).
+              bin:
+                type: string
+                pattern: ^[0-9]{6,11}$
+                minLength: 6
+                maxLength: 11
+                example: '424242'
+                description: The Bank Identification Number (BIN) of the Acquirer. Must be 6 to 11 digits.
+              acquirerMerchantIdentifier:
+                type: string
+                description: The merchant identifier the configuration is associated with.
+                example: '38191048173'
+              state:
+                type: string
+                example: active
+              country:
+                description: The country of the acquirer configuration, used when creating 3DS sessions.
+                type: string
+                format: iso-3166-1-alpha-2
+                example: ie
+            required:
+            - network
+            - bin
+            - acquirerMerchantIdentifier
+            - state
+            - country
+      required:
+      - id
+      - name
+      - default
+      - configurations
+      example:
+        id: acquirer_eead1d640d7c
+        name: Ollivanders Wand Shop Production Configuration
+        description: Ollivanders Wand Shop Production Configuration
+        default: true
+        configurations:
+        - network: mastercard
+          bin: '424242'
+          acquirerMerchantIdentifier: '38191048173'
+          state: active
+          country: ie
+        - network: visa
+          bin: '424242'
+          acquirerMerchantIdentifier: '38191048173'
+          state: active
+          country: ie
+  securitySchemes:
+    ApiKey:
+      type: http
+      scheme: basic
+      description: Authentication using an API key. The username is the App ID and the password is the Api Key.
+    TokenAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: RunToken
+      description: 'Authentication using a short lived run token that you can share with clients. The Authorization header must be formatted as follow: "RunToken <Function Run Token>"'
+    ClientSideToken:
+      type: http
+      scheme: bearer
+      bearerFormat: Token
+      description: 'Authentication using a short lived token that you can share with clients. The Authorization header must be formatted as follow: "Token <Client-Side Token>"'

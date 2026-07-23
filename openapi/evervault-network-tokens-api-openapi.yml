@@ -1,0 +1,718 @@
+openapi: 3.1.0
+info:
+  title: Evervault Network Tokens API
+  version: 0.0.1
+  description: The Evervault API allows developers to interact programmatically with their Evervault apps using HTTP requests.
+  contact:
+    email: support@evervault.com
+    name: Evervault Support Team
+    url: https://evervault.com
+servers:
+- url: https://api.evervault.com
+  description: The Evervault API server
+tags:
+- name: Network Tokens
+paths:
+  /payments/network-tokens:
+    post:
+      x-section: Payments
+      x-group: Network Tokens
+      summary: Create a Network Token
+      description: 'Create a Network Token for a given card.
+
+        '
+      operationId: createNetworkToken
+      tags:
+      - Network Tokens
+      security:
+      - ApiKey:
+        - networkToken:create
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                card:
+                  description: The card to tokenize. Either an inline card object or the unique identifier of a Card created with the [Cards API](/api#cards).
+                  oneOf:
+                  - type: object
+                    description: An inline card object.
+                    properties:
+                      number:
+                        type: string
+                        description: The card number. Needs to be an Evervault-encrypted card number or a plaintext card number.
+                        example: '4242424242424242'
+                      expiry:
+                        allOf:
+                        - $ref: '#/components/schemas/CardExpiry'
+                        description: The card expiry date. The expiry must be in the current month or later. Expired cards are rejected before tokenization.
+                      cvc:
+                        type: string
+                        description: The card security code. Needs to be an Evervault-encrypted CVV or a plaintext CVV.
+                        example: '123'
+                    required:
+                    - number
+                    - expiry
+                  - type: string
+                    description: The unique identifier of a Card created with the [Cards API](/api#cards).
+                    example: card_eead1d640d7c
+                merchant:
+                  type: string
+                  description: The unique identifier of the Merchant previously created using the Evervault API. It denotes the Merchant to which the Network Token should be associated with.
+                  example: merchant_ddsaJsda9d86
+              required:
+              - card
+              - merchant
+            examples:
+              EvervaultEncryptedExample:
+                value:
+                  card:
+                    number: ev:debug:Tk9D:number:nTepvAI585M7lUVp:AkJ6Brzat0E7ui8DSKCSXO7AopU/+GFuBekQ6cGx7eTl:sfihK53itmHp+URxomnTITUpwQwM5nnRrnQ0qdIOUlA=:$
+                    expiry:
+                      month: 09
+                      year: '26'
+                    cvc: ev:debug:Tk9D:number:2GW8Nk96yfb2UXcw:A4UOUDGNb16Q//uBYVPibmfJ2734IrvPAoVY+8PvGG0C:5jtAu8KN1HiPeCNqSDCKMapfpg==:$
+                  merchant: merchant_ddsaJsda9d86
+              PlaintextCardExample:
+                value:
+                  card:
+                    number: '4242424242424242'
+                    expiry:
+                      month: 09
+                      year: '26'
+                    cvc: '123'
+                  merchant: merchant_ddsaJsda9d86
+      responses:
+        '201':
+          description: Returns a Network Token object.
+          x-content: 'Returns the [Network Token object](#the-network-token-object) that was created.
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NetworkToken'
+              examples:
+                EvervaultEncryptedExample:
+                  summary: Network Token created with encrypted card details
+                  value:
+                    id: network_token_eead1d640d7c
+                    number: '4498004918463434'
+                    expiry:
+                      month: '13'
+                      year: '25'
+                    card:
+                      lastFour: '4242'
+                      expiry:
+                        month: 09
+                        year: '26'
+                      brand: visa
+                      country: us
+                      currency: usd
+                      funding: debit
+                      segment: consumer
+                      issuer: Gringotts Wizarding Bank and Trust Company
+                    paymentAccountReference: 512381d9f8e0629211e3949a08002
+                    tokenRequestorIdentifier: '40020248564'
+                    tokenServiceProvider: vts
+                    merchant: merchant_ddsaJsda9d86
+                    status: active
+                    createdAt: 1692972623233
+                    updatedAt: 1692972623768
+                PlaintextCardExample:
+                  summary: Network Token created with plaintext card details
+                  value:
+                    id: network_token_eead1d640d7c
+                    number: '4498004918463434'
+                    expiry:
+                      month: '13'
+                      year: '25'
+                    card:
+                      lastFour: '4242'
+                      expiry:
+                        month: 09
+                        year: '26'
+                      brand: visa
+                    paymentAccountReference: 512381d9f8e0629211e3949a08002
+                    tokenRequestorIdentifier: '40020248564'
+                    tokenServiceProvider: vts
+                    merchant: merchant_ddsaJsda9d86
+                    status: active
+                    createdAt: 1692972623233
+                    updatedAt: 1692972623768
+        '400':
+          description: 'The request was invalid or cannot be otherwise served.
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                IneligibleCard:
+                  summary: Ineligible Card
+                  value:
+                    code: payments/network-tokens/ineligible-card
+                    title: Ineligible Card
+                    detail: The card is not eligible for tokenization. This may be due to the card issuer not supporting tokenization.
+                InvalidCard:
+                  summary: Ineligible Card
+                  value:
+                    code: payments/network-tokens/invalid-card
+                    title: Invalid Card
+                    detail: The provided card details did not pass verification checks. This may be due to an invalid card number, an incorrect CVC, or a discrepancy between the provided and actual card expiry date.
+                ExpiredCard:
+                  summary: Expired Card
+                  value:
+                    code: payments/network-tokens/expired-card
+                    title: Expired Card
+                    detail: The card has expired.
+                DeclinedTokenization:
+                  summary: Declined Tokenization
+                  value:
+                    code: payments/network-tokens/declined-tokenization
+                    title: Declined Tokenization
+                    detail: Tokenization for the given card was declined by the card issuer. This may be due to restrictions related to the card type, issuer policies, or the card's current status
+        '422':
+          description: 'Unprocessable Entity
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                MerchantNotReady:
+                  summary: Merchant Not Ready
+                  value:
+                    code: payments/network-tokens/merchant-not-ready
+                    title: Merchant Not Ready
+                    detail: The merchant is not yet ready for tokenizing cards. Enrolling a merchant for network tokenization can take up to 48 hours. Please try again later.
+                TokenServiceProviderProvisioning:
+                  summary: Token Service Provider Provisioning
+                  value:
+                    code: payments/network-tokens/token-service-provider-provisioning
+                    title: Token Service Provider Provisioning
+                    detail: The Token Service Provider is currently provisioning. This may take up to 48 hours to complete. Please try again later. Contact support@evervault.com if this continues after 48 hours.
+        '500':
+          description: 'An error occurred while processing the request.
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                UnavailableTokenServiceProvider:
+                  summary: Unavailable Token Service Provider
+                  value:
+                    code: payments/network-tokens/unavailable-token-service-provider
+                    title: Unavailable Token Service Provider
+                    detail: The Token Service Provider is unavailable. Please try again later.
+  /payments/network-tokens/{network_token_id}:
+    get:
+      x-section: Payments
+      x-group: Network Tokens
+      summary: Retrieve a Network Token
+      description: 'Retrieves a Network Token by its unique identifier.
+
+        '
+      operationId: getNetworkToken
+      tags:
+      - Network Tokens
+      security:
+      - ApiKey:
+        - networkToken:read
+      parameters:
+      - name: network_token_id
+        in: path
+        description: The unique identifier of the Network Token.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Returns a Network Token object.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NetworkToken'
+              examples:
+                SuccessfulRetrieval:
+                  summary: Successful Retrieval
+                  value:
+                    id: network_token_eead1d640d7c
+                    number: '4498004918463434'
+                    expiry:
+                      month: '13'
+                      year: '25'
+                    card:
+                      lastFour: '4242'
+                      expiry:
+                        month: 09
+                        year: '26'
+                      brand: visa
+                      country: us
+                      currency: usd
+                      funding: debit
+                      segment: consumer
+                      issuer: Gringotts Wizarding Bank and Trust Company
+                    paymentAccountReference: 512381d9f8e0629211e3949a08002
+                    tokenRequestorIdentifier: '40020248564'
+                    tokenServiceProvider: vts
+                    merchant: merchant_ddsaJsda9d86
+                    status: active
+                    createdAt: 1692972623233
+                    updatedAt: 1692972623768
+    delete:
+      x-section: Payments
+      x-group: Network Tokens
+      summary: Delete a Network Token
+      description: 'Deletes a Network Token by its unique identifier.
+
+        '
+      operationId: deleteNetworkToken
+      tags:
+      - Network Tokens
+      security:
+      - ApiKey:
+        - networkToken:delete
+      parameters:
+      - name: network_token_id
+        in: path
+        description: The unique identifier of the Network Token.
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Deletes a Network Token object.
+          content:
+            application/json:
+              examples:
+                SuccessfulDeletion:
+                  summary: Network Token successfully deleted
+                  value: {}
+  /payments/network-tokens/{network_token_id}/cryptograms:
+    post:
+      x-section: Payments
+      x-group: Network Tokens
+      summary: Create a Cryptogram
+      description: 'Creates a Network Token Cryptogram.
+
+        '
+      operationId: createNetworkTokenCryptogram
+      tags:
+      - Network Tokens
+      security:
+      - ApiKey:
+        - networkToken:createCryptogram
+      parameters:
+      - name: network_token_id
+        in: path
+        description: The unique identifier of the Network Token.
+        required: true
+        schema:
+          type: string
+      responses:
+        '201':
+          description: Returns a Network Token Cryptogram object.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NetworkTokenCryptogram'
+              examples:
+                SuccessfulCreation:
+                  summary: Network Token Cryptogram created
+                  value:
+                    id: network_token_cryptogram_eead1d640d7c
+                    cryptogram: NTk0ZjM5M2QyNDMwNDE1MjkzMjg1ZTg5Y2NiZjdmNjE=
+                    createdAt: 1692972623233
+  /payments/network-tokens/{network_token_id}/simulate:
+    post:
+      x-section: Payments
+      x-group: Network Tokens
+      summary: Simulate a Network Token Update
+      description: 'Simulates an update to a Network Token so that you can test your integration. Sandbox only.
+
+        '
+      operationId: simulateNetworkTokenUpdate
+      tags:
+      - Network Tokens
+      security:
+      - ApiKey:
+        - networkToken:create
+      parameters:
+      - name: network_token_id
+        in: path
+        description: The id of the Network Token
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                updateType:
+                  type: string
+                  description: The type of update to simulate.
+                  enum:
+                  - new-token-status
+                  - new-card-expiry-and-last-four
+                  - new-token-expiry-and-number
+            examples:
+              NewTokenExpiryAndNumberExample:
+                value:
+                  updateType: new-token-expiry-and-number
+              NewCardExpiryAndLastFourExample:
+                value:
+                  updateType: new-card-expiry-and-last-four
+              NewTokenStatusExample:
+                value:
+                  updateType: new-token-status
+      responses:
+        '200':
+          description: Returns the updated Network Token object.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NetworkToken'
+              examples:
+                NewTokenExpiryAndNumberExample:
+                  summary: New token expiry and number
+                  value:
+                    id: network_token_eead1d640d7c
+                    number: '4498004918463434'
+                    expiry:
+                      month: '13'
+                      year: '25'
+                    card:
+                      lastFour: '4242'
+                      expiry:
+                        month: 09
+                        year: '26'
+                      brand: visa
+                      country: us
+                      currency: usd
+                      funding: debit
+                      segment: consumer
+                      issuer: Gringotts Wizarding Bank and Trust Company
+                    paymentAccountReference: 512381d9f8e0629211e3949a08002
+                    tokenRequestorIdentifier: '40020248564'
+                    tokenServiceProvider: vts
+                    merchant: merchant_ddsaJsda9d86
+                    status: active
+                    createdAt: 1692972623233
+                    updatedAt: 1692972623768
+                NewCardExpiryAndLastFourExample:
+                  summary: New card expiry and last four
+                  value:
+                    id: network_token_eead1d640d7c
+                    number: '4498004918463434'
+                    expiry:
+                      month: '13'
+                      year: '25'
+                    card:
+                      lastFour: '4242'
+                      expiry:
+                        month: 09
+                        year: '26'
+                      brand: visa
+                    paymentAccountReference: 512381d9f8e0629211e3949a08002
+                    tokenRequestorIdentifier: '40020248564'
+                    tokenServiceProvider: vts
+                    merchant: merchant_ddsaJsda9d86
+                    status: active
+                    createdAt: 1692972623233
+                    updatedAt: 1692972623768
+                DeactivateTokenExample:
+                  summary: Inactive token
+                  value:
+                    id: network_token_eead1d640d7c
+                    number: '4498004918463434'
+                    expiry:
+                      month: '13'
+                      year: '25'
+                    card:
+                      lastFour: '4242'
+                      expiry:
+                        month: 09
+                        year: '26'
+                      brand: visa
+                    paymentAccountReference: 512381d9f8e0629211e3949a08002
+                    tokenRequestorIdentifier: '40020248564'
+                    tokenServiceProvider: vts
+                    merchant: merchant_ddsaJsda9d86
+                    status: inactive
+                    createdAt: 1692972623233
+                    updatedAt: 1692972623768
+  /payments/network-tokens/{network_token_id}/card-art:
+    get:
+      summary: Retrieve Card Art
+      description: 'Retrieves the card art for a Network Token by its unique identifier.
+
+        '
+      operationId: getCardArt
+      tags:
+      - Network Tokens
+      security:
+      - ApiKey:
+        - networkToken:read
+      parameters:
+      - name: network_token_id
+        in: path
+        description: The unique identifier of the Network Token.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Returns the card art for the Network Token.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CardArt'
+              examples:
+                SuccessfulRetrieval:
+                  summary: Successful Retrieval
+                  value:
+                    type: image/png
+                    data: dGhlIGJhc2U2NCBlbmNvZGVkIGltYWdlIGRhdGE=
+                    width: 1536
+                    height: 969
+components:
+  schemas:
+    CardArt:
+      type: object
+      properties:
+        type:
+          type: string
+          description: The MIME type of the card art image.
+          example: image/png
+        data:
+          type: string
+          description: The base64-encoded image data of the card art.
+          example: dGhlIGJhc2U2NCBlbmNvZGVkIGltYWdlIGRhdGE=
+        width:
+          type: integer
+          description: The width of the card art image in pixels.
+          example: 1536
+        height:
+          type: integer
+          description: The height of the card art image in pixels.
+          example: 969
+      required:
+      - type
+      - data
+      - width
+      - height
+    NetworkTokenCryptogram:
+      type: object
+      properties:
+        id:
+          type: string
+          description: A unique identifier representing a specific Network Token Cryptogram.
+          example: network_token_cryptogram_eead1d640d7c
+        cryptogram:
+          type: string
+          description: The value of the Network Token Cryptogram. This is the value that is used embedded in the Authorization request.
+          example: NTk0ZjM5M2QyNDMwNDE1MjkzMjg1ZTg5Y2NiZjdmNjE=
+        createdAt:
+          type: integer
+          format: int64
+          description: The exact time, in epoch milliseconds, when this Network Token Cryptogram was created.
+          example: 1692972623233
+      required:
+      - id
+      - cryptogram
+      - createdAt
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+          description: A distinct error code, presented in slug format, that identifies a specific error.
+          example: invalid-request
+        title:
+          type: string
+          description: A short, human-readable summary of the error.
+          example: Invalid Request
+        status:
+          type: integer
+          description: The HTTP status code for the error.
+          example: 400
+        detail:
+          type: string
+          description: A human-readable explanation of the error.
+          example: The provided action was invalid
+        fields:
+          type: array
+          items:
+            type: object
+            properties:
+              pointer:
+                type: string
+                description: The JSON pointer to the field that caused the error.
+                example: /card/number
+              reason:
+                type: string
+                description: A human-readable explanation of the error for this field.
+                example: The card number is required
+          example:
+          - pointer: /card/number
+            reason: The card number is required
+    NetworkToken:
+      summary: The Network Token Object
+      type: object
+      properties:
+        id:
+          type: string
+          description: A unique identifier representing a specific Network Token.
+          example: network_token_eead1d640d7c
+        number:
+          type: string
+          description: The unique number of the Network Token.
+          example: '4545454545454545'
+        expiry:
+          type: object
+          description: The expiry details of the Network Token.
+          properties:
+            month:
+              type: string
+              description: The month of the Network Token's expiry date, in MM format (e.g. 12 for December)
+              example: '12'
+            year:
+              type: string
+              description: The year of the Network Token's expiry date, in YY format (e.g. 26 for 2026)
+              example: '23'
+        card:
+          type: object
+          description: The details of the underlying encrypted card.
+          properties:
+            lastFour:
+              type: string
+              description: The last four digits of the card number.
+              example: '4545'
+            expiry:
+              type: object
+              description: The expiry details of the card.
+              properties:
+                month:
+                  type: string
+                  description: The month of the card's expiry date, in MM format (e.g. 12 for December)
+                  example: '12'
+                year:
+                  type: string
+                  description: The year of the card's expiry date, in YY format (e.g. 26 for 2026)
+                  example: '23'
+            brand:
+              type: string
+              enum:
+              - visa
+              - mastercard
+              - american-express
+              description: The card brand associated with the payment card.
+              example: visa
+        tokenRequestorIdentifier:
+          type: string
+          description: The identifier of the Token Requestor (TRID) that requested the Network Token.
+          example: '50165156978'
+        tokenServiceProvider:
+          type: string
+          description: The Token Service Provider (TSP) that issued the Network Token.
+          enum:
+          - mdes
+          - vts
+          - aets
+        paymentAccountReference:
+          type: string
+          description: The unique identifier of the Payment Account associated with this Network Token.
+          example: 512381d9f8e0629211e3949a08002
+        status:
+          type: string
+          enum:
+          - active
+          - inactive
+          - blocked
+          - provisioning
+          - suspended
+          - deleted
+          - expired
+          description: The status of the Network Token. Active means the token is valid and can be used for payments. Inactive means the token exists but is not currently active. Blocked and provisioning are reserved for future use. Suspended means the token is temporarily unusable but may be reactivated by the issuer or transition to deleted. Deleted is a terminal state where the token is permanently removed and a new credential must be obtained. Expired means the token has passed its expiration date and should not be used for transactions.
+          example: active
+        merchant:
+          type: string
+          description: The unique identifier of the Merchant associated with this Network Token.
+          example: merchant_eead1d640d7c
+        createdAt:
+          type: integer
+          format: int64
+          description: The exact time, in epoch milliseconds, when this Network Token was created.
+          example: 1692972623233
+        updatedAt:
+          type: integer
+          format: int64
+          description: The exact time, in epoch milliseconds, when this Network Token was last updated.
+          example: 1692972623768
+      required:
+      - id
+      - number
+      - expiry
+      - card
+      - tokenRequestorIdentifier
+      - tokenServiceProvider
+      - status
+      - merchant
+      - createdAt
+      example:
+        id: network_token_eead1d640d7c
+        number: '4498004918463434'
+        expiry:
+          month: '13'
+          year: '25'
+        card:
+          lastFour: '4242'
+          expiry:
+            month: 09
+            year: '26'
+          brand: visa
+        paymentAccountReference: 512381d9f8e0629211e3949a08002
+        tokenRequestorIdentifier: '40020248564'
+        tokenServiceProvider: vts
+        merchant: merchant_ddsaJsda9d86
+        status: active
+        createdAt: 1692972623233
+        updatedAt: 1692972623768
+    CardExpiry:
+      type: object
+      properties:
+        month:
+          type: string
+          description: The card expiry month, in MM format (e.g. 12 for December)
+          example: 09
+        year:
+          type: string
+          description: The card expiry year, in YY format (e.g. 26 for 2026)
+          example: '26'
+      required:
+      - month
+      - year
+  securitySchemes:
+    ApiKey:
+      type: http
+      scheme: basic
+      description: Authentication using an API key. The username is the App ID and the password is the Api Key.
+    TokenAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: RunToken
+      description: 'Authentication using a short lived run token that you can share with clients. The Authorization header must be formatted as follow: "RunToken <Function Run Token>"'
+    ClientSideToken:
+      type: http
+      scheme: bearer
+      bearerFormat: Token
+      description: 'Authentication using a short lived token that you can share with clients. The Authorization header must be formatted as follow: "Token <Client-Side Token>"'

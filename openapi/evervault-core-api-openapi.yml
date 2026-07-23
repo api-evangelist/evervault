@@ -1,0 +1,1353 @@
+openapi: 3.1.0
+info:
+  title: Evervault Core API
+  version: 0.0.1
+  description: The Evervault API allows developers to interact programmatically with their Evervault apps using HTTP requests.
+  contact:
+    email: support@evervault.com
+    name: Evervault Support Team
+    url: https://evervault.com
+servers:
+- url: https://api.evervault.com
+  description: The Evervault API server
+tags:
+- name: Core
+  x-category: true
+paths:
+  /encrypt:
+    post:
+      x-section: Core
+      summary: Encrypt
+      description: 'The encrypt endpoint can be used to encrypt the values of a JSON object, or file. When encrypting the values of a JSON object the `Content-Type` header should be set to `application/json`, when encrypting files it should be set to `application/octet-stream`.
+
+        '
+      operationId: encrypt
+      security:
+      - ApiKey: []
+      tags:
+      - Core
+      requestBody:
+        description: 'A JSON value or file to be encrypted. This can be any valid JSON
+
+          value: Objects, Arrays, Numbers, Boolean or Strings (strings should
+
+          be enclosed in double quotes).
+
+          '
+        x-content: 'A JSON value or file to be encrypted. This can be any valid JSON
+
+          value: Objects, Arrays, Numbers, Boolean or Strings (strings should
+
+          be enclosed in double quotes).
+
+          '
+        content:
+          application/json:
+            schema:
+              type:
+              - object
+              - array
+              - string
+              - number
+              - boolean
+              description: 'The JSON value to be encrypted. This can be any valid JSON value: Dictionaries, Arrays, Numbers, Boolean or Strings (strings should be enclosed in double quotes).'
+            examples:
+              Object:
+                value:
+                  phoneNumber: 555-2368
+              String:
+                value: 555-2368
+              Number:
+                value: 17185550123
+              Boolean:
+                value: true
+              Array:
+                value:
+                - 555-2368
+                - 1138
+                - true
+                - - 555-2368
+                - phoneNumber: 555-2368
+          application/octet-stream:
+            schema:
+              type: string
+              format: binary
+              description: Encrypts a file/bytes.
+      responses:
+        '200':
+          x-content: 'An encrypted JSON object or file. For JSON requests, The payload structure will be the same as the one in the request payload, with all of the values encrypted.
+
+            '
+          description: An encrypted JSON object or file
+          content:
+            application/json:
+              schema:
+                type:
+                - object
+                - array
+                - string
+                description: The encrypted JSON value.
+              examples:
+                Object:
+                  value:
+                    phoneNumber: ev:debug:Tk9D:GWgxSXezEFNw10b/:A6JZWe29uiZpP72w+nc0RXOdWdvgCulNqJv8aJpLE/gH:3V/PD54obBv0j+EJMaNNa/ny2tmZq7QM:$
+                String:
+                  value: ev:debug:Tk9D:GWgxSXezEFNw10b/:A6JZWe29uiZpP72w+nc0RXOdWdvgCulNqJv8aJpLE/gH:3V/PD54obBv0j+EJMaNNa/ny2tmZq7QM:$
+                Number:
+                  value: ev:debug:Tk9D:number:Q+G8owQ5a0F8LfsM:A1iW9YmGNQjDOJ1N6KcdEoXwlORLnByhzCqJ52IIzUAn:iDmfDVHJezf/HsBUk+97HoZxI6Y=:$
+                Boolean:
+                  value: ev:debug:Tk9D:boolean:4tbwx0c6+mItTWRw:Au17EvAAE25NQqBwoeKgjxlGodhEoFqT2HUDZba9UMc1:hiG9MaMSmErtV36EkiwdncN6irM=:$
+                Array:
+                  value:
+                  - ev:debug:Tk9D:GWgxSXezEFNw10b/:A6JZWe29uiZpP72w+nc0RXOdWdvgCulNqJv8aJpLE/gH:3V/PD54obBv0j+EJMaNNa/ny2tmZq7QM:$
+                  - ev:debug:Tk9D:number:Q+G8owQ5a0F8LfsM:A1iW9YmGNQjDOJ1N6KcdEoXwlORLnByhzCqJ52IIzUAn:iDmfDVHJezf/HsBUk+97HoZxI6Y=:$
+                  - ev:debug:Tk9D:boolean:4tbwx0c6+mItTWRw:Au17EvAAE25NQqBwoeKgjxlGodhEoFqT2HUDZba9UMc1:hiG9MaMSmErtV36EkiwdncN6irM=:$
+                  - - ev:debug:Tk9D:ZV4ziNgNR7GEBnaD:AwF7SWjkTpAb0fQp5PvDHNMKE31HfXRDi75m+Xih8RjJ:4yqHe3WIAyWv55oblxnGwpxFKUBokYlN:$
+                  - phoneNumber: ev:debug:Tk9D:lAYux5azj+mjNLCp:AxGGQwASV58EKzpqVvHDnnHrjnkgssOU9wEI58edihbN:FRbTkv/Kf1R4WsSrRF3mshNgGx517XKd:$
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+                description: The encrypted file/bytes
+  /decrypt:
+    post:
+      x-section: Core
+      summary: Decrypt
+      description: 'The decrypt endpoint can be used to decrypt the values of a JSON object, or file. When decrypting the values of a JSON object the `Content-Type` header should be set to `application/json`, when decrypting files it should be set to `application/octet-stream`.
+
+        '
+      operationId: decrypt
+      security:
+      - ApiKey:
+        - api:decrypt
+      - ClientSideToken:
+        - api:decrypt
+      tags:
+      - Core
+      requestBody:
+        description: 'A JSON value or file to be decrypted. This can be any valid JSON
+
+          value: Objects, Arrays, Numbers, Boolean or Strings (strings should
+
+          be enclosed in double quotes).
+
+          '
+        x-content: 'A JSON value or file to be decrypted. This can be any valid JSON
+
+          value: Objects, Arrays, Numbers, Boolean or Strings (strings should
+
+          be enclosed in double quotes).
+
+          '
+        content:
+          application/json:
+            schema:
+              type:
+              - object
+              - array
+              - string
+              description: 'The JSON value to be decrypted. This can be any valid JSON value: Dictionaries, Arrays or Strings (strings should be enclosed in double quotes). Non-encrypted values are returned unaltered.'
+            examples:
+              Object:
+                value:
+                  phoneNumber: ev:debug:Tk9D:cvuknWyEBK9VT1Dv:AzyAK0mI+KP8PU5SqjRHqVSXxTkWUDwotj7qht9/Y8X6:5azjL53LkeIMdfwp4zJoApNpWJ2hJ8NKhSF5OdGejexerv8Pz7i7WDo=:$
+              String:
+                value: ev:debug:Tk9D:cvuknWyEBK9VT1Dv:AzyAK0mI+KP8PU5SqjRHqVSXxTkWUDwotj7qht9/Y8X6:5azjL53LkeIMdfwp4zJoApNpWJ2hJ8NKhSF5OdGejexerv8Pz7i7WDo=:$
+              Number:
+                value: ev:debug:Tk9D:cvuknWyEBK9VT1Dv:AzyAK0mI+KP8PU5SqjRHqVSXxTkWUDwotj7qht9/Y8X6:5azjL53LkeIMdfwp4zJoApNpWJ2hJ8NKhSF5OdGejexerv8Pz7i7WDo=:$
+              Boolean:
+                value: ev:debug:Tk9D:cvuknWyEBK9VT1Dv:AzyAK0mI+KP8PU5SqjRHqVSXxTkWUDwotj7qht9/Y8X6:5azjL53LkeIMdfwp4zJoApNpWJ2hJ8NKhSF5OdGejexerv8Pz7i7WDo=:$
+              Array:
+                value:
+                - ev:debug:Tk9D:cvuknWyEBK9VT1Dv:AzyAK0mI+KP8PU5SqjRHqVSXxTkWUDwotj7qht9/Y8X6:5azjL53LkeIMdfwp4zJoApNpWJ2hJ8NKhSF5OdGejexerv8Pz7i7WDo=:$
+                - ev:debug:Tk9D:number:VgghOI6CiNwopB5a:A36bghlqi552fAQe+FIGm6xQOTDXqT7aZ6Y8T8BL78OM:IQE9kOqjWNZ224RW2/aTVsohXsA=:$
+                - ev:debug:Tk9D:boolean:tJhxI4I9P2hZTask:AllHDCO297G2syVEbbsyoxOJI9XhgMGDDMaZYiq1H3w9:cvAGst7Y3/4aiS4xg9r/i4z5Vkg=:$
+                - - ev:debug:Tk9D:cvuknWyEBK9VT1Dv:AzyAK0mI+KP8PU5SqjRHqVSXxTkWUDwotj7qht9/Y8X6:5azjL53LkeIMdfwp4zJoApNpWJ2hJ8NKhSF5OdGejexerv8Pz7i7WDo=:$
+                - phoneNumber: ev:debug:Tk9D:cvuknWyEBK9VT1Dv:AzyAK0mI+KP8PU5SqjRHqVSXxTkWUDwotj7qht9/Y8X6:5azjL53LkeIMdfwp4zJoApNpWJ2hJ8NKhSF5OdGejexerv8Pz7i7WDo=:$
+          application/octet-stream:
+            schema:
+              type: string
+              format: binary
+              description: Decrypts a file/bytes.
+      responses:
+        '200':
+          x-content: 'A decrypted JSON object or file. For JSON requests, The payload structure will be the same as the one in the request payload, with any encrypted values decrypted.
+
+            '
+          description: A decrypted JSON value or file.
+          content:
+            application/json:
+              schema:
+                type:
+                - object
+                - array
+                - string
+                - number
+                - boolean
+                description: The decrypted JSON value.
+              examples:
+                Object:
+                  value:
+                    phoneNumber: 555-2368
+                String:
+                  value: 0118 999 881 999 119 7253
+                Number:
+                  value: 1138
+                Boolean:
+                  value: true
+                Array:
+                  value:
+                  - 0118 999 881 999 119 7253
+                  - 1138
+                  - true
+                  - 0118 999 881 999 119 7253
+                  - phoneNumber: 0118 999 881 999 119 7253
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+                description: The decrypted file/bytes
+  /inspect:
+    post:
+      x-section: Core
+      summary: Inspect
+      operationId: inspect
+      description: 'Retrieve metadata for an encrypted value such as the time of encryption,
+
+        the type of data, the data role and category-specific metadata (e.g. card metadata)
+
+        without accessing the plaintext value.
+
+        '
+      tags:
+      - Core
+      security:
+      - ApiKey:
+        - api:inspect
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                token:
+                  type: string
+                  description: The encrypted data to be inspected.
+                  example: ev:debug:Tk9D:HBpzdbFWXbX/N2cC:AyjMY/SKO49SlkXcDPtCGs+DxnUn/F8/lAtajCYZ/xT7:KV7AUn9vJJkZDtL8PKdOc8Y11yTL2vZQasFuHqM=:$
+              required:
+              - token
+            examples:
+              Object:
+                value:
+                  token: ev:debug:Tk9D:HBpzdbFWXbX/N2cC:AyjMY/SKO49SlkXcDPtCGs+DxnUn/F8/lAtajCYZ/xT7:KV7AUn9vJJkZDtL8PKdOc8Y11yTL2vZQasFuHqM=:$
+      responses:
+        '200':
+          description: The metadata of the encrypted data that was submitted for inspection.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  type:
+                    type: string
+                    enum:
+                    - integer
+                    - float
+                    - boolean
+                    - string
+                    description: The type of the encrypted value.
+                    example: string
+                  category:
+                    type: string
+                    enum:
+                    - card-number
+                    description: The category or specific nature of the encrypted value.
+                    example: card-number
+                  encryptedAt:
+                    type: integer
+                    description: The date and time when the value was encrypted. This is a Unix timestamp in milliseconds. This field is currently only populated for values encrypted with a Data Role.
+                    example: 1700067122000
+                  role:
+                    type: string
+                    description: The data role of the encrypted value.
+                    example: payment-data
+                  fingerprint:
+                    type: string
+                    description: A unique identifier for the encrypted value.
+                    example: WUlcOAgQcTN1GEUaoaKrLH1wL2PZrjsUS7byUGZyUEA
+                  metadata:
+                    description: Further metadata about the encrypted value. Returns different information based on the category of the data.
+                    oneOf:
+                    - $ref: '#/components/schemas/CardMetadata'
+              examples:
+                Encrypted Card Number:
+                  value:
+                    type: string
+                    category: card-number
+                    encryptedAt: 1700067122000
+                    role: payment-data
+                    fingerprint: WUlcOAgQcTN1GEUaoaKrLH1wL2PZrjsUS7byUGZyUEA
+                    metadata:
+                      bin: '424242'
+                      lastFour: '4242'
+                      brand: visa
+                      funding: debit
+                      segment: consumer
+                      country: gb
+                      currency: gbp
+                      issuer: Gringotts Wizarding Bank and Trust Company
+                Encrypted String:
+                  value:
+                    type: string
+                    encryptedAt: 1700067122000
+                    role: sensitive-data
+                    fingerprint: WUlcOAgQcTN1GEUaoaKrLH1wL2PZrjsUS7byUGZyUEA
+                Encrypted Boolean:
+                  value:
+                    type: boolean
+                    encryptedAt: 1700067122000
+                    role: sensitive-data
+                    fingerprint: WUlcOAgQcTN1GEUaoaKrLH1wL2PZrjsUS7byUGZyUEA
+                Encrypted Integer:
+                  value:
+                    type: integer
+                    encryptedAt: 1700067122000
+                    role: sensitive-data
+                    fingerprint: WUlcOAgQcTN1GEUaoaKrLH1wL2PZrjsUS7byUGZyUEA
+                Encrypted Float:
+                  value:
+                    type: float
+                    encryptedAt: 1700067122000
+                    role: sensitive-data
+                    fingerprint: WUlcOAgQcTN1GEUaoaKrLH1wL2PZrjsUS7byUGZyUEA
+  /functions/{function_name}/runs:
+    post:
+      x-section: Functions
+      summary: Run a Function
+      operationId: createFunctionRun
+      description: 'The Function run endpoint lets you invoke an [Evervault Function](/primitives/functions). The body of the request should contain a payload, the value of which will be decrypted and passed as an argument to the Function.
+
+        '
+      tags:
+      - Core
+      security:
+      - ApiKey: []
+      - TokenAuth: []
+      parameters:
+      - name: function_name
+        in: path
+        description: The name of the Function to be executed.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                payload:
+                  type: object
+                  description: The data payload that the Function will use during its execution. Any encrypted values will be decrypted before being passed to the function.
+                  example:
+                    name: ev:debug:Tk9D:oVPHsPvwFHNk73DU:AglNWOgZekolcrxdxSpZJOusBgE+C9eWSapGIZkgTsUj:JKeSkdhVE9SCXqQINID4oBRCE/VhTb56VWGqyObP:$
+                async:
+                  type: boolean
+                  description: If you want your Function to run asynchronously and notify a callback URL, this can be set to `true` and the API will queue your Function run and return a `202` response code.
+                  example: false
+              required:
+              - payload
+            examples:
+              SimpleExample:
+                value:
+                  payload:
+                    name: ev:Tk9D:oVPHsPvwFHNk73DU:AglNWOgZekolcrxdxSpZJOusBgE+C9eWSapGIZkgTsUj:JKeSkdhVE9SCXqQINID4oBRCE/VhTb56VWGqyObP:$
+      responses:
+        '200':
+          description: The Function run has completed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FunctionRun'
+              examples:
+                SuccessfulRun:
+                  summary: Successful Run
+                  value:
+                    id: func_run_eead1d640d7c
+                    status: success
+                    result:
+                      message: Hello from a Function! It seems you have 14 letters in your name
+                    createdAt: 1692972623233
+                  description: The Function ran successfully
+                FailedRun:
+                  summary: Failed Run
+                  value:
+                    id: func_run_b4b2afe37083
+                    status: failure
+                    error:
+                      message: Some error message
+                      stack: 'Error: Some error message!\n    at exports.handler (/runtime/app/index.js:5:11)\n    at /runtime/index.js:64:26\n    at new Promise (<anonymous>)\n    at /runtime/index.js:51:16'
+                    createdAt: 1692972623233
+                  description: An error occurred during Function execution
+        '202':
+          description: The asynchronous Function invocation has been queued.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FunctionRun'
+              examples:
+                QueuedRun:
+                  summary: Queued Run
+                  value:
+                    status: scheduled
+        '408':
+          description: The request has timed out.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                RequestTimeout:
+                  summary: Request Timeout
+                  value:
+                    code: functions/request-timeout
+                    title: Request Timeout
+                    status: 408
+                    detail: Function execution exceeded the allotted time and has timed out. Please review your code to ensure it finishes within the time limit set in function.toml.
+        '409':
+          description: 'The Function is not ready to be invoked yet. This can occur when
+
+            it hasn''t been executed in a while. Retrying to run the Function after a short
+
+            time should resolve this.
+
+            '
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                FunctionNotReady:
+                  summary: Function Not Ready
+                  value:
+                    code: functions/function-not-ready
+                    title: Function Not Ready
+                    status: 409
+                    detail: The Function is not ready to be invoked yet. This can occur when it hasn't been executed recently. Please try again shortly.
+  /client-side-tokens:
+    post:
+      summary: Create a Client Token
+      operationId: create-client-side-token
+      description: 'Client-Side Tokens are restricted to specific payloads. By default, a Client-Side Token will expire after 5 minutes. The maximum expiration time of a token is 10 minutes. When using the REST API, the expiry field must be in epoch milliseconds.
+
+        '
+      tags:
+      - Core
+      security:
+      - ApiKey: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - action
+              properties:
+                action:
+                  type: string
+                  enum:
+                  - api:decrypt
+                  description: The action that the token should permit
+                payload:
+                  type: object
+                  description: The payload that the token must be used with
+                  example:
+                    name: ev:debug:Tk9D:OJzdN+H2FxM86+Oa:AuUCGfKH8yYkzUvg0EjFgBOI/95D3RDZp5nwz3f2eqwJ:Zg7lsCwr2liYQOkjaRI6mwHScyn4f/Y2cxlayglTTYk1VmmDxBa5:$
+                expiry:
+                  type: integer
+                  description: The expiry of the token in milliseconds format. Must be less than 10 minutes from now.
+                  example: 1619712000000
+            examples:
+              Decrypt:
+                value:
+                  action: api:decrypt
+                  payload:
+                    phoneNumber: ev:Tk9D:GWgxSXezEFNw10b/:A6JZWe29uiZpP72w+nc0RXOdWdvgCulNqJv8aJpLE/gH:3V/PD54obBv0j+EJMaNNa/ny2tmZq7QM:$
+      responses:
+        '201':
+          description: A client side token and its expiry
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClientSideToken'
+              examples:
+                Decrypt:
+                  summary: Decrypt Token
+                  value:
+                    id: client_side_token_TDbEef6lgIs
+                    token: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ2ZXJzaW9uIjoxLCJhcHBfdXVpZCI6ImFwcF82YWJlZDM1ZDc2YjkiLCJ0ZWFtX3V1aWQiOiJ0ZWFtX2FiZjU1YTk5MTY0NSIsImp0aSI6ImNsaWVudF9zaWRlX3Rva2VuX1REYkVlZjZsZ0lzIiwiZXhwIjoxNzA3MjMzODQxOTgxLCJhY3Rpb24iOiJhcGk6ZGVjcnlwdCIsInJlc291cmNlIjpudWxsLCJoYXNoZWRfYm9keSI6IlJCTnZvMVd6WjRvUlJxMFc5LWhrbnBUN1Q4SWY1MzZERU1CZzloeXFfNG8iLCJjbGllbnRfaXAiOm51bGx9.ea1w3TlZ7p-OLVs-NOAUMij4V5w-9vMAD8W2WEoklsDwwgy8HANXP4e8eAjTA0CkELoUL2FgNesS6S77Z-coG1Yw9TGnkEchgkA6RAXqF65t1bLrW0rvl2AzwFZNwJpEbJc37YqyC2xGeermmYKZCu6in97_fe4rAXSYQiuVtN6V8uLSlAgP9Mr0BmNIf49fnskbc0y2-2qewvZfRM7mPQ6NXcQE_jhUjy3OhaohdvU1FpaLs3OrzW2Ej8wE1hOjc5hRtT2cslaY4Bl2x4YNMRVObWg7GYCdETG280ilXTUu9jIPmkXt8QBzouZOP5nuhCjYxFJ2fYZMLj7vYukwdiyBtiUADXDzmnFyh7icAWib76z_hW3VLRjQSlq-fgvQJfM71j5RGBEmLrQNAPRREYjCiM8cwmOh5sFaLdmu4wM6-lgPn8dvHSqENwggs_nfxPyavHChNn8KOo4FS64YYeB28hqSvBAMT-umCdv7n2I-YF6fJOpgJrQOK35MPt4kKfqULJ45wpSnzsSpT9kTrLw0-9-6JpMtsQio0UJ27aXHMPErFcNMcW2hEhPdNsjSfIEmK7lCaUOed-wETkkfIaoTe5ly051baj-VWbAbNXH2jduia2rCZoofXTABADRzeBrFyDNRZXNQ205n0xh3PpIcazKw_vCAD_EDXmcCsFo
+                    expiry: 1707233841981
+                    createdAt: 1707233541981
+  /relays:
+    post:
+      operationId: createRelay
+      summary: Create a Relay
+      description: Creates a new [Relay](/relay).
+      tags:
+      - Core
+      security:
+      - ApiKey: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                destinationDomain:
+                  type: string
+                  description: The domain in front of which you would like to configure a Relay
+                  example: example.com
+                routes:
+                  type: array
+                  description: A collection of route configurations for the Relay.
+                  items:
+                    $ref: '#/components/schemas/RelayRoute'
+                encryptEmptyStrings:
+                  type: boolean
+                  description: Whether or not empty strings should be encrypted. Defaults to true.
+                  example: true
+                authentication:
+                  type:
+                  - string
+                  - 'null'
+                  enum:
+                  - api-key
+                  - null
+                  x-enum-description:
+                    api-key: Requires API key
+                    'null': Allows unauthenticated requests
+                  description: 'The type of authentication required for the Relay
+
+                    '
+              required:
+              - destinationDomain
+              - routes
+            examples:
+              Basic:
+                value:
+                  destinationDomain: example.com
+                  encryptEmptyStrings: true
+                  authentication: null
+                  routes:
+                  - method: POST
+                    path: /checkout
+                    request:
+                    - action: encrypt
+                      selections:
+                      - type: json
+                        selector: $.cardNumber
+                    response:
+                    - action: decrypt
+                      selections:
+                      - type: json
+                        selector: $..*
+      responses:
+        '201':
+          description: The Relay has been created
+          x-content: 'Returns the [Relay object](#the-relay-object) that was created.
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Relay'
+              examples:
+                Basic:
+                  value:
+                    id: relay_destination_d4ja57js9lnh
+                    destinationDomain: example.com
+                    evervaultDomain: example-com.app-12345.relay.evervault.app
+                    encryptEmptyStrings: true
+                    routes:
+                    - method: POST
+                      path: /checkout
+                      request:
+                      - action: encrypt
+                        selections:
+                        - type: json
+                          role: pci
+                          selector: $.cardNumber
+                      response:
+                      - action: decrypt
+                        selections:
+                        - type: json
+                          selector: $..*
+                    app: app_cc7fcd533649
+                    createdAt: 1692972623233
+                    updatedAt: 1692972623234
+    get:
+      operationId: listRelays
+      summary: List all Relays
+      description: Lists all [Relays](/relay) for the App.
+      tags:
+      - Core
+      security:
+      - ApiKey: []
+      responses:
+        '200':
+          description: The App's Relays have been fetched.
+          x-content: 'Returns a list of [Relay objects](#the-relay-object).
+
+            '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    description: An array of Relays belonging to the App.
+                    items:
+                      $ref: '#/components/schemas/Relay'
+              examples:
+                Basic:
+                  value:
+                    data:
+                    - id: relay_destination_d4ja57js9lnh
+                      destinationDomain: example.com
+                      evervaultDomain: example-com.app-12345.relay.evervault.app
+                      encryptEmptyStrings: true
+                      authentication: api-key
+                      routes:
+                      - method: POST
+                        path: /checkout
+                        request:
+                        - action: encrypt
+                          selections:
+                          - type: json
+                            role: pci
+                            selector: $.cardNumber
+                        response:
+                        - action: decrypt
+                          selections:
+                          - type: json
+                            selector: $..*
+                      app: app_cc7fcd533649
+                      createdAt: 1692972623233
+                      updatedAt: 1692972623234
+  /relays/{id}:
+    get:
+      operationId: fetchRelay
+      summary: Retrieve a Relay
+      description: Retrieves a [Relay](/relay) by its ID.
+      tags:
+      - Core
+      security:
+      - ApiKey: []
+      parameters:
+      - name: id
+        in: path
+        description: The id of the Relay to be fetched.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: The Relay has been fetched.
+          x-content: 'Returns the [Relay object](#the-relay-object).
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Relay'
+              examples:
+                Basic:
+                  value:
+                    id: relay_destination_d4ja57js9lnh
+                    destinationDomain: example.com
+                    evervaultDomain: example-com.app-12345.relay.evervault.app
+                    encryptEmptyStrings: true
+                    authentication: api-key
+                    routes:
+                    - method: POST
+                      path: /checkout
+                      request:
+                      - action: encrypt
+                        selections:
+                        - type: json
+                          role: pci
+                          selector: $.cardNumber
+                      response: []
+                    app: app_cc7fcd533649
+                    createdAt: 1692972623233
+    patch:
+      operationId: updateRelay
+      summary: Updates a Relay
+      description: Updates a [Relay](/relay). Any properties not provided are left unchanged.
+      tags:
+      - Core
+      security:
+      - ApiKey: []
+      parameters:
+      - name: id
+        in: path
+        description: The id of the Relay to be updated.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                routes:
+                  type: array
+                  description: 'A collection of route configurations for the Relay. Any existing route configurations will be replaced with the new configurations.
+
+                    '
+                  items:
+                    $ref: '#/components/schemas/RelayRoute'
+                encryptEmptyStrings:
+                  type: boolean
+                  description: Whether or not empty strings should be encrypted.
+                  example: true
+                authentication:
+                  type:
+                  - string
+                  - 'null'
+                  enum:
+                  - api-key
+                  - null
+                  description: The type of authentication required for the Relay.
+            examples:
+              Basic:
+                value:
+                  routes:
+                  - method: POST
+                    path: /checkout
+                    request:
+                    - action: encrypt
+                      selections:
+                      - type: json
+                        selector: $.cardNumber
+                    response: []
+      responses:
+        '200':
+          description: The Relay has been updated
+          x-content: 'Returns the updated [Relay object](#the-relay-object).
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Relay'
+              examples:
+                Basic:
+                  value:
+                    id: relay_destination_d4ja57js9lnh
+                    destinationDomain: example.com
+                    evervaultDomain: example-com.app-12345.relay.evervault.app
+                    encryptEmptyStrings: true
+                    authentication: null
+                    routes:
+                    - method: POST
+                      path: /checkout
+                      request:
+                      - action: encrypt
+                        selections:
+                        - type: json
+                          role: pci
+                          selector: $.cardNumber
+                      response: []
+                    app: app_cc7fcd533649
+                    createdAt: 1692972623233
+                    updatedAt: 1692972623234
+    delete:
+      operationId: deleteRelay
+      summary: Delete a Relay
+      description: Deletes a [Relay](/relay). This action cannot be undone and the Relay domain will no longer forward requests to its destination domain.
+      tags:
+      - Core
+      security:
+      - ApiKey: []
+      parameters:
+      - name: id
+        in: path
+        description: The id of the Relay to be deleted.
+        required: true
+        schema:
+          type: string
+      responses:
+        '202':
+          description: The Relay has been deleted
+  /relays/{relay_id}/custom-domains:
+    post:
+      summary: Create a Custom Domain
+      description: Creates a custom domain for the Relay
+      operationId: createCustomDomain
+      tags:
+      - Core
+      security:
+      - ApiKey: []
+      parameters:
+      - name: relay_id
+        in: path
+        description: The id of the Relay to which the custom domain should be added.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                customDomain:
+                  type: string
+                  description: The customer managed domain to which requests to be relayed to your domain should be sent.
+                  example: subdomain.example.com
+              required:
+              - customDomain
+            examples:
+              success:
+                value:
+                  customDomain: subdomain.example.com
+      responses:
+        '201':
+          description: The custom domain has been created
+          x-content: 'Returns the [Custom Domain object](#the-custom-domain-object) that was created.
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomDomain'
+              examples:
+                success:
+                  value:
+                    id: custom_domain_j3od9Bl0WV1n
+                    customDomain: subdomain.example.com
+                    status: active
+                    validationRecord: 986f3008-86e7-4caf-bd8b-a5d312844153
+                    relay: relay_destination_d4ja57js9lnh
+                    createdAt: 1692972623233
+                    updatedAt: 1692972623233
+    get:
+      summary: List all Custom Domains
+      operationId: fetchCustomDomainsForRelay
+      description: Lists all custom domains for a [Relay](/relay).
+      tags:
+      - Core
+      security:
+      - ApiKey: []
+      parameters:
+      - name: relay_id
+        in: path
+        description: The id of the Relay whose custom domains should be fetched.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: The Relay's custom domains have been fetched.
+          x-content: 'Returns a list of [Custom Domain objects](#the-custom-domain-object).
+
+            '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/CustomDomain'
+              examples:
+                success:
+                  value:
+                    data:
+                    - id: custom_domain_j3od9Bl0WV1n
+                      customDomain: subdomain.example.com
+                      status: active
+                      validationRecord: 986f3008-86e7-4caf-bd8b-a5d312844153
+                      relay: relay_destination_d4ja57js9lnh
+                      createdAt: 1692972623233
+                      updatedAt: 1692972623234
+  /relays/{relay_id}/custom-domains/{id}:
+    get:
+      summary: Retrieve a Custom Domain
+      operationId: retrieveCustomDomain
+      description: Retrieves a custom domain for a [Relay](/relay).
+      tags:
+      - Core
+      security:
+      - ApiKey: []
+      parameters:
+      - name: relay_id
+        in: path
+        description: The id of the Relay to which the custom domain belongs.
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        description: The id of the custom domain to be fetched.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: The custom domain has been fetched.
+          x-content: 'Returns the [Custom Domain object](#the-custom-domain-object).
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomDomain'
+              examples:
+                success:
+                  value:
+                    id: custom_domain_j3od9Bl0WV1n
+                    customDomain: subdomain.example.com
+                    status: active
+                    validationRecord: 986f3008-86e7-4caf-bd8b-a5d312844153
+                    relay: relay_destination_d4ja57js9lnh
+                    createdAt: 1692972623233
+                    updatedAt: 1692972623233
+    delete:
+      summary: Delete a Custom Domain
+      operationId: deleteCustomDomain
+      description: Deletes a custom domain for a [Relay](/relay). This action cannot be undone.
+      tags:
+      - Core
+      security:
+      - ApiKey: []
+      parameters:
+      - name: relay_id
+        in: path
+        description: The id of the Relay to which the custom domain belongs.
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        description: The id of the custom domain to be deleted.
+        required: true
+        schema:
+          type: string
+      responses:
+        '202':
+          description: The custom domain has been deleted
+components:
+  schemas:
+    CardBrand:
+      type: string
+      enum:
+      - visa
+      - mastercard
+      - american-express
+      - discover
+      - diners-club
+      - jcb
+      - unionpay
+      description: The card brand associated with the payment card.
+      example: visa
+    RelayRoute:
+      type: object
+      properties:
+        method:
+          type: string
+          description: The HTTP method that must be matched for the operation to be performed. For any method, use null.
+          enum:
+          - GET
+          - HEAD
+          - POST
+          - PUT
+          - DELETE
+          - PATCH
+          example: POST
+        path:
+          type: string
+          description: The path that must be matched for the operation to be performed. For wildcards, use '*'. For a catchall of all subsequent paths, use '**'.
+          example: /**
+        request:
+          type: array
+          maxItems: 1
+          description: The actions to be performed on the data on request.
+          items:
+            $ref: '#/components/schemas/RelayAction'
+        response:
+          type: array
+          maxItems: 1
+          description: The actions to be performed on the data on response.
+          items:
+            $ref: '#/components/schemas/RelayAction'
+      required:
+      - path
+      - request
+      - response
+    CardMetadata:
+      type: object
+      summary: Card Metadata
+      description: Only present if category is `card-number`
+      properties:
+        bin:
+          type: string
+          description: The first 6 or 8 digits of the card number.
+          example: '424242'
+        lastFour:
+          type: string
+          description: The last 4 digits of the card number.
+          example: '4242'
+        brand:
+          $ref: '#/components/schemas/CardBrand'
+        funding:
+          $ref: '#/components/schemas/CardFunding'
+        country:
+          type: string
+          format: iso-3166-1-alpha-2
+          description: The country where the card was issued.
+          example: gb
+        currency:
+          type: string
+          format: iso-4217-alphabetic
+          description: The currency of the card.
+          example: gbp
+        issuer:
+          type: string
+          description: The card issuer.
+          example: Gringotts Wizarding Bank and Trust Company
+        segment:
+          $ref: '#/components/schemas/CardSegment'
+      required:
+      - bin
+      - lastFour
+    Relay:
+      x-section: Relays
+      type: object
+      summary: The Relay Object
+      properties:
+        id:
+          type: string
+          description: The unique identifier for the Relay.
+          example: relay_destination_d4ja57js9lnh
+        destinationDomain:
+          type: string
+          description: The domain in front of which the Relay should be configured.
+          example: example.com
+        evervaultDomain:
+          type: string
+          description: The Evervault managed domain to which requests to be relayed to the destination domain should be sent.
+          example: example-com.app-12345.relay.evervault.app
+        routes:
+          type: array
+          description: A collection of route configurations for the Relay.
+          items:
+            $ref: '#/components/schemas/RelayRoute'
+        authentication:
+          type:
+          - string
+          - 'null'
+          description: The type of authentication required for the Relay
+          enum:
+          - api-key
+          - null
+          x-enum-description:
+            api-key: Requires API key
+            'null': Allows unauthenticated requests
+        encryptEmptyStrings:
+          type: boolean
+          description: Whether or not empty strings should be encrypted.
+          example: true
+        app:
+          type: string
+          description: The unique identifier for the app to which the Relay belongs.
+        createdAt:
+          type: integer
+          format: int64
+          description: The exact time, in epoch milliseconds, when this Relay was created.
+          example: 1692972623233
+        updatedAt:
+          type: integer
+          format: int64
+          description: The exact time, in epoch milliseconds, when this Relay was updated.
+          example: 1692972623234
+      example:
+        id: relay_destination_d4ja57js9lnh
+        destinationDomain: example.com
+        evervaultDomain: example-com.app-12345.relay.evervault.app
+        encryptEmptyStrings: true
+        authentication: null
+        routes:
+        - method: POST
+          path: /checkout
+          request:
+          - action: encrypt
+            selections:
+            - type: json
+              role: pci
+              selector: $.cardNumber
+          response:
+          - action: decrypt
+            selections:
+            - type: json
+              selector: $..*
+        app: app_cc7fcd533649
+        createdAt: 1692972623233
+        updatedAt: 1692972623234
+    ClientSideToken:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The id of the token
+          example: client_side_token_TDbEef6lgIs
+        token:
+          type: string
+          description: The token
+          example: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ2ZXJzaW9uIjoxLCJhcHBfdXVpZCI6ImFwcF82YWJlZDM1ZDc2YjkiLCJ0ZWFtX3V1aWQiOiJ0ZWFtX2FiZjU1YTk5MTY0NSIsImp0aSI6ImNsaWVudF9zaWRlX3Rva2VuX1REYkVlZjZsZ0lzIiwiZXhwIjoxNzA3MjMzODQxOTgxLCJhY3Rpb24iOiJhcGk6ZGVjcnlwdCIsInJlc291cmNlIjpudWxsLCJoYXNoZWRfYm9keSI6IlJCTnZvMVd6WjRvUlJxMFc5LWhrbnBUN1Q4SWY1MzZERU1CZzloeXFfNG8iLCJjbGllbnRfaXAiOm51bGx9.ea1w3TlZ7p-OLVs-NOAUMij4V5w-9vMAD8W2WEoklsDwwgy8HANXP4e8eAjTA0CkELoUL2FgNesS6S77Z-coG1Yw9TGnkEchgkA6RAXqF65t1bLrW0rvl2AzwFZNwJpEbJc37YqyC2xGeermmYKZCu6in97_fe4rAXSYQiuVtN6V8uLSlAgP9Mr0BmNIf49fnskbc0y2-2qewvZfRM7mPQ6NXcQE_jhUjy3OhaohdvU1FpaLs3OrzW2Ej8wE1hOjc5hRtT2cslaY4Bl2x4YNMRVObWg7GYCdETG280ilXTUu9jIPmkXt8QBzouZOP5nuhCjYxFJ2fYZMLj7vYukwdiyBtiUADXDzmnFyh7icAWib76z_hW3VLRjQSlq-fgvQJfM71j5RGBEmLrQNAPRREYjCiM8cwmOh5sFaLdmu4wM6-lgPn8dvHSqENwggs_nfxPyavHChNn8KOo4FS64YYeB28hqSvBAMT-umCdv7n2I-YF6fJOpgJrQOK35MPt4kKfqULJ45wpSnzsSpT9kTrLw0-9-6JpMtsQio0UJ27aXHMPErFcNMcW2hEhPdNsjSfIEmK7lCaUOed-wETkkfIaoTe5ly051baj-VWbAbNXH2jduia2rCZoofXTABADRzeBrFyDNRZXNQ205n0xh3PpIcazKw_vCAD_EDXmcCsFo
+        expiry:
+          type: integer
+          description: The expiry of the token in unix millis format
+          example: 1707233841981
+        createdAt:
+          type: integer
+          description: The creation time of the token in unix millis format
+          example: 1707233541981
+    RelaySelection:
+      type: object
+      properties:
+        type:
+          type: string
+          description: The type of the selector used to identify the data on which the action should be performed.
+          enum:
+          - header
+          - json
+          - form
+          x-enum-description:
+            header: '`selector` should be a case-insensitive header name'
+            json: '`selector` should be a valid JSONPath string to select fields in the JSON payload'
+            form: '`selector` should be an exact form field name'
+          example: json
+        role:
+          type: string
+          description: The role of the encrypted field that must be matched for the operation to be performed.
+          example: pci
+        selector:
+          type: string
+          description: 'The selector that identifies the data on which the action should be performed
+
+            '
+          example: $.cardNumber
+      required:
+      - selector
+    CardSegment:
+      type: string
+      enum:
+      - consumer
+      - commercial
+      - business
+      - government
+      - payouts
+      - all
+      x-enum-description:
+        consumer: Personal use cards
+        commercial: Cards used by large organizations or corporations
+        business: Small to medium-sized business use
+        government: Cards used by government entities
+        payouts: Cards designed to disburse payments like payroll or cashback
+        all: General-purpose cards not confined to a specific segment
+      description: 'The card segment indicates the primary market or usage category of the
+
+        card.
+
+        '
+      example: consumer
+    RelayAction:
+      type: object
+      properties:
+        action:
+          type: string
+          description: The operation to perform on the selected data.
+          enum:
+          - encrypt
+          - decrypt
+          example: encrypt
+        selections:
+          type: array
+          description: The selections of data on which the operation will be performed.
+          items:
+            $ref: '#/components/schemas/RelaySelection'
+      required:
+      - action
+      - selections
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+          description: A distinct error code, presented in slug format, that identifies a specific error.
+          example: invalid-request
+        title:
+          type: string
+          description: A short, human-readable summary of the error.
+          example: Invalid Request
+        status:
+          type: integer
+          description: The HTTP status code for the error.
+          example: 400
+        detail:
+          type: string
+          description: A human-readable explanation of the error.
+          example: The provided action was invalid
+        fields:
+          type: array
+          items:
+            type: object
+            properties:
+              pointer:
+                type: string
+                description: The JSON pointer to the field that caused the error.
+                example: /card/number
+              reason:
+                type: string
+                description: A human-readable explanation of the error for this field.
+                example: The card number is required
+          example:
+          - pointer: /card/number
+            reason: The card number is required
+    FunctionRun:
+      type: object
+      properties:
+        id:
+          type: string
+          description: A unique identifier representing this specific Function execution instance.
+          example: func_run_eead1d640d7c
+        status:
+          type: string
+          description: The outcome of the Function execution.
+          enum:
+          - success
+          - failure
+          - scheduled
+          x-enum-description:
+            success: The Function executed successfully
+            failure: The Function encountered an error
+            scheduled: The Function execution has been queued
+          example: success
+        result:
+          type: object
+          description: This field represents the output returned by the Function. This is provided only when the Function execution status is 'success'.
+          example:
+            message: Hello, World
+        error:
+          type:
+          - object
+          - 'null'
+          description: This field details any error that occurred during Function execution. This is present only if the status is 'failure'.
+          properties:
+            message:
+              type: string
+              description: A concise explanation of the error that occurred during Function execution.
+              example: Some error message!
+            stack:
+              type: string
+              description: A trace detailing the sequence of events leading to the error, useful for debugging purposes.
+              example: "Error: Some error message!\n    at exports.handler (/runtime/app/index.js:5:11)\n    at /runtime/index.js:64:26\n    at new Promise (<anonymous>)\n    at /runtime/index.js:51:16"
+        createdAt:
+          type: integer
+          format: int64
+          description: The exact time, in epoch milliseconds, when this Function execution was triggered.
+          example: 1692972623233
+    CardFunding:
+      type: string
+      enum:
+      - debit
+      - credit
+      - prepaid
+      - deferred-debit
+      - charge
+      x-enum-description:
+        debit: Draw funds directly from a linked bank account
+        credit: Provide a line of credit from which users can borrow funds for transactions
+        prepaid: Loaded with a set amount of funds in advance and can be used until the balance is depleted
+        deferred-debit: Combine aspects of debit and credit cards, allowing transactions to be debited from a linked account at a later date, usually monthly
+        charge: Require full payment of the balance at the end of each billing cycle, but do not have a pre-set spending limit
+      description: 'The card funding type specifies the method by which transactions are
+
+        financed.
+
+        '
+      example: debit
+    CustomDomain:
+      x-section: Relays
+      x-group: Custom Domains
+      type: object
+      summary: The Custom Domain Object
+      properties:
+        id:
+          type: string
+          description: The unique identifier for the custom domain.
+          example: custom_domain_j3od9Bl0WV1n
+        customDomain:
+          type: string
+          description: The customer managed domain to which requests to be relayed to your domain should be sent.
+          example: subdomain.example.com
+        relay:
+          type: string
+          description: The ID of the Relay with which this custom domain is associated.
+          example: relay_destination_d4ja57js9lnh
+        status:
+          type: string
+          enum:
+          - active
+          - inactive
+          description: The status of the domains DNS verification.
+          x-enum-description:
+            active: The domain is active and can be used for requests
+            inactive: The domain is inactive and cannot be used for requests
+        validationRecord:
+          type: string
+          format: uuidv4
+          description: Validation TXT record to be added on the `_ev-custom-relay` subdomain of your custom domain
+          example: 986f3008-86e7-4caf-bd8b-a5d312844153
+        createdAt:
+          type: integer
+          format: int64
+          description: The exact time, in epoch milliseconds, when this custom domain was created.
+          example: 1692972623233
+        updatedAt:
+          type: integer
+          format: int64
+          description: The exact time, in epoch milliseconds, when this custom domain was last updated.
+          example: 1692972623233
+      example:
+        id: custom_domain_j3od9Bl0WV1n
+        customDomain: subdomain.example.com
+        status: active
+        validationRecord: 986f3008-86e7-4caf-bd8b-a5d312844153
+        relay: relay_destination_d4ja57js9lnh
+        createdAt: 1692972623233
+        updatedAt: 1692972623233
+  securitySchemes:
+    ApiKey:
+      type: http
+      scheme: basic
+      description: Authentication using an API key. The username is the App ID and the password is the Api Key.
+    TokenAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: RunToken
+      description: 'Authentication using a short lived run token that you can share with clients. The Authorization header must be formatted as follow: "RunToken <Function Run Token>"'
+    ClientSideToken:
+      type: http
+      scheme: bearer
+      bearerFormat: Token
+      description: 'Authentication using a short lived token that you can share with clients. The Authorization header must be formatted as follow: "Token <Client-Side Token>"'
