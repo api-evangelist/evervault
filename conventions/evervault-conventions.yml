@@ -1,0 +1,35 @@
+generated: '2026-07-19'
+method: searched
+source: https://docs.evervault.com/api + https://docs.evervault.com/developers/api-keys + openapi/evervault-openapi-original.json
+authentication:
+  style: HTTP Basic (App ID as username, API key as password) for server-side; short-lived bearer tokens (RunToken, Client-Side Token) for client/function contexts.
+  scoping: API keys can be created, scoped, rotated, and revoked.
+  ref: authentication/evervault-authentication.yml
+idempotency:
+  supported: false
+  note: No Idempotency-Key header is documented for the Evervault API at generation date.
+pagination:
+  style: none-documented
+  response_envelope: "List endpoints return a top-level `data` array."
+  params: []
+  response_fields: [data]
+field_expansion:
+  supported: false
+metadata:
+  supported: true
+  note: Cards, Merchants and other payment resources accept a free-form metadata object.
+request_tracing:
+  request_id_header: null
+versioning:
+  scheme: header-date
+  ref: lifecycle/evervault-lifecycle.yml
+error_envelope:
+  media_type: application/problem+json
+  standard: rfc9457
+  fields: [code, title, status, detail]
+  ref: errors/evervault-problem-types.yml
+rate_limit_signaling:
+  documented: false
+webhooks:
+  supported: true
+  ref: asyncapi/evervault-webhooks.yml

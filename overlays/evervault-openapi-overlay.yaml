@@ -1,0 +1,19 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Evervault API
+  version: 1.0.0
+extends: openapi/evervault-openapi-original.json
+actions:
+  - target: $.info
+    update:
+      x-apievangelist-provider: evervault
+      x-apievangelist-category: [data-security, encryption, payments, pci-compliance]
+      x-apievangelist-error-format: rfc9457
+      x-apievangelist-webhooks: true
+  - target: $.info
+    update:
+      x-apievangelist-links:
+        documentation: https://docs.evervault.com
+        api_reference: https://docs.evervault.com/api
+        status_page: https://status.evervault.com/
+        changelog: https://evervault.com/changelog

@@ -1,0 +1,30 @@
+generated: '2026-07-19'
+method: searched
+source: https://docs.evervault.com/developers/sandbox
+model: Sandbox Apps
+description: >-
+  Evervault provides Sandbox Apps - isolated test environments that mirror
+  production behaviour and grant access to all platform features. Data
+  encrypted with a sandbox app can only be decrypted with that same app key,
+  preventing cross-environment leakage.
+separation:
+  mechanism: per-app keys (sandbox app vs production app)
+  note: Test-vs-live is separated at the App level rather than by key prefix.
+testing_tools:
+  - name: Card update simulation
+    description: Simulate card account updater results.
+    operation: simulateCardUpdate
+  - name: Network token update simulation
+    description: Simulate a network token update.
+    operation: simulateNetworkTokenUpdate
+  - name: Apple Pay test cards
+    description: Sandbox supports Apple Pay test cards.
+    docs: https://docs.evervault.com/cards/apple-pay
+  - name: Webhook event simulation
+    description: Trigger webhook events in the sandbox to test subscriber handling.
+    docs: https://docs.evervault.com/developers/webhooks
+test_values:
+  note: >-
+    Evervault does not publish fixed magic test card numbers on the sandbox
+    page; test cards are provided via the card-network testing sections and
+    Apple/Google Pay test flows. No verbatim values captured to avoid fabrication.

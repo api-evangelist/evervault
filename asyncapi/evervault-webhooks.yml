@@ -1,0 +1,45 @@
+generated: '2026-07-19'
+method: searched
+source: openapi/evervault-openapi-original.json (webhooks) + https://docs.evervault.com/developers/webhooks
+spec_type: Webhooks
+delivery: HTTP POST to subscriber webhook endpoints; managed via /webhook-endpoints operations.
+docs: https://docs.evervault.com/developers/webhooks
+events:
+  - type: function.run.completed
+    description: An asynchronous Function Run was completed.
+    payload: FunctionRun
+  - type: function.deployment.started
+    description: A Function Deployment was started.
+  - type: function.deployment.updated
+    description: A Function Deployment was updated.
+  - type: function.deployment.finished
+    description: A Function Deployment was finished.
+  - type: enclave.deployment.started
+    description: An Enclave Deployment was started.
+  - type: enclave.deployment.updated
+    description: An Enclave Deployment was updated.
+  - type: enclave.deployment.finished
+    description: An Enclave Deployment was finished.
+  - type: audit-log.event
+    description: An Audit Log Event was triggered.
+  - type: payments.network-token.updated
+    description: A Network Token was updated.
+    payload: NetworkToken
+  - type: payments.merchant.updated
+    description: A Merchant was updated.
+    payload: Merchant
+  - type: payments.card.updated
+    description: A Card was updated (card account updater).
+    payload: Card
+  - type: payments.3ds-session.success
+    description: A 3DS Session was successful.
+    payload: ThreeDSSession
+  - type: payments.3ds-session.failure
+    description: A 3DS Session failed.
+    payload: ThreeDSSession
+management_operations:
+  - createWebhookEndpoint
+  - listWebhookEndpoints
+  - getWebhookEndpoint
+  - updateWebhookEndpoint
+  - deleteWebhookEndpoint

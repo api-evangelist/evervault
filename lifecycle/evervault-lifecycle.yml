@@ -1,0 +1,17 @@
+generated: '2026-07-19'
+method: searched
+source: https://docs.evervault.com + https://status.evervault.com + https://evervault.com/changelog
+versioning:
+  scheme: header-date
+  note: Evervault versions the API via an Evervault-Version date header; the OpenAPI info version is 0.0.1.
+  docs: https://docs.evervault.com/api
+status_page: https://status.evervault.com/
+changelog: https://evervault.com/changelog
+deprecation:
+  policy_url: null
+  sunset_header: false
+  note: No formal published deprecation/Sunset-header policy found at generation date.
+sla:
+  url: https://status.evervault.com/
+  uptime_target: null
+deprecated_operations: []

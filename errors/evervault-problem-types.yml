@@ -1,0 +1,87 @@
+generated: '2026-07-19'
+method: derived
+source: openapi/evervault-openapi-original.json
+docs: https://docs.evervault.com/api
+format: rfc9457
+envelope:
+  media_type: application/problem+json
+  fields:
+  - code
+  - title
+  - status
+  - detail
+problems:
+- status: 400
+  format: rfc9457
+  description: 'The request was invalid or cannot be otherwise served.
+
+    '
+  examples:
+  - code: payments/network-tokens/ineligible-card
+    title: Ineligible Card
+    detail: The card is not eligible for tokenization. This may be due to the card
+      issuer not supporting tokenization.
+  - code: payments/network-tokens/invalid-card
+    title: Invalid Card
+    detail: The provided card details did not pass verification checks. This may be
+      due to an invalid card number, an incorrect CVC, or a discrepancy between the
+      provided and actual card expiry date.
+  - code: payments/network-tokens/expired-card
+    title: Expired Card
+    detail: The card has expired.
+  - code: payments/network-tokens/declined-tokenization
+    title: Declined Tokenization
+    detail: Tokenization for the given card was declined by the card issuer. This
+      may be due to restrictions related to the card type, issuer policies, or the
+      card's current status
+  - code: payments/3ds-sessions/short-name-required
+    title: Short Name Required
+    detail: Merchant merchant_eead1d640d7c's name is 50 characters, which exceeds
+      the 3DS 40-character limit. Set a `shortName` on the merchant to use it for
+      3DS sessions.
+- status: 408
+  format: rfc9457
+  description: The request has timed out.
+  examples:
+  - code: functions/request-timeout
+    title: Request Timeout
+    detail: Function execution exceeded the allotted time and has timed out. Please
+      review your code to ensure it finishes within the time limit set in function.toml.
+- status: 409
+  format: rfc9457
+  description: 'The Function is not ready to be invoked yet. This can occur when
+
+    it hasn''t been executed in a while. Retrying to run the Function after a short
+
+    time should resolve this.
+
+    '
+  examples:
+  - code: functions/function-not-ready
+    title: Function Not Ready
+    detail: The Function is not ready to be invoked yet. This can occur when it hasn't
+      been executed recently. Please try again shortly.
+- status: 422
+  format: rfc9457
+  description: 'Unprocessable Entity
+
+    '
+  examples:
+  - code: payments/network-tokens/merchant-not-ready
+    title: Merchant Not Ready
+    detail: The merchant is not yet ready for tokenizing cards. Enrolling a merchant
+      for network tokenization can take up to 48 hours. Please try again later.
+  - code: payments/network-tokens/token-service-provider-provisioning
+    title: Token Service Provider Provisioning
+    detail: The Token Service Provider is currently provisioning. This may take up
+      to 48 hours to complete. Please try again later. Contact support@evervault.com
+      if this continues after 48 hours.
+- status: 500
+  format: rfc9457
+  description: 'An error occurred while processing the request.
+
+    '
+  examples:
+  - code: payments/network-tokens/unavailable-token-service-provider
+    title: Unavailable Token Service Provider
+    detail: The Token Service Provider is unavailable. Please try again later.

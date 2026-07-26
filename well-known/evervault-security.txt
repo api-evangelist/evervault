@@ -1,0 +1,28 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA256
+
+Contact: mailto:security@evervault.com
+Expires: Wed, 04 Jun 2028 12:00 +0000
+Encryption: https://evervault.com/pgp.pub
+Encryption: https://keys.openpgp.org/search?q=0xF70BFEBDEE68DA9F
+Encryption: https://keys.openpgp.org/vks/v1/by-fingerprint/CA4F3F7BCEBAB287936B3799F70BFEBDEE68DA9F
+Preferred-Languages: en
+Canonical: https://evervault.com/.well-known/security.txt
+Hiring: https://evervault.com/careers
+-----BEGIN PGP SIGNATURE-----
+
+iQJPBAEBCAA5FiEEqB+rcGLagkvREUF8exswjerm8J8FAmohiLgbFIAAAAAABAAO
+bWFudTIsMi41KzEuMTIsMCwzAAoJEHsbMI3q5vCfscAP/1yEpcUsyk4Xco/78IdO
+4K85qwPrzpEAZzGpmR5qcqC4oVNwVtumwIIYhcQAgu+nL7lWWqgLMyPp/VVPyADF
+BP7cj+ZH4FrsLya7q8AOsqwT28eIU7JUmxqwPNT8PKzoc+iOJaVED+552aoBU/P2
+bERvTO6D1cgWdyj7LonaHxbwL3Sxzt2+v8ywY29Tf1cUsujmiFQmS7lHhjluxLVj
+5dGkYzgolgiwvqGFuGahqZwO2WiaqzRH189IQFtpXvf98Hq4YyTaTFJRtHkTvM0F
+ZKl3MqZhD0pmfjAdGNz/ketqLq9TNBS9I0C7ENGrE164xJGc5gRAO9q5z3IebSQW
+a4ly1fKQJEto1YJT1GRoTaW5VtwvXqTyUHCrKwcbIgvA52M9+0rX8gK5itZhvTLc
+Y3rCsYhg7PpnU8pWkYe/rDBsDQAHvkHjF2XZK1rGUCcjJOuVtSj4+rXXh1vvV8fP
+4pAZEFgYnISb5msg3kBa2Aqs2+RXpMWkV1E377+rR4Ff8tdX+8//9vv4S67KoUTM
+gvWqBvq5T9G3XRJ/lZKOasLh4QOEYX/F2fnocWj1REgW6B6SRzXmlXGUAWEurUZn
+MGEtfQ+wCIxnVHLGXmW/YJLnmCY4HTZwtuo5ak4I1nJaR/iaMGHXmbi/bPNSj4+U
+TvxWfw/3qqWhm9AMZ6asMCY9
+=jUvZ
+-----END PGP SIGNATURE-----

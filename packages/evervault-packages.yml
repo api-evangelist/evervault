@@ -1,0 +1,90 @@
+generated: '2026-07-19'
+method: searched
+source: https://docs.evervault.com/sdks + registry lookups (npm/PyPI/RubyGems/pkg.go.dev/Packagist) + github.com/evervault
+packages:
+  - language: javascript
+    registry: npm
+    name: "@evervault/sdk"
+    url: https://www.npmjs.com/package/@evervault/sdk
+    install: npm install @evervault/sdk
+    repo: https://github.com/evervault/evervault-node
+    official: true
+  - language: javascript
+    registry: npm
+    name: "@evervault/browser"
+    url: https://www.npmjs.com/package/@evervault/browser
+    install: npm install @evervault/browser
+    repo: https://github.com/evervault/evervault-js
+    official: true
+    note: Client-side/browser SDK for UI Components.
+  - language: javascript
+    registry: npm
+    name: "@evervault/react"
+    url: https://www.npmjs.com/package/@evervault/react
+    install: npm install @evervault/react
+    repo: https://github.com/evervault/evervault-react
+    official: true
+  - language: javascript
+    registry: npm
+    name: "@evervault/react-native"
+    url: https://www.npmjs.com/package/@evervault/react-native
+    install: npm install @evervault/react-native
+    repo: https://github.com/evervault/evervault-react-native-sdk
+    official: true
+  - language: python
+    registry: pypi
+    name: evervault
+    url: https://pypi.org/project/evervault/
+    install: pip install evervault
+    repo: https://github.com/evervault/evervault-python
+    official: true
+  - language: ruby
+    registry: rubygems
+    name: evervault
+    url: https://rubygems.org/gems/evervault
+    install: gem install evervault
+    repo: https://github.com/evervault/evervault-ruby
+    official: true
+  - language: go
+    registry: pkg.go.dev
+    name: github.com/evervault/evervault-go
+    url: https://pkg.go.dev/github.com/evervault/evervault-go
+    install: go get github.com/evervault/evervault-go
+    repo: https://github.com/evervault/evervault-go
+    official: true
+  - language: php
+    registry: packagist
+    name: evervault/evervault-php
+    url: https://packagist.org/packages/evervault/evervault-php
+    install: composer require evervault/evervault-php
+    repo: https://github.com/evervault/evervault-php
+    official: true
+  - language: java
+    registry: maven
+    name: com.evervault.sdk:evervault
+    url: https://github.com/evervault/evervault-java
+    install: See github.com/evervault/evervault-java for Maven/Gradle coordinates
+    repo: https://github.com/evervault/evervault-java
+    official: true
+  - language: swift
+    registry: github
+    name: evervault-ios
+    url: https://github.com/evervault/evervault-ios
+    install: Swift Package Manager - github.com/evervault/evervault-ios
+    repo: https://github.com/evervault/evervault-ios
+    official: true
+  - language: kotlin
+    registry: github
+    name: evervault-android
+    url: https://github.com/evervault/evervault-android
+    install: See github.com/evervault/evervault-android
+    repo: https://github.com/evervault/evervault-android
+    official: true
+  - language: shell
+    registry: github
+    name: evervault-cli
+    url: https://github.com/evervault/evervault-cli
+    install: sh <(curl https://cli.evervault.com/v4/install -sL)
+    repo: https://github.com/evervault/evervault-cli
+    official: true
+    note: Command-line interface; see cli/evervault-cli.yml for the command surface.

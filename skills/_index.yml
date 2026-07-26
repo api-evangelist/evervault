@@ -1,0 +1,16 @@
+generated: '2026-07-19'
+method: generated
+source: openapi/evervault-openapi-original.json
+skills:
+  - file: evervault-encrypt-decrypt.md
+    name: Encrypt and decrypt data with Evervault
+    api: openapi/evervault-openapi-original.json
+    operations: [encrypt, inspect, decrypt]
+  - file: evervault-network-token.md
+    name: Create and use a network token
+    api: openapi/evervault-openapi-original.json
+    operations: [createNetworkToken, createNetworkTokenCryptogram, getNetworkToken, getCardArt]
+  - file: evervault-relay-webhooks.md
+    name: Configure a Relay and subscribe to webhooks
+    api: openapi/evervault-openapi-original.json
+    operations: [createRelay, listRelays, createWebhookEndpoint, listWebhookEndpoints]

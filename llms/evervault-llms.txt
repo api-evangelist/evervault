@@ -1,0 +1,69 @@
+# Evervault Documentation
+
+> Documentation for Evervault — encryption, card data, payments, and compliance infrastructure for developers.
+
+## Getting Started
+
+- [Core concepts](https://docs.evervault.com/core-concepts.md): Understand Evervault's model for encrypting and using sensitive data across Relay, Functions, Enclaves, and payments.
+- [Relay](https://docs.evervault.com/relay.md): Evervault Relay is a configurable proxy that encrypts or decrypts sensitive data in transit for your APIs and third‑party services.
+- [Functions](https://docs.evervault.com/functions.md): Evervault Functions are secure serverless runtimes that decrypt Evervault data at runtime so you can run custom logic safely.
+- [Enclaves](https://docs.evervault.com/enclaves.md): Evervault Enclaves let you deploy Docker workloads in AWS Nitro Enclaves with built‑in TLS attestation, networking and tooling.
+
+## Cards
+
+- [Card Collection](https://docs.evervault.com/cards/card-collection.md): Collect and encrypt cardholder data in a PCI-compliant iframe, then safely use it with your APIs and processors via Relay.
+- [3D Secure](https://docs.evervault.com/cards/3d-secure.md): 3D Secure is an online payment security protocol designed to reduce fraud and provide an additional layer of authentication for online transactions.
+- [Network Tokens](https://docs.evervault.com/cards/network-tokens.md): Create and use network tokens with Evervault to replace PANs with secure, updatable tokens that improve auth rates and reduce fraud.
+- [Card Account Updater](https://docs.evervault.com/cards/card-account-updater.md): Automatically keep card-on-file details up to date via card network updates to reduce declines and improve renewals.
+- [Insights](https://docs.evervault.com/cards/insights.md): Use Evervault Inspect and BIN Lookup APIs to retrieve rich metadata for card numbers.
+- [Card Reveal](https://docs.evervault.com/cards/reveal.md): Securely display decrypted data in your app using an Evervault-hosted iframe without exposing plaintext to your infrastructure.
+- [Apple Pay](https://docs.evervault.com/cards/apple-pay.md): Integrate Apple Pay with Evervault to capture encrypted payment credentials.
+- [Google Pay](https://docs.evervault.com/cards/google-pay.md): Integrate Google Pay with Evervault to capture encrypted payment credentials across web and Android.
+- [Pre-Chargeback Alerts](https://docs.evervault.com/cards/pre-chargeback-alerts.md): Learn about how to enable and use pre-chargeback alerts.
+
+## Compliance
+
+- [Page Protection](https://docs.evervault.com/compliance/page-protection.md): Monitor third-party scripts and security headers to detect unauthorized changes and meet PCI DSS v4 requirements.
+- [ASV Scans](https://docs.evervault.com/compliance/asv-scans.md): Learn about ASV scans and how to run them with Evervault.
+- [PCI Compliance](https://docs.evervault.com/compliance/pci-compliance.md): How Evervault helps reduce PCI DSS scope and cost while enabling secure collection and use of cardholder data.
+- [HIPAA](https://docs.evervault.com/compliance/hipaa.md): Learn the basics of HIPAA’s Privacy and Security Rules and how Evervault enables secure handling of e‑PHI.
+- [GDPR](https://docs.evervault.com/compliance/gdpr.md): Understand GDPR principles, categories of personal data, and how Evervault helps protect sensitive information.
+
+## Developer Tools
+
+- [API Keys](https://docs.evervault.com/developers/api-keys.md): Learn how to create, scope, rotate, and revoke Evervault API keys to securely authenticate API and SDK requests.
+- [Logs](https://docs.evervault.com/developers/logs.md): Filter and search Evervault logs in the dashboard using Evervault Query Language (EQL) syntax and operator-based expressions.
+- [Observability](https://docs.evervault.com/developers/observability.md)
+- [Data policies](https://docs.evervault.com/developers/data-policies.md): Define fine‑grained rules for when and where encrypted data may be decrypted using Evervault data roles and policies.
+- [Webhooks](https://docs.evervault.com/developers/webhooks.md): Subscribe to Evervault webhook events to receive real‑time notifications for actions like 3DS results, token updates, and deployments.
+- [Sandbox](https://docs.evervault.com/developers/sandbox.md): Use Sandbox Apps to test and simulate Evervault features safely with isolated environments that mirror production behavior.
+- [Evervault Encryption](https://docs.evervault.com/developers/evervault-encryption.md): An overview of the Evervault Encryption Engine (E3), key management, and ciphertext format used across all products.
+
+## More
+
+- [SAML](https://docs.evervault.com/more/saml.md): Configure SAML SSO for Evervault teams on custom plans, including prerequisites and IdP attribute mapping.
+- [Migrating off Evervault](https://docs.evervault.com/more/migrating-off-evervault.md): If you leave Evervault, we provide a free, attestable decryption service to safely export your encrypted data.
+- [Integrations](https://docs.evervault.com/more/integrations.md): Connect Evervault with Datadog and Vanta to stream logs, metrics, and user data for monitoring and compliance.
+- [FAQ](https://docs.evervault.com/more/faq.md): Questions frequently asked by our customers
+
+## SDKs
+
+- [Android](https://docs.evervault.com/sdks/android.md): Encrypt data client-side, collect card details & perform 3D Secure authentication.
+- [CLI](https://docs.evervault.com/sdks/cli.md): The Evervault Command Line Interface allows you to test and manage your Evervault integration from your terminal.
+- [Go](https://docs.evervault.com/sdks/go.md): Encrypt data server-side, invoke Functions, Enclaves and proxy requests through Relay.
+- [iOS](https://docs.evervault.com/sdks/ios.md): Encrypt data client-side, collect card details & perform 3D Secure authentication.
+- [Java](https://docs.evervault.com/sdks/java.md): Encrypt data server-side, invoke Functions, Enclaves and proxy requests through Relay.
+- [JavaScript](https://docs.evervault.com/sdks/javascript.md): Encrypt data client-side, collect card details & perform 3D Secure authentication.
+- [Node.js](https://docs.evervault.com/sdks/node.md): Encrypt data server-side, invoke Functions, Enclaves and proxy requests through Relay.
+- [PHP](https://docs.evervault.com/sdks/php.md): Encrypt data server-side, invoke Functions, Enclaves and proxy requests through Relay.
+- [Python](https://docs.evervault.com/sdks/python.md): Encrypt data server-side, invoke Functions, Enclaves and proxy requests through Relay.
+- [React](https://docs.evervault.com/sdks/react.md): Encrypt data client-side, collect card details & perform 3D Secure authentication.
+- [React Native](https://docs.evervault.com/sdks/react-native.md): Encrypt data client-side, collect card details & perform 3D Secure authentication.
+- [React Native SDK (Legacy)](https://docs.evervault.com/sdks/react-native-legacy.md): Encrypt data and embed UI Components with React Native
+- [Ruby](https://docs.evervault.com/sdks/ruby.md): Use the Evervault Ruby SDK to encrypt/decrypt data, run Functions, create client tokens, and enable Relay.
+- [V2 Migration Guide](https://docs.evervault.com/sdks/react-native/v2-migration.md): Steps to migrate from the legacy Evervault React Native package to @evervault/react-native v2.
+
+## API Reference
+
+- [API Reference](https://docs.evervault.com/api): Full OpenAPI reference for the Evervault API.
+- [OpenAPI spec (JSON)](https://docs.evervault.com/api-spec.json)

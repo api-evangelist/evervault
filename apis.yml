@@ -1,28 +1,262 @@
 aid: evervault
-name: evervault
-description: 'evervault is a company surfaced as a portfolio company of index-ventures, ribbit-capital
-  and added to the API Evangelist network as a stub for enrichment. Sector: data. This profile is a lead
-  awaiting the enrichment pipeline.'
+name: Evervault
+description: >-
+  Evervault is a data-security and payments-infrastructure platform that lets developers
+  encrypt, tokenize, and process sensitive data - especially cardholder data - without it
+  touching their own infrastructure. Its model stores encryption keys on Evervault's side
+  while customers hold the ciphertext, reducing breach scope. Core products include Relay
+  (an encrypting/decrypting proxy), Functions (secure serverless runtimes), Enclaves (AWS
+  Nitro Enclave workloads), UI Components for PCI-compliant card collection, plus payments
+  tooling: network tokens, 3D Secure, BIN lookup, card account updater, and multi-PSP
+  routing. Evervault is PCI DSS Level 1 and SOC 2 Type II, and supports HIPAA and GDPR.
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://evervault.com/favicon.ico
 url: https://raw.githubusercontent.com/api-evangelist/evervault/refs/heads/main/apis.yml
 x-type: company
 x-source: vc-portfolio
 x-backed-by:
 - index-ventures
 - ribbit-capital
-x-tier: stub
-x-tier-reason: portfolio-lead
+x-tier: active
+x-tier-reason: enriched-real-api
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-07-19'
 tags:
 - Company
 - Data
-apis: []
+- Security
+- Encryption
+- Payments
+- PCI Compliance
+- Tokenization
+- Cards
+- Developer Tools
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
+apis:
+- aid: evervault:evervault-3d-secure-api
+  name: Evervault 3D Secure API
+  description: >-
+    3D Secure is a security protocol designed to prevent fraud in online card transactions. It adds an
+    additional layer of authentication during the payment process.
+  humanURL: https://docs.evervault.com/api
+  baseURL: https://api.evervault.com
+  tags:
+  - 3D Secure
+  properties:
+  - type: OpenAPI
+    url: openapi/evervault-3d-secure-api-openapi.yml
+- aid: evervault:evervault-acquirers-api
+  name: Evervault Acquirers API
+  description: >-
+    The Acquirer API allows you to enroll Acquirer details with Card Networks to enable use of other payment
+    APIs such as [3D Secure](#3d-secure).
+  humanURL: https://docs.evervault.com/api
+  baseURL: https://api.evervault.com
+  tags:
+  - Acquirers
+  properties:
+  - type: OpenAPI
+    url: openapi/evervault-acquirers-api-openapi.yml
+- aid: evervault:evervault-card-account-updates-api
+  name: Evervault Card Account Updates API
+  description: >-
+    If your account has access to [Card Account Updater](/cards/card-account-updater) you can use the
+    Card Account Updater API to register cards for automatic updates. If an update is available for a
+    card, the `replacement` field will be populated with the identifier of the new card.
+  humanURL: https://docs.evervault.com/api
+  baseURL: https://api.evervault.com
+  tags:
+  - Card Account Updates
+  properties:
+  - type: OpenAPI
+    url: openapi/evervault-card-account-updates-api-openapi.yml
+- aid: evervault:evervault-client-tokens-api
+  name: Evervault Client Tokens API
+  description: >-
+    Client-Side Tokens are short-lived tokens that can be used to perform actions from your frontend applications.
+  humanURL: https://docs.evervault.com/api
+  baseURL: https://api.evervault.com
+  tags:
+  - Client Tokens
+  properties:
+  - type: OpenAPI
+    url: openapi/evervault-client-tokens-api-openapi.yml
+- aid: evervault:evervault-core-api
+  name: Evervault Core API
+  description: The Core API from Evervault — 9 operation(s) for core.
+  humanURL: https://docs.evervault.com/api
+  baseURL: https://api.evervault.com
+  tags:
+  - Core
+  properties:
+  - type: OpenAPI
+    url: openapi/evervault-core-api-openapi.yml
+- aid: evervault:evervault-functions-api
+  name: Evervault Functions API
+  description: >-
+    Evervault [Functions](/functions) are secure serverless functions which allow you to process data
+    encrypted by Evervault products. When you pass encrypted data to a Function, it is automatically decrypted.
+    You can then process this data by running custom logic written in Node.js or Python as you usually
+    would, but without ever handling it in plaintext on your infrastructure.
+  humanURL: https://docs.evervault.com/api
+  baseURL: https://api.evervault.com
+  tags:
+  - Functions
+  properties:
+  - type: OpenAPI
+    url: openapi/evervault-functions-api-openapi.yml
+- aid: evervault:evervault-insights-api
+  name: Evervault Insights API
+  description: >-
+    The Evervault API provides several endpoints which can be used to retrieve additional information
+    for cards and bin ranges. This can be used for tasks such as fraud detection and payment routing.
+  humanURL: https://docs.evervault.com/api
+  baseURL: https://api.evervault.com
+  tags:
+  - Insights
+  properties:
+  - type: OpenAPI
+    url: openapi/evervault-insights-api-openapi.yml
+- aid: evervault:evervault-merchants-api
+  name: Evervault Merchants API
+  description: The Merchants API from Evervault — 2 operation(s) for merchants.
+  humanURL: https://docs.evervault.com/api
+  baseURL: https://api.evervault.com
+  tags:
+  - Merchants
+  properties:
+  - type: OpenAPI
+    url: openapi/evervault-merchants-api-openapi.yml
+- aid: evervault:evervault-network-tokens-api
+  name: Evervault Network Tokens API
+  description: The Network Tokens API from Evervault — 5 operation(s) for network tokens.
+  humanURL: https://docs.evervault.com/api
+  baseURL: https://api.evervault.com
+  tags:
+  - Network Tokens
+  properties:
+  - type: OpenAPI
+    url: openapi/evervault-network-tokens-api-openapi.yml
+- aid: evervault:evervault-payments-api
+  name: Evervault Payments API
+  description: The Payments API from Evervault — 17 operation(s) for payments.
+  humanURL: https://docs.evervault.com/api
+  baseURL: https://api.evervault.com
+  tags:
+  - Payments
+  properties:
+  - type: OpenAPI
+    url: openapi/evervault-payments-api-openapi.yml
+- aid: evervault:evervault-relays-api
+  name: Evervault Relays API
+  description: >-
+    Relay is a network proxy that can be configured to encrypt or decrypt sensitive data as it passes
+    between a client and a destination server. Relay can be used with your own API or with third-party
+    APIs. It is designed to be easy to use and requires minimal changes to your existing code.
+  humanURL: https://docs.evervault.com/api
+  baseURL: https://api.evervault.com
+  tags:
+  - Relays
+  properties:
+  - type: OpenAPI
+    url: openapi/evervault-relays-api-openapi.yml
+- aid: evervault:evervault-webhooks-api
+  name: Evervault Webhooks API
+  description: The Webhooks API from Evervault — 2 operation(s) for webhooks.
+  humanURL: https://docs.evervault.com/api
+  baseURL: https://api.evervault.com
+  tags:
+  - Webhooks
+  properties:
+  - type: OpenAPI
+    url: openapi/evervault-webhooks-api-openapi.yml
 common:
+- type: DeveloperPortal
+  url: https://docs.evervault.com
+- type: Documentation
+  url: https://docs.evervault.com
+- type: APIReference
+  url: https://docs.evervault.com/api
+- type: GettingStarted
+  url: https://docs.evervault.com/core-concepts
+- type: Blog
+  url: https://evervault.com/blog
+- type: GitHubOrganization
+  url: https://github.com/evervault
+- type: Pricing
+  url: https://evervault.com/pricing
+- type: SignUp
+  url: https://app.evervault.com/register
+- type: TermsOfService
+  url: https://evervault.com/legal/terms
+- type: PrivacyPolicy
+  url: https://evervault.com/legal/privacy
+- type: StatusPage
+  url: https://status.evervault.com/
+- type: ChangeLog
+  url: https://evervault.com/changelog
+- type: Authentication
+  url: authentication/evervault-authentication.yml
+- type: Packages
+  url: packages/evervault-packages.yml
+- type: SDKs
+  url: packages/evervault-packages.yml
+- type: CLI
+  url: cli/evervault-cli.yml
+- type: Components
+  url: components/evervault-components.yml
+- type: Sandbox
+  url: sandbox/evervault-sandbox.yml
+- type: MCPServer
+  url: mcp/evervault-mcp.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: LLMsTxt
+  url: llms/evervault-llms.txt
+- type: WellKnown
+  url: well-known/evervault-well-known.yml
+- type: SecurityTxt
+  url: well-known/evervault-security.txt
+- type: Webhooks
+  url: asyncapi/evervault-webhooks.yml
+- type: ErrorCatalog
+  url: errors/evervault-problem-types.yml
+- type: Conventions
+  url: conventions/evervault-conventions.yml
+- type: DataModel
+  url: data-model/evervault-data-model.yml
+- type: Lifecycle
+  url: lifecycle/evervault-lifecycle.yml
+- type: Conformance
+  url: conformance/evervault-conformance.yml
+- type: Compliance
+  url: https://docs.evervault.com/compliance/pci-compliance
+- type: DomainSecurity
+  url: security/evervault-domain-security.yml
+- type: VulnerabilityDisclosure
+  url: security/evervault-vulnerability-disclosure.yml
+- type: Security
+  url: https://evervault.com/.well-known/security.txt
 - type: Website
-  url: http://evervault.com
+  url: https://evervault.com
+x-enrichment:
+  date: '2026-07-19'
+  status: backfilled
+  pass: local-v1
+  note: backfilled from .gitignore signal + verified work evidence

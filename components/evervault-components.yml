@@ -1,0 +1,24 @@
+generated: '2026-07-19'
+method: searched
+source: https://docs.evervault.com/cards + https://docs.evervault.com/products (UI Components) + github.com/evervault/evervault-js
+loaders:
+  - name: "@evervault/browser"
+    url: https://www.npmjs.com/package/@evervault/browser
+  - name: "@evervault/react"
+    url: https://www.npmjs.com/package/@evervault/react
+families:
+  - family: Card Collection
+    description: Embeddable, PCI-compliant iframe components to collect and encrypt cardholder data client-side without it touching your infrastructure.
+    docs: https://docs.evervault.com/cards/card-collection
+  - family: Card Reveal
+    description: Evervault-hosted iframe to securely display decrypted card/sensitive data to the user without exposing plaintext to your app.
+    docs: https://docs.evervault.com/cards/reveal
+  - family: 3D Secure
+    description: Hosted challenge/authentication UI for 3DS payment flows.
+    docs: https://docs.evervault.com/cards/3d-secure
+  - family: Apple Pay
+    description: Embeddable Apple Pay button that captures encrypted payment credentials.
+    docs: https://docs.evervault.com/cards/apple-pay
+  - family: Google Pay
+    description: Embeddable Google Pay component across web and Android.
+    docs: https://docs.evervault.com/cards/google-pay

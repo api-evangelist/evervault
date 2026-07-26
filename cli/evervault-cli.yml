@@ -1,0 +1,25 @@
+generated: '2026-07-19'
+method: searched
+source: https://docs.evervault.com/sdks/cli + https://github.com/evervault/evervault-cli
+name: Evervault CLI
+binary: ev
+repo: https://github.com/evervault/evervault-cli
+install:
+  - method: curl
+    command: sh <(curl https://cli.evervault.com/v4/install -sL)
+  - method: update
+    command: ev update
+commands:
+  - name: encrypt
+    description: Encrypt data via the Evervault API.
+  - name: decrypt
+    description: Decrypt data via the Evervault API.
+  - name: relay
+    description: Manage Relays.
+    subcommands: [create, deploy]
+  - name: function
+    description: Manage Functions.
+    subcommands: [init, create-toml, deploy, env, delete, run]
+  - name: enclave
+    description: Build and deploy Enclaves.
+    subcommands: [init, build, cert, delete, deploy, restart, describe, list, logs, env]

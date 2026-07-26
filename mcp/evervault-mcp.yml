@@ -1,0 +1,142 @@
+generated: '2026-07-19'
+method: derived
+status: candidate
+source: openapi/evervault-openapi-original.json
+note: No official Evervault MCP server found as of generation date. Candidate tool
+  list derived one-per-operation from the OpenAPI so an MCP server can be forged.
+server:
+  name: evervault
+  transport: http
+tools:
+- name: encrypt
+  description: Encrypt
+  source_operation: openapi/evervault-openapi-original.json#encrypt
+- name: decrypt
+  description: Decrypt
+  source_operation: openapi/evervault-openapi-original.json#decrypt
+- name: inspect
+  description: Inspect
+  source_operation: openapi/evervault-openapi-original.json#inspect
+- name: createFunctionRun
+  description: Run a Function
+  source_operation: openapi/evervault-openapi-original.json#createFunctionRun
+- name: create-client-side-token
+  description: Create a Client Token
+  source_operation: openapi/evervault-openapi-original.json#create-client-side-token
+- name: createCardInsight
+  description: Card Insights
+  source_operation: openapi/evervault-openapi-original.json#createCardInsight
+- name: createBinLookup
+  description: BIN Lookup
+  source_operation: openapi/evervault-openapi-original.json#createBinLookup
+- name: createMerchant
+  description: Create a Merchant
+  source_operation: openapi/evervault-openapi-original.json#createMerchant
+- name: listMerchants
+  description: List Merchants
+  source_operation: openapi/evervault-openapi-original.json#listMerchants
+- name: getMerchant
+  description: Retrieve a Merchant
+  source_operation: openapi/evervault-openapi-original.json#getMerchant
+- name: updateMerchant
+  description: Update a Merchant
+  source_operation: openapi/evervault-openapi-original.json#updateMerchant
+- name: deleteMerchant
+  description: Delete a Merchant
+  source_operation: openapi/evervault-openapi-original.json#deleteMerchant
+- name: createAcquirer
+  description: Create an Acquirer
+  source_operation: openapi/evervault-openapi-original.json#createAcquirer
+- name: listAcquirers
+  description: List Acquirers
+  source_operation: openapi/evervault-openapi-original.json#listAcquirers
+- name: getAcquirer
+  description: Retrieve an Acquirer
+  source_operation: openapi/evervault-openapi-original.json#getAcquirer
+- name: updateAcquirer
+  description: Update an Acquirer
+  source_operation: openapi/evervault-openapi-original.json#updateAcquirer
+- name: deleteAcquirer
+  description: Delete an Acquirer
+  source_operation: openapi/evervault-openapi-original.json#deleteAcquirer
+- name: createNetworkToken
+  description: Create a Network Token
+  source_operation: openapi/evervault-openapi-original.json#createNetworkToken
+- name: getNetworkToken
+  description: Retrieve a Network Token
+  source_operation: openapi/evervault-openapi-original.json#getNetworkToken
+- name: deleteNetworkToken
+  description: Delete a Network Token
+  source_operation: openapi/evervault-openapi-original.json#deleteNetworkToken
+- name: createNetworkTokenCryptogram
+  description: Create a Cryptogram
+  source_operation: openapi/evervault-openapi-original.json#createNetworkTokenCryptogram
+- name: simulateNetworkTokenUpdate
+  description: Simulate a Network Token Update
+  source_operation: openapi/evervault-openapi-original.json#simulateNetworkTokenUpdate
+- name: getCardArt
+  description: Retrieve Card Art
+  source_operation: openapi/evervault-openapi-original.json#getCardArt
+- name: createThreeDSSession
+  description: Create a 3DS Session
+  source_operation: openapi/evervault-openapi-original.json#createThreeDSSession
+- name: retrieveThreeDSSession
+  description: Retrieve a 3DS Session
+  source_operation: openapi/evervault-openapi-original.json#retrieveThreeDSSession
+- name: retrieveThreeDSMessages
+  description: Retrieve 3DS Messages
+  source_operation: openapi/evervault-openapi-original.json#retrieveThreeDSMessages
+- name: registerCard
+  description: Register a Card
+  source_operation: openapi/evervault-openapi-original.json#registerCard
+- name: getCard
+  description: Retrieve a Card
+  source_operation: openapi/evervault-openapi-original.json#getCard
+- name: deleteCard
+  description: Delete a Card
+  source_operation: openapi/evervault-openapi-original.json#deleteCard
+- name: simulateCardUpdate
+  description: Simulate a Card Update
+  source_operation: openapi/evervault-openapi-original.json#simulateCardUpdate
+- name: createRelay
+  description: Create a Relay
+  source_operation: openapi/evervault-openapi-original.json#createRelay
+- name: listRelays
+  description: List all Relays
+  source_operation: openapi/evervault-openapi-original.json#listRelays
+- name: fetchRelay
+  description: Retrieve a Relay
+  source_operation: openapi/evervault-openapi-original.json#fetchRelay
+- name: updateRelay
+  description: Updates a Relay
+  source_operation: openapi/evervault-openapi-original.json#updateRelay
+- name: deleteRelay
+  description: Delete a Relay
+  source_operation: openapi/evervault-openapi-original.json#deleteRelay
+- name: createCustomDomain
+  description: Create a Custom Domain
+  source_operation: openapi/evervault-openapi-original.json#createCustomDomain
+- name: fetchCustomDomainsForRelay
+  description: List all Custom Domains
+  source_operation: openapi/evervault-openapi-original.json#fetchCustomDomainsForRelay
+- name: retrieveCustomDomain
+  description: Retrieve a Custom Domain
+  source_operation: openapi/evervault-openapi-original.json#retrieveCustomDomain
+- name: deleteCustomDomain
+  description: Delete a Custom Domain
+  source_operation: openapi/evervault-openapi-original.json#deleteCustomDomain
+- name: createWebhookEndpoint
+  description: Create a Webhook Endpoint
+  source_operation: openapi/evervault-openapi-original.json#createWebhookEndpoint
+- name: listWebhookEndpoints
+  description: List all Webhook Endpoints
+  source_operation: openapi/evervault-openapi-original.json#listWebhookEndpoints
+- name: getWebhookEndpoint
+  description: Retrieve a Webhook Endpoint
+  source_operation: openapi/evervault-openapi-original.json#getWebhookEndpoint
+- name: updateWebhookEndpoint
+  description: Update a Webhook Endpoint
+  source_operation: openapi/evervault-openapi-original.json#updateWebhookEndpoint
+- name: deleteWebhookEndpoint
+  description: Delete a Webhook Endpoint
+  source_operation: openapi/evervault-openapi-original.json#deleteWebhookEndpoint

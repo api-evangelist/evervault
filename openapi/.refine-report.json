@@ -1,0 +1,27 @@
+{
+  "provider": "evervault",
+  "sources": [
+    "evervault-openapi-original.json"
+  ],
+  "outputs": [
+    "evervault-3d-secure-api-openapi.yml",
+    "evervault-acquirers-api-openapi.yml",
+    "evervault-card-account-updates-api-openapi.yml",
+    "evervault-client-tokens-api-openapi.yml",
+    "evervault-core-api-openapi.yml",
+    "evervault-functions-api-openapi.yml",
+    "evervault-insights-api-openapi.yml",
+    "evervault-merchants-api-openapi.yml",
+    "evervault-network-tokens-api-openapi.yml",
+    "evervault-payments-api-openapi.yml",
+    "evervault-relays-api-openapi.yml",
+    "evervault-webhooks-api-openapi.yml"
+  ],
+  "archived": [
+    "archived openapi/evervault-openapi-original.json"
+  ],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

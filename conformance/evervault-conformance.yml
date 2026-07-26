@@ -1,0 +1,32 @@
+generated: '2026-07-19'
+method: searched
+source: https://evervault.com + https://docs.evervault.com/compliance + openapi/evervault-openapi-original.json
+standards:
+  - id: pci-dss
+    conforms: true
+    level: "Level 1 Service Provider"
+    evidence: Evervault is certified PCI DSS Level 1; helps customers reduce PCI scope (SAQ A) for card collection and use.
+    docs: https://docs.evervault.com/compliance/pci-compliance
+  - id: soc2-type2
+    conforms: true
+    evidence: SOC 2 Type II attestation published on the Evervault site.
+    docs: https://evervault.com/
+  - id: hipaa
+    conforms: true
+    evidence: Evervault supports HIPAA-compliant handling of e-PHI; will sign a BAA.
+    docs: https://docs.evervault.com/compliance/hipaa
+  - id: gdpr
+    conforms: true
+    evidence: GDPR compliance documented; data protection for personal data.
+    docs: https://docs.evervault.com/compliance/gdpr
+  - id: rfc9457-problem-details
+    conforms: true
+    evidence: Error responses use application/problem+json with code/title/status/detail (RFC 7807/9457).
+    docs: https://docs.evervault.com/api
+  - id: oauth2
+    conforms: false
+    evidence: API uses HTTP Basic (App ID + API key) and short-lived bearer tokens, not OAuth2.
+  - id: rfc9116-security-txt
+    conforms: true
+    evidence: Signed /.well-known/security.txt published on evervault.com.
+    docs: https://evervault.com/.well-known/security.txt
