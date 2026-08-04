@@ -1,0 +1,1048 @@
+{
+  "info": {
+    "_postman_id": "bbac1ee8-ccfd-494c-bd5d-bcff18d4eedb",
+    "name": "Evervault Relays API",
+    "description": "The Evervault API allows developers to interact programmatically with their Evervault apps using HTTP requests.\n\nContact Support:\n Name: Evervault Support Team\n Email: support@evervault.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T01:35:30.000Z",
+    "updatedAt": "2026-07-28T01:35:30.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-bbac1ee8-ccfd-494c-bd5d-bcff18d4eedb"
+  },
+  "item": [
+    {
+      "name": "relays",
+      "item": [
+        {
+          "name": "{id}",
+          "item": [
+            {
+              "name": "Retrieve a Relay",
+              "id": "56c72600-d613-4449-b8fa-90ade1653343",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "basic",
+                  "basic": [
+                    {
+                      "key": "username",
+                      "value": "{{basicAuthUsername}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "password",
+                      "value": "{{basicAuthPassword}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/relays/:id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "relays",
+                    ":id"
+                  ],
+                  "variable": [
+                    {
+                      "id": "fbce5ce4-33b7-4658-b050-6e48f5480094",
+                      "key": "id",
+                      "value": "<string>",
+                      "description": "(Required) The id of the Relay to be fetched."
+                    }
+                  ]
+                },
+                "description": "Retrieves a [Relay](/relay) by its ID."
+              },
+              "response": [
+                {
+                  "id": "0351860c-53d8-4b8d-9904-287d52cb41a3",
+                  "name": "The Relay has been fetched.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: basic",
+                        "key": "Authorization",
+                        "value": "Basic <credentials>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/relays/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "relays",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"destinationDomain\": \"<string>\",\n  \"evervaultDomain\": \"<string>\",\n  \"routes\": [\n    {\n      \"path\": \"<string>\",\n      \"request\": [\n        {\n          \"action\": \"encrypt\",\n          \"selections\": [\n            {\n              \"selector\": \"<string>\",\n              \"type\": \"header\",\n              \"role\": \"<string>\"\n            },\n            {\n              \"selector\": \"<string>\",\n              \"type\": \"form\",\n              \"role\": \"<string>\"\n            }\n          ]\n        }\n      ],\n      \"response\": [\n        {\n          \"action\": \"decrypt\",\n          \"selections\": [\n            {\n              \"selector\": \"<string>\",\n              \"type\": \"header\",\n              \"role\": \"<string>\"\n            },\n            {\n              \"selector\": \"<string>\",\n              \"type\": \"header\",\n              \"role\": \"<string>\"\n            }\n          ]\n        }\n      ],\n      \"method\": \"DELETE\"\n    },\n    {\n      \"path\": \"<string>\",\n      \"request\": [\n        {\n          \"action\": \"decrypt\",\n          \"selections\": [\n            {\n              \"selector\": \"<string>\",\n              \"type\": \"header\",\n              \"role\": \"<string>\"\n            },\n            {\n              \"selector\": \"<string>\",\n              \"type\": \"form\",\n              \"role\": \"<string>\"\n            }\n          ]\n        }\n      ],\n      \"response\": [\n        {\n          \"action\": \"encrypt\",\n          \"selections\": [\n            {\n              \"selector\": \"<string>\",\n              \"type\": \"form\",\n              \"role\": \"<string>\"\n            },\n            {\n              \"selector\": \"<string>\",\n              \"type\": \"json\",\n              \"role\": \"<string>\"\n            }\n          ]\n        }\n      ],\n      \"method\": \"GET\"\n    }\n  ],\n  \"authentication\": \"api-key\",\n  \"encryptEmptyStrings\": \"<boolean>\",\n  \"app\": \"<string>\",\n  \"createdAt\": \"<long>\",\n  \"updatedAt\": \"<long>\"\n}",
+                  "createdAt": "2026-07-28T01:35:30.000Z",
+                  "updatedAt": "2026-07-28T01:35:30.000Z",
+                  "uid": "35240-0351860c-53d8-4b8d-9904-287d52cb41a3"
+                }
+              ],
+              "createdAt": "2026-07-28T01:35:30.000Z",
+              "updatedAt": "2026-07-28T01:35:30.000Z",
+              "uid": "35240-56c72600-d613-4449-b8fa-90ade1653343"
+            },
+            {
+              "name": "Updates a Relay",
+              "id": "c267a3ff-ea57-4ade-9e7a-ae400bbe2dbc",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "basic",
+                  "basic": [
+                    {
+                      "key": "username",
+                      "value": "{{basicAuthUsername}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "password",
+                      "value": "{{basicAuthPassword}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"routes\": [\n    {\n      \"path\": \"<string>\",\n      \"request\": [\n        {\n          \"action\": \"encrypt\",\n          \"selections\": [\n            {\n              \"selector\": \"<string>\",\n              \"type\": \"form\",\n              \"role\": \"<string>\"\n            },\n            {\n              \"selector\": \"<string>\",\n              \"type\": \"header\",\n              \"role\": \"<string>\"\n            }\n          ]\n        }\n      ],\n      \"response\": [\n        {\n          \"action\": \"decrypt\",\n          \"selections\": [\n            {\n              \"selector\": \"<string>\",\n              \"type\": \"json\",\n              \"role\": \"<string>\"\n            },\n            {\n              \"selector\": \"<string>\",\n              \"type\": \"form\",\n              \"role\": \"<string>\"\n            }\n          ]\n        }\n      ],\n      \"method\": \"PUT\"\n    },\n    {\n      \"path\": \"<string>\",\n      \"request\": [\n        {\n          \"action\": \"decrypt\",\n          \"selections\": [\n            {\n              \"selector\": \"<string>\",\n              \"type\": \"json\",\n              \"role\": \"<string>\"\n            },\n            {\n              \"selector\": \"<string>\",\n              \"type\": \"header\",\n              \"role\": \"<string>\"\n            }\n          ]\n        }\n      ],\n      \"response\": [\n        {\n          \"action\": \"decrypt\",\n          \"selections\": [\n            {\n              \"selector\": \"<string>\",\n              \"type\": \"form\",\n              \"role\": \"<string>\"\n            },\n            {\n              \"selector\": \"<string>\",\n              \"type\": \"form\",\n              \"role\": \"<string>\"\n            }\n          ]\n        }\n      ],\n      \"method\": \"PUT\"\n    }\n  ],\n  \"encryptEmptyStrings\": \"<boolean>\",\n  \"authentication\": null\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/relays/:id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "relays",
+                    ":id"
+                  ],
+                  "variable": [
+                    {
+                      "id": "5c23bee5-5507-44af-a62c-84ea206973e3",
+                      "key": "id",
+                      "value": "<string>",
+                      "description": "(Required) The id of the Relay to be updated."
+                    }
+                  ]
+                },
+                "description": "Updates a [Relay](/relay). Any properties not provided are left unchanged."
+              },
+              "response": [
+                {
+                  "id": "dd626d22-17f9-4a97-b6b2-7a873262a3ee",
+                  "name": "The Relay has been updated",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: basic",
+                        "key": "Authorization",
+                        "value": "Basic <credentials>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"routes\": [\n    {\n      \"path\": \"<string>\",\n      \"request\": [\n        {\n          \"action\": \"encrypt\",\n          \"selections\": [\n            {\n              \"selector\": \"<string>\",\n              \"type\": \"form\",\n              \"role\": \"<string>\"\n            },\n            {\n              \"selector\": \"<string>\",\n              \"type\": \"header\",\n              \"role\": \"<string>\"\n            }\n          ]\n        }\n      ],\n      \"response\": [\n        {\n          \"action\": \"decrypt\",\n          \"selections\": [\n            {\n              \"selector\": \"<string>\",\n              \"type\": \"json\",\n              \"role\": \"<string>\"\n            },\n            {\n              \"selector\": \"<string>\",\n              \"type\": \"form\",\n              \"role\": \"<string>\"\n            }\n          ]\n        }\n      ],\n      \"method\": \"PUT\"\n    },\n    {\n      \"path\": \"<string>\",\n      \"request\": [\n        {\n          \"action\": \"decrypt\",\n          \"selections\": [\n            {\n              \"selector\": \"<string>\",\n              \"type\": \"json\",\n              \"role\": \"<string>\"\n            },\n            {\n              \"selector\": \"<string>\",\n              \"type\": \"header\",\n              \"role\": \"<string>\"\n            }\n          ]\n        }\n      ],\n      \"response\": [\n        {\n          \"action\": \"decrypt\",\n          \"selections\": [\n            {\n              \"selector\": \"<string>\",\n              \"type\": \"form\",\n              \"role\": \"<string>\"\n            },\n            {\n              \"selector\": \"<string>\",\n              \"type\": \"form\",\n              \"role\": \"<string>\"\n            }\n          ]\n        }\n      ],\n      \"method\": \"PUT\"\n    }\n  ],\n  \"encryptEmptyStrings\": \"<boolean>\",\n  \"authentication\": null\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/relays/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "relays",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"destinationDomain\": \"<string>\",\n  \"evervaultDomain\": \"<string>\",\n  \"routes\": [\n    {\n      \"path\": \"<string>\",\n      \"request\": [\n        {\n          \"action\": \"encrypt\",\n          \"selections\": [\n            {\n              \"selector\": \"<string>\",\n              \"type\": \"header\",\n              \"role\": \"<string>\"\n            },\n            {\n              \"selector\": \"<string>\",\n              \"type\": \"form\",\n              \"role\": \"<string>\"\n            }\n          ]\n        }\n      ],\n      \"response\": [\n        {\n          \"action\": \"decrypt\",\n          \"selections\": [\n            {\n              \"selector\": \"<string>\",\n              \"type\": \"header\",\n              \"role\": \"<string>\"\n            },\n            {\n              \"selector\": \"<string>\",\n              \"type\": \"header\",\n              \"role\": \"<string>\"\n            }\n          ]\n        }\n      ],\n      \"method\": \"DELETE\"\n    },\n    {\n      \"path\": \"<string>\",\n      \"request\": [\n        {\n          \"action\": \"decrypt\",\n          \"selections\": [\n            {\n              \"selector\": \"<string>\",\n              \"type\": \"header\",\n              \"role\": \"<string>\"\n            },\n            {\n              \"selector\": \"<string>\",\n              \"type\": \"form\",\n              \"role\": \"<string>\"\n            }\n          ]\n        }\n      ],\n      \"response\": [\n        {\n          \"action\": \"encrypt\",\n          \"selections\": [\n            {\n              \"selector\": \"<string>\",\n              \"type\": \"form\",\n              \"role\": \"<string>\"\n            },\n            {\n              \"selector\": \"<string>\",\n              \"type\": \"json\",\n              \"role\": \"<string>\"\n            }\n          ]\n        }\n      ],\n      \"method\": \"GET\"\n    }\n  ],\n  \"authentication\": \"api-key\",\n  \"encryptEmptyStrings\": \"<boolean>\",\n  \"app\": \"<string>\",\n  \"createdAt\": \"<long>\",\n  \"updatedAt\": \"<long>\"\n}",
+                  "createdAt": "2026-07-28T01:35:30.000Z",
+                  "updatedAt": "2026-07-28T01:35:30.000Z",
+                  "uid": "35240-dd626d22-17f9-4a97-b6b2-7a873262a3ee"
+                }
+              ],
+              "createdAt": "2026-07-28T01:35:30.000Z",
+              "updatedAt": "2026-07-28T01:35:30.000Z",
+              "uid": "35240-c267a3ff-ea57-4ade-9e7a-ae400bbe2dbc"
+            },
+            {
+              "name": "Delete a Relay",
+              "id": "583d1c48-515f-47da-af3e-e9505d47133a",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "basic",
+                  "basic": [
+                    {
+                      "key": "username",
+                      "value": "{{basicAuthUsername}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "password",
+                      "value": "{{basicAuthPassword}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/relays/:id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "relays",
+                    ":id"
+                  ],
+                  "variable": [
+                    {
+                      "id": "16b618f3-c33a-4484-b805-153736956828",
+                      "key": "id",
+                      "value": "<string>",
+                      "description": "(Required) The id of the Relay to be deleted."
+                    }
+                  ]
+                },
+                "description": "Deletes a [Relay](/relay). This action cannot be undone and the Relay domain will no longer forward requests to its destination domain."
+              },
+              "response": [
+                {
+                  "id": "ab4d2410-5ce4-4070-8dba-e6e00944ca89",
+                  "name": "The Relay has been deleted",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: basic",
+                        "key": "Authorization",
+                        "value": "Basic <credentials>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/relays/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "relays",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Accepted",
+                  "code": 202,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:35:30.000Z",
+                  "updatedAt": "2026-07-28T01:35:30.000Z",
+                  "uid": "35240-ab4d2410-5ce4-4070-8dba-e6e00944ca89"
+                }
+              ],
+              "createdAt": "2026-07-28T01:35:30.000Z",
+              "updatedAt": "2026-07-28T01:35:30.000Z",
+              "uid": "35240-583d1c48-515f-47da-af3e-e9505d47133a"
+            }
+          ],
+          "id": "b91d43fd-cdd5-46d9-91f5-473afb1a88be",
+          "createdAt": "2026-07-28T01:35:30.000Z",
+          "updatedAt": "2026-07-28T01:35:30.000Z",
+          "uid": "35240-b91d43fd-cdd5-46d9-91f5-473afb1a88be"
+        },
+        {
+          "name": "{relay_id}",
+          "item": [
+            {
+              "name": "custom-domains",
+              "item": [
+                {
+                  "name": "{id}",
+                  "item": [
+                    {
+                      "name": "Retrieve a Custom Domain",
+                      "id": "307f8769-b56b-453f-b03a-dd9ebbabbe71",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "basic",
+                          "basic": [
+                            {
+                              "key": "username",
+                              "value": "{{basicAuthUsername}}",
+                              "type": "string"
+                            },
+                            {
+                              "key": "password",
+                              "value": "{{basicAuthPassword}}",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/relays/:relay_id/custom-domains/:id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "relays",
+                            ":relay_id",
+                            "custom-domains",
+                            ":id"
+                          ],
+                          "variable": [
+                            {
+                              "id": "9305ecac-58c6-4de0-a0e0-a441696e9c78",
+                              "key": "relay_id",
+                              "value": "<string>",
+                              "description": "(Required) The id of the Relay to which the custom domain belongs."
+                            },
+                            {
+                              "id": "3d46f18a-0f09-41a1-98fe-3f524db64ec7",
+                              "key": "id",
+                              "value": "<string>",
+                              "description": "(Required) The id of the custom domain to be fetched."
+                            }
+                          ]
+                        },
+                        "description": "Retrieves a custom domain for a [Relay](/relay)."
+                      },
+                      "response": [
+                        {
+                          "id": "9dc1a723-f85e-4f39-895b-a43e0d0a45a9",
+                          "name": "The custom domain has been fetched.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/relays/:relay_id/custom-domains/:id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "relays",
+                                ":relay_id",
+                                "custom-domains",
+                                ":id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "relay_id"
+                                },
+                                {
+                                  "key": "id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"id\": \"<string>\",\n  \"customDomain\": \"<string>\",\n  \"relay\": \"<string>\",\n  \"status\": \"active\",\n  \"validationRecord\": \"<string>\",\n  \"createdAt\": \"<long>\",\n  \"updatedAt\": \"<long>\"\n}",
+                          "createdAt": "2026-07-28T01:35:30.000Z",
+                          "updatedAt": "2026-07-28T01:35:30.000Z",
+                          "uid": "35240-9dc1a723-f85e-4f39-895b-a43e0d0a45a9"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T01:35:30.000Z",
+                      "updatedAt": "2026-07-28T01:35:30.000Z",
+                      "uid": "35240-307f8769-b56b-453f-b03a-dd9ebbabbe71"
+                    },
+                    {
+                      "name": "Delete a Custom Domain",
+                      "id": "d10798da-9b14-418a-9034-67b37ea90dbb",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "basic",
+                          "basic": [
+                            {
+                              "key": "username",
+                              "value": "{{basicAuthUsername}}",
+                              "type": "string"
+                            },
+                            {
+                              "key": "password",
+                              "value": "{{basicAuthPassword}}",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "DELETE",
+                        "header": [],
+                        "url": {
+                          "raw": "{{baseUrl}}/relays/:relay_id/custom-domains/:id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "relays",
+                            ":relay_id",
+                            "custom-domains",
+                            ":id"
+                          ],
+                          "variable": [
+                            {
+                              "id": "4e707141-1b08-4620-bc08-61d6a2d113ed",
+                              "key": "relay_id",
+                              "value": "<string>",
+                              "description": "(Required) The id of the Relay to which the custom domain belongs."
+                            },
+                            {
+                              "id": "c15e33b1-a16b-46dc-847b-c50d1cdbba64",
+                              "key": "id",
+                              "value": "<string>",
+                              "description": "(Required) The id of the custom domain to be deleted."
+                            }
+                          ]
+                        },
+                        "description": "Deletes a custom domain for a [Relay](/relay). This action cannot be undone."
+                      },
+                      "response": [
+                        {
+                          "id": "ecffbe0c-0276-4d89-b53f-663973ab4c8d",
+                          "name": "The custom domain has been deleted",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/relays/:relay_id/custom-domains/:id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "relays",
+                                ":relay_id",
+                                "custom-domains",
+                                ":id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "relay_id"
+                                },
+                                {
+                                  "key": "id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Accepted",
+                          "code": 202,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-07-28T01:35:30.000Z",
+                          "updatedAt": "2026-07-28T01:35:30.000Z",
+                          "uid": "35240-ecffbe0c-0276-4d89-b53f-663973ab4c8d"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T01:35:30.000Z",
+                      "updatedAt": "2026-07-28T01:35:30.000Z",
+                      "uid": "35240-d10798da-9b14-418a-9034-67b37ea90dbb"
+                    }
+                  ],
+                  "id": "3c7cd145-3517-4f98-a046-c214b9b675d4",
+                  "createdAt": "2026-07-28T01:35:30.000Z",
+                  "updatedAt": "2026-07-28T01:35:30.000Z",
+                  "uid": "35240-3c7cd145-3517-4f98-a046-c214b9b675d4"
+                },
+                {
+                  "name": "Create a Custom Domain",
+                  "id": "3cc4fea5-f58d-4b2e-8574-f9390c679047",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "basic",
+                      "basic": [
+                        {
+                          "key": "username",
+                          "value": "{{basicAuthUsername}}",
+                          "type": "string"
+                        },
+                        {
+                          "key": "password",
+                          "value": "{{basicAuthPassword}}",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"customDomain\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/relays/:relay_id/custom-domains",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "relays",
+                        ":relay_id",
+                        "custom-domains"
+                      ],
+                      "variable": [
+                        {
+                          "id": "7d3992c7-e3f5-453c-be39-09b14c9d4cf8",
+                          "key": "relay_id",
+                          "value": "<string>",
+                          "description": "(Required) The id of the Relay to which the custom domain should be added."
+                        }
+                      ]
+                    },
+                    "description": "Creates a custom domain for the Relay"
+                  },
+                  "response": [
+                    {
+                      "id": "7273a138-9216-46a5-ba05-fac6fc0848bc",
+                      "name": "The custom domain has been created",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"customDomain\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/relays/:relay_id/custom-domains",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "relays",
+                            ":relay_id",
+                            "custom-domains"
+                          ],
+                          "variable": [
+                            {
+                              "key": "relay_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Created",
+                      "code": 201,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<string>\",\n  \"customDomain\": \"<string>\",\n  \"relay\": \"<string>\",\n  \"status\": \"active\",\n  \"validationRecord\": \"<string>\",\n  \"createdAt\": \"<long>\",\n  \"updatedAt\": \"<long>\"\n}",
+                      "createdAt": "2026-07-28T01:35:30.000Z",
+                      "updatedAt": "2026-07-28T01:35:30.000Z",
+                      "uid": "35240-7273a138-9216-46a5-ba05-fac6fc0848bc"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T01:35:30.000Z",
+                  "updatedAt": "2026-07-28T01:35:30.000Z",
+                  "uid": "35240-3cc4fea5-f58d-4b2e-8574-f9390c679047"
+                },
+                {
+                  "name": "List all Custom Domains",
+                  "id": "e33ee3d8-69f1-4140-86b2-cbfb3662a5f8",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "basic",
+                      "basic": [
+                        {
+                          "key": "username",
+                          "value": "{{basicAuthUsername}}",
+                          "type": "string"
+                        },
+                        {
+                          "key": "password",
+                          "value": "{{basicAuthPassword}}",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/relays/:relay_id/custom-domains",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "relays",
+                        ":relay_id",
+                        "custom-domains"
+                      ],
+                      "variable": [
+                        {
+                          "id": "54122532-3c05-4f04-a4a0-2fc9512c8b87",
+                          "key": "relay_id",
+                          "value": "<string>",
+                          "description": "(Required) The id of the Relay whose custom domains should be fetched."
+                        }
+                      ]
+                    },
+                    "description": "Lists all custom domains for a [Relay](/relay)."
+                  },
+                  "response": [
+                    {
+                      "id": "24c32f7d-5d59-4c12-8206-92b8913fe857",
+                      "name": "The Relay's custom domains have been fetched.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/relays/:relay_id/custom-domains",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "relays",
+                            ":relay_id",
+                            "custom-domains"
+                          ],
+                          "variable": [
+                            {
+                              "key": "relay_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"data\": [\n    {\n      \"id\": \"<string>\",\n      \"customDomain\": \"<string>\",\n      \"relay\": \"<string>\",\n      \"status\": \"active\",\n      \"validationRecord\": \"<string>\",\n      \"createdAt\": \"<long>\",\n      \"updatedAt\": \"<long>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"customDomain\": \"<string>\",\n      \"relay\": \"<string>\",\n      \"status\": \"active\",\n      \"validationRecord\": \"<string>\",\n      \"createdAt\": \"<long>\",\n      \"updatedAt\": \"<long>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T01:35:30.000Z",
+                      "updatedAt": "2026-07-28T01:35:30.000Z",
+                      "uid": "35240-24c32f7d-5d59-4c12-8206-92b8913fe857"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T01:35:30.000Z",
+                  "updatedAt": "2026-07-28T01:35:30.000Z",
+                  "uid": "35240-e33ee3d8-69f1-4140-86b2-cbfb3662a5f8"
+                }
+              ],
+              "id": "59107284-d15d-4d84-b16e-4f60037967ad",
+              "createdAt": "2026-07-28T01:35:30.000Z",
+              "updatedAt": "2026-07-28T01:35:30.000Z",
+              "uid": "35240-59107284-d15d-4d84-b16e-4f60037967ad"
+            }
+          ],
+          "id": "2a3f058a-f720-4664-bdfc-65ef133a2f21",
+          "createdAt": "2026-07-28T01:35:30.000Z",
+          "updatedAt": "2026-07-28T01:35:30.000Z",
+          "uid": "35240-2a3f058a-f720-4664-bdfc-65ef133a2f21"
+        },
+        {
+          "name": "Create a Relay",
+          "id": "16af0844-15e8-4964-9494-f66ad1aa931e",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}",
+                  "type": "string"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"destinationDomain\": \"<string>\",\n  \"routes\": [\n    {\n      \"path\": \"<string>\",\n      \"request\": [\n        {\n          \"action\": \"decrypt\",\n          \"selections\": [\n            {\n              \"selector\": \"<string>\",\n              \"type\": \"header\",\n              \"role\": \"<string>\"\n            },\n            {\n              \"selector\": \"<string>\",\n              \"type\": \"form\",\n              \"role\": \"<string>\"\n            }\n          ]\n        }\n      ],\n      \"response\": [\n        {\n          \"action\": \"decrypt\",\n          \"selections\": [\n            {\n              \"selector\": \"<string>\",\n              \"type\": \"header\",\n              \"role\": \"<string>\"\n            },\n            {\n              \"selector\": \"<string>\",\n              \"type\": \"json\",\n              \"role\": \"<string>\"\n            }\n          ]\n        }\n      ],\n      \"method\": \"GET\"\n    },\n    {\n      \"path\": \"<string>\",\n      \"request\": [\n        {\n          \"action\": \"encrypt\",\n          \"selections\": [\n            {\n              \"selector\": \"<string>\",\n              \"type\": \"form\",\n              \"role\": \"<string>\"\n            },\n            {\n              \"selector\": \"<string>\",\n              \"type\": \"header\",\n              \"role\": \"<string>\"\n            }\n          ]\n        }\n      ],\n      \"response\": [\n        {\n          \"action\": \"encrypt\",\n          \"selections\": [\n            {\n              \"selector\": \"<string>\",\n              \"type\": \"header\",\n              \"role\": \"<string>\"\n            },\n            {\n              \"selector\": \"<string>\",\n              \"type\": \"header\",\n              \"role\": \"<string>\"\n            }\n          ]\n        }\n      ],\n      \"method\": \"POST\"\n    }\n  ],\n  \"encryptEmptyStrings\": \"<boolean>\",\n  \"authentication\": \"api-key\"\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/relays",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "relays"
+              ]
+            },
+            "description": "Creates a new [Relay](/relay)."
+          },
+          "response": [
+            {
+              "id": "ddd2251a-1a30-46f8-a412-02e6afad4bb8",
+              "name": "The Relay has been created",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: basic",
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"destinationDomain\": \"<string>\",\n  \"routes\": [\n    {\n      \"path\": \"<string>\",\n      \"request\": [\n        {\n          \"action\": \"decrypt\",\n          \"selections\": [\n            {\n              \"selector\": \"<string>\",\n              \"type\": \"header\",\n              \"role\": \"<string>\"\n            },\n            {\n              \"selector\": \"<string>\",\n              \"type\": \"form\",\n              \"role\": \"<string>\"\n            }\n          ]\n        }\n      ],\n      \"response\": [\n        {\n          \"action\": \"decrypt\",\n          \"selections\": [\n            {\n              \"selector\": \"<string>\",\n              \"type\": \"header\",\n              \"role\": \"<string>\"\n            },\n            {\n              \"selector\": \"<string>\",\n              \"type\": \"json\",\n              \"role\": \"<string>\"\n            }\n          ]\n        }\n      ],\n      \"method\": \"GET\"\n    },\n    {\n      \"path\": \"<string>\",\n      \"request\": [\n        {\n          \"action\": \"encrypt\",\n          \"selections\": [\n            {\n              \"selector\": \"<string>\",\n              \"type\": \"form\",\n              \"role\": \"<string>\"\n            },\n            {\n              \"selector\": \"<string>\",\n              \"type\": \"header\",\n              \"role\": \"<string>\"\n            }\n          ]\n        }\n      ],\n      \"response\": [\n        {\n          \"action\": \"encrypt\",\n          \"selections\": [\n            {\n              \"selector\": \"<string>\",\n              \"type\": \"header\",\n              \"role\": \"<string>\"\n            },\n            {\n              \"selector\": \"<string>\",\n              \"type\": \"header\",\n              \"role\": \"<string>\"\n            }\n          ]\n        }\n      ],\n      \"method\": \"POST\"\n    }\n  ],\n  \"encryptEmptyStrings\": \"<boolean>\",\n  \"authentication\": \"api-key\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/relays",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "relays"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"id\": \"<string>\",\n  \"destinationDomain\": \"<string>\",\n  \"evervaultDomain\": \"<string>\",\n  \"routes\": [\n    {\n      \"path\": \"<string>\",\n      \"request\": [\n        {\n          \"action\": \"encrypt\",\n          \"selections\": [\n            {\n              \"selector\": \"<string>\",\n              \"type\": \"header\",\n              \"role\": \"<string>\"\n            },\n            {\n              \"selector\": \"<string>\",\n              \"type\": \"form\",\n              \"role\": \"<string>\"\n            }\n          ]\n        }\n      ],\n      \"response\": [\n        {\n          \"action\": \"decrypt\",\n          \"selections\": [\n            {\n              \"selector\": \"<string>\",\n              \"type\": \"header\",\n              \"role\": \"<string>\"\n            },\n            {\n              \"selector\": \"<string>\",\n              \"type\": \"header\",\n              \"role\": \"<string>\"\n            }\n          ]\n        }\n      ],\n      \"method\": \"DELETE\"\n    },\n    {\n      \"path\": \"<string>\",\n      \"request\": [\n        {\n          \"action\": \"decrypt\",\n          \"selections\": [\n            {\n              \"selector\": \"<string>\",\n              \"type\": \"header\",\n              \"role\": \"<string>\"\n            },\n            {\n              \"selector\": \"<string>\",\n              \"type\": \"form\",\n              \"role\": \"<string>\"\n            }\n          ]\n        }\n      ],\n      \"response\": [\n        {\n          \"action\": \"encrypt\",\n          \"selections\": [\n            {\n              \"selector\": \"<string>\",\n              \"type\": \"form\",\n              \"role\": \"<string>\"\n            },\n            {\n              \"selector\": \"<string>\",\n              \"type\": \"json\",\n              \"role\": \"<string>\"\n            }\n          ]\n        }\n      ],\n      \"method\": \"GET\"\n    }\n  ],\n  \"authentication\": \"api-key\",\n  \"encryptEmptyStrings\": \"<boolean>\",\n  \"app\": \"<string>\",\n  \"createdAt\": \"<long>\",\n  \"updatedAt\": \"<long>\"\n}",
+              "createdAt": "2026-07-28T01:35:30.000Z",
+              "updatedAt": "2026-07-28T01:35:30.000Z",
+              "uid": "35240-ddd2251a-1a30-46f8-a412-02e6afad4bb8"
+            }
+          ],
+          "createdAt": "2026-07-28T01:35:30.000Z",
+          "updatedAt": "2026-07-28T01:35:30.000Z",
+          "uid": "35240-16af0844-15e8-4964-9494-f66ad1aa931e"
+        },
+        {
+          "name": "List all Relays",
+          "id": "f1bcc45d-b799-4e89-b829-87ad4feb19f3",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}",
+                  "type": "string"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/relays",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "relays"
+              ]
+            },
+            "description": "Lists all [Relays](/relay) for the App."
+          },
+          "response": [
+            {
+              "id": "e996e3cc-ea99-412d-b193-df52c412719f",
+              "name": "The App's Relays have been fetched.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: basic",
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/relays",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "relays"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"<string>\",\n      \"destinationDomain\": \"<string>\",\n      \"evervaultDomain\": \"<string>\",\n      \"routes\": [\n        {\n          \"path\": \"<string>\",\n          \"request\": [\n            {\n              \"action\": \"encrypt\",\n              \"selections\": [\n                {\n                  \"selector\": \"<string>\",\n                  \"type\": \"json\",\n                  \"role\": \"<string>\"\n                },\n                {\n                  \"selector\": \"<string>\",\n                  \"type\": \"header\",\n                  \"role\": \"<string>\"\n                }\n              ]\n            }\n          ],\n          \"response\": [\n            {\n              \"action\": \"decrypt\",\n              \"selections\": [\n                {\n                  \"selector\": \"<string>\",\n                  \"type\": \"header\",\n                  \"role\": \"<string>\"\n                },\n                {\n                  \"selector\": \"<string>\",\n                  \"type\": \"json\",\n                  \"role\": \"<string>\"\n                }\n              ]\n            }\n          ],\n          \"method\": \"DELETE\"\n        },\n        {\n          \"path\": \"<string>\",\n          \"request\": [\n            {\n              \"action\": \"encrypt\",\n              \"selections\": [\n                {\n                  \"selector\": \"<string>\",\n                  \"type\": \"header\",\n                  \"role\": \"<string>\"\n                },\n                {\n                  \"selector\": \"<string>\",\n                  \"type\": \"form\",\n                  \"role\": \"<string>\"\n                }\n              ]\n            }\n          ],\n          \"response\": [\n            {\n              \"action\": \"decrypt\",\n              \"selections\": [\n                {\n                  \"selector\": \"<string>\",\n                  \"type\": \"form\",\n                  \"role\": \"<string>\"\n                },\n                {\n                  \"selector\": \"<string>\",\n                  \"type\": \"header\",\n                  \"role\": \"<string>\"\n                }\n              ]\n            }\n          ],\n          \"method\": \"DELETE\"\n        }\n      ],\n      \"authentication\": \"api-key\",\n      \"encryptEmptyStrings\": \"<boolean>\",\n      \"app\": \"<string>\",\n      \"createdAt\": \"<long>\",\n      \"updatedAt\": \"<long>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"destinationDomain\": \"<string>\",\n      \"evervaultDomain\": \"<string>\",\n      \"routes\": [\n        {\n          \"path\": \"<string>\",\n          \"request\": [\n            {\n              \"action\": \"encrypt\",\n              \"selections\": [\n                {\n                  \"selector\": \"<string>\",\n                  \"type\": \"header\",\n                  \"role\": \"<string>\"\n                },\n                {\n                  \"selector\": \"<string>\",\n                  \"type\": \"json\",\n                  \"role\": \"<string>\"\n                }\n              ]\n            }\n          ],\n          \"response\": [\n            {\n              \"action\": \"encrypt\",\n              \"selections\": [\n                {\n                  \"selector\": \"<string>\",\n                  \"type\": \"form\",\n                  \"role\": \"<string>\"\n                },\n                {\n                  \"selector\": \"<string>\",\n                  \"type\": \"form\",\n                  \"role\": \"<string>\"\n                }\n              ]\n            }\n          ],\n          \"method\": \"GET\"\n        },\n        {\n          \"path\": \"<string>\",\n          \"request\": [\n            {\n              \"action\": \"encrypt\",\n              \"selections\": [\n                {\n                  \"selector\": \"<string>\",\n                  \"type\": \"form\",\n                  \"role\": \"<string>\"\n                },\n                {\n                  \"selector\": \"<string>\",\n                  \"type\": \"form\",\n                  \"role\": \"<string>\"\n                }\n              ]\n            }\n          ],\n          \"response\": [\n            {\n              \"action\": \"encrypt\",\n              \"selections\": [\n                {\n                  \"selector\": \"<string>\",\n                  \"type\": \"header\",\n                  \"role\": \"<string>\"\n                },\n                {\n                  \"selector\": \"<string>\",\n                  \"type\": \"json\",\n                  \"role\": \"<string>\"\n                }\n              ]\n            }\n          ],\n          \"method\": \"HEAD\"\n        }\n      ],\n      \"authentication\": null,\n      \"encryptEmptyStrings\": \"<boolean>\",\n      \"app\": \"<string>\",\n      \"createdAt\": \"<long>\",\n      \"updatedAt\": \"<long>\"\n    }\n  ]\n}",
+              "createdAt": "2026-07-28T01:35:30.000Z",
+              "updatedAt": "2026-07-28T01:35:30.000Z",
+              "uid": "35240-e996e3cc-ea99-412d-b193-df52c412719f"
+            }
+          ],
+          "createdAt": "2026-07-28T01:35:30.000Z",
+          "updatedAt": "2026-07-28T01:35:30.000Z",
+          "uid": "35240-f1bcc45d-b799-4e89-b829-87ad4feb19f3"
+        }
+      ],
+      "id": "f6223803-0964-4031-a506-64bd4ffac716",
+      "createdAt": "2026-07-28T01:35:30.000Z",
+      "updatedAt": "2026-07-28T01:35:30.000Z",
+      "uid": "35240-f6223803-0964-4031-a506-64bd4ffac716"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.evervault.com"
+    }
+  ]
+}

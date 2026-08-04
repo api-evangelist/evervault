@@ -1,0 +1,369 @@
+{
+  "info": {
+    "_postman_id": "d8ce81b4-55d5-4b89-a56b-fafa2fc6a17e",
+    "name": "Evervault Functions API",
+    "description": "The Evervault API allows developers to interact programmatically with their Evervault apps using HTTP requests.\n\nContact Support:\n Name: Evervault Support Team\n Email: support@evervault.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T01:34:59.000Z",
+    "updatedAt": "2026-07-28T01:35:00.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-d8ce81b4-55d5-4b89-a56b-fafa2fc6a17e"
+  },
+  "item": [
+    {
+      "name": "functions",
+      "item": [
+        {
+          "name": "{function_name}",
+          "item": [
+            {
+              "name": "runs",
+              "item": [
+                {
+                  "name": "Run a Function",
+                  "id": "721965ed-90ef-49be-8365-9f4e51482070",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "basic",
+                      "basic": [
+                        {
+                          "key": "username",
+                          "value": "{{basicAuthUsername}}",
+                          "type": "string"
+                        },
+                        {
+                          "key": "password",
+                          "value": "{{basicAuthPassword}}",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"payload\": {},\n  \"async\": \"<boolean>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/functions/:function_name/runs",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "functions",
+                        ":function_name",
+                        "runs"
+                      ],
+                      "variable": [
+                        {
+                          "id": "3b7fa9ba-0975-4a20-9d73-173622eb2914",
+                          "key": "function_name",
+                          "value": "<string>",
+                          "description": "(Required) The name of the Function to be executed."
+                        }
+                      ]
+                    },
+                    "description": "The Function run endpoint lets you invoke an [Evervault Function](/primitives/functions). The body of the request should contain a payload, the value of which will be decrypted and passed as an argument to the Function.\n"
+                  },
+                  "response": [
+                    {
+                      "id": "82a0ba2d-d27b-4536-ba36-34bfc905fe04",
+                      "name": "The Function run has completed",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"payload\": {},\n  \"async\": \"<boolean>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/functions/:function_name/runs",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "functions",
+                            ":function_name",
+                            "runs"
+                          ],
+                          "variable": [
+                            {
+                              "key": "function_name"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<string>\",\n  \"status\": \"success\",\n  \"result\": {},\n  \"error\": {\n    \"message\": \"<string>\",\n    \"stack\": \"<string>\"\n  },\n  \"createdAt\": \"<long>\"\n}",
+                      "createdAt": "2026-07-28T01:35:00.000Z",
+                      "updatedAt": "2026-07-28T01:35:00.000Z",
+                      "uid": "35240-82a0ba2d-d27b-4536-ba36-34bfc905fe04"
+                    },
+                    {
+                      "id": "d560d924-fb0b-45d2-85d0-711bc3389eb2",
+                      "name": "The asynchronous Function invocation has been queued.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"payload\": {},\n  \"async\": \"<boolean>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/functions/:function_name/runs",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "functions",
+                            ":function_name",
+                            "runs"
+                          ],
+                          "variable": [
+                            {
+                              "key": "function_name"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Accepted",
+                      "code": 202,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<string>\",\n  \"status\": \"success\",\n  \"result\": {},\n  \"error\": {\n    \"message\": \"<string>\",\n    \"stack\": \"<string>\"\n  },\n  \"createdAt\": \"<long>\"\n}",
+                      "createdAt": "2026-07-28T01:35:00.000Z",
+                      "updatedAt": "2026-07-28T01:35:00.000Z",
+                      "uid": "35240-d560d924-fb0b-45d2-85d0-711bc3389eb2"
+                    },
+                    {
+                      "id": "32e37fa4-add4-409d-91b2-0735bfe802da",
+                      "name": "The request has timed out.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/problem+json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"payload\": {},\n  \"async\": \"<boolean>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/functions/:function_name/runs",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "functions",
+                            ":function_name",
+                            "runs"
+                          ],
+                          "variable": [
+                            {
+                              "key": "function_name"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Request Timeout",
+                      "code": 408,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/problem+json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"code\": \"<string>\",\n  \"title\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"detail\": \"<string>\",\n  \"fields\": [\n    {\n      \"pointer\": \"<string>\",\n      \"reason\": \"<string>\"\n    },\n    {\n      \"pointer\": \"<string>\",\n      \"reason\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T01:35:00.000Z",
+                      "updatedAt": "2026-07-28T01:35:00.000Z",
+                      "uid": "35240-32e37fa4-add4-409d-91b2-0735bfe802da"
+                    },
+                    {
+                      "id": "439ec8ea-ead6-44f0-9eb5-2750426ddaa9",
+                      "name": "The Function is not ready to be invoked yet. This can occur when\nit hasn't been executed in a while. Retrying to run the Function after a short\ntime should resolve this.\n",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/problem+json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"payload\": {},\n  \"async\": \"<boolean>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/functions/:function_name/runs",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "functions",
+                            ":function_name",
+                            "runs"
+                          ],
+                          "variable": [
+                            {
+                              "key": "function_name"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Conflict",
+                      "code": 409,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/problem+json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"code\": \"<string>\",\n  \"title\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"detail\": \"<string>\",\n  \"fields\": [\n    {\n      \"pointer\": \"<string>\",\n      \"reason\": \"<string>\"\n    },\n    {\n      \"pointer\": \"<string>\",\n      \"reason\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T01:35:00.000Z",
+                      "updatedAt": "2026-07-28T01:35:00.000Z",
+                      "uid": "35240-439ec8ea-ead6-44f0-9eb5-2750426ddaa9"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T01:35:00.000Z",
+                  "updatedAt": "2026-07-28T01:35:00.000Z",
+                  "uid": "35240-721965ed-90ef-49be-8365-9f4e51482070"
+                }
+              ],
+              "id": "3ff183eb-ad82-44a7-8e2c-960edc212977",
+              "createdAt": "2026-07-28T01:35:00.000Z",
+              "updatedAt": "2026-07-28T01:35:00.000Z",
+              "uid": "35240-3ff183eb-ad82-44a7-8e2c-960edc212977"
+            }
+          ],
+          "id": "15da1593-ddf8-46ee-97a2-93436cd11c77",
+          "createdAt": "2026-07-28T01:35:00.000Z",
+          "updatedAt": "2026-07-28T01:35:00.000Z",
+          "uid": "35240-15da1593-ddf8-46ee-97a2-93436cd11c77"
+        }
+      ],
+      "id": "43d3d4e2-a8ab-432a-81bb-d379cef6cfa6",
+      "createdAt": "2026-07-28T01:35:00.000Z",
+      "updatedAt": "2026-07-28T01:35:00.000Z",
+      "uid": "35240-43d3d4e2-a8ab-432a-81bb-d379cef6cfa6"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.evervault.com"
+    }
+  ]
+}

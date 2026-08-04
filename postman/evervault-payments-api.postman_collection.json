@@ -1,0 +1,3314 @@
+{
+  "info": {
+    "_postman_id": "f7d6ebed-72bf-401d-a754-9f54db60900b",
+    "name": "Evervault Payments API",
+    "description": "The Evervault API allows developers to interact programmatically with their Evervault apps using HTTP requests.\n\nContact Support:\n Name: Evervault Support Team\n Email: support@evervault.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T01:35:29.000Z",
+    "updatedAt": "2026-07-28T01:35:29.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-f7d6ebed-72bf-401d-a754-9f54db60900b"
+  },
+  "item": [
+    {
+      "name": "insights",
+      "item": [
+        {
+          "name": "cards",
+          "item": [
+            {
+              "name": "Card Insights",
+              "id": "79f00976-06f2-4dfc-b89e-18e5b22a792b",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "basic",
+                  "basic": [
+                    {
+                      "key": "username",
+                      "value": "{{basicAuthUsername}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "password",
+                      "value": "{{basicAuthPassword}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"card\": {\n    \"number\": \"<string>\",\n    \"expiry\": {\n      \"month\": \"<string>\",\n      \"year\": \"<string>\"\n    },\n    \"cvv\": \"<string>\"\n  },\n  \"extensions\": [\n    \"cardholder\",\n    \"address\"\n  ],\n  \"cardholder\": {\n    \"firstName\": \"<string>\",\n    \"lastName\": \"<string>\"\n  },\n  \"address\": {\n    \"postalCode\": \"<string>\",\n    \"line1\": \"<string>\",\n    \"line2\": \"<string>\",\n    \"city\": \"<string>\",\n    \"state\": \"<string>\",\n    \"country\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/insights/cards",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "insights",
+                    "cards"
+                  ]
+                },
+                "description": "The Card Insights API allows you to perform address verification (AVS), name verification (ANI), and CVV verification checks. You can also check the card's push and pull transaction capabilities.\n"
+              },
+              "response": [
+                {
+                  "id": "4d40c873-62dc-4458-94f6-a703e5adf5e4",
+                  "name": "Returns the Card Insight object",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: basic",
+                        "key": "Authorization",
+                        "value": "Basic <credentials>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"card\": {\n    \"number\": \"<string>\",\n    \"expiry\": {\n      \"month\": \"<string>\",\n      \"year\": \"<string>\"\n    },\n    \"cvv\": \"<string>\"\n  },\n  \"extensions\": [\n    \"cardholder\",\n    \"address\"\n  ],\n  \"cardholder\": {\n    \"firstName\": \"<string>\",\n    \"lastName\": \"<string>\"\n  },\n  \"address\": {\n    \"postalCode\": \"<string>\",\n    \"line1\": \"<string>\",\n    \"line2\": \"<string>\",\n    \"city\": \"<string>\",\n    \"state\": \"<string>\",\n    \"country\": \"<string>\"\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/insights/cards",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "insights",
+                        "cards"
+                      ]
+                    }
+                  },
+                  "status": "Created",
+                  "code": 201,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"fingerprint\": \"<string>\",\n  \"bin\": {\n    \"brand\": \"mastercard\",\n    \"funding\": \"credit\",\n    \"segment\": \"all\",\n    \"country\": \"<string>\",\n    \"currency\": \"<string>\",\n    \"issuer\": \"<string>\",\n    \"type\": \"card\",\n    \"productName\": \"<string>\",\n    \"fastFunds\": {\n      \"domestic\": \"<boolean>\",\n      \"crossBorder\": \"<boolean>\"\n    },\n    \"threeDS\": {\n      \"supportedVersions\": {\n        \"accessControlServer\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"directoryServer\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      },\n      \"acsInfoIndicators\": [\n        {\n          \"code\": \"<string>\",\n          \"indicator\": \"<string>\",\n          \"description\": \"<string>\"\n        },\n        {\n          \"code\": \"<string>\",\n          \"indicator\": \"<string>\",\n          \"description\": \"<string>\"\n        }\n      ]\n    }\n  },\n  \"createdAt\": \"<integer>\",\n  \"capabilities\": {\n    \"push\": {\n      \"enabled\": \"<boolean>\",\n      \"network\": \"<string>\",\n      \"type\": \"<string>\",\n      \"availability\": \"immediate\",\n      \"regulated\": \"<boolean>\",\n      \"currency\": {\n        \"alphaCode\": \"<string>\",\n        \"numericCode\": \"<string>\"\n      },\n      \"country\": {\n        \"alphaCode\": \"<string>\",\n        \"numericCode\": \"<string>\"\n      }\n    },\n    \"pull\": {\n      \"enabled\": \"<boolean>\",\n      \"network\": \"<string>\",\n      \"type\": \"<string>\",\n      \"availability\": \"immediate\",\n      \"regulated\": \"<boolean>\",\n      \"currency\": {\n        \"alphaCode\": \"<string>\",\n        \"numericCode\": \"<string>\"\n      },\n      \"country\": {\n        \"alphaCode\": \"<string>\",\n        \"numericCode\": \"<string>\"\n      }\n    }\n  },\n  \"fees\": \"<null>\",\n  \"cardholder\": {\n    \"result\": {\n      \"value\": \"N\",\n      \"code\": \"unsupported\"\n    },\n    \"fullName\": {\n      \"value\": \"P\",\n      \"code\": \"no-match\"\n    },\n    \"firstName\": {\n      \"value\": \"M\",\n      \"code\": \"no-match\"\n    },\n    \"lastName\": {\n      \"value\": \"M\",\n      \"code\": \"partial-match\"\n    }\n  },\n  \"address\": {\n    \"avsIdentifier\": \"<string>\",\n    \"networkIdentifier\": \"<string>\",\n    \"networkResponseCode\": {\n      \"value\": \"<string>\"\n    },\n    \"result\": {\n      \"value\": \"<string>\",\n      \"address\": \"unavailable\",\n      \"zip\": \"match\"\n    }\n  },\n  \"cvv\": {\n    \"value\": \"<string>\",\n    \"code\": \"<string>\"\n  },\n  \"paymentAccountReference\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T01:35:29.000Z",
+                  "updatedAt": "2026-07-28T01:35:29.000Z",
+                  "uid": "35240-4d40c873-62dc-4458-94f6-a703e5adf5e4"
+                }
+              ],
+              "createdAt": "2026-07-28T01:35:29.000Z",
+              "updatedAt": "2026-07-28T01:35:29.000Z",
+              "uid": "35240-79f00976-06f2-4dfc-b89e-18e5b22a792b"
+            }
+          ],
+          "id": "76ce2f35-f971-43cd-8dca-d7a5bc4a0f04",
+          "createdAt": "2026-07-28T01:35:29.000Z",
+          "updatedAt": "2026-07-28T01:35:29.000Z",
+          "uid": "35240-76ce2f35-f971-43cd-8dca-d7a5bc4a0f04"
+        }
+      ],
+      "id": "0bb8ebdd-06d9-4e15-82f9-38873608e2ee",
+      "createdAt": "2026-07-28T01:35:29.000Z",
+      "updatedAt": "2026-07-28T01:35:29.000Z",
+      "uid": "35240-0bb8ebdd-06d9-4e15-82f9-38873608e2ee"
+    },
+    {
+      "name": "payments",
+      "item": [
+        {
+          "name": "bin-lookups",
+          "item": [
+            {
+              "name": "BIN Lookup",
+              "id": "080dec5e-c153-41bc-9ba4-df8174e7cf0a",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "basic",
+                  "basic": [
+                    {
+                      "key": "username",
+                      "value": "{{basicAuthUsername}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "password",
+                      "value": "{{basicAuthPassword}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"number\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/payments/bin-lookups",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "payments",
+                    "bin-lookups"
+                  ]
+                },
+                "description": "Performs a BIN lookup for the provided card number and retrieves associated information such as the card brand, country, issuer, and more.\n"
+              },
+              "response": [
+                {
+                  "id": "a6b6fe98-cdbf-4715-9aac-c847b2694f3e",
+                  "name": "Returns BIN details for the provided card number.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: basic",
+                        "key": "Authorization",
+                        "value": "Basic <credentials>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"number\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/payments/bin-lookups",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "payments",
+                        "bin-lookups"
+                      ]
+                    }
+                  },
+                  "status": "Created",
+                  "code": 201,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"brand\": \"unionpay\",\n  \"funding\": \"prepaid\",\n  \"segment\": \"all\",\n  \"country\": \"<string>\",\n  \"currency\": \"<string>\",\n  \"issuer\": \"<string>\",\n  \"type\": null,\n  \"productName\": \"<string>\",\n  \"fastFunds\": {\n    \"domestic\": \"<boolean>\",\n    \"crossBorder\": \"<boolean>\"\n  },\n  \"threeDS\": {\n    \"supportedVersions\": {\n      \"accessControlServer\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"directoryServer\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    \"acsInfoIndicators\": [\n      {\n        \"code\": \"<string>\",\n        \"indicator\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"code\": \"<string>\",\n        \"indicator\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  },\n  \"createdAt\": \"<integer>\"\n}",
+                  "createdAt": "2026-07-28T01:35:29.000Z",
+                  "updatedAt": "2026-07-28T01:35:29.000Z",
+                  "uid": "35240-a6b6fe98-cdbf-4715-9aac-c847b2694f3e"
+                }
+              ],
+              "createdAt": "2026-07-28T01:35:29.000Z",
+              "updatedAt": "2026-07-28T01:35:29.000Z",
+              "uid": "35240-080dec5e-c153-41bc-9ba4-df8174e7cf0a"
+            }
+          ],
+          "id": "6699bcc6-6b9d-4bb4-b62e-fd82de619f33",
+          "createdAt": "2026-07-28T01:35:29.000Z",
+          "updatedAt": "2026-07-28T01:35:29.000Z",
+          "uid": "35240-6699bcc6-6b9d-4bb4-b62e-fd82de619f33"
+        },
+        {
+          "name": "merchants",
+          "item": [
+            {
+              "name": "{merchant_id}",
+              "item": [
+                {
+                  "name": "Retrieve a Merchant",
+                  "id": "e4c21c31-319d-4db8-a29b-9ea6153d623e",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "basic",
+                      "basic": [
+                        {
+                          "key": "username",
+                          "value": "{{basicAuthUsername}}",
+                          "type": "string"
+                        },
+                        {
+                          "key": "password",
+                          "value": "{{basicAuthPassword}}",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/payments/merchants/:merchant_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "payments",
+                        "merchants",
+                        ":merchant_id"
+                      ],
+                      "variable": [
+                        {
+                          "id": "32f5a528-eb40-4a1e-b0d7-2865a1e08697",
+                          "key": "merchant_id",
+                          "value": "<string>",
+                          "description": "(Required) The unique identifier of the merchant."
+                        }
+                      ]
+                    },
+                    "description": "Retrieves a Merchant by its unique identifier.\n"
+                  },
+                  "response": [
+                    {
+                      "id": "75c49e26-d134-4420-aab0-1e5e9b4596c7",
+                      "name": "Returns a Merchant object.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/payments/merchants/:merchant_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "payments",
+                            "merchants",
+                            ":merchant_id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "merchant_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<string>\",\n  \"name\": \"Kz1AQIe7 YaWBRK4YLoVLkQ6YOPSNsoS\",\n  \"website\": \"<string>\",\n  \"createdAt\": \"<long>\",\n  \"shortName\": \"cOTWeLrl00HgG\",\n  \"business\": {\n    \"legalName\": \"36G6SpJ\",\n    \"address\": {\n      \"line1\": \"\u01145\u0158\u01bb\u015c\u01ebm\u01f5\",\n      \"city\": \"\u9301\uae87\ud285\ue868\u93a9\u8c43\uc6e8\u695a\u43ee\u4544\",\n      \"postalCode\": \"\",\n      \"country\": \"<string>\",\n      \"line2\": \"\u01b0\u010b\u0125\u0130\u0112\u0113\u00fa\u00e0\u016d\u01c3\",\n      \"state\": \"<string>\"\n    }\n  },\n  \"categoryCode\": \"<string>\",\n  \"networkTokens\": {\n    \"enrolment\": [\n      {\n        \"cardBrand\": \"discover\",\n        \"tokenRequestorIdentifier\": \"<string,null>\",\n        \"status\": \"active\"\n      },\n      {\n        \"cardBrand\": \"diners-club\",\n        \"tokenRequestorIdentifier\": \"<string,null>\",\n        \"status\": \"inactive\"\n      }\n    ]\n  },\n  \"applePay\": {\n    \"domains\": [\n      {\n        \"domain\": \"<string>\",\n        \"status\": \"failed\"\n      },\n      {\n        \"domain\": \"<string>\",\n        \"status\": \"pending\"\n      }\n    ]\n  },\n  \"updatedAt\": \"<long>\"\n}",
+                      "createdAt": "2026-07-28T01:35:29.000Z",
+                      "updatedAt": "2026-07-28T01:35:29.000Z",
+                      "uid": "35240-75c49e26-d134-4420-aab0-1e5e9b4596c7"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T01:35:29.000Z",
+                  "updatedAt": "2026-07-28T01:35:29.000Z",
+                  "uid": "35240-e4c21c31-319d-4db8-a29b-9ea6153d623e"
+                },
+                {
+                  "name": "Update a Merchant",
+                  "id": "a106c8d2-7a95-4e2d-b4f0-4205cdc85f0f",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "basic",
+                      "basic": [
+                        {
+                          "key": "username",
+                          "value": "{{basicAuthUsername}}",
+                          "type": "string"
+                        },
+                        {
+                          "key": "password",
+                          "value": "{{basicAuthPassword}}",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"shortName\": \" s0S1BCqQ56jx4FZUIDsi6PfubED\",\n  \"applePay\": {\n    \"domains\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/payments/merchants/:merchant_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "payments",
+                        "merchants",
+                        ":merchant_id"
+                      ],
+                      "variable": [
+                        {
+                          "id": "88155bf1-2b47-41a9-8af4-5080b6533d5c",
+                          "key": "merchant_id",
+                          "value": "<string>",
+                          "description": "(Required) The id of the Merchant to be updated."
+                        }
+                      ]
+                    },
+                    "description": "Updates a Merchant by its unique identifier.\n"
+                  },
+                  "response": [
+                    {
+                      "id": "e7aaae68-7a34-4e67-938f-d30d189a83af",
+                      "name": "Returns the updated Merchant object.",
+                      "originalRequest": {
+                        "method": "PATCH",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"shortName\": \" s0S1BCqQ56jx4FZUIDsi6PfubED\",\n  \"applePay\": {\n    \"domains\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/payments/merchants/:merchant_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "payments",
+                            "merchants",
+                            ":merchant_id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "merchant_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<string>\",\n  \"name\": \"Kz1AQIe7 YaWBRK4YLoVLkQ6YOPSNsoS\",\n  \"website\": \"<string>\",\n  \"createdAt\": \"<long>\",\n  \"shortName\": \"cOTWeLrl00HgG\",\n  \"business\": {\n    \"legalName\": \"36G6SpJ\",\n    \"address\": {\n      \"line1\": \"\u01145\u0158\u01bb\u015c\u01ebm\u01f5\",\n      \"city\": \"\u9301\uae87\ud285\ue868\u93a9\u8c43\uc6e8\u695a\u43ee\u4544\",\n      \"postalCode\": \"\",\n      \"country\": \"<string>\",\n      \"line2\": \"\u01b0\u010b\u0125\u0130\u0112\u0113\u00fa\u00e0\u016d\u01c3\",\n      \"state\": \"<string>\"\n    }\n  },\n  \"categoryCode\": \"<string>\",\n  \"networkTokens\": {\n    \"enrolment\": [\n      {\n        \"cardBrand\": \"discover\",\n        \"tokenRequestorIdentifier\": \"<string,null>\",\n        \"status\": \"active\"\n      },\n      {\n        \"cardBrand\": \"diners-club\",\n        \"tokenRequestorIdentifier\": \"<string,null>\",\n        \"status\": \"inactive\"\n      }\n    ]\n  },\n  \"applePay\": {\n    \"domains\": [\n      {\n        \"domain\": \"<string>\",\n        \"status\": \"failed\"\n      },\n      {\n        \"domain\": \"<string>\",\n        \"status\": \"pending\"\n      }\n    ]\n  },\n  \"updatedAt\": \"<long>\"\n}",
+                      "createdAt": "2026-07-28T01:35:29.000Z",
+                      "updatedAt": "2026-07-28T01:35:29.000Z",
+                      "uid": "35240-e7aaae68-7a34-4e67-938f-d30d189a83af"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T01:35:29.000Z",
+                  "updatedAt": "2026-07-28T01:35:29.000Z",
+                  "uid": "35240-a106c8d2-7a95-4e2d-b4f0-4205cdc85f0f"
+                },
+                {
+                  "name": "Delete a Merchant",
+                  "id": "42f06294-0364-4d5c-8673-331495f986cb",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "basic",
+                      "basic": [
+                        {
+                          "key": "username",
+                          "value": "{{basicAuthUsername}}",
+                          "type": "string"
+                        },
+                        {
+                          "key": "password",
+                          "value": "{{basicAuthPassword}}",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "DELETE",
+                    "header": [],
+                    "url": {
+                      "raw": "{{baseUrl}}/payments/merchants/:merchant_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "payments",
+                        "merchants",
+                        ":merchant_id"
+                      ],
+                      "variable": [
+                        {
+                          "id": "c28e306c-834d-4cc3-b5e3-2a27f84f0b62",
+                          "key": "merchant_id",
+                          "value": "<string>",
+                          "description": "(Required) The id of the Merchant to be deleted."
+                        }
+                      ]
+                    },
+                    "description": "Deletes a Merchant by its unique identifier.\n"
+                  },
+                  "response": [
+                    {
+                      "id": "cb9dc1bf-d6d4-4f1e-b2d8-c3f28efebe7f",
+                      "name": "Merchant successfully deleted.",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/payments/merchants/:merchant_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "payments",
+                            "merchants",
+                            ":merchant_id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "merchant_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "No Content",
+                      "code": 204,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T01:35:29.000Z",
+                      "updatedAt": "2026-07-28T01:35:29.000Z",
+                      "uid": "35240-cb9dc1bf-d6d4-4f1e-b2d8-c3f28efebe7f"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T01:35:29.000Z",
+                  "updatedAt": "2026-07-28T01:35:29.000Z",
+                  "uid": "35240-42f06294-0364-4d5c-8673-331495f986cb"
+                }
+              ],
+              "id": "8f65a9a1-6347-4533-bca3-69d1485ac3d0",
+              "createdAt": "2026-07-28T01:35:29.000Z",
+              "updatedAt": "2026-07-28T01:35:29.000Z",
+              "uid": "35240-8f65a9a1-6347-4533-bca3-69d1485ac3d0"
+            },
+            {
+              "name": "Create a Merchant",
+              "id": "92c2c18f-0e20-4cdb-8f67-a298079ddf7e",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "basic",
+                  "basic": [
+                    {
+                      "key": "username",
+                      "value": "{{basicAuthUsername}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "password",
+                      "value": "{{basicAuthPassword}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"iaHotcbuYGX7c1Zg1mDbTXELccN02qO\",\n  \"website\": \"<string>\",\n  \"categoryCode\": \"<string>\",\n  \"business\": {\n    \"legalName\": \"JZBH31QFQgh2uWA\",\n    \"address\": {\n      \"line1\": \"\u00e8\u0146\u00f3\",\n      \"city\": \"\u17c7\u6c03\uccd0\",\n      \"postalCode\": \"4Mkbv4T8\",\n      \"country\": \"<string>\",\n      \"line2\": \"m\u01d4\u010b\u019ac\u0163\u00ea\",\n      \"state\": \"<string>\"\n    }\n  },\n  \"shortName\": \"m9V6QyfXzsUIxgFeJhESM1ZGLpW8xanARkL9j59m\",\n  \"networkTokens\": {\n    \"enrolment\": [\n      {\n        \"cardBrand\": \"<string>\",\n        \"tokenRequestorIdentifier\": \"<string,null>\"\n      },\n      {\n        \"cardBrand\": \"<string>\",\n        \"tokenRequestorIdentifier\": \"<string,null>\"\n      }\n    ]\n  },\n  \"applePay\": {\n    \"domains\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/payments/merchants",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "payments",
+                    "merchants"
+                  ]
+                },
+                "description": "Enrolls a Merchant with Card Networks.\n\nIn rare cases it can take up to 48 hours to enroll a merchant with each of the card networks. If you are still unable to provision network tokens after this period, please contact support@evervault.com\n"
+              },
+              "response": [
+                {
+                  "id": "60a3631b-a2a2-48e1-b5ed-6dfd6ca37b78",
+                  "name": "Returns a Merchant object.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: basic",
+                        "key": "Authorization",
+                        "value": "Basic <credentials>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"iaHotcbuYGX7c1Zg1mDbTXELccN02qO\",\n  \"website\": \"<string>\",\n  \"categoryCode\": \"<string>\",\n  \"business\": {\n    \"legalName\": \"JZBH31QFQgh2uWA\",\n    \"address\": {\n      \"line1\": \"\u00e8\u0146\u00f3\",\n      \"city\": \"\u17c7\u6c03\uccd0\",\n      \"postalCode\": \"4Mkbv4T8\",\n      \"country\": \"<string>\",\n      \"line2\": \"m\u01d4\u010b\u019ac\u0163\u00ea\",\n      \"state\": \"<string>\"\n    }\n  },\n  \"shortName\": \"m9V6QyfXzsUIxgFeJhESM1ZGLpW8xanARkL9j59m\",\n  \"networkTokens\": {\n    \"enrolment\": [\n      {\n        \"cardBrand\": \"<string>\",\n        \"tokenRequestorIdentifier\": \"<string,null>\"\n      },\n      {\n        \"cardBrand\": \"<string>\",\n        \"tokenRequestorIdentifier\": \"<string,null>\"\n      }\n    ]\n  },\n  \"applePay\": {\n    \"domains\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/payments/merchants",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "payments",
+                        "merchants"
+                      ]
+                    }
+                  },
+                  "status": "Created",
+                  "code": 201,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"name\": \"Kz1AQIe7 YaWBRK4YLoVLkQ6YOPSNsoS\",\n  \"website\": \"<string>\",\n  \"createdAt\": \"<long>\",\n  \"shortName\": \"cOTWeLrl00HgG\",\n  \"business\": {\n    \"legalName\": \"36G6SpJ\",\n    \"address\": {\n      \"line1\": \"\u01145\u0158\u01bb\u015c\u01ebm\u01f5\",\n      \"city\": \"\u9301\uae87\ud285\ue868\u93a9\u8c43\uc6e8\u695a\u43ee\u4544\",\n      \"postalCode\": \"\",\n      \"country\": \"<string>\",\n      \"line2\": \"\u01b0\u010b\u0125\u0130\u0112\u0113\u00fa\u00e0\u016d\u01c3\",\n      \"state\": \"<string>\"\n    }\n  },\n  \"categoryCode\": \"<string>\",\n  \"networkTokens\": {\n    \"enrolment\": [\n      {\n        \"cardBrand\": \"discover\",\n        \"tokenRequestorIdentifier\": \"<string,null>\",\n        \"status\": \"active\"\n      },\n      {\n        \"cardBrand\": \"diners-club\",\n        \"tokenRequestorIdentifier\": \"<string,null>\",\n        \"status\": \"inactive\"\n      }\n    ]\n  },\n  \"applePay\": {\n    \"domains\": [\n      {\n        \"domain\": \"<string>\",\n        \"status\": \"failed\"\n      },\n      {\n        \"domain\": \"<string>\",\n        \"status\": \"pending\"\n      }\n    ]\n  },\n  \"updatedAt\": \"<long>\"\n}",
+                  "createdAt": "2026-07-28T01:35:29.000Z",
+                  "updatedAt": "2026-07-28T01:35:29.000Z",
+                  "uid": "35240-60a3631b-a2a2-48e1-b5ed-6dfd6ca37b78"
+                }
+              ],
+              "createdAt": "2026-07-28T01:35:29.000Z",
+              "updatedAt": "2026-07-28T01:35:29.000Z",
+              "uid": "35240-92c2c18f-0e20-4cdb-8f67-a298079ddf7e"
+            },
+            {
+              "name": "List Merchants",
+              "id": "7413de7d-88ad-4527-a382-418f279b6693",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "basic",
+                  "basic": [
+                    {
+                      "key": "username",
+                      "value": "{{basicAuthUsername}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "password",
+                      "value": "{{basicAuthPassword}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/payments/merchants?page=0&pageSize=50&q=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "payments",
+                    "merchants"
+                  ],
+                  "query": [
+                    {
+                      "description": "The page number to retrieve.",
+                      "key": "page",
+                      "value": "0"
+                    },
+                    {
+                      "description": "The number of Merchants to retrieve per page (default is 50).",
+                      "key": "pageSize",
+                      "value": "50"
+                    },
+                    {
+                      "description": "Filter the Merchants by name.",
+                      "key": "q",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "description": "Lists all Merchants that have been created.\n"
+              },
+              "response": [
+                {
+                  "id": "d575cd9d-b86a-4291-af48-2565339899f0",
+                  "name": "Returns a list of Merchant objects.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: basic",
+                        "key": "Authorization",
+                        "value": "Basic <credentials>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/payments/merchants?page=0&pageSize=50&q=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "payments",
+                        "merchants"
+                      ],
+                      "query": [
+                        {
+                          "description": "The page number to retrieve.",
+                          "key": "page",
+                          "value": "0"
+                        },
+                        {
+                          "description": "The number of Merchants to retrieve per page (default is 50).",
+                          "key": "pageSize",
+                          "value": "50"
+                        },
+                        {
+                          "description": "Filter the Merchants by name.",
+                          "key": "q",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"data\": [\n    {\n      \"id\": \"<string>\",\n      \"name\": \"ZOqB8zGGVWgy\",\n      \"website\": \"<string>\",\n      \"createdAt\": \"<long>\",\n      \"shortName\": \"QwRX00yAlwAJ8spRcmhRMDiDgYSFo5SMKW\",\n      \"business\": {\n        \"legalName\": \"KtZMKXwiTslmy1NqufZ\",\n        \"address\": {\n          \"line1\": \"\u00da\u0135\u017b\u00c1q\",\n          \"city\": \"\ua2bb\u892a\u9e75\u1a5e\u02da\u10b0\u1b22\\udff5\",\n          \"postalCode\": \"LqY3mvEiN\",\n          \"country\": \"<string>\",\n          \"line2\": \"\u018e\u011c\u00c9fc\u017f\",\n          \"state\": \"<string>\"\n        }\n      },\n      \"categoryCode\": \"<string>\",\n      \"networkTokens\": {\n        \"enrolment\": [\n          {\n            \"cardBrand\": \"discover\",\n            \"tokenRequestorIdentifier\": \"<string,null>\",\n            \"status\": \"active\"\n          },\n          {\n            \"cardBrand\": \"mastercard\",\n            \"tokenRequestorIdentifier\": \"<string,null>\",\n            \"status\": \"inactive\"\n          }\n        ]\n      },\n      \"applePay\": {\n        \"domains\": [\n          {\n            \"domain\": \"<string>\",\n            \"status\": \"failed\"\n          },\n          {\n            \"domain\": \"<string>\",\n            \"status\": \"active\"\n          }\n        ]\n      },\n      \"updatedAt\": \"<long>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"name\": \"s69cs t Ukwk TJhcbNNdU8\",\n      \"website\": \"<string>\",\n      \"createdAt\": \"<long>\",\n      \"shortName\": \"GsIwRoYbnZxxy3AQaq9D\",\n      \"business\": {\n        \"legalName\": \"bVaHOmaK2Nx isw\",\n        \"address\": {\n          \"line1\": \"h2n\u017a\u01d9\u012f\u01a9\u0149\u00f4H\u01c6\",\n          \"city\": \"\u96ef\u982e\ud65b\u3858\ubf3a\u803f\",\n          \"postalCode\": \"\",\n          \"country\": \"<string>\",\n          \"line2\": \"\u01a0Y\u00de\u0168YZL\u0120\",\n          \"state\": \"<string>\"\n        }\n      },\n      \"categoryCode\": \"<string>\",\n      \"networkTokens\": {\n        \"enrolment\": [\n          {\n            \"cardBrand\": \"american-express\",\n            \"tokenRequestorIdentifier\": \"<string,null>\",\n            \"status\": \"active\"\n          },\n          {\n            \"cardBrand\": \"visa\",\n            \"tokenRequestorIdentifier\": \"<string,null>\",\n            \"status\": \"inactive\"\n          }\n        ]\n      },\n      \"applePay\": {\n        \"domains\": [\n          {\n            \"domain\": \"<string>\",\n            \"status\": \"active\"\n          },\n          {\n            \"domain\": \"<string>\",\n            \"status\": \"failed\"\n          }\n        ]\n      },\n      \"updatedAt\": \"<long>\"\n    }\n  ],\n  \"pageSize\": \"<integer>\",\n  \"nextPage\": \"<integer,null>\",\n  \"total\": \"<integer>\"\n}",
+                  "createdAt": "2026-07-28T01:35:29.000Z",
+                  "updatedAt": "2026-07-28T01:35:29.000Z",
+                  "uid": "35240-d575cd9d-b86a-4291-af48-2565339899f0"
+                }
+              ],
+              "createdAt": "2026-07-28T01:35:29.000Z",
+              "updatedAt": "2026-07-28T01:35:29.000Z",
+              "uid": "35240-7413de7d-88ad-4527-a382-418f279b6693"
+            }
+          ],
+          "id": "25133fc4-4b6e-4e3f-9555-0ea23f17c8e3",
+          "createdAt": "2026-07-28T01:35:29.000Z",
+          "updatedAt": "2026-07-28T01:35:29.000Z",
+          "uid": "35240-25133fc4-4b6e-4e3f-9555-0ea23f17c8e3"
+        },
+        {
+          "name": "acquirers",
+          "item": [
+            {
+              "name": "{acquirer_id}",
+              "item": [
+                {
+                  "name": "Retrieve an Acquirer",
+                  "id": "385f4a8c-59ea-4b9d-8db1-49d7a121c461",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "basic",
+                      "basic": [
+                        {
+                          "key": "username",
+                          "value": "{{basicAuthUsername}}",
+                          "type": "string"
+                        },
+                        {
+                          "key": "password",
+                          "value": "{{basicAuthPassword}}",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/payments/acquirers/:acquirer_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "payments",
+                        "acquirers",
+                        ":acquirer_id"
+                      ],
+                      "variable": [
+                        {
+                          "id": "1b5290fe-0299-4c9a-858a-a7b8eb2fe5da",
+                          "key": "acquirer_id",
+                          "value": "<string>",
+                          "description": "(Required) The unique identifier of the Acquirer."
+                        }
+                      ]
+                    },
+                    "description": "Retrieves an Acquirer by its unique identifier.\n"
+                  },
+                  "response": [
+                    {
+                      "id": "6e5f8f73-caf1-4931-a7e5-5778daa10ffd",
+                      "name": "Returns an Acquirer object.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/payments/acquirers/:acquirer_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "payments",
+                            "acquirers",
+                            ":acquirer_id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "acquirer_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"default\": \"<boolean>\",\n  \"configurations\": [\n    {\n      \"network\": \"discover\",\n      \"bin\": \"54115856\",\n      \"acquirerMerchantIdentifier\": \"<string>\",\n      \"state\": \"<string>\",\n      \"country\": \"<string>\"\n    },\n    {\n      \"network\": \"discover\",\n      \"bin\": \"557777061\",\n      \"acquirerMerchantIdentifier\": \"<string>\",\n      \"state\": \"<string>\",\n      \"country\": \"<string>\"\n    }\n  ],\n  \"description\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T01:35:29.000Z",
+                      "updatedAt": "2026-07-28T01:35:29.000Z",
+                      "uid": "35240-6e5f8f73-caf1-4931-a7e5-5778daa10ffd"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T01:35:29.000Z",
+                  "updatedAt": "2026-07-28T01:35:29.000Z",
+                  "uid": "35240-385f4a8c-59ea-4b9d-8db1-49d7a121c461"
+                },
+                {
+                  "name": "Update an Acquirer",
+                  "id": "279183e0-61bd-454b-8519-7ccae68c9b93",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "basic",
+                      "basic": [
+                        {
+                          "key": "username",
+                          "value": "{{basicAuthUsername}}",
+                          "type": "string"
+                        },
+                        {
+                          "key": "password",
+                          "value": "{{basicAuthPassword}}",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"default\": \"<boolean>\",\n  \"configurations\": [\n    {\n      \"network\": \"visa\",\n      \"bin\": \"690977754\",\n      \"acquirerMerchantIdentifier\": \"<string>\",\n      \"country\": \"<string>\"\n    },\n    {\n      \"network\": \"visa\",\n      \"bin\": \"2514844\",\n      \"acquirerMerchantIdentifier\": \"<string>\",\n      \"country\": \"<string>\"\n    }\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/payments/acquirers/:acquirer_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "payments",
+                        "acquirers",
+                        ":acquirer_id"
+                      ],
+                      "variable": [
+                        {
+                          "id": "346c074e-4908-4564-8486-79333b02d805",
+                          "key": "acquirer_id",
+                          "value": "<string>",
+                          "description": "(Required) The id of the Acquirer to be updated."
+                        }
+                      ]
+                    },
+                    "description": "Updates an Acquirer by its unique identifier.\n"
+                  },
+                  "response": [
+                    {
+                      "id": "81af9896-7c27-44ea-b90f-ce1e179d13b8",
+                      "name": "Returns the updated Acquirer object.",
+                      "originalRequest": {
+                        "method": "PATCH",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"default\": \"<boolean>\",\n  \"configurations\": [\n    {\n      \"network\": \"visa\",\n      \"bin\": \"690977754\",\n      \"acquirerMerchantIdentifier\": \"<string>\",\n      \"country\": \"<string>\"\n    },\n    {\n      \"network\": \"visa\",\n      \"bin\": \"2514844\",\n      \"acquirerMerchantIdentifier\": \"<string>\",\n      \"country\": \"<string>\"\n    }\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/payments/acquirers/:acquirer_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "payments",
+                            "acquirers",
+                            ":acquirer_id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "acquirer_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"default\": \"<boolean>\",\n  \"configurations\": [\n    {\n      \"network\": \"discover\",\n      \"bin\": \"54115856\",\n      \"acquirerMerchantIdentifier\": \"<string>\",\n      \"state\": \"<string>\",\n      \"country\": \"<string>\"\n    },\n    {\n      \"network\": \"discover\",\n      \"bin\": \"557777061\",\n      \"acquirerMerchantIdentifier\": \"<string>\",\n      \"state\": \"<string>\",\n      \"country\": \"<string>\"\n    }\n  ],\n  \"description\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T01:35:29.000Z",
+                      "updatedAt": "2026-07-28T01:35:29.000Z",
+                      "uid": "35240-81af9896-7c27-44ea-b90f-ce1e179d13b8"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T01:35:29.000Z",
+                  "updatedAt": "2026-07-28T01:35:29.000Z",
+                  "uid": "35240-279183e0-61bd-454b-8519-7ccae68c9b93"
+                },
+                {
+                  "name": "Delete an Acquirer",
+                  "id": "a20323cf-ff82-4bd1-a12f-d8ad4ae31279",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "basic",
+                      "basic": [
+                        {
+                          "key": "username",
+                          "value": "{{basicAuthUsername}}",
+                          "type": "string"
+                        },
+                        {
+                          "key": "password",
+                          "value": "{{basicAuthPassword}}",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "DELETE",
+                    "header": [],
+                    "url": {
+                      "raw": "{{baseUrl}}/payments/acquirers/:acquirer_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "payments",
+                        "acquirers",
+                        ":acquirer_id"
+                      ],
+                      "variable": [
+                        {
+                          "id": "064dd681-33e3-4cac-a28d-1bd4c5a871e4",
+                          "key": "acquirer_id",
+                          "value": "<string>",
+                          "description": "(Required) The id of the Acquirer to be deleted."
+                        }
+                      ]
+                    },
+                    "description": "Deletes an Acquirer by its unique identifier.\n"
+                  },
+                  "response": [
+                    {
+                      "id": "492033a9-ee6a-4546-8c63-8bd6155e6d8b",
+                      "name": "Acquirer successfully deleted.",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/payments/acquirers/:acquirer_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "payments",
+                            "acquirers",
+                            ":acquirer_id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "acquirer_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "No Content",
+                      "code": 204,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T01:35:29.000Z",
+                      "updatedAt": "2026-07-28T01:35:29.000Z",
+                      "uid": "35240-492033a9-ee6a-4546-8c63-8bd6155e6d8b"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T01:35:29.000Z",
+                  "updatedAt": "2026-07-28T01:35:29.000Z",
+                  "uid": "35240-a20323cf-ff82-4bd1-a12f-d8ad4ae31279"
+                }
+              ],
+              "id": "c41626a9-2f19-429a-a1f1-156a33d8372b",
+              "createdAt": "2026-07-28T01:35:29.000Z",
+              "updatedAt": "2026-07-28T01:35:29.000Z",
+              "uid": "35240-c41626a9-2f19-429a-a1f1-156a33d8372b"
+            },
+            {
+              "name": "Create an Acquirer",
+              "id": "0d30c364-c02b-49c3-bdad-839d48249418",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "basic",
+                  "basic": [
+                    {
+                      "key": "username",
+                      "value": "{{basicAuthUsername}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "password",
+                      "value": "{{basicAuthPassword}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"configurations\": [\n    {\n      \"network\": \"american-express\",\n      \"bin\": \"815650\",\n      \"acquirerMerchantIdentifier\": \"<string>\",\n      \"country\": \"<string>\"\n    },\n    {\n      \"network\": \"mastercard\",\n      \"bin\": \"9686476\",\n      \"acquirerMerchantIdentifier\": \"<string>\",\n      \"country\": \"<string>\"\n    }\n  ],\n  \"description\": \"<string>\",\n  \"default\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/payments/acquirers",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "payments",
+                    "acquirers"
+                  ]
+                },
+                "description": "Creates an Acquirer to be used with 3DS sessions.\n"
+              },
+              "response": [
+                {
+                  "id": "1e951318-9914-4038-9077-ea4573c62900",
+                  "name": "Returns the created Acquirer object.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: basic",
+                        "key": "Authorization",
+                        "value": "Basic <credentials>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"<string>\",\n  \"configurations\": [\n    {\n      \"network\": \"american-express\",\n      \"bin\": \"815650\",\n      \"acquirerMerchantIdentifier\": \"<string>\",\n      \"country\": \"<string>\"\n    },\n    {\n      \"network\": \"mastercard\",\n      \"bin\": \"9686476\",\n      \"acquirerMerchantIdentifier\": \"<string>\",\n      \"country\": \"<string>\"\n    }\n  ],\n  \"description\": \"<string>\",\n  \"default\": \"<boolean>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/payments/acquirers",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "payments",
+                        "acquirers"
+                      ]
+                    }
+                  },
+                  "status": "Created",
+                  "code": 201,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"default\": \"<boolean>\",\n  \"configurations\": [\n    {\n      \"network\": \"discover\",\n      \"bin\": \"54115856\",\n      \"acquirerMerchantIdentifier\": \"<string>\",\n      \"state\": \"<string>\",\n      \"country\": \"<string>\"\n    },\n    {\n      \"network\": \"discover\",\n      \"bin\": \"557777061\",\n      \"acquirerMerchantIdentifier\": \"<string>\",\n      \"state\": \"<string>\",\n      \"country\": \"<string>\"\n    }\n  ],\n  \"description\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T01:35:29.000Z",
+                  "updatedAt": "2026-07-28T01:35:29.000Z",
+                  "uid": "35240-1e951318-9914-4038-9077-ea4573c62900"
+                }
+              ],
+              "createdAt": "2026-07-28T01:35:29.000Z",
+              "updatedAt": "2026-07-28T01:35:29.000Z",
+              "uid": "35240-0d30c364-c02b-49c3-bdad-839d48249418"
+            },
+            {
+              "name": "List Acquirers",
+              "id": "7a806538-219b-4e2d-bece-442649895a2f",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "basic",
+                  "basic": [
+                    {
+                      "key": "username",
+                      "value": "{{basicAuthUsername}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "password",
+                      "value": "{{basicAuthPassword}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/payments/acquirers?page=0&pageSize=50",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "payments",
+                    "acquirers"
+                  ],
+                  "query": [
+                    {
+                      "description": "The page number to retrieve.",
+                      "key": "page",
+                      "value": "0"
+                    },
+                    {
+                      "description": "The number of Acquirers to retrieve per page. The default is 50, which is also the maximum.",
+                      "key": "pageSize",
+                      "value": "50"
+                    }
+                  ]
+                },
+                "description": "Lists all Acquirers that have been created.\n"
+              },
+              "response": [
+                {
+                  "id": "292427be-6478-43ad-9208-e409f6892573",
+                  "name": "Returns a list of Acquirer objects.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: basic",
+                        "key": "Authorization",
+                        "value": "Basic <credentials>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/payments/acquirers?page=0&pageSize=50",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "payments",
+                        "acquirers"
+                      ],
+                      "query": [
+                        {
+                          "description": "The page number to retrieve.",
+                          "key": "page",
+                          "value": "0"
+                        },
+                        {
+                          "description": "The number of Acquirers to retrieve per page. The default is 50, which is also the maximum.",
+                          "key": "pageSize",
+                          "value": "50"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"data\": [\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"default\": \"<boolean>\",\n      \"configurations\": [\n        {\n          \"network\": \"visa\",\n          \"bin\": \"595092\",\n          \"acquirerMerchantIdentifier\": \"<string>\",\n          \"state\": \"<string>\",\n          \"country\": \"<string>\"\n        },\n        {\n          \"network\": \"mastercard\",\n          \"bin\": \"7506591064\",\n          \"acquirerMerchantIdentifier\": \"<string>\",\n          \"state\": \"<string>\",\n          \"country\": \"<string>\"\n        }\n      ],\n      \"description\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"default\": \"<boolean>\",\n      \"configurations\": [\n        {\n          \"network\": \"visa\",\n          \"bin\": \"1149333317\",\n          \"acquirerMerchantIdentifier\": \"<string>\",\n          \"state\": \"<string>\",\n          \"country\": \"<string>\"\n        },\n        {\n          \"network\": \"discover\",\n          \"bin\": \"238862\",\n          \"acquirerMerchantIdentifier\": \"<string>\",\n          \"state\": \"<string>\",\n          \"country\": \"<string>\"\n        }\n      ],\n      \"description\": \"<string>\"\n    }\n  ],\n  \"pageSize\": \"<integer>\",\n  \"nextPage\": \"<integer,null>\",\n  \"total\": \"<integer>\"\n}",
+                  "createdAt": "2026-07-28T01:35:29.000Z",
+                  "updatedAt": "2026-07-28T01:35:29.000Z",
+                  "uid": "35240-292427be-6478-43ad-9208-e409f6892573"
+                }
+              ],
+              "createdAt": "2026-07-28T01:35:29.000Z",
+              "updatedAt": "2026-07-28T01:35:29.000Z",
+              "uid": "35240-7a806538-219b-4e2d-bece-442649895a2f"
+            }
+          ],
+          "id": "62f8a8ad-ca0a-4942-815a-0f231f425a22",
+          "createdAt": "2026-07-28T01:35:29.000Z",
+          "updatedAt": "2026-07-28T01:35:29.000Z",
+          "uid": "35240-62f8a8ad-ca0a-4942-815a-0f231f425a22"
+        },
+        {
+          "name": "network-tokens",
+          "item": [
+            {
+              "name": "{network_token_id}",
+              "item": [
+                {
+                  "name": "cryptograms",
+                  "item": [
+                    {
+                      "name": "Create a Cryptogram",
+                      "id": "c5b40e5e-77f6-4249-9bb1-18c0683ba5f9",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "basic",
+                          "basic": [
+                            {
+                              "key": "username",
+                              "value": "{{basicAuthUsername}}",
+                              "type": "string"
+                            },
+                            {
+                              "key": "password",
+                              "value": "{{basicAuthPassword}}",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/payments/network-tokens/:network_token_id/cryptograms",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "payments",
+                            "network-tokens",
+                            ":network_token_id",
+                            "cryptograms"
+                          ],
+                          "variable": [
+                            {
+                              "id": "26f0e49a-1bbd-469b-af7f-ade8587a1a6c",
+                              "key": "network_token_id",
+                              "value": "<string>",
+                              "description": "(Required) The unique identifier of the Network Token."
+                            }
+                          ]
+                        },
+                        "description": "Creates a Network Token Cryptogram.\n"
+                      },
+                      "response": [
+                        {
+                          "id": "86f09343-9eb2-4676-a094-9668f27b49c1",
+                          "name": "Returns a Network Token Cryptogram object.",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/payments/network-tokens/:network_token_id/cryptograms",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "payments",
+                                "network-tokens",
+                                ":network_token_id",
+                                "cryptograms"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "network_token_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Created",
+                          "code": 201,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"id\": \"<string>\",\n  \"cryptogram\": \"<string>\",\n  \"createdAt\": \"<long>\"\n}",
+                          "createdAt": "2026-07-28T01:35:29.000Z",
+                          "updatedAt": "2026-07-28T01:35:29.000Z",
+                          "uid": "35240-86f09343-9eb2-4676-a094-9668f27b49c1"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T01:35:29.000Z",
+                      "updatedAt": "2026-07-28T01:35:29.000Z",
+                      "uid": "35240-c5b40e5e-77f6-4249-9bb1-18c0683ba5f9"
+                    }
+                  ],
+                  "id": "e21cb3fe-55e6-4da2-a8f9-17b0aa9795f9",
+                  "createdAt": "2026-07-28T01:35:29.000Z",
+                  "updatedAt": "2026-07-28T01:35:29.000Z",
+                  "uid": "35240-e21cb3fe-55e6-4da2-a8f9-17b0aa9795f9"
+                },
+                {
+                  "name": "simulate",
+                  "item": [
+                    {
+                      "name": "Simulate a Network Token Update",
+                      "id": "4daa59a3-b801-45e6-8320-32cf6c1281e4",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "basic",
+                          "basic": [
+                            {
+                              "key": "username",
+                              "value": "{{basicAuthUsername}}",
+                              "type": "string"
+                            },
+                            {
+                              "key": "password",
+                              "value": "{{basicAuthPassword}}",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"updateType\": \"new-card-expiry-and-last-four\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/payments/network-tokens/:network_token_id/simulate",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "payments",
+                            "network-tokens",
+                            ":network_token_id",
+                            "simulate"
+                          ],
+                          "variable": [
+                            {
+                              "id": "63b499e2-59fd-43d4-b169-7c0c62eee230",
+                              "key": "network_token_id",
+                              "value": "<string>",
+                              "description": "(Required) The id of the Network Token"
+                            }
+                          ]
+                        },
+                        "description": "Simulates an update to a Network Token so that you can test your integration. Sandbox only.\n"
+                      },
+                      "response": [
+                        {
+                          "id": "753fd4d8-3aab-4239-a198-ea6f037dc966",
+                          "name": "Returns the updated Network Token object.",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"updateType\": \"new-card-expiry-and-last-four\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/payments/network-tokens/:network_token_id/simulate",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "payments",
+                                "network-tokens",
+                                ":network_token_id",
+                                "simulate"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "network_token_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"id\": \"<string>\",\n  \"number\": \"<string>\",\n  \"expiry\": {\n    \"month\": \"<string>\",\n    \"year\": \"<string>\"\n  },\n  \"card\": {\n    \"lastFour\": \"<string>\",\n    \"expiry\": {\n      \"month\": \"<string>\",\n      \"year\": \"<string>\"\n    },\n    \"brand\": \"visa\"\n  },\n  \"tokenRequestorIdentifier\": \"<string>\",\n  \"tokenServiceProvider\": \"aets\",\n  \"status\": \"deleted\",\n  \"merchant\": \"<string>\",\n  \"createdAt\": \"<long>\",\n  \"paymentAccountReference\": \"<string>\",\n  \"updatedAt\": \"<long>\"\n}",
+                          "createdAt": "2026-07-28T01:35:29.000Z",
+                          "updatedAt": "2026-07-28T01:35:29.000Z",
+                          "uid": "35240-753fd4d8-3aab-4239-a198-ea6f037dc966"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T01:35:29.000Z",
+                      "updatedAt": "2026-07-28T01:35:29.000Z",
+                      "uid": "35240-4daa59a3-b801-45e6-8320-32cf6c1281e4"
+                    }
+                  ],
+                  "id": "30cc1730-f2bc-47c4-bfa3-767ac352e9b2",
+                  "createdAt": "2026-07-28T01:35:29.000Z",
+                  "updatedAt": "2026-07-28T01:35:29.000Z",
+                  "uid": "35240-30cc1730-f2bc-47c4-bfa3-767ac352e9b2"
+                },
+                {
+                  "name": "card-art",
+                  "item": [
+                    {
+                      "name": "Retrieve Card Art",
+                      "id": "e0e24bc2-a81a-4979-800f-326e57c61473",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "basic",
+                          "basic": [
+                            {
+                              "key": "username",
+                              "value": "{{basicAuthUsername}}",
+                              "type": "string"
+                            },
+                            {
+                              "key": "password",
+                              "value": "{{basicAuthPassword}}",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/payments/network-tokens/:network_token_id/card-art",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "payments",
+                            "network-tokens",
+                            ":network_token_id",
+                            "card-art"
+                          ],
+                          "variable": [
+                            {
+                              "id": "5a7446b4-c168-4c3f-82cc-49d0d0fddba1",
+                              "key": "network_token_id",
+                              "value": "<string>",
+                              "description": "(Required) The unique identifier of the Network Token."
+                            }
+                          ]
+                        },
+                        "description": "Retrieves the card art for a Network Token by its unique identifier.\n"
+                      },
+                      "response": [
+                        {
+                          "id": "a8e60ba0-1a49-47f2-b12c-af16752d920c",
+                          "name": "Returns the card art for the Network Token.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/payments/network-tokens/:network_token_id/card-art",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "payments",
+                                "network-tokens",
+                                ":network_token_id",
+                                "card-art"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "network_token_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"type\": \"<string>\",\n  \"data\": \"<string>\",\n  \"width\": \"<integer>\",\n  \"height\": \"<integer>\"\n}",
+                          "createdAt": "2026-07-28T01:35:29.000Z",
+                          "updatedAt": "2026-07-28T01:35:29.000Z",
+                          "uid": "35240-a8e60ba0-1a49-47f2-b12c-af16752d920c"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T01:35:29.000Z",
+                      "updatedAt": "2026-07-28T01:35:29.000Z",
+                      "uid": "35240-e0e24bc2-a81a-4979-800f-326e57c61473"
+                    }
+                  ],
+                  "id": "4496e8a6-9080-40e8-9af0-512ca5313e69",
+                  "createdAt": "2026-07-28T01:35:29.000Z",
+                  "updatedAt": "2026-07-28T01:35:29.000Z",
+                  "uid": "35240-4496e8a6-9080-40e8-9af0-512ca5313e69"
+                },
+                {
+                  "name": "Retrieve a Network Token",
+                  "id": "bf5f8e61-cc8d-41c2-8dab-764ec5f62240",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "basic",
+                      "basic": [
+                        {
+                          "key": "username",
+                          "value": "{{basicAuthUsername}}",
+                          "type": "string"
+                        },
+                        {
+                          "key": "password",
+                          "value": "{{basicAuthPassword}}",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/payments/network-tokens/:network_token_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "payments",
+                        "network-tokens",
+                        ":network_token_id"
+                      ],
+                      "variable": [
+                        {
+                          "id": "91dbe892-fc90-45b7-9c01-19c9564bbdd5",
+                          "key": "network_token_id",
+                          "value": "<string>",
+                          "description": "(Required) The unique identifier of the Network Token."
+                        }
+                      ]
+                    },
+                    "description": "Retrieves a Network Token by its unique identifier.\n"
+                  },
+                  "response": [
+                    {
+                      "id": "6103ee00-7126-491d-bcc8-72d1b7d9377b",
+                      "name": "Returns a Network Token object.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/payments/network-tokens/:network_token_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "payments",
+                            "network-tokens",
+                            ":network_token_id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "network_token_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<string>\",\n  \"number\": \"<string>\",\n  \"expiry\": {\n    \"month\": \"<string>\",\n    \"year\": \"<string>\"\n  },\n  \"card\": {\n    \"lastFour\": \"<string>\",\n    \"expiry\": {\n      \"month\": \"<string>\",\n      \"year\": \"<string>\"\n    },\n    \"brand\": \"visa\"\n  },\n  \"tokenRequestorIdentifier\": \"<string>\",\n  \"tokenServiceProvider\": \"aets\",\n  \"status\": \"deleted\",\n  \"merchant\": \"<string>\",\n  \"createdAt\": \"<long>\",\n  \"paymentAccountReference\": \"<string>\",\n  \"updatedAt\": \"<long>\"\n}",
+                      "createdAt": "2026-07-28T01:35:29.000Z",
+                      "updatedAt": "2026-07-28T01:35:29.000Z",
+                      "uid": "35240-6103ee00-7126-491d-bcc8-72d1b7d9377b"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T01:35:29.000Z",
+                  "updatedAt": "2026-07-28T01:35:29.000Z",
+                  "uid": "35240-bf5f8e61-cc8d-41c2-8dab-764ec5f62240"
+                },
+                {
+                  "name": "Delete a Network Token",
+                  "id": "6fbd40b7-f112-4fec-a222-57fdb9d5140a",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "basic",
+                      "basic": [
+                        {
+                          "key": "username",
+                          "value": "{{basicAuthUsername}}",
+                          "type": "string"
+                        },
+                        {
+                          "key": "password",
+                          "value": "{{basicAuthPassword}}",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/payments/network-tokens/:network_token_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "payments",
+                        "network-tokens",
+                        ":network_token_id"
+                      ],
+                      "variable": [
+                        {
+                          "id": "b809e480-c843-487b-a1b1-5499febeaaa3",
+                          "key": "network_token_id",
+                          "value": "<string>",
+                          "description": "(Required) The unique identifier of the Network Token."
+                        }
+                      ]
+                    },
+                    "description": "Deletes a Network Token by its unique identifier.\n"
+                  },
+                  "response": [
+                    {
+                      "id": "201e324d-4567-400a-81f0-ac525790c7cb",
+                      "name": "Deletes a Network Token object.",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/payments/network-tokens/:network_token_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "payments",
+                            "network-tokens",
+                            ":network_token_id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "network_token_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "No Content",
+                      "code": 204,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"examples\": {\n    \"SuccessfulDeletion\": {\n      \"summary\": \"Network Token successfully deleted\",\n      \"value\": {}\n    }\n  }\n}",
+                      "createdAt": "2026-07-28T01:35:29.000Z",
+                      "updatedAt": "2026-07-28T01:35:29.000Z",
+                      "uid": "35240-201e324d-4567-400a-81f0-ac525790c7cb"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T01:35:29.000Z",
+                  "updatedAt": "2026-07-28T01:35:29.000Z",
+                  "uid": "35240-6fbd40b7-f112-4fec-a222-57fdb9d5140a"
+                }
+              ],
+              "id": "c5c0c667-a0e5-468d-84f7-ff3fa22a1eb3",
+              "createdAt": "2026-07-28T01:35:29.000Z",
+              "updatedAt": "2026-07-28T01:35:29.000Z",
+              "uid": "35240-c5c0c667-a0e5-468d-84f7-ff3fa22a1eb3"
+            },
+            {
+              "name": "Create a Network Token",
+              "id": "46a5d7c2-4bc6-4bd4-8e3b-2e93af48aed3",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "basic",
+                  "basic": [
+                    {
+                      "key": "username",
+                      "value": "{{basicAuthUsername}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "password",
+                      "value": "{{basicAuthPassword}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"card\": {\n    \"number\": \"<string>\",\n    \"expiry\": {\n      \"month\": \"<string>\",\n      \"year\": \"<string>\"\n    },\n    \"cvc\": \"<string>\"\n  },\n  \"merchant\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/payments/network-tokens",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "payments",
+                    "network-tokens"
+                  ]
+                },
+                "description": "Create a Network Token for a given card.\n"
+              },
+              "response": [
+                {
+                  "id": "364f937c-6c13-4270-9023-c441ef138f50",
+                  "name": "Returns a Network Token object.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: basic",
+                        "key": "Authorization",
+                        "value": "Basic <credentials>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"card\": {\n    \"number\": \"<string>\",\n    \"expiry\": {\n      \"month\": \"<string>\",\n      \"year\": \"<string>\"\n    },\n    \"cvc\": \"<string>\"\n  },\n  \"merchant\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/payments/network-tokens",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "payments",
+                        "network-tokens"
+                      ]
+                    }
+                  },
+                  "status": "Created",
+                  "code": 201,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"number\": \"<string>\",\n  \"expiry\": {\n    \"month\": \"<string>\",\n    \"year\": \"<string>\"\n  },\n  \"card\": {\n    \"lastFour\": \"<string>\",\n    \"expiry\": {\n      \"month\": \"<string>\",\n      \"year\": \"<string>\"\n    },\n    \"brand\": \"visa\"\n  },\n  \"tokenRequestorIdentifier\": \"<string>\",\n  \"tokenServiceProvider\": \"aets\",\n  \"status\": \"deleted\",\n  \"merchant\": \"<string>\",\n  \"createdAt\": \"<long>\",\n  \"paymentAccountReference\": \"<string>\",\n  \"updatedAt\": \"<long>\"\n}",
+                  "createdAt": "2026-07-28T01:35:29.000Z",
+                  "updatedAt": "2026-07-28T01:35:29.000Z",
+                  "uid": "35240-364f937c-6c13-4270-9023-c441ef138f50"
+                },
+                {
+                  "id": "553c2b1f-5fe0-43e3-ab69-f8b5d44cbe52",
+                  "name": "The request was invalid or cannot be otherwise served.\n",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: basic",
+                        "key": "Authorization",
+                        "value": "Basic <credentials>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"card\": {\n    \"number\": \"<string>\",\n    \"expiry\": {\n      \"month\": \"<string>\",\n      \"year\": \"<string>\"\n    },\n    \"cvc\": \"<string>\"\n  },\n  \"merchant\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/payments/network-tokens",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "payments",
+                        "network-tokens"
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"code\": \"<string>\",\n  \"title\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"detail\": \"<string>\",\n  \"fields\": [\n    {\n      \"pointer\": \"<string>\",\n      \"reason\": \"<string>\"\n    },\n    {\n      \"pointer\": \"<string>\",\n      \"reason\": \"<string>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-07-28T01:35:29.000Z",
+                  "updatedAt": "2026-07-28T01:35:29.000Z",
+                  "uid": "35240-553c2b1f-5fe0-43e3-ab69-f8b5d44cbe52"
+                },
+                {
+                  "id": "f013d1c4-c42f-4037-8ec5-f1035901cecb",
+                  "name": "Unprocessable Entity\n",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: basic",
+                        "key": "Authorization",
+                        "value": "Basic <credentials>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"card\": {\n    \"number\": \"<string>\",\n    \"expiry\": {\n      \"month\": \"<string>\",\n      \"year\": \"<string>\"\n    },\n    \"cvc\": \"<string>\"\n  },\n  \"merchant\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/payments/network-tokens",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "payments",
+                        "network-tokens"
+                      ]
+                    }
+                  },
+                  "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                  "code": 422,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"code\": \"<string>\",\n  \"title\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"detail\": \"<string>\",\n  \"fields\": [\n    {\n      \"pointer\": \"<string>\",\n      \"reason\": \"<string>\"\n    },\n    {\n      \"pointer\": \"<string>\",\n      \"reason\": \"<string>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-07-28T01:35:29.000Z",
+                  "updatedAt": "2026-07-28T01:35:29.000Z",
+                  "uid": "35240-f013d1c4-c42f-4037-8ec5-f1035901cecb"
+                },
+                {
+                  "id": "ef1f9f3e-0786-4312-9445-48e3ee171916",
+                  "name": "An error occurred while processing the request.\n",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: basic",
+                        "key": "Authorization",
+                        "value": "Basic <credentials>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"card\": {\n    \"number\": \"<string>\",\n    \"expiry\": {\n      \"month\": \"<string>\",\n      \"year\": \"<string>\"\n    },\n    \"cvc\": \"<string>\"\n  },\n  \"merchant\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/payments/network-tokens",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "payments",
+                        "network-tokens"
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"code\": \"<string>\",\n  \"title\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"detail\": \"<string>\",\n  \"fields\": [\n    {\n      \"pointer\": \"<string>\",\n      \"reason\": \"<string>\"\n    },\n    {\n      \"pointer\": \"<string>\",\n      \"reason\": \"<string>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-07-28T01:35:29.000Z",
+                  "updatedAt": "2026-07-28T01:35:29.000Z",
+                  "uid": "35240-ef1f9f3e-0786-4312-9445-48e3ee171916"
+                }
+              ],
+              "createdAt": "2026-07-28T01:35:29.000Z",
+              "updatedAt": "2026-07-28T01:35:29.000Z",
+              "uid": "35240-46a5d7c2-4bc6-4bd4-8e3b-2e93af48aed3"
+            }
+          ],
+          "id": "428c79ec-09d3-436b-8189-b6685193fb74",
+          "createdAt": "2026-07-28T01:35:29.000Z",
+          "updatedAt": "2026-07-28T01:35:29.000Z",
+          "uid": "35240-428c79ec-09d3-436b-8189-b6685193fb74"
+        },
+        {
+          "name": "3ds-sessions",
+          "item": [
+            {
+              "name": "{3ds_session_id}",
+              "item": [
+                {
+                  "name": "messages",
+                  "item": [
+                    {
+                      "name": "Retrieve 3DS Messages",
+                      "id": "f0e084b7-de92-46af-8e7c-d64bcaae7241",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "basic",
+                          "basic": [
+                            {
+                              "key": "username",
+                              "value": "{{basicAuthUsername}}",
+                              "type": "string"
+                            },
+                            {
+                              "key": "password",
+                              "value": "{{basicAuthPassword}}",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/payments/3ds-sessions/:3ds_session_id/messages",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "payments",
+                            "3ds-sessions",
+                            ":3ds_session_id",
+                            "messages"
+                          ],
+                          "variable": [
+                            {
+                              "id": "928a58bf-d62e-486c-b432-efa88e9dea33",
+                              "key": "3ds_session_id",
+                              "value": "<string>",
+                              "description": "(Required) The id of the 3DS session"
+                            }
+                          ]
+                        },
+                        "description": "Retrieve messages for a 3DS Session. This endpoint can be helpful for debugging 3DS sessions, providing insight into the raw 3DS messages that were exchanged between the 3DS Server and the Directory Server.\n"
+                      },
+                      "response": [
+                        {
+                          "id": "f7d77835-8fde-4e92-b869-54dc3e8383c8",
+                          "name": "Returns 3DS messages for the session.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/payments/3ds-sessions/:3ds_session_id/messages",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "payments",
+                                "3ds-sessions",
+                                ":3ds_session_id",
+                                "messages"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "3ds_session_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"messages\": [\n    {\n      \"type\": \"<string>\",\n      \"created_at\": \"<integer>\",\n      \"data\": {}\n    },\n    {\n      \"type\": \"<string>\",\n      \"created_at\": \"<integer>\",\n      \"data\": {}\n    }\n  ]\n}",
+                          "createdAt": "2026-07-28T01:35:29.000Z",
+                          "updatedAt": "2026-07-28T01:35:29.000Z",
+                          "uid": "35240-f7d77835-8fde-4e92-b869-54dc3e8383c8"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T01:35:29.000Z",
+                      "updatedAt": "2026-07-28T01:35:29.000Z",
+                      "uid": "35240-f0e084b7-de92-46af-8e7c-d64bcaae7241"
+                    }
+                  ],
+                  "id": "778900a5-b2f3-4d47-a073-71d360bd82bd",
+                  "createdAt": "2026-07-28T01:35:29.000Z",
+                  "updatedAt": "2026-07-28T01:35:29.000Z",
+                  "uid": "35240-778900a5-b2f3-4d47-a073-71d360bd82bd"
+                },
+                {
+                  "name": "Retrieve a 3DS Session",
+                  "id": "82ee46c1-1971-4087-9fcf-fe3f106ae911",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "basic",
+                      "basic": [
+                        {
+                          "key": "username",
+                          "value": "{{basicAuthUsername}}",
+                          "type": "string"
+                        },
+                        {
+                          "key": "password",
+                          "value": "{{basicAuthPassword}}",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/payments/3ds-sessions/:3ds_session_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "payments",
+                        "3ds-sessions",
+                        ":3ds_session_id"
+                      ],
+                      "variable": [
+                        {
+                          "id": "70ddf9d1-5e04-4b38-b4c4-687b3811d121",
+                          "key": "3ds_session_id",
+                          "value": "<string>",
+                          "description": "(Required) The id of the session"
+                        }
+                      ]
+                    },
+                    "description": "Retrieve a 3DS Session.\n"
+                  },
+                  "response": [
+                    {
+                      "id": "20d75076-5e92-4c07-9667-6515805fb94e",
+                      "name": "Returns a 3DS Session object.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/payments/3ds-sessions/:3ds_session_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "payments",
+                            "3ds-sessions",
+                            ":3ds_session_id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "3ds_session_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<string>\",\n  \"merchant\": {\n    \"name\": \"<string>\",\n    \"website\": \"<string>\",\n    \"categoryCode\": \"<string>\",\n    \"country\": \"<string>\"\n  },\n  \"card\": {\n    \"lastFour\": \"<string>\",\n    \"expiry\": {\n      \"month\": \"<string>\",\n      \"year\": \"<string>\"\n    },\n    \"brand\": \"<string>\",\n    \"funding\": \"<string>\",\n    \"segment\": \"<string>\",\n    \"country\": \"<string>\",\n    \"currency\": \"<string>\",\n    \"issuer\": \"<string>\"\n  },\n  \"acquirer\": {\n    \"bin\": \"39438199\",\n    \"merchantIdentifier\": \"<string>\",\n    \"country\": \"<string>\"\n  },\n  \"version\": \"2.2.0\",\n  \"status\": \"success\",\n  \"createdAt\": \"<long>\",\n  \"payment\": {\n    \"type\": \"installment\",\n    \"amount\": \"<integer>\",\n    \"currency\": \"<string>\",\n    \"installments\": \"<integer>\",\n    \"frequency\": \"annually\",\n    \"expiry\": \"<integer>\"\n  },\n  \"challenge\": {\n    \"preference\": \"no-preference\",\n    \"reason\": null\n  },\n  \"initiator\": {\n    \"type\": \"customer\"\n  },\n  \"accessControlServer\": {\n    \"transactionIdentifier\": \"<string>\",\n    \"referenceNumber\": \"<string>\",\n    \"operatorIdentifier\": \"<null,string>\"\n  },\n  \"directoryServer\": {\n    \"transactionIdentifier\": \"<string>\",\n    \"referenceNumber\": \"<string>\",\n    \"network\": \"rupay\"\n  },\n  \"threeDSServer\": {\n    \"transactionIdentifier\": \"<string>\"\n  },\n  \"authentication\": {\n    \"flow\": \"frictionless\",\n    \"methods\": [\n      \"webauthn\",\n      \"other-otp\"\n    ]\n  },\n  \"nextAction\": {\n    \"type\": \"use-sdk\"\n  },\n  \"cryptogram\": \"<string>\",\n  \"eci\": {\n    \"value\": \"06\",\n    \"descriptor\": \"fully-authenticated\",\n    \"liabilityShift\": \"<boolean>\"\n  },\n  \"failureReason\": \"invalid-card-details\",\n  \"ares\": {\n    \"transStatus\": {\n      \"value\": \"I\",\n      \"detail\": \"<string>\"\n    },\n    \"transStatusReason\": null,\n    \"cardholderInfo\": \"<null,string>\"\n  },\n  \"cres\": {\n    \"transStatus\": {\n      \"value\": \"Y\",\n      \"detail\": \"<string>\"\n    }\n  },\n  \"rreq\": null,\n  \"updatedAt\": \"<long>\"\n}",
+                      "createdAt": "2026-07-28T01:35:29.000Z",
+                      "updatedAt": "2026-07-28T01:35:29.000Z",
+                      "uid": "35240-20d75076-5e92-4c07-9667-6515805fb94e"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T01:35:29.000Z",
+                  "updatedAt": "2026-07-28T01:35:29.000Z",
+                  "uid": "35240-82ee46c1-1971-4087-9fcf-fe3f106ae911"
+                }
+              ],
+              "id": "89d515a5-34d3-4164-a241-1566e7bbc71d",
+              "createdAt": "2026-07-28T01:35:29.000Z",
+              "updatedAt": "2026-07-28T01:35:29.000Z",
+              "uid": "35240-89d515a5-34d3-4164-a241-1566e7bbc71d"
+            },
+            {
+              "name": "Create a 3DS Session",
+              "id": "c0ddadf7-b11d-433c-9f08-a3bc31d095d9",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "basic",
+                  "basic": [
+                    {
+                      "key": "username",
+                      "value": "{{basicAuthUsername}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "password",
+                      "value": "{{basicAuthPassword}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"card\": {\n    \"number\": \"<string>\",\n    \"expiry\": {\n      \"month\": \"<string>\",\n      \"year\": \"<string>\"\n    }\n  },\n  \"merchant\": {\n    \"name\": \"<string>\",\n    \"website\": \"<string>\",\n    \"categoryCode\": \"<string>\",\n    \"country\": \"<string>\"\n  },\n  \"acquirer\": {\n    \"bin\": \"10593711279\",\n    \"merchantIdentifier\": \"<string>\",\n    \"country\": \"<string>\"\n  },\n  \"customer\": {\n    \"name\": \"62HI@QthgHCjuWsqe$;+ED\\\"W>[Ju~tu@'_GImh0^=\",\n    \"phone\": [\n      {\n        \"type\": \"home\",\n        \"countryCode\": \"<string>\",\n        \"number\": \"<string>\"\n      },\n      {\n        \"type\": \"work\",\n        \"countryCode\": \"<string>\",\n        \"number\": \"<string>\"\n      }\n    ],\n    \"email\": \"<email>\",\n    \"shipping\": {\n      \"address\": {\n        \"line1\": \"\u01be\",\n        \"city\": \"\ua313\u3116\u1f42\u470b\u0a30\ud74b\u9efa\u36df\",\n        \"postalCode\": \"rckIiVAbP\",\n        \"country\": \"<string>\",\n        \"line2\": \"J@-\u011b\u00ca\u0119\",\n        \"state\": \"<string>\"\n      }\n    },\n    \"billing\": {\n      \"address\": {\n        \"line1\": \"\u0144\u0180\u0115;\u018d\",\n        \"city\": \"\ue6e1\u1ba1\u0a32\u6dc2\",\n        \"postalCode\": \"\",\n        \"country\": \"<string>\",\n        \"line2\": \"4\",\n        \"state\": \"<string>\"\n      },\n      \"taxIdentifier\": \"<string>\"\n    }\n  },\n  \"payment\": {\n    \"type\": \"one-off\",\n    \"amount\": \"<integer>\",\n    \"currency\": \"<string>\"\n  },\n  \"preferredVersions\": [\n    \"2.2.0\",\n    \"2.2.0\"\n  ],\n  \"challenge\": {\n    \"preference\": \"no-preference\",\n    \"reason\": null\n  },\n  \"initiator\": {\n    \"type\": \"customer\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/payments/3ds-sessions",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "payments",
+                    "3ds-sessions"
+                  ]
+                },
+                "description": "Creates a 3DS Session to initiate the 3DS Authentication process. The session ID must then be passed to our client-side SDK to complete the authentication process. [Learn more](/sdks/javascript#ui.threedsecure())\n"
+              },
+              "response": [
+                {
+                  "id": "6225066b-b9a3-4c4a-9902-392a3c9b05df",
+                  "name": "Returns a 3DS Session object.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: basic",
+                        "key": "Authorization",
+                        "value": "Basic <credentials>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"card\": {\n    \"number\": \"<string>\",\n    \"expiry\": {\n      \"month\": \"<string>\",\n      \"year\": \"<string>\"\n    }\n  },\n  \"merchant\": {\n    \"name\": \"<string>\",\n    \"website\": \"<string>\",\n    \"categoryCode\": \"<string>\",\n    \"country\": \"<string>\"\n  },\n  \"acquirer\": {\n    \"bin\": \"10593711279\",\n    \"merchantIdentifier\": \"<string>\",\n    \"country\": \"<string>\"\n  },\n  \"customer\": {\n    \"name\": \"62HI@QthgHCjuWsqe$;+ED\\\"W>[Ju~tu@'_GImh0^=\",\n    \"phone\": [\n      {\n        \"type\": \"home\",\n        \"countryCode\": \"<string>\",\n        \"number\": \"<string>\"\n      },\n      {\n        \"type\": \"work\",\n        \"countryCode\": \"<string>\",\n        \"number\": \"<string>\"\n      }\n    ],\n    \"email\": \"<email>\",\n    \"shipping\": {\n      \"address\": {\n        \"line1\": \"\u01be\",\n        \"city\": \"\ua313\u3116\u1f42\u470b\u0a30\ud74b\u9efa\u36df\",\n        \"postalCode\": \"rckIiVAbP\",\n        \"country\": \"<string>\",\n        \"line2\": \"J@-\u011b\u00ca\u0119\",\n        \"state\": \"<string>\"\n      }\n    },\n    \"billing\": {\n      \"address\": {\n        \"line1\": \"\u0144\u0180\u0115;\u018d\",\n        \"city\": \"\ue6e1\u1ba1\u0a32\u6dc2\",\n        \"postalCode\": \"\",\n        \"country\": \"<string>\",\n        \"line2\": \"4\",\n        \"state\": \"<string>\"\n      },\n      \"taxIdentifier\": \"<string>\"\n    }\n  },\n  \"payment\": {\n    \"type\": \"one-off\",\n    \"amount\": \"<integer>\",\n    \"currency\": \"<string>\"\n  },\n  \"preferredVersions\": [\n    \"2.2.0\",\n    \"2.2.0\"\n  ],\n  \"challenge\": {\n    \"preference\": \"no-preference\",\n    \"reason\": null\n  },\n  \"initiator\": {\n    \"type\": \"customer\"\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/payments/3ds-sessions",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "payments",
+                        "3ds-sessions"
+                      ]
+                    }
+                  },
+                  "status": "Created",
+                  "code": 201,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"merchant\": {\n    \"name\": \"<string>\",\n    \"website\": \"<string>\",\n    \"categoryCode\": \"<string>\",\n    \"country\": \"<string>\"\n  },\n  \"card\": {\n    \"lastFour\": \"<string>\",\n    \"expiry\": {\n      \"month\": \"<string>\",\n      \"year\": \"<string>\"\n    },\n    \"brand\": \"<string>\",\n    \"funding\": \"<string>\",\n    \"segment\": \"<string>\",\n    \"country\": \"<string>\",\n    \"currency\": \"<string>\",\n    \"issuer\": \"<string>\"\n  },\n  \"acquirer\": {\n    \"bin\": \"39438199\",\n    \"merchantIdentifier\": \"<string>\",\n    \"country\": \"<string>\"\n  },\n  \"version\": \"2.2.0\",\n  \"status\": \"success\",\n  \"createdAt\": \"<long>\",\n  \"payment\": {\n    \"type\": \"installment\",\n    \"amount\": \"<integer>\",\n    \"currency\": \"<string>\",\n    \"installments\": \"<integer>\",\n    \"frequency\": \"annually\",\n    \"expiry\": \"<integer>\"\n  },\n  \"challenge\": {\n    \"preference\": \"no-preference\",\n    \"reason\": null\n  },\n  \"initiator\": {\n    \"type\": \"customer\"\n  },\n  \"accessControlServer\": {\n    \"transactionIdentifier\": \"<string>\",\n    \"referenceNumber\": \"<string>\",\n    \"operatorIdentifier\": \"<null,string>\"\n  },\n  \"directoryServer\": {\n    \"transactionIdentifier\": \"<string>\",\n    \"referenceNumber\": \"<string>\",\n    \"network\": \"rupay\"\n  },\n  \"threeDSServer\": {\n    \"transactionIdentifier\": \"<string>\"\n  },\n  \"authentication\": {\n    \"flow\": \"frictionless\",\n    \"methods\": [\n      \"webauthn\",\n      \"other-otp\"\n    ]\n  },\n  \"nextAction\": {\n    \"type\": \"use-sdk\"\n  },\n  \"cryptogram\": \"<string>\",\n  \"eci\": {\n    \"value\": \"06\",\n    \"descriptor\": \"fully-authenticated\",\n    \"liabilityShift\": \"<boolean>\"\n  },\n  \"failureReason\": \"invalid-card-details\",\n  \"ares\": {\n    \"transStatus\": {\n      \"value\": \"I\",\n      \"detail\": \"<string>\"\n    },\n    \"transStatusReason\": null,\n    \"cardholderInfo\": \"<null,string>\"\n  },\n  \"cres\": {\n    \"transStatus\": {\n      \"value\": \"Y\",\n      \"detail\": \"<string>\"\n    }\n  },\n  \"rreq\": null,\n  \"updatedAt\": \"<long>\"\n}",
+                  "createdAt": "2026-07-28T01:35:29.000Z",
+                  "updatedAt": "2026-07-28T01:35:29.000Z",
+                  "uid": "35240-6225066b-b9a3-4c4a-9902-392a3c9b05df"
+                },
+                {
+                  "id": "ec407706-8537-4bca-97fc-5e662f1dce07",
+                  "name": "The request was invalid or cannot be otherwise served.\n",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: basic",
+                        "key": "Authorization",
+                        "value": "Basic <credentials>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"card\": {\n    \"number\": \"<string>\",\n    \"expiry\": {\n      \"month\": \"<string>\",\n      \"year\": \"<string>\"\n    }\n  },\n  \"merchant\": {\n    \"name\": \"<string>\",\n    \"website\": \"<string>\",\n    \"categoryCode\": \"<string>\",\n    \"country\": \"<string>\"\n  },\n  \"acquirer\": {\n    \"bin\": \"10593711279\",\n    \"merchantIdentifier\": \"<string>\",\n    \"country\": \"<string>\"\n  },\n  \"customer\": {\n    \"name\": \"62HI@QthgHCjuWsqe$;+ED\\\"W>[Ju~tu@'_GImh0^=\",\n    \"phone\": [\n      {\n        \"type\": \"home\",\n        \"countryCode\": \"<string>\",\n        \"number\": \"<string>\"\n      },\n      {\n        \"type\": \"work\",\n        \"countryCode\": \"<string>\",\n        \"number\": \"<string>\"\n      }\n    ],\n    \"email\": \"<email>\",\n    \"shipping\": {\n      \"address\": {\n        \"line1\": \"\u01be\",\n        \"city\": \"\ua313\u3116\u1f42\u470b\u0a30\ud74b\u9efa\u36df\",\n        \"postalCode\": \"rckIiVAbP\",\n        \"country\": \"<string>\",\n        \"line2\": \"J@-\u011b\u00ca\u0119\",\n        \"state\": \"<string>\"\n      }\n    },\n    \"billing\": {\n      \"address\": {\n        \"line1\": \"\u0144\u0180\u0115;\u018d\",\n        \"city\": \"\ue6e1\u1ba1\u0a32\u6dc2\",\n        \"postalCode\": \"\",\n        \"country\": \"<string>\",\n        \"line2\": \"4\",\n        \"state\": \"<string>\"\n      },\n      \"taxIdentifier\": \"<string>\"\n    }\n  },\n  \"payment\": {\n    \"type\": \"one-off\",\n    \"amount\": \"<integer>\",\n    \"currency\": \"<string>\"\n  },\n  \"preferredVersions\": [\n    \"2.2.0\",\n    \"2.2.0\"\n  ],\n  \"challenge\": {\n    \"preference\": \"no-preference\",\n    \"reason\": null\n  },\n  \"initiator\": {\n    \"type\": \"customer\"\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/payments/3ds-sessions",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "payments",
+                        "3ds-sessions"
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"code\": \"<string>\",\n  \"title\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"detail\": \"<string>\",\n  \"fields\": [\n    {\n      \"pointer\": \"<string>\",\n      \"reason\": \"<string>\"\n    },\n    {\n      \"pointer\": \"<string>\",\n      \"reason\": \"<string>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-07-28T01:35:29.000Z",
+                  "updatedAt": "2026-07-28T01:35:29.000Z",
+                  "uid": "35240-ec407706-8537-4bca-97fc-5e662f1dce07"
+                }
+              ],
+              "createdAt": "2026-07-28T01:35:29.000Z",
+              "updatedAt": "2026-07-28T01:35:29.000Z",
+              "uid": "35240-c0ddadf7-b11d-433c-9f08-a3bc31d095d9"
+            }
+          ],
+          "id": "ae7e01ee-7ddd-45fb-8737-7758c71724e7",
+          "createdAt": "2026-07-28T01:35:29.000Z",
+          "updatedAt": "2026-07-28T01:35:29.000Z",
+          "uid": "35240-ae7e01ee-7ddd-45fb-8737-7758c71724e7"
+        },
+        {
+          "name": "cards",
+          "item": [
+            {
+              "name": "{card_id}",
+              "item": [
+                {
+                  "name": "simulate",
+                  "item": [
+                    {
+                      "name": "Simulate a Card Update",
+                      "id": "ffc9a790-24af-40ab-9c62-4ebed77cdc8a",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "basic",
+                          "basic": [
+                            {
+                              "key": "username",
+                              "value": "{{basicAuthUsername}}",
+                              "type": "string"
+                            },
+                            {
+                              "key": "password",
+                              "value": "{{basicAuthPassword}}",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"updateType\": \"new-account-number\",\n  \"expiry\": {\n    \"month\": \"<string>\",\n    \"year\": \"<string>\"\n  },\n  \"number\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/payments/cards/:card_id/simulate",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "payments",
+                            "cards",
+                            ":card_id",
+                            "simulate"
+                          ],
+                          "variable": [
+                            {
+                              "id": "3790a042-bbaf-4923-b0da-b47d3799b291",
+                              "key": "card_id",
+                              "value": "<string>",
+                              "description": "(Required) The id of the Card"
+                            }
+                          ]
+                        },
+                        "description": "Simulates an update to a Card so that you can test your Card Account Updater integration. This endpoint is only available for [Sandbox Apps](/developers/sandbox).\n"
+                      },
+                      "response": [
+                        {
+                          "id": "335e009b-5ae1-43c7-8009-1ad2822e0f86",
+                          "name": "Returns the updated Card object.",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"updateType\": \"new-account-number\",\n  \"expiry\": {\n    \"month\": \"<string>\",\n    \"year\": \"<string>\"\n  },\n  \"number\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/payments/cards/:card_id/simulate",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "payments",
+                                "cards",
+                                ":card_id",
+                                "simulate"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "card_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"number\": \"<string>\",\n  \"bin\": \"<string>\",\n  \"lastFour\": \"<string>\",\n  \"createdAt\": \"<integer>\",\n  \"id\": \"<string>\",\n  \"expiry\": {\n    \"month\": \"<string>\",\n    \"year\": \"<string>\"\n  },\n  \"brand\": \"visa\",\n  \"funding\": \"charge\",\n  \"segment\": \"commercial\",\n  \"country\": \"<string>\",\n  \"currency\": \"<string>\",\n  \"issuer\": \"<string>\",\n  \"status\": \"active\",\n  \"replacement\": \"<string,null>\",\n  \"automaticUpdates\": \"enabled\",\n  \"updatedAt\": \"<integer,null>\"\n}",
+                          "createdAt": "2026-07-28T01:35:29.000Z",
+                          "updatedAt": "2026-07-28T01:35:29.000Z",
+                          "uid": "35240-335e009b-5ae1-43c7-8009-1ad2822e0f86"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T01:35:29.000Z",
+                      "updatedAt": "2026-07-28T01:35:29.000Z",
+                      "uid": "35240-ffc9a790-24af-40ab-9c62-4ebed77cdc8a"
+                    }
+                  ],
+                  "id": "5d78c331-e6ea-4316-84cd-710161ff57f8",
+                  "createdAt": "2026-07-28T01:35:29.000Z",
+                  "updatedAt": "2026-07-28T01:35:29.000Z",
+                  "uid": "35240-5d78c331-e6ea-4316-84cd-710161ff57f8"
+                },
+                {
+                  "name": "Retrieve a Card",
+                  "id": "3b84af5c-bce9-4622-b2d4-243f818c8ffd",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "basic",
+                      "basic": [
+                        {
+                          "key": "username",
+                          "value": "{{basicAuthUsername}}",
+                          "type": "string"
+                        },
+                        {
+                          "key": "password",
+                          "value": "{{basicAuthPassword}}",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/payments/cards/:card_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "payments",
+                        "cards",
+                        ":card_id"
+                      ],
+                      "variable": [
+                        {
+                          "id": "cc74f33c-5dee-4e7f-8afa-23d3ab3fe889",
+                          "key": "card_id",
+                          "value": "<string>",
+                          "description": "(Required) The unique identifier of the Card."
+                        }
+                      ]
+                    },
+                    "description": "Retrieves a Card by its unique identifier.\n"
+                  },
+                  "response": [
+                    {
+                      "id": "0a9810ad-0000-4b50-8039-081bb2f616dd",
+                      "name": "Returns an existing Card object.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/payments/cards/:card_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "payments",
+                            "cards",
+                            ":card_id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "card_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"number\": \"<string>\",\n  \"bin\": \"<string>\",\n  \"lastFour\": \"<string>\",\n  \"createdAt\": \"<integer>\",\n  \"id\": \"<string>\",\n  \"expiry\": {\n    \"month\": \"<string>\",\n    \"year\": \"<string>\"\n  },\n  \"brand\": \"visa\",\n  \"funding\": \"charge\",\n  \"segment\": \"commercial\",\n  \"country\": \"<string>\",\n  \"currency\": \"<string>\",\n  \"issuer\": \"<string>\",\n  \"status\": \"active\",\n  \"replacement\": \"<string,null>\",\n  \"automaticUpdates\": \"enabled\",\n  \"updatedAt\": \"<integer,null>\"\n}",
+                      "createdAt": "2026-07-28T01:35:29.000Z",
+                      "updatedAt": "2026-07-28T01:35:29.000Z",
+                      "uid": "35240-0a9810ad-0000-4b50-8039-081bb2f616dd"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T01:35:29.000Z",
+                  "updatedAt": "2026-07-28T01:35:29.000Z",
+                  "uid": "35240-3b84af5c-bce9-4622-b2d4-243f818c8ffd"
+                },
+                {
+                  "name": "Delete a Card",
+                  "id": "d3f22ba0-a84e-4f62-819a-c22e68eb7327",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "basic",
+                      "basic": [
+                        {
+                          "key": "username",
+                          "value": "{{basicAuthUsername}}",
+                          "type": "string"
+                        },
+                        {
+                          "key": "password",
+                          "value": "{{basicAuthPassword}}",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/payments/cards/:card_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "payments",
+                        "cards",
+                        ":card_id"
+                      ],
+                      "variable": [
+                        {
+                          "id": "e3c6088e-a20c-409b-9bc8-aa774097ae04",
+                          "key": "card_id",
+                          "value": "<string>",
+                          "description": "(Required) The unique identifier of the Card."
+                        }
+                      ]
+                    },
+                    "description": "Deletes a Card by its unique identifier.\n"
+                  },
+                  "response": [
+                    {
+                      "id": "17aca0d4-002d-45b3-8751-2e6ecd626115",
+                      "name": "Deletes a Card object.",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/payments/cards/:card_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "payments",
+                            "cards",
+                            ":card_id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "card_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "No Content",
+                      "code": 204,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"examples\": {\n    \"SuccessfulDeletion\": {\n      \"summary\": \"Card successfully deleted\",\n      \"value\": {}\n    }\n  }\n}",
+                      "createdAt": "2026-07-28T01:35:29.000Z",
+                      "updatedAt": "2026-07-28T01:35:29.000Z",
+                      "uid": "35240-17aca0d4-002d-45b3-8751-2e6ecd626115"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T01:35:29.000Z",
+                  "updatedAt": "2026-07-28T01:35:29.000Z",
+                  "uid": "35240-d3f22ba0-a84e-4f62-819a-c22e68eb7327"
+                }
+              ],
+              "id": "b94fd382-95f9-4bfd-a535-4f804a2655f6",
+              "createdAt": "2026-07-28T01:35:29.000Z",
+              "updatedAt": "2026-07-28T01:35:29.000Z",
+              "uid": "35240-b94fd382-95f9-4bfd-a535-4f804a2655f6"
+            },
+            {
+              "name": "Register a Card",
+              "id": "0bc9a710-8953-4dd1-aebe-dfd212f6ef4e",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "basic",
+                  "basic": [
+                    {
+                      "key": "username",
+                      "value": "{{basicAuthUsername}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "password",
+                      "value": "{{basicAuthPassword}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"number\": \"<string>\",\n  \"expiry\": {\n    \"month\": \"<string>\",\n    \"year\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/payments/cards",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "payments",
+                    "cards"
+                  ]
+                },
+                "description": "When registering a card, you can provide either an Evervault encrypted card number or a plaintext card number. If you provide a plaintext card number it will be encrypted and the encrypted value will be returned in the response.\n\nCard registration is idempotent on card number. Registering the same card number a second time returns the existing Card object, rather than creating a new one. This means you can use the Card object `id` as a unique identifier. If you register an existing card number but with a different expiry date, the existing Card object is updated with the new date, and Evervault returns a `200 OK` response. A `201 Created` response indicates that a new Card object was created.\n"
+              },
+              "response": [
+                {
+                  "id": "f54c77ea-f47a-4582-8b4c-6e9a6a2d12d7",
+                  "name": "Returns an existing Card object. If the card number is already registered but with a different expiry date, the date is updated to the value in the request before the Card object is returned.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: basic",
+                        "key": "Authorization",
+                        "value": "Basic <credentials>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"number\": \"<string>\",\n  \"expiry\": {\n    \"month\": \"<string>\",\n    \"year\": \"<string>\"\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/payments/cards",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "payments",
+                        "cards"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"number\": \"<string>\",\n  \"bin\": \"<string>\",\n  \"lastFour\": \"<string>\",\n  \"createdAt\": \"<integer>\",\n  \"id\": \"<string>\",\n  \"expiry\": {\n    \"month\": \"<string>\",\n    \"year\": \"<string>\"\n  },\n  \"brand\": \"visa\",\n  \"funding\": \"charge\",\n  \"segment\": \"commercial\",\n  \"country\": \"<string>\",\n  \"currency\": \"<string>\",\n  \"issuer\": \"<string>\",\n  \"status\": \"active\",\n  \"replacement\": \"<string,null>\",\n  \"automaticUpdates\": \"enabled\",\n  \"updatedAt\": \"<integer,null>\"\n}",
+                  "createdAt": "2026-07-28T01:35:29.000Z",
+                  "updatedAt": "2026-07-28T01:35:29.000Z",
+                  "uid": "35240-f54c77ea-f47a-4582-8b4c-6e9a6a2d12d7"
+                },
+                {
+                  "id": "2a45ace3-8e82-4639-94bd-30741aba5658",
+                  "name": "Returns a new Card object.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: basic",
+                        "key": "Authorization",
+                        "value": "Basic <credentials>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"number\": \"<string>\",\n  \"expiry\": {\n    \"month\": \"<string>\",\n    \"year\": \"<string>\"\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/payments/cards",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "payments",
+                        "cards"
+                      ]
+                    }
+                  },
+                  "status": "Created",
+                  "code": 201,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"number\": \"<string>\",\n  \"bin\": \"<string>\",\n  \"lastFour\": \"<string>\",\n  \"createdAt\": \"<integer>\",\n  \"id\": \"<string>\",\n  \"expiry\": {\n    \"month\": \"<string>\",\n    \"year\": \"<string>\"\n  },\n  \"brand\": \"visa\",\n  \"funding\": \"charge\",\n  \"segment\": \"commercial\",\n  \"country\": \"<string>\",\n  \"currency\": \"<string>\",\n  \"issuer\": \"<string>\",\n  \"status\": \"active\",\n  \"replacement\": \"<string,null>\",\n  \"automaticUpdates\": \"enabled\",\n  \"updatedAt\": \"<integer,null>\"\n}",
+                  "createdAt": "2026-07-28T01:35:29.000Z",
+                  "updatedAt": "2026-07-28T01:35:29.000Z",
+                  "uid": "35240-2a45ace3-8e82-4639-94bd-30741aba5658"
+                }
+              ],
+              "createdAt": "2026-07-28T01:35:29.000Z",
+              "updatedAt": "2026-07-28T01:35:29.000Z",
+              "uid": "35240-0bc9a710-8953-4dd1-aebe-dfd212f6ef4e"
+            }
+          ],
+          "id": "4c247549-cf8f-4930-8ff8-8c24dab33b60",
+          "createdAt": "2026-07-28T01:35:29.000Z",
+          "updatedAt": "2026-07-28T01:35:29.000Z",
+          "uid": "35240-4c247549-cf8f-4930-8ff8-8c24dab33b60"
+        }
+      ],
+      "id": "cb4dd7c3-841c-4b76-bbb6-2930d2a9376b",
+      "createdAt": "2026-07-28T01:35:29.000Z",
+      "updatedAt": "2026-07-28T01:35:29.000Z",
+      "uid": "35240-cb4dd7c3-841c-4b76-bbb6-2930d2a9376b"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.evervault.com"
+    }
+  ]
+}

@@ -1,0 +1,145 @@
+{
+  "info": {
+    "_postman_id": "3892463e-821d-430a-884b-56b96d8b1511",
+    "name": "Evervault Client Tokens API",
+    "description": "The Evervault API allows developers to interact programmatically with their Evervault apps using HTTP requests.\n\nContact Support:\n Name: Evervault Support Team\n Email: support@evervault.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T01:34:55.000Z",
+    "updatedAt": "2026-07-28T01:34:55.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-3892463e-821d-430a-884b-56b96d8b1511"
+  },
+  "item": [
+    {
+      "name": "client-side-tokens",
+      "item": [
+        {
+          "name": "Create a Client Token",
+          "id": "283f1147-43da-4196-b721-03bcd09e4e49",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}",
+                  "type": "string"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"action\": \"api:decrypt\",\n  \"payload\": {},\n  \"expiry\": \"<integer>\"\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/client-side-tokens",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "client-side-tokens"
+              ]
+            },
+            "description": "Client-Side Tokens are restricted to specific payloads. By default, a Client-Side Token will expire after 5 minutes. The maximum expiration time of a token is 10 minutes. When using the REST API, the expiry field must be in epoch milliseconds.\n"
+          },
+          "response": [
+            {
+              "id": "ca116470-d597-4a08-b43f-906fee766046",
+              "name": "A client side token and its expiry",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: basic",
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"action\": \"api:decrypt\",\n  \"payload\": {},\n  \"expiry\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/client-side-tokens",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "client-side-tokens"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"id\": \"<string>\",\n  \"token\": \"<string>\",\n  \"expiry\": \"<integer>\",\n  \"createdAt\": \"<integer>\"\n}",
+              "createdAt": "2026-07-28T01:34:56.000Z",
+              "updatedAt": "2026-07-28T01:34:56.000Z",
+              "uid": "35240-ca116470-d597-4a08-b43f-906fee766046"
+            }
+          ],
+          "createdAt": "2026-07-28T01:34:56.000Z",
+          "updatedAt": "2026-07-28T01:34:56.000Z",
+          "uid": "35240-283f1147-43da-4196-b721-03bcd09e4e49"
+        }
+      ],
+      "id": "f859f251-f999-4628-b180-b8fc3bcf71f4",
+      "createdAt": "2026-07-28T01:34:56.000Z",
+      "updatedAt": "2026-07-28T01:34:56.000Z",
+      "uid": "35240-f859f251-f999-4628-b180-b8fc3bcf71f4"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.evervault.com"
+    }
+  ]
+}

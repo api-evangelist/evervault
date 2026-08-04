@@ -1,0 +1,576 @@
+{
+  "info": {
+    "_postman_id": "690f1dbe-133e-4384-bdca-62a25efffb8b",
+    "name": "Evervault Card Account Updates API",
+    "description": "The Evervault API allows developers to interact programmatically with their Evervault apps using HTTP requests.\n\nContact Support:\n Name: Evervault Support Team\n Email: support@evervault.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T01:34:53.000Z",
+    "updatedAt": "2026-07-28T01:34:54.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-690f1dbe-133e-4384-bdca-62a25efffb8b"
+  },
+  "item": [
+    {
+      "name": "payments",
+      "item": [
+        {
+          "name": "cards",
+          "item": [
+            {
+              "name": "{card_id}",
+              "item": [
+                {
+                  "name": "simulate",
+                  "item": [
+                    {
+                      "name": "Simulate a Card Update",
+                      "id": "24644480-292f-4a36-8c44-23f5ed5e3913",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "basic",
+                          "basic": [
+                            {
+                              "key": "username",
+                              "value": "{{basicAuthUsername}}",
+                              "type": "string"
+                            },
+                            {
+                              "key": "password",
+                              "value": "{{basicAuthPassword}}",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"updateType\": \"new-account-number\",\n  \"expiry\": {\n    \"month\": \"<string>\",\n    \"year\": \"<string>\"\n  },\n  \"number\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/payments/cards/:card_id/simulate",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "payments",
+                            "cards",
+                            ":card_id",
+                            "simulate"
+                          ],
+                          "variable": [
+                            {
+                              "id": "72d74518-d068-466a-b656-7487375b023f",
+                              "key": "card_id",
+                              "value": "<string>",
+                              "description": "(Required) The id of the Card"
+                            }
+                          ]
+                        },
+                        "description": "Simulates an update to a Card so that you can test your Card Account Updater integration. This endpoint is only available for [Sandbox Apps](/developers/sandbox).\n"
+                      },
+                      "response": [
+                        {
+                          "id": "f55d9b72-a144-4511-bb2c-718ec4316258",
+                          "name": "Returns the updated Card object.",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"updateType\": \"new-account-number\",\n  \"expiry\": {\n    \"month\": \"<string>\",\n    \"year\": \"<string>\"\n  },\n  \"number\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/payments/cards/:card_id/simulate",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "payments",
+                                "cards",
+                                ":card_id",
+                                "simulate"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "card_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"number\": \"<string>\",\n  \"bin\": \"<string>\",\n  \"lastFour\": \"<string>\",\n  \"createdAt\": \"<integer>\",\n  \"id\": \"<string>\",\n  \"expiry\": {\n    \"month\": \"<string>\",\n    \"year\": \"<string>\"\n  },\n  \"brand\": \"unionpay\",\n  \"funding\": \"credit\",\n  \"segment\": \"payouts\",\n  \"country\": \"<string>\",\n  \"currency\": \"<string>\",\n  \"issuer\": \"<string>\",\n  \"status\": \"replaced\",\n  \"replacement\": \"<string,null>\",\n  \"automaticUpdates\": \"enabled\",\n  \"updatedAt\": \"<integer,null>\"\n}",
+                          "createdAt": "2026-07-28T01:34:54.000Z",
+                          "updatedAt": "2026-07-28T01:34:54.000Z",
+                          "uid": "35240-f55d9b72-a144-4511-bb2c-718ec4316258"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T01:34:54.000Z",
+                      "updatedAt": "2026-07-28T01:34:54.000Z",
+                      "uid": "35240-24644480-292f-4a36-8c44-23f5ed5e3913"
+                    }
+                  ],
+                  "id": "eee7a0f7-37b2-42b5-ab56-8c9e0a99dd46",
+                  "createdAt": "2026-07-28T01:34:54.000Z",
+                  "updatedAt": "2026-07-28T01:34:54.000Z",
+                  "uid": "35240-eee7a0f7-37b2-42b5-ab56-8c9e0a99dd46"
+                },
+                {
+                  "name": "Retrieve a Card",
+                  "id": "47257b2a-6ad6-4872-92d4-c0768612aa8b",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "basic",
+                      "basic": [
+                        {
+                          "key": "username",
+                          "value": "{{basicAuthUsername}}",
+                          "type": "string"
+                        },
+                        {
+                          "key": "password",
+                          "value": "{{basicAuthPassword}}",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/payments/cards/:card_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "payments",
+                        "cards",
+                        ":card_id"
+                      ],
+                      "variable": [
+                        {
+                          "id": "01e2ca17-64cf-420d-b39d-831fbbf2e0b4",
+                          "key": "card_id",
+                          "value": "<string>",
+                          "description": "(Required) The unique identifier of the Card."
+                        }
+                      ]
+                    },
+                    "description": "Retrieves a Card by its unique identifier.\n"
+                  },
+                  "response": [
+                    {
+                      "id": "c0387154-9009-4f26-81c2-11e1f5802d65",
+                      "name": "Returns an existing Card object.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/payments/cards/:card_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "payments",
+                            "cards",
+                            ":card_id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "card_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"number\": \"<string>\",\n  \"bin\": \"<string>\",\n  \"lastFour\": \"<string>\",\n  \"createdAt\": \"<integer>\",\n  \"id\": \"<string>\",\n  \"expiry\": {\n    \"month\": \"<string>\",\n    \"year\": \"<string>\"\n  },\n  \"brand\": \"unionpay\",\n  \"funding\": \"credit\",\n  \"segment\": \"payouts\",\n  \"country\": \"<string>\",\n  \"currency\": \"<string>\",\n  \"issuer\": \"<string>\",\n  \"status\": \"replaced\",\n  \"replacement\": \"<string,null>\",\n  \"automaticUpdates\": \"enabled\",\n  \"updatedAt\": \"<integer,null>\"\n}",
+                      "createdAt": "2026-07-28T01:34:54.000Z",
+                      "updatedAt": "2026-07-28T01:34:54.000Z",
+                      "uid": "35240-c0387154-9009-4f26-81c2-11e1f5802d65"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T01:34:54.000Z",
+                  "updatedAt": "2026-07-28T01:34:54.000Z",
+                  "uid": "35240-47257b2a-6ad6-4872-92d4-c0768612aa8b"
+                },
+                {
+                  "name": "Delete a Card",
+                  "id": "35860ef6-3593-4cab-8bdc-354775d555d3",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "basic",
+                      "basic": [
+                        {
+                          "key": "username",
+                          "value": "{{basicAuthUsername}}",
+                          "type": "string"
+                        },
+                        {
+                          "key": "password",
+                          "value": "{{basicAuthPassword}}",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/payments/cards/:card_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "payments",
+                        "cards",
+                        ":card_id"
+                      ],
+                      "variable": [
+                        {
+                          "id": "ede133de-f0b8-4037-8530-507e669d3c26",
+                          "key": "card_id",
+                          "value": "<string>",
+                          "description": "(Required) The unique identifier of the Card."
+                        }
+                      ]
+                    },
+                    "description": "Deletes a Card by its unique identifier.\n"
+                  },
+                  "response": [
+                    {
+                      "id": "a78af002-9adf-4767-a07f-f7dac5b99f15",
+                      "name": "Deletes a Card object.",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/payments/cards/:card_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "payments",
+                            "cards",
+                            ":card_id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "card_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "No Content",
+                      "code": 204,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"examples\": {\n    \"SuccessfulDeletion\": {\n      \"summary\": \"Card successfully deleted\",\n      \"value\": {}\n    }\n  }\n}",
+                      "createdAt": "2026-07-28T01:34:54.000Z",
+                      "updatedAt": "2026-07-28T01:34:54.000Z",
+                      "uid": "35240-a78af002-9adf-4767-a07f-f7dac5b99f15"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T01:34:54.000Z",
+                  "updatedAt": "2026-07-28T01:34:54.000Z",
+                  "uid": "35240-35860ef6-3593-4cab-8bdc-354775d555d3"
+                }
+              ],
+              "id": "246465da-5a76-46f5-8df3-f2684345846a",
+              "createdAt": "2026-07-28T01:34:54.000Z",
+              "updatedAt": "2026-07-28T01:34:54.000Z",
+              "uid": "35240-246465da-5a76-46f5-8df3-f2684345846a"
+            },
+            {
+              "name": "Register a Card",
+              "id": "453541b9-47ea-41c7-a124-8840cb0dcd8b",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "basic",
+                  "basic": [
+                    {
+                      "key": "username",
+                      "value": "{{basicAuthUsername}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "password",
+                      "value": "{{basicAuthPassword}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"number\": \"<string>\",\n  \"expiry\": {\n    \"month\": \"<string>\",\n    \"year\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/payments/cards",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "payments",
+                    "cards"
+                  ]
+                },
+                "description": "When registering a card, you can provide either an Evervault encrypted card number or a plaintext card number. If you provide a plaintext card number it will be encrypted and the encrypted value will be returned in the response.\n\nCard registration is idempotent on card number. Registering the same card number a second time returns the existing Card object, rather than creating a new one. This means you can use the Card object `id` as a unique identifier. If you register an existing card number but with a different expiry date, the existing Card object is updated with the new date, and Evervault returns a `200 OK` response. A `201 Created` response indicates that a new Card object was created.\n"
+              },
+              "response": [
+                {
+                  "id": "464ed289-b42f-423a-ac8a-147cd986aed9",
+                  "name": "Returns an existing Card object. If the card number is already registered but with a different expiry date, the date is updated to the value in the request before the Card object is returned.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: basic",
+                        "key": "Authorization",
+                        "value": "Basic <credentials>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"number\": \"<string>\",\n  \"expiry\": {\n    \"month\": \"<string>\",\n    \"year\": \"<string>\"\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/payments/cards",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "payments",
+                        "cards"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"number\": \"<string>\",\n  \"bin\": \"<string>\",\n  \"lastFour\": \"<string>\",\n  \"createdAt\": \"<integer>\",\n  \"id\": \"<string>\",\n  \"expiry\": {\n    \"month\": \"<string>\",\n    \"year\": \"<string>\"\n  },\n  \"brand\": \"unionpay\",\n  \"funding\": \"credit\",\n  \"segment\": \"payouts\",\n  \"country\": \"<string>\",\n  \"currency\": \"<string>\",\n  \"issuer\": \"<string>\",\n  \"status\": \"replaced\",\n  \"replacement\": \"<string,null>\",\n  \"automaticUpdates\": \"enabled\",\n  \"updatedAt\": \"<integer,null>\"\n}",
+                  "createdAt": "2026-07-28T01:34:54.000Z",
+                  "updatedAt": "2026-07-28T01:34:54.000Z",
+                  "uid": "35240-464ed289-b42f-423a-ac8a-147cd986aed9"
+                },
+                {
+                  "id": "b50603ab-d7e6-49c3-bff2-751da9b4eb74",
+                  "name": "Returns a new Card object.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: basic",
+                        "key": "Authorization",
+                        "value": "Basic <credentials>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"number\": \"<string>\",\n  \"expiry\": {\n    \"month\": \"<string>\",\n    \"year\": \"<string>\"\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/payments/cards",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "payments",
+                        "cards"
+                      ]
+                    }
+                  },
+                  "status": "Created",
+                  "code": 201,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"number\": \"<string>\",\n  \"bin\": \"<string>\",\n  \"lastFour\": \"<string>\",\n  \"createdAt\": \"<integer>\",\n  \"id\": \"<string>\",\n  \"expiry\": {\n    \"month\": \"<string>\",\n    \"year\": \"<string>\"\n  },\n  \"brand\": \"unionpay\",\n  \"funding\": \"credit\",\n  \"segment\": \"payouts\",\n  \"country\": \"<string>\",\n  \"currency\": \"<string>\",\n  \"issuer\": \"<string>\",\n  \"status\": \"replaced\",\n  \"replacement\": \"<string,null>\",\n  \"automaticUpdates\": \"enabled\",\n  \"updatedAt\": \"<integer,null>\"\n}",
+                  "createdAt": "2026-07-28T01:34:54.000Z",
+                  "updatedAt": "2026-07-28T01:34:54.000Z",
+                  "uid": "35240-b50603ab-d7e6-49c3-bff2-751da9b4eb74"
+                }
+              ],
+              "createdAt": "2026-07-28T01:34:54.000Z",
+              "updatedAt": "2026-07-28T01:34:54.000Z",
+              "uid": "35240-453541b9-47ea-41c7-a124-8840cb0dcd8b"
+            }
+          ],
+          "id": "81ad0192-df76-4e3e-9ad0-60e3295a9a7b",
+          "createdAt": "2026-07-28T01:34:54.000Z",
+          "updatedAt": "2026-07-28T01:34:54.000Z",
+          "uid": "35240-81ad0192-df76-4e3e-9ad0-60e3295a9a7b"
+        }
+      ],
+      "id": "1362e66c-9992-4993-b02e-eb9ec13e79b9",
+      "createdAt": "2026-07-28T01:34:54.000Z",
+      "updatedAt": "2026-07-28T01:34:54.000Z",
+      "uid": "35240-1362e66c-9992-4993-b02e-eb9ec13e79b9"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.evervault.com"
+    }
+  ]
+}

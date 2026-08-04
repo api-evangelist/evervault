@@ -1,0 +1,608 @@
+{
+  "info": {
+    "_postman_id": "cd655b6d-f01c-4b37-807d-b016bcaa9300",
+    "name": "Evervault Acquirers API",
+    "description": "The Evervault API allows developers to interact programmatically with their Evervault apps using HTTP requests.\n\nContact Support:\n Name: Evervault Support Team\n Email: support@evervault.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T01:34:51.000Z",
+    "updatedAt": "2026-07-28T01:34:52.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-cd655b6d-f01c-4b37-807d-b016bcaa9300"
+  },
+  "item": [
+    {
+      "name": "payments",
+      "item": [
+        {
+          "name": "acquirers",
+          "item": [
+            {
+              "name": "{acquirer_id}",
+              "item": [
+                {
+                  "name": "Retrieve an Acquirer",
+                  "id": "0627fa27-6534-4874-b47c-886ceed2e8ed",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "basic",
+                      "basic": [
+                        {
+                          "key": "username",
+                          "value": "{{basicAuthUsername}}",
+                          "type": "string"
+                        },
+                        {
+                          "key": "password",
+                          "value": "{{basicAuthPassword}}",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/payments/acquirers/:acquirer_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "payments",
+                        "acquirers",
+                        ":acquirer_id"
+                      ],
+                      "variable": [
+                        {
+                          "id": "cd1ce615-5d56-4ca1-bc1a-d14698442968",
+                          "key": "acquirer_id",
+                          "value": "<string>",
+                          "description": "(Required) The unique identifier of the Acquirer."
+                        }
+                      ]
+                    },
+                    "description": "Retrieves an Acquirer by its unique identifier.\n"
+                  },
+                  "response": [
+                    {
+                      "id": "95039919-5831-461a-b71e-046191ce6e7b",
+                      "name": "Returns an Acquirer object.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/payments/acquirers/:acquirer_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "payments",
+                            "acquirers",
+                            ":acquirer_id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "acquirer_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"default\": \"<boolean>\",\n  \"configurations\": [\n    {\n      \"network\": \"discover\",\n      \"bin\": \"324529157\",\n      \"acquirerMerchantIdentifier\": \"<string>\",\n      \"state\": \"<string>\",\n      \"country\": \"<string>\"\n    },\n    {\n      \"network\": \"discover\",\n      \"bin\": \"33579997091\",\n      \"acquirerMerchantIdentifier\": \"<string>\",\n      \"state\": \"<string>\",\n      \"country\": \"<string>\"\n    }\n  ],\n  \"description\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T01:34:52.000Z",
+                      "updatedAt": "2026-07-28T01:34:52.000Z",
+                      "uid": "35240-95039919-5831-461a-b71e-046191ce6e7b"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T01:34:52.000Z",
+                  "updatedAt": "2026-07-28T01:34:52.000Z",
+                  "uid": "35240-0627fa27-6534-4874-b47c-886ceed2e8ed"
+                },
+                {
+                  "name": "Update an Acquirer",
+                  "id": "0985cd95-ba10-4d0b-9eae-eac44d362dbd",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "basic",
+                      "basic": [
+                        {
+                          "key": "username",
+                          "value": "{{basicAuthUsername}}",
+                          "type": "string"
+                        },
+                        {
+                          "key": "password",
+                          "value": "{{basicAuthPassword}}",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"default\": \"<boolean>\",\n  \"configurations\": [\n    {\n      \"network\": \"discover\",\n      \"bin\": \"02830034157\",\n      \"acquirerMerchantIdentifier\": \"<string>\",\n      \"country\": \"<string>\"\n    },\n    {\n      \"network\": \"discover\",\n      \"bin\": \"724069930\",\n      \"acquirerMerchantIdentifier\": \"<string>\",\n      \"country\": \"<string>\"\n    }\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/payments/acquirers/:acquirer_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "payments",
+                        "acquirers",
+                        ":acquirer_id"
+                      ],
+                      "variable": [
+                        {
+                          "id": "81bda9b6-957f-4a36-87e9-a9af3e09c8a7",
+                          "key": "acquirer_id",
+                          "value": "<string>",
+                          "description": "(Required) The id of the Acquirer to be updated."
+                        }
+                      ]
+                    },
+                    "description": "Updates an Acquirer by its unique identifier.\n"
+                  },
+                  "response": [
+                    {
+                      "id": "2fcf407b-d18c-4f9c-b26a-51b16676677f",
+                      "name": "Returns the updated Acquirer object.",
+                      "originalRequest": {
+                        "method": "PATCH",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"default\": \"<boolean>\",\n  \"configurations\": [\n    {\n      \"network\": \"discover\",\n      \"bin\": \"02830034157\",\n      \"acquirerMerchantIdentifier\": \"<string>\",\n      \"country\": \"<string>\"\n    },\n    {\n      \"network\": \"discover\",\n      \"bin\": \"724069930\",\n      \"acquirerMerchantIdentifier\": \"<string>\",\n      \"country\": \"<string>\"\n    }\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/payments/acquirers/:acquirer_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "payments",
+                            "acquirers",
+                            ":acquirer_id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "acquirer_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"default\": \"<boolean>\",\n  \"configurations\": [\n    {\n      \"network\": \"discover\",\n      \"bin\": \"324529157\",\n      \"acquirerMerchantIdentifier\": \"<string>\",\n      \"state\": \"<string>\",\n      \"country\": \"<string>\"\n    },\n    {\n      \"network\": \"discover\",\n      \"bin\": \"33579997091\",\n      \"acquirerMerchantIdentifier\": \"<string>\",\n      \"state\": \"<string>\",\n      \"country\": \"<string>\"\n    }\n  ],\n  \"description\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T01:34:52.000Z",
+                      "updatedAt": "2026-07-28T01:34:52.000Z",
+                      "uid": "35240-2fcf407b-d18c-4f9c-b26a-51b16676677f"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T01:34:52.000Z",
+                  "updatedAt": "2026-07-28T01:34:52.000Z",
+                  "uid": "35240-0985cd95-ba10-4d0b-9eae-eac44d362dbd"
+                },
+                {
+                  "name": "Delete an Acquirer",
+                  "id": "9b1fdb06-232f-4b14-a483-d40124bc9012",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "basic",
+                      "basic": [
+                        {
+                          "key": "username",
+                          "value": "{{basicAuthUsername}}",
+                          "type": "string"
+                        },
+                        {
+                          "key": "password",
+                          "value": "{{basicAuthPassword}}",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "DELETE",
+                    "header": [],
+                    "url": {
+                      "raw": "{{baseUrl}}/payments/acquirers/:acquirer_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "payments",
+                        "acquirers",
+                        ":acquirer_id"
+                      ],
+                      "variable": [
+                        {
+                          "id": "7d213070-a5e0-419f-ab5f-9d84444e2fd1",
+                          "key": "acquirer_id",
+                          "value": "<string>",
+                          "description": "(Required) The id of the Acquirer to be deleted."
+                        }
+                      ]
+                    },
+                    "description": "Deletes an Acquirer by its unique identifier.\n"
+                  },
+                  "response": [
+                    {
+                      "id": "c74d1f85-5619-4852-aa66-f0a0abc672be",
+                      "name": "Acquirer successfully deleted.",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/payments/acquirers/:acquirer_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "payments",
+                            "acquirers",
+                            ":acquirer_id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "acquirer_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "No Content",
+                      "code": 204,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T01:34:52.000Z",
+                      "updatedAt": "2026-07-28T01:34:52.000Z",
+                      "uid": "35240-c74d1f85-5619-4852-aa66-f0a0abc672be"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T01:34:52.000Z",
+                  "updatedAt": "2026-07-28T01:34:52.000Z",
+                  "uid": "35240-9b1fdb06-232f-4b14-a483-d40124bc9012"
+                }
+              ],
+              "id": "83303e36-ffb4-4851-b2a1-d690c05096a1",
+              "createdAt": "2026-07-28T01:34:52.000Z",
+              "updatedAt": "2026-07-28T01:34:52.000Z",
+              "uid": "35240-83303e36-ffb4-4851-b2a1-d690c05096a1"
+            },
+            {
+              "name": "Create an Acquirer",
+              "id": "f674e4cf-c7d6-43bf-a44b-a857a17157a5",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "basic",
+                  "basic": [
+                    {
+                      "key": "username",
+                      "value": "{{basicAuthUsername}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "password",
+                      "value": "{{basicAuthPassword}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"configurations\": [\n    {\n      \"network\": \"mastercard\",\n      \"bin\": \"4242262\",\n      \"acquirerMerchantIdentifier\": \"<string>\",\n      \"country\": \"<string>\"\n    },\n    {\n      \"network\": \"american-express\",\n      \"bin\": \"16652061172\",\n      \"acquirerMerchantIdentifier\": \"<string>\",\n      \"country\": \"<string>\"\n    }\n  ],\n  \"description\": \"<string>\",\n  \"default\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/payments/acquirers",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "payments",
+                    "acquirers"
+                  ]
+                },
+                "description": "Creates an Acquirer to be used with 3DS sessions.\n"
+              },
+              "response": [
+                {
+                  "id": "9bbf0429-98e8-49ad-b0ae-68091c1e8e31",
+                  "name": "Returns the created Acquirer object.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: basic",
+                        "key": "Authorization",
+                        "value": "Basic <credentials>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"<string>\",\n  \"configurations\": [\n    {\n      \"network\": \"mastercard\",\n      \"bin\": \"4242262\",\n      \"acquirerMerchantIdentifier\": \"<string>\",\n      \"country\": \"<string>\"\n    },\n    {\n      \"network\": \"american-express\",\n      \"bin\": \"16652061172\",\n      \"acquirerMerchantIdentifier\": \"<string>\",\n      \"country\": \"<string>\"\n    }\n  ],\n  \"description\": \"<string>\",\n  \"default\": \"<boolean>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/payments/acquirers",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "payments",
+                        "acquirers"
+                      ]
+                    }
+                  },
+                  "status": "Created",
+                  "code": 201,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"default\": \"<boolean>\",\n  \"configurations\": [\n    {\n      \"network\": \"discover\",\n      \"bin\": \"324529157\",\n      \"acquirerMerchantIdentifier\": \"<string>\",\n      \"state\": \"<string>\",\n      \"country\": \"<string>\"\n    },\n    {\n      \"network\": \"discover\",\n      \"bin\": \"33579997091\",\n      \"acquirerMerchantIdentifier\": \"<string>\",\n      \"state\": \"<string>\",\n      \"country\": \"<string>\"\n    }\n  ],\n  \"description\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T01:34:52.000Z",
+                  "updatedAt": "2026-07-28T01:34:52.000Z",
+                  "uid": "35240-9bbf0429-98e8-49ad-b0ae-68091c1e8e31"
+                }
+              ],
+              "createdAt": "2026-07-28T01:34:52.000Z",
+              "updatedAt": "2026-07-28T01:34:52.000Z",
+              "uid": "35240-f674e4cf-c7d6-43bf-a44b-a857a17157a5"
+            },
+            {
+              "name": "List Acquirers",
+              "id": "76702524-1698-4627-a494-a0bbf9cff941",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "basic",
+                  "basic": [
+                    {
+                      "key": "username",
+                      "value": "{{basicAuthUsername}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "password",
+                      "value": "{{basicAuthPassword}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/payments/acquirers?page=0&pageSize=50",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "payments",
+                    "acquirers"
+                  ],
+                  "query": [
+                    {
+                      "description": "The page number to retrieve.",
+                      "key": "page",
+                      "value": "0"
+                    },
+                    {
+                      "description": "The number of Acquirers to retrieve per page. The default is 50, which is also the maximum.",
+                      "key": "pageSize",
+                      "value": "50"
+                    }
+                  ]
+                },
+                "description": "Lists all Acquirers that have been created.\n"
+              },
+              "response": [
+                {
+                  "id": "63278615-c16d-4b1d-9222-01f15b92919a",
+                  "name": "Returns a list of Acquirer objects.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: basic",
+                        "key": "Authorization",
+                        "value": "Basic <credentials>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/payments/acquirers?page=0&pageSize=50",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "payments",
+                        "acquirers"
+                      ],
+                      "query": [
+                        {
+                          "description": "The page number to retrieve.",
+                          "key": "page",
+                          "value": "0"
+                        },
+                        {
+                          "description": "The number of Acquirers to retrieve per page. The default is 50, which is also the maximum.",
+                          "key": "pageSize",
+                          "value": "50"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"data\": [\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"default\": \"<boolean>\",\n      \"configurations\": [\n        {\n          \"network\": \"mastercard\",\n          \"bin\": \"245710\",\n          \"acquirerMerchantIdentifier\": \"<string>\",\n          \"state\": \"<string>\",\n          \"country\": \"<string>\"\n        },\n        {\n          \"network\": \"mastercard\",\n          \"bin\": \"53253951\",\n          \"acquirerMerchantIdentifier\": \"<string>\",\n          \"state\": \"<string>\",\n          \"country\": \"<string>\"\n        }\n      ],\n      \"description\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"default\": \"<boolean>\",\n      \"configurations\": [\n        {\n          \"network\": \"discover\",\n          \"bin\": \"531264\",\n          \"acquirerMerchantIdentifier\": \"<string>\",\n          \"state\": \"<string>\",\n          \"country\": \"<string>\"\n        },\n        {\n          \"network\": \"visa\",\n          \"bin\": \"074106\",\n          \"acquirerMerchantIdentifier\": \"<string>\",\n          \"state\": \"<string>\",\n          \"country\": \"<string>\"\n        }\n      ],\n      \"description\": \"<string>\"\n    }\n  ],\n  \"pageSize\": \"<integer>\",\n  \"nextPage\": \"<integer,null>\",\n  \"total\": \"<integer>\"\n}",
+                  "createdAt": "2026-07-28T01:34:52.000Z",
+                  "updatedAt": "2026-07-28T01:34:52.000Z",
+                  "uid": "35240-63278615-c16d-4b1d-9222-01f15b92919a"
+                }
+              ],
+              "createdAt": "2026-07-28T01:34:52.000Z",
+              "updatedAt": "2026-07-28T01:34:52.000Z",
+              "uid": "35240-76702524-1698-4627-a494-a0bbf9cff941"
+            }
+          ],
+          "id": "945f770d-747e-4f5e-aa91-3cb2b0523164",
+          "createdAt": "2026-07-28T01:34:52.000Z",
+          "updatedAt": "2026-07-28T01:34:52.000Z",
+          "uid": "35240-945f770d-747e-4f5e-aa91-3cb2b0523164"
+        }
+      ],
+      "id": "29d66a80-f010-41e7-a436-7fa768953417",
+      "createdAt": "2026-07-28T01:34:52.000Z",
+      "updatedAt": "2026-07-28T01:34:52.000Z",
+      "uid": "35240-29d66a80-f010-41e7-a436-7fa768953417"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.evervault.com"
+    }
+  ]
+}

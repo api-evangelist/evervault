@@ -1,0 +1,292 @@
+{
+  "info": {
+    "_postman_id": "3a15d6f8-02cf-42b7-97c3-6e71affa16c4",
+    "name": "Evervault Insights API",
+    "description": "The Evervault API allows developers to interact programmatically with their Evervault apps using HTTP requests.\n\nContact Support:\n Name: Evervault Support Team\n Email: support@evervault.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T01:35:01.000Z",
+    "updatedAt": "2026-07-28T01:35:01.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-3a15d6f8-02cf-42b7-97c3-6e71affa16c4"
+  },
+  "item": [
+    {
+      "name": "insights",
+      "item": [
+        {
+          "name": "cards",
+          "item": [
+            {
+              "name": "Card Insights",
+              "id": "94a00444-6a0e-44a2-9e4a-5059260d13b5",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "basic",
+                  "basic": [
+                    {
+                      "key": "username",
+                      "value": "{{basicAuthUsername}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "password",
+                      "value": "{{basicAuthPassword}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"card\": {\n    \"number\": \"<string>\",\n    \"expiry\": {\n      \"month\": \"<string>\",\n      \"year\": \"<string>\"\n    },\n    \"cvv\": \"<string>\"\n  },\n  \"extensions\": [\n    \"cardholder\",\n    \"cardholder\"\n  ],\n  \"cardholder\": {\n    \"firstName\": \"<string>\",\n    \"lastName\": \"<string>\"\n  },\n  \"address\": {\n    \"postalCode\": \"<string>\",\n    \"line1\": \"<string>\",\n    \"line2\": \"<string>\",\n    \"city\": \"<string>\",\n    \"state\": \"<string>\",\n    \"country\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/insights/cards",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "insights",
+                    "cards"
+                  ]
+                },
+                "description": "The Card Insights API allows you to perform address verification (AVS), name verification (ANI), and CVV verification checks. You can also check the card's push and pull transaction capabilities.\n"
+              },
+              "response": [
+                {
+                  "id": "05d751b7-4255-44b9-944d-988f490d0b09",
+                  "name": "Returns the Card Insight object",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: basic",
+                        "key": "Authorization",
+                        "value": "Basic <credentials>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"card\": {\n    \"number\": \"<string>\",\n    \"expiry\": {\n      \"month\": \"<string>\",\n      \"year\": \"<string>\"\n    },\n    \"cvv\": \"<string>\"\n  },\n  \"extensions\": [\n    \"cardholder\",\n    \"cardholder\"\n  ],\n  \"cardholder\": {\n    \"firstName\": \"<string>\",\n    \"lastName\": \"<string>\"\n  },\n  \"address\": {\n    \"postalCode\": \"<string>\",\n    \"line1\": \"<string>\",\n    \"line2\": \"<string>\",\n    \"city\": \"<string>\",\n    \"state\": \"<string>\",\n    \"country\": \"<string>\"\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/insights/cards",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "insights",
+                        "cards"
+                      ]
+                    }
+                  },
+                  "status": "Created",
+                  "code": 201,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"fingerprint\": \"<string>\",\n  \"bin\": {\n    \"brand\": \"diners-club\",\n    \"funding\": \"charge\",\n    \"segment\": \"commercial\",\n    \"country\": \"<string>\",\n    \"currency\": \"<string>\",\n    \"issuer\": \"<string>\",\n    \"type\": null,\n    \"productName\": \"<string>\",\n    \"fastFunds\": {\n      \"domestic\": \"<boolean>\",\n      \"crossBorder\": \"<boolean>\"\n    },\n    \"threeDS\": {\n      \"supportedVersions\": {\n        \"accessControlServer\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"directoryServer\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      },\n      \"acsInfoIndicators\": [\n        {\n          \"code\": \"<string>\",\n          \"indicator\": \"<string>\",\n          \"description\": \"<string>\"\n        },\n        {\n          \"code\": \"<string>\",\n          \"indicator\": \"<string>\",\n          \"description\": \"<string>\"\n        }\n      ]\n    }\n  },\n  \"createdAt\": \"<integer>\",\n  \"capabilities\": {\n    \"push\": {\n      \"enabled\": \"<boolean>\",\n      \"network\": \"<string>\",\n      \"type\": \"<string>\",\n      \"availability\": \"immediate\",\n      \"regulated\": \"<boolean>\",\n      \"currency\": {\n        \"alphaCode\": \"<string>\",\n        \"numericCode\": \"<string>\"\n      },\n      \"country\": {\n        \"alphaCode\": \"<string>\",\n        \"numericCode\": \"<string>\"\n      }\n    },\n    \"pull\": {\n      \"enabled\": \"<boolean>\",\n      \"network\": \"<string>\",\n      \"type\": \"<string>\",\n      \"availability\": \"immediate\",\n      \"regulated\": \"<boolean>\",\n      \"currency\": {\n        \"alphaCode\": \"<string>\",\n        \"numericCode\": \"<string>\"\n      },\n      \"country\": {\n        \"alphaCode\": \"<string>\",\n        \"numericCode\": \"<string>\"\n      }\n    }\n  },\n  \"fees\": \"<null>\",\n  \"cardholder\": {\n    \"result\": {\n      \"value\": \"N\",\n      \"code\": \"match-performed\"\n    },\n    \"fullName\": {\n      \"value\": \"M\",\n      \"code\": \"partial-match\"\n    },\n    \"firstName\": {\n      \"value\": \"M\",\n      \"code\": \"match\"\n    },\n    \"lastName\": {\n      \"value\": \"P\",\n      \"code\": \"partial-match\"\n    }\n  },\n  \"address\": {\n    \"avsIdentifier\": \"<string>\",\n    \"networkIdentifier\": \"<string>\",\n    \"networkResponseCode\": {\n      \"value\": \"<string>\"\n    },\n    \"result\": {\n      \"value\": \"<string>\",\n      \"address\": \"unavailable\",\n      \"zip\": \"no-match\"\n    }\n  },\n  \"cvv\": {\n    \"value\": \"<string>\",\n    \"code\": \"<string>\"\n  },\n  \"paymentAccountReference\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T01:35:02.000Z",
+                  "updatedAt": "2026-07-28T01:35:02.000Z",
+                  "uid": "35240-05d751b7-4255-44b9-944d-988f490d0b09"
+                }
+              ],
+              "createdAt": "2026-07-28T01:35:02.000Z",
+              "updatedAt": "2026-07-28T01:35:02.000Z",
+              "uid": "35240-94a00444-6a0e-44a2-9e4a-5059260d13b5"
+            }
+          ],
+          "id": "ac85049b-3bc5-491f-a151-fd75f3b5cdf0",
+          "createdAt": "2026-07-28T01:35:02.000Z",
+          "updatedAt": "2026-07-28T01:35:02.000Z",
+          "uid": "35240-ac85049b-3bc5-491f-a151-fd75f3b5cdf0"
+        }
+      ],
+      "id": "5155d941-23a0-4746-a0ec-4b808feb12f4",
+      "createdAt": "2026-07-28T01:35:02.000Z",
+      "updatedAt": "2026-07-28T01:35:02.000Z",
+      "uid": "35240-5155d941-23a0-4746-a0ec-4b808feb12f4"
+    },
+    {
+      "name": "payments",
+      "item": [
+        {
+          "name": "bin-lookups",
+          "item": [
+            {
+              "name": "BIN Lookup",
+              "id": "70df6d23-4444-4918-8296-f7fc71b12daa",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "basic",
+                  "basic": [
+                    {
+                      "key": "username",
+                      "value": "{{basicAuthUsername}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "password",
+                      "value": "{{basicAuthPassword}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"number\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/payments/bin-lookups",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "payments",
+                    "bin-lookups"
+                  ]
+                },
+                "description": "Performs a BIN lookup for the provided card number and retrieves associated information such as the card brand, country, issuer, and more.\n"
+              },
+              "response": [
+                {
+                  "id": "9bf2ec58-9f17-4b27-89b2-d02fda78b409",
+                  "name": "Returns BIN details for the provided card number.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: basic",
+                        "key": "Authorization",
+                        "value": "Basic <credentials>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"number\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/payments/bin-lookups",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "payments",
+                        "bin-lookups"
+                      ]
+                    }
+                  },
+                  "status": "Created",
+                  "code": 201,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"brand\": \"unionpay\",\n  \"funding\": \"credit\",\n  \"segment\": \"commercial\",\n  \"country\": \"<string>\",\n  \"currency\": \"<string>\",\n  \"issuer\": \"<string>\",\n  \"type\": \"network-token\",\n  \"productName\": \"<string>\",\n  \"fastFunds\": {\n    \"domestic\": \"<boolean>\",\n    \"crossBorder\": \"<boolean>\"\n  },\n  \"threeDS\": {\n    \"supportedVersions\": {\n      \"accessControlServer\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"directoryServer\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    \"acsInfoIndicators\": [\n      {\n        \"code\": \"<string>\",\n        \"indicator\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      {\n        \"code\": \"<string>\",\n        \"indicator\": \"<string>\",\n        \"description\": \"<string>\"\n      }\n    ]\n  },\n  \"createdAt\": \"<integer>\"\n}",
+                  "createdAt": "2026-07-28T01:35:02.000Z",
+                  "updatedAt": "2026-07-28T01:35:02.000Z",
+                  "uid": "35240-9bf2ec58-9f17-4b27-89b2-d02fda78b409"
+                }
+              ],
+              "createdAt": "2026-07-28T01:35:02.000Z",
+              "updatedAt": "2026-07-28T01:35:02.000Z",
+              "uid": "35240-70df6d23-4444-4918-8296-f7fc71b12daa"
+            }
+          ],
+          "id": "5eed729f-5359-484e-afb2-299998fa61f9",
+          "createdAt": "2026-07-28T01:35:02.000Z",
+          "updatedAt": "2026-07-28T01:35:02.000Z",
+          "uid": "35240-5eed729f-5359-484e-afb2-299998fa61f9"
+        }
+      ],
+      "id": "c314f27b-fd3b-48d8-aac9-d0fcdf890f12",
+      "createdAt": "2026-07-28T01:35:02.000Z",
+      "updatedAt": "2026-07-28T01:35:02.000Z",
+      "uid": "35240-c314f27b-fd3b-48d8-aac9-d0fcdf890f12"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.evervault.com"
+    }
+  ]
+}

@@ -1,0 +1,618 @@
+{
+  "info": {
+    "_postman_id": "2fdd8233-b361-493e-99c6-de256c24d248",
+    "name": "Evervault Merchants API",
+    "description": "The Evervault API allows developers to interact programmatically with their Evervault apps using HTTP requests.\n\nContact Support:\n Name: Evervault Support Team\n Email: support@evervault.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T01:35:03.000Z",
+    "updatedAt": "2026-07-28T01:35:03.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-2fdd8233-b361-493e-99c6-de256c24d248"
+  },
+  "item": [
+    {
+      "name": "payments",
+      "item": [
+        {
+          "name": "merchants",
+          "item": [
+            {
+              "name": "{merchant_id}",
+              "item": [
+                {
+                  "name": "Retrieve a Merchant",
+                  "id": "c2b68122-6de4-46e7-9e7f-35ce68de0516",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "basic",
+                      "basic": [
+                        {
+                          "key": "username",
+                          "value": "{{basicAuthUsername}}",
+                          "type": "string"
+                        },
+                        {
+                          "key": "password",
+                          "value": "{{basicAuthPassword}}",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/payments/merchants/:merchant_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "payments",
+                        "merchants",
+                        ":merchant_id"
+                      ],
+                      "variable": [
+                        {
+                          "id": "45d80f3b-5adc-4184-85b0-23125017dd32",
+                          "key": "merchant_id",
+                          "value": "<string>",
+                          "description": "(Required) The unique identifier of the merchant."
+                        }
+                      ]
+                    },
+                    "description": "Retrieves a Merchant by its unique identifier.\n"
+                  },
+                  "response": [
+                    {
+                      "id": "8dbf6842-fec7-4b90-99ff-d513d84fdc8a",
+                      "name": "Returns a Merchant object.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/payments/merchants/:merchant_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "payments",
+                            "merchants",
+                            ":merchant_id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "merchant_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<string>\",\n  \"name\": \"PbqFTiutqKvQV8H4rCu0\",\n  \"website\": \"<string>\",\n  \"createdAt\": \"<long>\",\n  \"shortName\": \"V3Uc0 FzUJend\",\n  \"business\": {\n    \"legalName\": \"fjejWALjV60J9QOA jZ8K2HLkr8\",\n    \"address\": {\n      \"line1\": \"\u0140\u010b\",\n      \"city\": \"\uc66e\",\n      \"postalCode\": \"q9e89Z0a\",\n      \"country\": \"<string>\",\n      \"line2\": \"\u0147#\u017d\",\n      \"state\": \"<string>\"\n    }\n  },\n  \"categoryCode\": \"<string>\",\n  \"networkTokens\": {\n    \"enrolment\": [\n      {\n        \"cardBrand\": \"american-express\",\n        \"tokenRequestorIdentifier\": \"<string,null>\",\n        \"status\": \"inactive\"\n      },\n      {\n        \"cardBrand\": \"jcb\",\n        \"tokenRequestorIdentifier\": \"<string,null>\",\n        \"status\": \"inactive\"\n      }\n    ]\n  },\n  \"applePay\": {\n    \"domains\": [\n      {\n        \"domain\": \"<string>\",\n        \"status\": \"failed\"\n      },\n      {\n        \"domain\": \"<string>\",\n        \"status\": \"active\"\n      }\n    ]\n  },\n  \"updatedAt\": \"<long>\"\n}",
+                      "createdAt": "2026-07-28T01:35:03.000Z",
+                      "updatedAt": "2026-07-28T01:35:03.000Z",
+                      "uid": "35240-8dbf6842-fec7-4b90-99ff-d513d84fdc8a"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T01:35:03.000Z",
+                  "updatedAt": "2026-07-28T01:35:03.000Z",
+                  "uid": "35240-c2b68122-6de4-46e7-9e7f-35ce68de0516"
+                },
+                {
+                  "name": "Update a Merchant",
+                  "id": "acc30247-3795-4d77-a97a-8517522fed89",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "basic",
+                      "basic": [
+                        {
+                          "key": "username",
+                          "value": "{{basicAuthUsername}}",
+                          "type": "string"
+                        },
+                        {
+                          "key": "password",
+                          "value": "{{basicAuthPassword}}",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"shortName\": \"oizSwsz3EJU2iQamvrSPkndcEOx\",\n  \"applePay\": {\n    \"domains\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/payments/merchants/:merchant_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "payments",
+                        "merchants",
+                        ":merchant_id"
+                      ],
+                      "variable": [
+                        {
+                          "id": "3ed6400f-ba83-4358-b45c-10d979671c68",
+                          "key": "merchant_id",
+                          "value": "<string>",
+                          "description": "(Required) The id of the Merchant to be updated."
+                        }
+                      ]
+                    },
+                    "description": "Updates a Merchant by its unique identifier.\n"
+                  },
+                  "response": [
+                    {
+                      "id": "88887d33-3dcc-444a-b6b9-19e501166fa6",
+                      "name": "Returns the updated Merchant object.",
+                      "originalRequest": {
+                        "method": "PATCH",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"shortName\": \"oizSwsz3EJU2iQamvrSPkndcEOx\",\n  \"applePay\": {\n    \"domains\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/payments/merchants/:merchant_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "payments",
+                            "merchants",
+                            ":merchant_id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "merchant_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<string>\",\n  \"name\": \"PbqFTiutqKvQV8H4rCu0\",\n  \"website\": \"<string>\",\n  \"createdAt\": \"<long>\",\n  \"shortName\": \"V3Uc0 FzUJend\",\n  \"business\": {\n    \"legalName\": \"fjejWALjV60J9QOA jZ8K2HLkr8\",\n    \"address\": {\n      \"line1\": \"\u0140\u010b\",\n      \"city\": \"\uc66e\",\n      \"postalCode\": \"q9e89Z0a\",\n      \"country\": \"<string>\",\n      \"line2\": \"\u0147#\u017d\",\n      \"state\": \"<string>\"\n    }\n  },\n  \"categoryCode\": \"<string>\",\n  \"networkTokens\": {\n    \"enrolment\": [\n      {\n        \"cardBrand\": \"american-express\",\n        \"tokenRequestorIdentifier\": \"<string,null>\",\n        \"status\": \"inactive\"\n      },\n      {\n        \"cardBrand\": \"jcb\",\n        \"tokenRequestorIdentifier\": \"<string,null>\",\n        \"status\": \"inactive\"\n      }\n    ]\n  },\n  \"applePay\": {\n    \"domains\": [\n      {\n        \"domain\": \"<string>\",\n        \"status\": \"failed\"\n      },\n      {\n        \"domain\": \"<string>\",\n        \"status\": \"active\"\n      }\n    ]\n  },\n  \"updatedAt\": \"<long>\"\n}",
+                      "createdAt": "2026-07-28T01:35:03.000Z",
+                      "updatedAt": "2026-07-28T01:35:03.000Z",
+                      "uid": "35240-88887d33-3dcc-444a-b6b9-19e501166fa6"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T01:35:03.000Z",
+                  "updatedAt": "2026-07-28T01:35:03.000Z",
+                  "uid": "35240-acc30247-3795-4d77-a97a-8517522fed89"
+                },
+                {
+                  "name": "Delete a Merchant",
+                  "id": "c011c662-d2cf-4d76-b60f-9298dcf33546",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "basic",
+                      "basic": [
+                        {
+                          "key": "username",
+                          "value": "{{basicAuthUsername}}",
+                          "type": "string"
+                        },
+                        {
+                          "key": "password",
+                          "value": "{{basicAuthPassword}}",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "DELETE",
+                    "header": [],
+                    "url": {
+                      "raw": "{{baseUrl}}/payments/merchants/:merchant_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "payments",
+                        "merchants",
+                        ":merchant_id"
+                      ],
+                      "variable": [
+                        {
+                          "id": "84420622-61ad-46cd-ad62-81587d6bdd8c",
+                          "key": "merchant_id",
+                          "value": "<string>",
+                          "description": "(Required) The id of the Merchant to be deleted."
+                        }
+                      ]
+                    },
+                    "description": "Deletes a Merchant by its unique identifier.\n"
+                  },
+                  "response": [
+                    {
+                      "id": "0c69d74f-e678-499f-b103-4f9900a11d0a",
+                      "name": "Merchant successfully deleted.",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/payments/merchants/:merchant_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "payments",
+                            "merchants",
+                            ":merchant_id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "merchant_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "No Content",
+                      "code": 204,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T01:35:03.000Z",
+                      "updatedAt": "2026-07-28T01:35:03.000Z",
+                      "uid": "35240-0c69d74f-e678-499f-b103-4f9900a11d0a"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T01:35:03.000Z",
+                  "updatedAt": "2026-07-28T01:35:03.000Z",
+                  "uid": "35240-c011c662-d2cf-4d76-b60f-9298dcf33546"
+                }
+              ],
+              "id": "a8831aa4-e681-42b3-800f-fffa8c24b68d",
+              "createdAt": "2026-07-28T01:35:03.000Z",
+              "updatedAt": "2026-07-28T01:35:03.000Z",
+              "uid": "35240-a8831aa4-e681-42b3-800f-fffa8c24b68d"
+            },
+            {
+              "name": "Create a Merchant",
+              "id": "82fe7e95-4ea3-4742-8618-970adfd7275d",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "basic",
+                  "basic": [
+                    {
+                      "key": "username",
+                      "value": "{{basicAuthUsername}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "password",
+                      "value": "{{basicAuthPassword}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"lpQBQM\",\n  \"website\": \"<string>\",\n  \"categoryCode\": \"<string>\",\n  \"business\": {\n    \"legalName\": \"0l UCsJxSOS7OBUK01 UMIUIh0\",\n    \"address\": {\n      \"line1\": \"\u011f\u012dz\",\n      \"city\": \"\u7ace\u681c\u6aa9\ue0ba\u91d6\u481d\u595f\u74c9\",\n      \"postalCode\": \"\",\n      \"country\": \"<string>\",\n      \"line2\": \"\u01ec;\u019fL\u01ce\u01ec\u0124\u01fa\u01e2\u01dc\u01d2\",\n      \"state\": \"<string>\"\n    }\n  },\n  \"shortName\": \"AiF8vrcNfuIWcLhI4AiA6P8Hd5p5weOHfBxe0d\",\n  \"networkTokens\": {\n    \"enrolment\": [\n      {\n        \"cardBrand\": \"<string>\",\n        \"tokenRequestorIdentifier\": \"<string,null>\"\n      },\n      {\n        \"cardBrand\": \"<string>\",\n        \"tokenRequestorIdentifier\": \"<string,null>\"\n      }\n    ]\n  },\n  \"applePay\": {\n    \"domains\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/payments/merchants",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "payments",
+                    "merchants"
+                  ]
+                },
+                "description": "Enrolls a Merchant with Card Networks.\n\nIn rare cases it can take up to 48 hours to enroll a merchant with each of the card networks. If you are still unable to provision network tokens after this period, please contact support@evervault.com\n"
+              },
+              "response": [
+                {
+                  "id": "c639f2c4-9e1c-4c67-a3b1-e4c8498661b2",
+                  "name": "Returns a Merchant object.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: basic",
+                        "key": "Authorization",
+                        "value": "Basic <credentials>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"lpQBQM\",\n  \"website\": \"<string>\",\n  \"categoryCode\": \"<string>\",\n  \"business\": {\n    \"legalName\": \"0l UCsJxSOS7OBUK01 UMIUIh0\",\n    \"address\": {\n      \"line1\": \"\u011f\u012dz\",\n      \"city\": \"\u7ace\u681c\u6aa9\ue0ba\u91d6\u481d\u595f\u74c9\",\n      \"postalCode\": \"\",\n      \"country\": \"<string>\",\n      \"line2\": \"\u01ec;\u019fL\u01ce\u01ec\u0124\u01fa\u01e2\u01dc\u01d2\",\n      \"state\": \"<string>\"\n    }\n  },\n  \"shortName\": \"AiF8vrcNfuIWcLhI4AiA6P8Hd5p5weOHfBxe0d\",\n  \"networkTokens\": {\n    \"enrolment\": [\n      {\n        \"cardBrand\": \"<string>\",\n        \"tokenRequestorIdentifier\": \"<string,null>\"\n      },\n      {\n        \"cardBrand\": \"<string>\",\n        \"tokenRequestorIdentifier\": \"<string,null>\"\n      }\n    ]\n  },\n  \"applePay\": {\n    \"domains\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/payments/merchants",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "payments",
+                        "merchants"
+                      ]
+                    }
+                  },
+                  "status": "Created",
+                  "code": 201,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"name\": \"PbqFTiutqKvQV8H4rCu0\",\n  \"website\": \"<string>\",\n  \"createdAt\": \"<long>\",\n  \"shortName\": \"V3Uc0 FzUJend\",\n  \"business\": {\n    \"legalName\": \"fjejWALjV60J9QOA jZ8K2HLkr8\",\n    \"address\": {\n      \"line1\": \"\u0140\u010b\",\n      \"city\": \"\uc66e\",\n      \"postalCode\": \"q9e89Z0a\",\n      \"country\": \"<string>\",\n      \"line2\": \"\u0147#\u017d\",\n      \"state\": \"<string>\"\n    }\n  },\n  \"categoryCode\": \"<string>\",\n  \"networkTokens\": {\n    \"enrolment\": [\n      {\n        \"cardBrand\": \"american-express\",\n        \"tokenRequestorIdentifier\": \"<string,null>\",\n        \"status\": \"inactive\"\n      },\n      {\n        \"cardBrand\": \"jcb\",\n        \"tokenRequestorIdentifier\": \"<string,null>\",\n        \"status\": \"inactive\"\n      }\n    ]\n  },\n  \"applePay\": {\n    \"domains\": [\n      {\n        \"domain\": \"<string>\",\n        \"status\": \"failed\"\n      },\n      {\n        \"domain\": \"<string>\",\n        \"status\": \"active\"\n      }\n    ]\n  },\n  \"updatedAt\": \"<long>\"\n}",
+                  "createdAt": "2026-07-28T01:35:03.000Z",
+                  "updatedAt": "2026-07-28T01:35:03.000Z",
+                  "uid": "35240-c639f2c4-9e1c-4c67-a3b1-e4c8498661b2"
+                }
+              ],
+              "createdAt": "2026-07-28T01:35:03.000Z",
+              "updatedAt": "2026-07-28T01:35:03.000Z",
+              "uid": "35240-82fe7e95-4ea3-4742-8618-970adfd7275d"
+            },
+            {
+              "name": "List Merchants",
+              "id": "2370057c-433c-4ab8-9c30-7fa0a439dc49",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "basic",
+                  "basic": [
+                    {
+                      "key": "username",
+                      "value": "{{basicAuthUsername}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "password",
+                      "value": "{{basicAuthPassword}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/payments/merchants?page=0&pageSize=50&q=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "payments",
+                    "merchants"
+                  ],
+                  "query": [
+                    {
+                      "description": "The page number to retrieve.",
+                      "key": "page",
+                      "value": "0"
+                    },
+                    {
+                      "description": "The number of Merchants to retrieve per page (default is 50).",
+                      "key": "pageSize",
+                      "value": "50"
+                    },
+                    {
+                      "description": "Filter the Merchants by name.",
+                      "key": "q",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "description": "Lists all Merchants that have been created.\n"
+              },
+              "response": [
+                {
+                  "id": "ea784538-40f1-43c8-a04d-69cf96934bba",
+                  "name": "Returns a list of Merchant objects.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: basic",
+                        "key": "Authorization",
+                        "value": "Basic <credentials>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/payments/merchants?page=0&pageSize=50&q=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "payments",
+                        "merchants"
+                      ],
+                      "query": [
+                        {
+                          "description": "The page number to retrieve.",
+                          "key": "page",
+                          "value": "0"
+                        },
+                        {
+                          "description": "The number of Merchants to retrieve per page (default is 50).",
+                          "key": "pageSize",
+                          "value": "50"
+                        },
+                        {
+                          "description": "Filter the Merchants by name.",
+                          "key": "q",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"data\": [\n    {\n      \"id\": \"<string>\",\n      \"name\": \"4S\",\n      \"website\": \"<string>\",\n      \"createdAt\": \"<long>\",\n      \"shortName\": \"7AW wsUio2KvIx\",\n      \"business\": {\n        \"legalName\": \"R\",\n        \"address\": {\n          \"line1\": \"\u0135\u0143\u00f2\u01a2\u0173\u00f9\u00c6\u016e/\",\n          \"city\": \"\ud40b\u147d\u8871\uc4ad\uc0a0\u99ff\u33e2\",\n          \"postalCode\": \"0h9JISu\",\n          \"country\": \"<string>\",\n          \"line2\": \"\u0160\",\n          \"state\": \"<string>\"\n        }\n      },\n      \"categoryCode\": \"<string>\",\n      \"networkTokens\": {\n        \"enrolment\": [\n          {\n            \"cardBrand\": \"unionpay\",\n            \"tokenRequestorIdentifier\": \"<string,null>\",\n            \"status\": \"inactive\"\n          },\n          {\n            \"cardBrand\": \"diners-club\",\n            \"tokenRequestorIdentifier\": \"<string,null>\",\n            \"status\": \"active\"\n          }\n        ]\n      },\n      \"applePay\": {\n        \"domains\": [\n          {\n            \"domain\": \"<string>\",\n            \"status\": \"pending\"\n          },\n          {\n            \"domain\": \"<string>\",\n            \"status\": \"active\"\n          }\n        ]\n      },\n      \"updatedAt\": \"<long>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"name\": \"QShbkZFs\",\n      \"website\": \"<string>\",\n      \"createdAt\": \"<long>\",\n      \"shortName\": \"8phoFtU7S\",\n      \"business\": {\n        \"legalName\": \"MXnxvzP2qzWBl59K48Thl5\",\n        \"address\": {\n          \"line1\": \"\u011e\u012f\u013a\",\n          \"city\": \"\\ud993\ue181\",\n          \"postalCode\": \"crg7IMvH4X\",\n          \"country\": \"<string>\",\n          \"line2\": \"\u01e1\u00d1\u0171\u00dd\",\n          \"state\": \"<string>\"\n        }\n      },\n      \"categoryCode\": \"<string>\",\n      \"networkTokens\": {\n        \"enrolment\": [\n          {\n            \"cardBrand\": \"diners-club\",\n            \"tokenRequestorIdentifier\": \"<string,null>\",\n            \"status\": \"active\"\n          },\n          {\n            \"cardBrand\": \"mastercard\",\n            \"tokenRequestorIdentifier\": \"<string,null>\",\n            \"status\": \"inactive\"\n          }\n        ]\n      },\n      \"applePay\": {\n        \"domains\": [\n          {\n            \"domain\": \"<string>\",\n            \"status\": \"active\"\n          },\n          {\n            \"domain\": \"<string>\",\n            \"status\": \"failed\"\n          }\n        ]\n      },\n      \"updatedAt\": \"<long>\"\n    }\n  ],\n  \"pageSize\": \"<integer>\",\n  \"nextPage\": \"<integer,null>\",\n  \"total\": \"<integer>\"\n}",
+                  "createdAt": "2026-07-28T01:35:03.000Z",
+                  "updatedAt": "2026-07-28T01:35:03.000Z",
+                  "uid": "35240-ea784538-40f1-43c8-a04d-69cf96934bba"
+                }
+              ],
+              "createdAt": "2026-07-28T01:35:03.000Z",
+              "updatedAt": "2026-07-28T01:35:03.000Z",
+              "uid": "35240-2370057c-433c-4ab8-9c30-7fa0a439dc49"
+            }
+          ],
+          "id": "5cab0b30-34df-4fc7-9587-28d1ea66da56",
+          "createdAt": "2026-07-28T01:35:03.000Z",
+          "updatedAt": "2026-07-28T01:35:03.000Z",
+          "uid": "35240-5cab0b30-34df-4fc7-9587-28d1ea66da56"
+        }
+      ],
+      "id": "28dae263-3822-449b-8946-ef3512e16fb3",
+      "createdAt": "2026-07-28T01:35:03.000Z",
+      "updatedAt": "2026-07-28T01:35:03.000Z",
+      "uid": "35240-28dae263-3822-449b-8946-ef3512e16fb3"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.evervault.com"
+    }
+  ]
+}

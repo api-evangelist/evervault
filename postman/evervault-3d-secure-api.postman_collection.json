@@ -1,0 +1,443 @@
+{
+  "info": {
+    "_postman_id": "f5c384c7-a69d-4480-bc2c-b41becb5acf1",
+    "name": "Evervault 3D Secure API",
+    "description": "The Evervault API allows developers to interact programmatically with their Evervault apps using HTTP requests.\n\nContact Support:\n Name: Evervault Support Team\n Email: support@evervault.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T01:34:50.000Z",
+    "updatedAt": "2026-07-28T01:34:50.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-f5c384c7-a69d-4480-bc2c-b41becb5acf1"
+  },
+  "item": [
+    {
+      "name": "payments",
+      "item": [
+        {
+          "name": "3ds-sessions",
+          "item": [
+            {
+              "name": "{3ds_session_id}",
+              "item": [
+                {
+                  "name": "messages",
+                  "item": [
+                    {
+                      "name": "Retrieve 3DS Messages",
+                      "id": "17a18aa3-dece-44e4-be89-d2ecfe32d0fb",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "basic",
+                          "basic": [
+                            {
+                              "key": "username",
+                              "value": "{{basicAuthUsername}}",
+                              "type": "string"
+                            },
+                            {
+                              "key": "password",
+                              "value": "{{basicAuthPassword}}",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/payments/3ds-sessions/:3ds_session_id/messages",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "payments",
+                            "3ds-sessions",
+                            ":3ds_session_id",
+                            "messages"
+                          ],
+                          "variable": [
+                            {
+                              "id": "01666504-ecb5-4ae5-a73e-c347f9eab379",
+                              "key": "3ds_session_id",
+                              "value": "<string>",
+                              "description": "(Required) The id of the 3DS session"
+                            }
+                          ]
+                        },
+                        "description": "Retrieve messages for a 3DS Session. This endpoint can be helpful for debugging 3DS sessions, providing insight into the raw 3DS messages that were exchanged between the 3DS Server and the Directory Server.\n"
+                      },
+                      "response": [
+                        {
+                          "id": "6d93d030-6171-48e8-b51a-1392520d3c0d",
+                          "name": "Returns 3DS messages for the session.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: basic",
+                                "key": "Authorization",
+                                "value": "Basic <credentials>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/payments/3ds-sessions/:3ds_session_id/messages",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "payments",
+                                "3ds-sessions",
+                                ":3ds_session_id",
+                                "messages"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "3ds_session_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"messages\": [\n    {\n      \"type\": \"<string>\",\n      \"created_at\": \"<integer>\",\n      \"data\": {}\n    },\n    {\n      \"type\": \"<string>\",\n      \"created_at\": \"<integer>\",\n      \"data\": {}\n    }\n  ]\n}",
+                          "createdAt": "2026-07-28T01:34:50.000Z",
+                          "updatedAt": "2026-07-28T01:34:50.000Z",
+                          "uid": "35240-6d93d030-6171-48e8-b51a-1392520d3c0d"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T01:34:50.000Z",
+                      "updatedAt": "2026-07-28T01:34:50.000Z",
+                      "uid": "35240-17a18aa3-dece-44e4-be89-d2ecfe32d0fb"
+                    }
+                  ],
+                  "id": "2895d185-b969-445f-9b97-bebda6e1a6f7",
+                  "createdAt": "2026-07-28T01:34:50.000Z",
+                  "updatedAt": "2026-07-28T01:34:50.000Z",
+                  "uid": "35240-2895d185-b969-445f-9b97-bebda6e1a6f7"
+                },
+                {
+                  "name": "Retrieve a 3DS Session",
+                  "id": "41f56109-9789-4386-bd0c-7d9844a4f59e",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "basic",
+                      "basic": [
+                        {
+                          "key": "username",
+                          "value": "{{basicAuthUsername}}",
+                          "type": "string"
+                        },
+                        {
+                          "key": "password",
+                          "value": "{{basicAuthPassword}}",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/payments/3ds-sessions/:3ds_session_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "payments",
+                        "3ds-sessions",
+                        ":3ds_session_id"
+                      ],
+                      "variable": [
+                        {
+                          "id": "70d580a2-162e-45fd-819e-a6ca800ed6ab",
+                          "key": "3ds_session_id",
+                          "value": "<string>",
+                          "description": "(Required) The id of the session"
+                        }
+                      ]
+                    },
+                    "description": "Retrieve a 3DS Session.\n"
+                  },
+                  "response": [
+                    {
+                      "id": "48a10f44-6014-4e7b-ae8a-bb73305d671f",
+                      "name": "Returns a 3DS Session object.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: basic",
+                            "key": "Authorization",
+                            "value": "Basic <credentials>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/payments/3ds-sessions/:3ds_session_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "payments",
+                            "3ds-sessions",
+                            ":3ds_session_id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "3ds_session_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<string>\",\n  \"merchant\": {\n    \"name\": \"<string>\",\n    \"website\": \"<string>\",\n    \"categoryCode\": \"<string>\",\n    \"country\": \"<string>\"\n  },\n  \"card\": {\n    \"lastFour\": \"<string>\",\n    \"expiry\": {\n      \"month\": \"<string>\",\n      \"year\": \"<string>\"\n    },\n    \"brand\": \"<string>\",\n    \"funding\": \"<string>\",\n    \"segment\": \"<string>\",\n    \"country\": \"<string>\",\n    \"currency\": \"<string>\",\n    \"issuer\": \"<string>\"\n  },\n  \"acquirer\": {\n    \"bin\": \"4106202036\",\n    \"merchantIdentifier\": \"<string>\",\n    \"country\": \"<string>\"\n  },\n  \"version\": \"2.2.0\",\n  \"status\": \"action-required\",\n  \"createdAt\": \"<long>\",\n  \"payment\": {\n    \"type\": \"installment\",\n    \"amount\": \"<integer>\",\n    \"currency\": \"<string>\",\n    \"installments\": \"<integer>\",\n    \"frequency\": \"daily\",\n    \"expiry\": \"<integer>\"\n  },\n  \"challenge\": {\n    \"preference\": \"challenge-mandated\",\n    \"reason\": \"authentication-already-performed\"\n  },\n  \"initiator\": {\n    \"type\": \"customer\"\n  },\n  \"accessControlServer\": {\n    \"transactionIdentifier\": \"<string>\",\n    \"referenceNumber\": \"<string>\",\n    \"operatorIdentifier\": \"<null,string>\"\n  },\n  \"directoryServer\": {\n    \"transactionIdentifier\": \"<string>\",\n    \"referenceNumber\": \"<string>\",\n    \"network\": \"mastercard\"\n  },\n  \"threeDSServer\": {\n    \"transactionIdentifier\": \"<string>\"\n  },\n  \"authentication\": {\n    \"flow\": \"frictionless\",\n    \"methods\": [\n      \"decoupled\",\n      \"oob-other\"\n    ]\n  },\n  \"nextAction\": {\n    \"type\": \"use-sdk\"\n  },\n  \"cryptogram\": \"<string>\",\n  \"eci\": {\n    \"value\": \"04\",\n    \"descriptor\": \"attempted\",\n    \"liabilityShift\": \"<boolean>\"\n  },\n  \"failureReason\": \"unsupported-version\",\n  \"ares\": {\n    \"transStatus\": {\n      \"value\": \"C\",\n      \"detail\": \"<string>\"\n    },\n    \"transStatusReason\": null,\n    \"cardholderInfo\": \"<null,string>\"\n  },\n  \"cres\": {\n    \"transStatus\": {\n      \"value\": \"N\",\n      \"detail\": \"<string>\"\n    }\n  },\n  \"rreq\": null,\n  \"updatedAt\": \"<long>\"\n}",
+                      "createdAt": "2026-07-28T01:34:50.000Z",
+                      "updatedAt": "2026-07-28T01:34:50.000Z",
+                      "uid": "35240-48a10f44-6014-4e7b-ae8a-bb73305d671f"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T01:34:50.000Z",
+                  "updatedAt": "2026-07-28T01:34:50.000Z",
+                  "uid": "35240-41f56109-9789-4386-bd0c-7d9844a4f59e"
+                }
+              ],
+              "id": "fbca248b-1f71-4548-8b5f-726899f459a5",
+              "createdAt": "2026-07-28T01:34:50.000Z",
+              "updatedAt": "2026-07-28T01:34:50.000Z",
+              "uid": "35240-fbca248b-1f71-4548-8b5f-726899f459a5"
+            },
+            {
+              "name": "Create a 3DS Session",
+              "id": "78c600eb-7c36-4b91-926a-b69b1dd2c41f",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "basic",
+                  "basic": [
+                    {
+                      "key": "username",
+                      "value": "{{basicAuthUsername}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "password",
+                      "value": "{{basicAuthPassword}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"card\": {\n    \"number\": \"<string>\",\n    \"expiry\": {\n      \"month\": \"<string>\",\n      \"year\": \"<string>\"\n    }\n  },\n  \"merchant\": {\n    \"name\": \"<string>\",\n    \"website\": \"<string>\",\n    \"categoryCode\": \"<string>\",\n    \"country\": \"<string>\"\n  },\n  \"acquirer\": {\n    \"bin\": \"4017393808\",\n    \"merchantIdentifier\": \"<string>\",\n    \"country\": \"<string>\"\n  },\n  \"customer\": {\n    \"name\": \"JLh6&?<#qf(<s0w V,TZB=X~O|L'o&it\",\n    \"phone\": [\n      {\n        \"type\": \"home\",\n        \"countryCode\": \"<string>\",\n        \"number\": \"<string>\"\n      },\n      {\n        \"type\": \"work\",\n        \"countryCode\": \"<string>\",\n        \"number\": \"<string>\"\n      }\n    ],\n    \"email\": \"<email>\",\n    \"shipping\": {\n      \"address\": {\n        \"line1\": \"\u0155\u01d6\u00d5\",\n        \"city\": \"\u34ac\ub54e\u9d45\u00dc\ud68a\u6bcd\",\n        \"postalCode\": \"XO4VrP\",\n        \"country\": \"<string>\",\n        \"line2\": \"\u0126\u01d1\u012bM\u014f\u0126\",\n        \"state\": \"<string>\"\n      }\n    },\n    \"billing\": {\n      \"address\": {\n        \"line1\": \"\u01bc\u013e\u01b4\u010f\u014c\u00ea\",\n        \"city\": \"\u9e28\ud15c\ube48\u6097\u09f4\u4110\uad85\ufb09D\ue700\",\n        \"postalCode\": \"PVJVfV\",\n        \"country\": \"<string>\",\n        \"line2\": \"\u01c4\u00e6\u0197\u0113\u017es\",\n        \"state\": \"<string>\"\n      },\n      \"taxIdentifier\": \"<string>\"\n    }\n  },\n  \"payment\": {\n    \"type\": \"one-off\",\n    \"amount\": \"<integer>\",\n    \"currency\": \"<string>\"\n  },\n  \"preferredVersions\": [\n    \"2.2.0\",\n    \"2.2.0\"\n  ],\n  \"challenge\": {\n    \"preference\": \"no-challenge-requested\",\n    \"reason\": \"secure-corporate-payment\"\n  },\n  \"initiator\": {\n    \"type\": \"customer\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/payments/3ds-sessions",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "payments",
+                    "3ds-sessions"
+                  ]
+                },
+                "description": "Creates a 3DS Session to initiate the 3DS Authentication process. The session ID must then be passed to our client-side SDK to complete the authentication process. [Learn more](/sdks/javascript#ui.threedsecure())\n"
+              },
+              "response": [
+                {
+                  "id": "9ca9c850-ce43-4789-82a5-2919d4c8ca37",
+                  "name": "Returns a 3DS Session object.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: basic",
+                        "key": "Authorization",
+                        "value": "Basic <credentials>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"card\": {\n    \"number\": \"<string>\",\n    \"expiry\": {\n      \"month\": \"<string>\",\n      \"year\": \"<string>\"\n    }\n  },\n  \"merchant\": {\n    \"name\": \"<string>\",\n    \"website\": \"<string>\",\n    \"categoryCode\": \"<string>\",\n    \"country\": \"<string>\"\n  },\n  \"acquirer\": {\n    \"bin\": \"4017393808\",\n    \"merchantIdentifier\": \"<string>\",\n    \"country\": \"<string>\"\n  },\n  \"customer\": {\n    \"name\": \"JLh6&?<#qf(<s0w V,TZB=X~O|L'o&it\",\n    \"phone\": [\n      {\n        \"type\": \"home\",\n        \"countryCode\": \"<string>\",\n        \"number\": \"<string>\"\n      },\n      {\n        \"type\": \"work\",\n        \"countryCode\": \"<string>\",\n        \"number\": \"<string>\"\n      }\n    ],\n    \"email\": \"<email>\",\n    \"shipping\": {\n      \"address\": {\n        \"line1\": \"\u0155\u01d6\u00d5\",\n        \"city\": \"\u34ac\ub54e\u9d45\u00dc\ud68a\u6bcd\",\n        \"postalCode\": \"XO4VrP\",\n        \"country\": \"<string>\",\n        \"line2\": \"\u0126\u01d1\u012bM\u014f\u0126\",\n        \"state\": \"<string>\"\n      }\n    },\n    \"billing\": {\n      \"address\": {\n        \"line1\": \"\u01bc\u013e\u01b4\u010f\u014c\u00ea\",\n        \"city\": \"\u9e28\ud15c\ube48\u6097\u09f4\u4110\uad85\ufb09D\ue700\",\n        \"postalCode\": \"PVJVfV\",\n        \"country\": \"<string>\",\n        \"line2\": \"\u01c4\u00e6\u0197\u0113\u017es\",\n        \"state\": \"<string>\"\n      },\n      \"taxIdentifier\": \"<string>\"\n    }\n  },\n  \"payment\": {\n    \"type\": \"one-off\",\n    \"amount\": \"<integer>\",\n    \"currency\": \"<string>\"\n  },\n  \"preferredVersions\": [\n    \"2.2.0\",\n    \"2.2.0\"\n  ],\n  \"challenge\": {\n    \"preference\": \"no-challenge-requested\",\n    \"reason\": \"secure-corporate-payment\"\n  },\n  \"initiator\": {\n    \"type\": \"customer\"\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/payments/3ds-sessions",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "payments",
+                        "3ds-sessions"
+                      ]
+                    }
+                  },
+                  "status": "Created",
+                  "code": 201,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"merchant\": {\n    \"name\": \"<string>\",\n    \"website\": \"<string>\",\n    \"categoryCode\": \"<string>\",\n    \"country\": \"<string>\"\n  },\n  \"card\": {\n    \"lastFour\": \"<string>\",\n    \"expiry\": {\n      \"month\": \"<string>\",\n      \"year\": \"<string>\"\n    },\n    \"brand\": \"<string>\",\n    \"funding\": \"<string>\",\n    \"segment\": \"<string>\",\n    \"country\": \"<string>\",\n    \"currency\": \"<string>\",\n    \"issuer\": \"<string>\"\n  },\n  \"acquirer\": {\n    \"bin\": \"4106202036\",\n    \"merchantIdentifier\": \"<string>\",\n    \"country\": \"<string>\"\n  },\n  \"version\": \"2.2.0\",\n  \"status\": \"action-required\",\n  \"createdAt\": \"<long>\",\n  \"payment\": {\n    \"type\": \"installment\",\n    \"amount\": \"<integer>\",\n    \"currency\": \"<string>\",\n    \"installments\": \"<integer>\",\n    \"frequency\": \"daily\",\n    \"expiry\": \"<integer>\"\n  },\n  \"challenge\": {\n    \"preference\": \"challenge-mandated\",\n    \"reason\": \"authentication-already-performed\"\n  },\n  \"initiator\": {\n    \"type\": \"customer\"\n  },\n  \"accessControlServer\": {\n    \"transactionIdentifier\": \"<string>\",\n    \"referenceNumber\": \"<string>\",\n    \"operatorIdentifier\": \"<null,string>\"\n  },\n  \"directoryServer\": {\n    \"transactionIdentifier\": \"<string>\",\n    \"referenceNumber\": \"<string>\",\n    \"network\": \"mastercard\"\n  },\n  \"threeDSServer\": {\n    \"transactionIdentifier\": \"<string>\"\n  },\n  \"authentication\": {\n    \"flow\": \"frictionless\",\n    \"methods\": [\n      \"decoupled\",\n      \"oob-other\"\n    ]\n  },\n  \"nextAction\": {\n    \"type\": \"use-sdk\"\n  },\n  \"cryptogram\": \"<string>\",\n  \"eci\": {\n    \"value\": \"04\",\n    \"descriptor\": \"attempted\",\n    \"liabilityShift\": \"<boolean>\"\n  },\n  \"failureReason\": \"unsupported-version\",\n  \"ares\": {\n    \"transStatus\": {\n      \"value\": \"C\",\n      \"detail\": \"<string>\"\n    },\n    \"transStatusReason\": null,\n    \"cardholderInfo\": \"<null,string>\"\n  },\n  \"cres\": {\n    \"transStatus\": {\n      \"value\": \"N\",\n      \"detail\": \"<string>\"\n    }\n  },\n  \"rreq\": null,\n  \"updatedAt\": \"<long>\"\n}",
+                  "createdAt": "2026-07-28T01:34:50.000Z",
+                  "updatedAt": "2026-07-28T01:34:50.000Z",
+                  "uid": "35240-9ca9c850-ce43-4789-82a5-2919d4c8ca37"
+                },
+                {
+                  "id": "27db723c-2313-455f-a9f8-837472c64e41",
+                  "name": "The request was invalid or cannot be otherwise served.\n",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: basic",
+                        "key": "Authorization",
+                        "value": "Basic <credentials>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"card\": {\n    \"number\": \"<string>\",\n    \"expiry\": {\n      \"month\": \"<string>\",\n      \"year\": \"<string>\"\n    }\n  },\n  \"merchant\": {\n    \"name\": \"<string>\",\n    \"website\": \"<string>\",\n    \"categoryCode\": \"<string>\",\n    \"country\": \"<string>\"\n  },\n  \"acquirer\": {\n    \"bin\": \"4017393808\",\n    \"merchantIdentifier\": \"<string>\",\n    \"country\": \"<string>\"\n  },\n  \"customer\": {\n    \"name\": \"JLh6&?<#qf(<s0w V,TZB=X~O|L'o&it\",\n    \"phone\": [\n      {\n        \"type\": \"home\",\n        \"countryCode\": \"<string>\",\n        \"number\": \"<string>\"\n      },\n      {\n        \"type\": \"work\",\n        \"countryCode\": \"<string>\",\n        \"number\": \"<string>\"\n      }\n    ],\n    \"email\": \"<email>\",\n    \"shipping\": {\n      \"address\": {\n        \"line1\": \"\u0155\u01d6\u00d5\",\n        \"city\": \"\u34ac\ub54e\u9d45\u00dc\ud68a\u6bcd\",\n        \"postalCode\": \"XO4VrP\",\n        \"country\": \"<string>\",\n        \"line2\": \"\u0126\u01d1\u012bM\u014f\u0126\",\n        \"state\": \"<string>\"\n      }\n    },\n    \"billing\": {\n      \"address\": {\n        \"line1\": \"\u01bc\u013e\u01b4\u010f\u014c\u00ea\",\n        \"city\": \"\u9e28\ud15c\ube48\u6097\u09f4\u4110\uad85\ufb09D\ue700\",\n        \"postalCode\": \"PVJVfV\",\n        \"country\": \"<string>\",\n        \"line2\": \"\u01c4\u00e6\u0197\u0113\u017es\",\n        \"state\": \"<string>\"\n      },\n      \"taxIdentifier\": \"<string>\"\n    }\n  },\n  \"payment\": {\n    \"type\": \"one-off\",\n    \"amount\": \"<integer>\",\n    \"currency\": \"<string>\"\n  },\n  \"preferredVersions\": [\n    \"2.2.0\",\n    \"2.2.0\"\n  ],\n  \"challenge\": {\n    \"preference\": \"no-challenge-requested\",\n    \"reason\": \"secure-corporate-payment\"\n  },\n  \"initiator\": {\n    \"type\": \"customer\"\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/payments/3ds-sessions",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "payments",
+                        "3ds-sessions"
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"code\": \"<string>\",\n  \"title\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"detail\": \"<string>\",\n  \"fields\": [\n    {\n      \"pointer\": \"<string>\",\n      \"reason\": \"<string>\"\n    },\n    {\n      \"pointer\": \"<string>\",\n      \"reason\": \"<string>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-07-28T01:34:50.000Z",
+                  "updatedAt": "2026-07-28T01:34:50.000Z",
+                  "uid": "35240-27db723c-2313-455f-a9f8-837472c64e41"
+                }
+              ],
+              "createdAt": "2026-07-28T01:34:50.000Z",
+              "updatedAt": "2026-07-28T01:34:50.000Z",
+              "uid": "35240-78c600eb-7c36-4b91-926a-b69b1dd2c41f"
+            }
+          ],
+          "id": "962b3a9a-1ce0-4797-9e44-adffade3a296",
+          "createdAt": "2026-07-28T01:34:50.000Z",
+          "updatedAt": "2026-07-28T01:34:50.000Z",
+          "uid": "35240-962b3a9a-1ce0-4797-9e44-adffade3a296"
+        }
+      ],
+      "id": "8e2d6ae4-d6aa-4718-9cec-7af36ebee95f",
+      "createdAt": "2026-07-28T01:34:50.000Z",
+      "updatedAt": "2026-07-28T01:34:50.000Z",
+      "uid": "35240-8e2d6ae4-d6aa-4718-9cec-7af36ebee95f"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.evervault.com"
+    }
+  ]
+}

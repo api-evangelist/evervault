@@ -1,0 +1,589 @@
+{
+  "info": {
+    "_postman_id": "c06a57e9-1ef9-4ad7-897c-43ad7aab282e",
+    "name": "Evervault Webhooks API",
+    "description": "The Evervault API allows developers to interact programmatically with their Evervault apps using HTTP requests.\n\nContact Support:\n Name: Evervault Support Team\n Email: support@evervault.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T01:35:31.000Z",
+    "updatedAt": "2026-07-28T01:35:31.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-c06a57e9-1ef9-4ad7-897c-43ad7aab282e"
+  },
+  "item": [
+    {
+      "name": "webhook-endpoints",
+      "item": [
+        {
+          "name": "{webhook_endpoint_id}",
+          "item": [
+            {
+              "name": "Retrieve a Webhook Endpoint",
+              "id": "967a1133-4096-431f-ba31-c28958b3344a",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "basic",
+                  "basic": [
+                    {
+                      "key": "username",
+                      "value": "{{basicAuthUsername}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "password",
+                      "value": "{{basicAuthPassword}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/webhook-endpoints/:webhook_endpoint_id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "webhook-endpoints",
+                    ":webhook_endpoint_id"
+                  ],
+                  "variable": [
+                    {
+                      "id": "a66d1603-babe-4e8d-9064-fc873319c9ec",
+                      "key": "webhook_endpoint_id",
+                      "value": "<string>",
+                      "description": "(Required) The identifier of the Webhook Endpoint to retrieve."
+                    }
+                  ]
+                },
+                "description": "Retrieves a Webhook Endpoint\n"
+              },
+              "response": [
+                {
+                  "id": "04d4d812-028f-4113-974f-a96300465c64",
+                  "name": "The Webhook Endpoint was retrieved successfully.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: basic",
+                        "key": "Authorization",
+                        "value": "Basic <credentials>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/webhook-endpoints/:webhook_endpoint_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "webhook-endpoints",
+                        ":webhook_endpoint_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "webhook_endpoint_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"url\": \"<string>\",\n  \"events\": [\n    \"enclave.deployment.started\",\n    \"function.run.completed\"\n  ],\n  \"createdAt\": \"<long>\",\n  \"updatedAt\": \"<integer,null-int64>\"\n}",
+                  "createdAt": "2026-07-28T01:35:31.000Z",
+                  "updatedAt": "2026-07-28T01:35:31.000Z",
+                  "uid": "35240-04d4d812-028f-4113-974f-a96300465c64"
+                }
+              ],
+              "createdAt": "2026-07-28T01:35:31.000Z",
+              "updatedAt": "2026-07-28T01:35:31.000Z",
+              "uid": "35240-967a1133-4096-431f-ba31-c28958b3344a"
+            },
+            {
+              "name": "Update a Webhook Endpoint",
+              "id": "6d16f939-0b34-476e-835b-3b98550aea86",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "basic",
+                  "basic": [
+                    {
+                      "key": "username",
+                      "value": "{{basicAuthUsername}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "password",
+                      "value": "{{basicAuthPassword}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"events\": [\n    \"enclave.deployment.updated\",\n    \"function.deployment.finished\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/webhook-endpoints/:webhook_endpoint_id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "webhook-endpoints",
+                    ":webhook_endpoint_id"
+                  ],
+                  "variable": [
+                    {
+                      "id": "16e058e6-4eda-419b-9965-1d94a956e93e",
+                      "key": "webhook_endpoint_id",
+                      "value": "<string>",
+                      "description": "(Required) The identifier of the Webhook Endpoint to update."
+                    }
+                  ]
+                },
+                "description": "Updates a Webhook Endpoint\n"
+              },
+              "response": [
+                {
+                  "id": "f22dc15f-114d-4015-a049-fa3267adbb6d",
+                  "name": "The Webhook Endpoint was updated successfully.",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: basic",
+                        "key": "Authorization",
+                        "value": "Basic <credentials>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"events\": [\n    \"enclave.deployment.updated\",\n    \"function.deployment.finished\"\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/webhook-endpoints/:webhook_endpoint_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "webhook-endpoints",
+                        ":webhook_endpoint_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "webhook_endpoint_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"url\": \"<string>\",\n  \"events\": [\n    \"enclave.deployment.started\",\n    \"function.run.completed\"\n  ],\n  \"createdAt\": \"<long>\",\n  \"updatedAt\": \"<integer,null-int64>\"\n}",
+                  "createdAt": "2026-07-28T01:35:31.000Z",
+                  "updatedAt": "2026-07-28T01:35:31.000Z",
+                  "uid": "35240-f22dc15f-114d-4015-a049-fa3267adbb6d"
+                }
+              ],
+              "createdAt": "2026-07-28T01:35:31.000Z",
+              "updatedAt": "2026-07-28T01:35:31.000Z",
+              "uid": "35240-6d16f939-0b34-476e-835b-3b98550aea86"
+            },
+            {
+              "name": "Delete a Webhook Endpoint",
+              "id": "438444e2-c23d-4f69-9d5a-caf81601d9f7",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "basic",
+                  "basic": [
+                    {
+                      "key": "username",
+                      "value": "{{basicAuthUsername}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "password",
+                      "value": "{{basicAuthPassword}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/webhook-endpoints/:webhook_endpoint_id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "webhook-endpoints",
+                    ":webhook_endpoint_id"
+                  ],
+                  "variable": [
+                    {
+                      "id": "1c384470-a3b3-41f0-a3e8-575663789eaf",
+                      "key": "webhook_endpoint_id",
+                      "value": "<string>",
+                      "description": "(Required) The identifier of the Webhook Endpoint to delete."
+                    }
+                  ]
+                },
+                "description": "Delete a Webhook Endpoint\n"
+              },
+              "response": [
+                {
+                  "id": "5651eb92-905e-4429-8d00-305340181ef9",
+                  "name": "The Webhook Endpoint was successfully deleted.",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: basic",
+                        "key": "Authorization",
+                        "value": "Basic <credentials>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/webhook-endpoints/:webhook_endpoint_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "webhook-endpoints",
+                        ":webhook_endpoint_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "webhook_endpoint_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "No Content",
+                  "code": 204,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:35:31.000Z",
+                  "updatedAt": "2026-07-28T01:35:31.000Z",
+                  "uid": "35240-5651eb92-905e-4429-8d00-305340181ef9"
+                }
+              ],
+              "createdAt": "2026-07-28T01:35:31.000Z",
+              "updatedAt": "2026-07-28T01:35:31.000Z",
+              "uid": "35240-438444e2-c23d-4f69-9d5a-caf81601d9f7"
+            }
+          ],
+          "id": "5351c649-3f13-49cc-ae25-b3f6053db34a",
+          "createdAt": "2026-07-28T01:35:31.000Z",
+          "updatedAt": "2026-07-28T01:35:31.000Z",
+          "uid": "35240-5351c649-3f13-49cc-ae25-b3f6053db34a"
+        },
+        {
+          "name": "Create a Webhook Endpoint",
+          "id": "0e7c45c7-926c-4e98-9c4d-23b428d081b5",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}",
+                  "type": "string"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"url\": \"<string>\",\n  \"events\": [\n    \"audit-log.event\",\n    \"function.deployment.started\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/webhook-endpoints",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "webhook-endpoints"
+              ]
+            },
+            "description": "Create a Webhook Endpoint"
+          },
+          "response": [
+            {
+              "id": "97b49602-18e8-4b43-b861-9669e656f6f3",
+              "name": "The Webhook Endpoint was created successfully.",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: basic",
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"url\": \"<string>\",\n  \"events\": [\n    \"audit-log.event\",\n    \"function.deployment.started\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/webhook-endpoints",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "webhook-endpoints"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"id\": \"<string>\",\n  \"url\": \"<string>\",\n  \"events\": [\n    \"enclave.deployment.started\",\n    \"function.run.completed\"\n  ],\n  \"createdAt\": \"<long>\",\n  \"updatedAt\": \"<integer,null-int64>\"\n}",
+              "createdAt": "2026-07-28T01:35:31.000Z",
+              "updatedAt": "2026-07-28T01:35:31.000Z",
+              "uid": "35240-97b49602-18e8-4b43-b861-9669e656f6f3"
+            }
+          ],
+          "createdAt": "2026-07-28T01:35:31.000Z",
+          "updatedAt": "2026-07-28T01:35:31.000Z",
+          "uid": "35240-0e7c45c7-926c-4e98-9c4d-23b428d081b5"
+        },
+        {
+          "name": "List all Webhook Endpoints",
+          "id": "0630ed71-6295-497a-a6ea-46bdd9b7467e",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}",
+                  "type": "string"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/webhook-endpoints?limit=10&startingAfter=<string>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "webhook-endpoints"
+              ],
+              "query": [
+                {
+                  "description": "The maximum number of Webhook Endpoints to return (Default is 10).",
+                  "key": "limit",
+                  "value": "10"
+                },
+                {
+                  "description": "The identifier of the last Webhook Endpoint in the previous page of results.",
+                  "key": "startingAfter",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "description": "Lists all Webhook Endpoints\n"
+          },
+          "response": [
+            {
+              "id": "6939ec74-1813-41cc-889d-37ff140e836b",
+              "name": "The Webhook Endpoints were retrieved successfully.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: basic",
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/webhook-endpoints?limit=10&startingAfter=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "webhook-endpoints"
+                  ],
+                  "query": [
+                    {
+                      "description": "The maximum number of Webhook Endpoints to return (Default is 10).",
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "description": "The identifier of the last Webhook Endpoint in the previous page of results.",
+                      "key": "startingAfter",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"<string>\",\n      \"url\": \"<string>\",\n      \"events\": [\n        \"payments.card.updated\",\n        \"audit-log.event\"\n      ],\n      \"createdAt\": \"<long>\",\n      \"updatedAt\": \"<integer,null-int64>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"url\": \"<string>\",\n      \"events\": [\n        \"enclave.deployment.started\",\n        \"payments.merchant.updated\"\n      ],\n      \"createdAt\": \"<long>\",\n      \"updatedAt\": \"<integer,null-int64>\"\n    }\n  ],\n  \"hasMore\": \"<boolean>\"\n}",
+              "createdAt": "2026-07-28T01:35:31.000Z",
+              "updatedAt": "2026-07-28T01:35:31.000Z",
+              "uid": "35240-6939ec74-1813-41cc-889d-37ff140e836b"
+            }
+          ],
+          "createdAt": "2026-07-28T01:35:31.000Z",
+          "updatedAt": "2026-07-28T01:35:31.000Z",
+          "uid": "35240-0630ed71-6295-497a-a6ea-46bdd9b7467e"
+        }
+      ],
+      "id": "5a96b1dd-4895-491e-8f07-a7bf24cfa497",
+      "createdAt": "2026-07-28T01:35:31.000Z",
+      "updatedAt": "2026-07-28T01:35:31.000Z",
+      "uid": "35240-5a96b1dd-4895-491e-8f07-a7bf24cfa497"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.evervault.com"
+    }
+  ]
+}
