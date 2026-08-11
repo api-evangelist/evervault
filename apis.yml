@@ -187,6 +187,8 @@ apis:
   - type: OpenAPI
     url: openapi/evervault-webhooks-api-openapi.yml
 common:
+- type: Overlay
+  url: overlays/evervault-openapi-overlay.yaml
 - type: PostmanWorkspace
   url: https://www.postman.com/kinlaneapi/evervault/overview
 - type: DeveloperPortal
