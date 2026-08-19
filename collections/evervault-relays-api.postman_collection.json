@@ -1,0 +1,1051 @@
+{
+  "item": [
+    {
+      "id": "ba547cef-57ee-43c5-a92b-8b3c00554e92",
+      "name": "Relays",
+      "description": {
+        "content": "Relay is a network proxy that can be configured to encrypt or decrypt sensitive data as it passes between a client and a destination server. Relay can be used with your own API or with third-party APIs. It is designed to be easy to use and requires minimal changes to your existing code.\n",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "4668f251-5e7f-4ac9-b932-69aae24727db",
+          "name": "Create a Relay",
+          "request": {
+            "name": "Create a Relay",
+            "description": {
+              "content": "Creates a new [Relay](/relay).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "relays"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"destinationDomain\": \"<string>\",\n  \"routes\": [\n    {\n      \"path\": \"<string>\",\n      \"request\": [\n        {\n          \"action\": \"<string>\",\n          \"selections\": [\n            {\n              \"selector\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"role\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"selector\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"role\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      ],\n      \"response\": [\n        {\n          \"action\": \"<string>\",\n          \"selections\": [\n            {\n              \"selector\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"role\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"selector\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"role\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      ],\n      \"method\": \"<string>\"\n    },\n    {\n      \"path\": \"<string>\",\n      \"request\": [\n        {\n          \"action\": \"<string>\",\n          \"selections\": [\n            {\n              \"selector\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"role\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"selector\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"role\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      ],\n      \"response\": [\n        {\n          \"action\": \"<string>\",\n          \"selections\": [\n            {\n              \"selector\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"role\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"selector\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"role\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      ],\n      \"method\": \"<string>\"\n    }\n  ],\n  \"encryptEmptyStrings\": \"<boolean>\",\n  \"authentication\": \"<string,null>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d0ed1fb3-b077-43ee-8e12-a16a5c501bc6",
+              "name": "The Relay has been created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "relays"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"destinationDomain\": \"example.com\",\n  \"encryptEmptyStrings\": true,\n  \"authentication\": null,\n  \"routes\": [\n    {\n      \"method\": \"POST\",\n      \"path\": \"/checkout\",\n      \"request\": [\n        {\n          \"action\": \"encrypt\",\n          \"selections\": [\n            {\n              \"type\": \"json\",\n              \"selector\": \"$.cardNumber\"\n            }\n          ]\n        }\n      ],\n      \"response\": [\n        {\n          \"action\": \"decrypt\",\n          \"selections\": [\n            {\n              \"type\": \"json\",\n              \"selector\": \"$..*\"\n            }\n          ]\n        }\n      ]\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"relay_destination_d4ja57js9lnh\",\n  \"destinationDomain\": \"example.com\",\n  \"evervaultDomain\": \"example-com.app-12345.relay.evervault.app\",\n  \"encryptEmptyStrings\": true,\n  \"routes\": [\n    {\n      \"method\": \"POST\",\n      \"path\": \"/checkout\",\n      \"request\": [\n        {\n          \"action\": \"encrypt\",\n          \"selections\": [\n            {\n              \"type\": \"json\",\n              \"role\": \"pci\",\n              \"selector\": \"$.cardNumber\"\n            }\n          ]\n        }\n      ],\n      \"response\": [\n        {\n          \"action\": \"decrypt\",\n          \"selections\": [\n            {\n              \"type\": \"json\",\n              \"selector\": \"$..*\"\n            }\n          ]\n        }\n      ]\n    }\n  ],\n  \"app\": \"app_cc7fcd533649\",\n  \"createdAt\": 1692972623233,\n  \"updatedAt\": 1692972623234\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2d6465c7-02f9-453b-b066-060bb1234f5b",
+          "name": "List all Relays",
+          "request": {
+            "name": "List all Relays",
+            "description": {
+              "content": "Lists all [Relays](/relay) for the App.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "relays"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "b2486e7d-2669-46c7-aad1-439a7fe493cc",
+              "name": "The App's Relays have been fetched.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "relays"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"relay_destination_d4ja57js9lnh\",\n      \"destinationDomain\": \"example.com\",\n      \"evervaultDomain\": \"example-com.app-12345.relay.evervault.app\",\n      \"encryptEmptyStrings\": true,\n      \"authentication\": \"api-key\",\n      \"routes\": [\n        {\n          \"method\": \"POST\",\n          \"path\": \"/checkout\",\n          \"request\": [\n            {\n              \"action\": \"encrypt\",\n              \"selections\": [\n                {\n                  \"type\": \"json\",\n                  \"role\": \"pci\",\n                  \"selector\": \"$.cardNumber\"\n                }\n              ]\n            }\n          ],\n          \"response\": [\n            {\n              \"action\": \"decrypt\",\n              \"selections\": [\n                {\n                  \"type\": \"json\",\n                  \"selector\": \"$..*\"\n                }\n              ]\n            }\n          ]\n        }\n      ],\n      \"app\": \"app_cc7fcd533649\",\n      \"createdAt\": 1692972623233,\n      \"updatedAt\": 1692972623234\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "01aae021-bda1-4cf4-8ae5-f84fa2b9b621",
+          "name": "Retrieve a Relay",
+          "request": {
+            "name": "Retrieve a Relay",
+            "description": {
+              "content": "Retrieves a [Relay](/relay) by its ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "relays",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) The id of the Relay to be fetched."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "f48e7b99-e925-4fa7-9733-d10b71633fc5",
+              "name": "The Relay has been fetched.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "relays",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The id of the Relay to be fetched."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"relay_destination_d4ja57js9lnh\",\n  \"destinationDomain\": \"example.com\",\n  \"evervaultDomain\": \"example-com.app-12345.relay.evervault.app\",\n  \"encryptEmptyStrings\": true,\n  \"authentication\": \"api-key\",\n  \"routes\": [\n    {\n      \"method\": \"POST\",\n      \"path\": \"/checkout\",\n      \"request\": [\n        {\n          \"action\": \"encrypt\",\n          \"selections\": [\n            {\n              \"type\": \"json\",\n              \"role\": \"pci\",\n              \"selector\": \"$.cardNumber\"\n            }\n          ]\n        }\n      ],\n      \"response\": []\n    }\n  ],\n  \"app\": \"app_cc7fcd533649\",\n  \"createdAt\": 1692972623233\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "255d9984-bf3d-41ba-b0c6-06bd30d11f63",
+          "name": "Updates a Relay",
+          "request": {
+            "name": "Updates a Relay",
+            "description": {
+              "content": "Updates a [Relay](/relay). Any properties not provided are left unchanged.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "relays",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) The id of the Relay to be updated."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"routes\": [\n    {\n      \"path\": \"<string>\",\n      \"request\": [\n        {\n          \"action\": \"<string>\",\n          \"selections\": [\n            {\n              \"selector\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"role\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"selector\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"role\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      ],\n      \"response\": [\n        {\n          \"action\": \"<string>\",\n          \"selections\": [\n            {\n              \"selector\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"role\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"selector\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"role\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      ],\n      \"method\": \"<string>\"\n    },\n    {\n      \"path\": \"<string>\",\n      \"request\": [\n        {\n          \"action\": \"<string>\",\n          \"selections\": [\n            {\n              \"selector\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"role\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"selector\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"role\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      ],\n      \"response\": [\n        {\n          \"action\": \"<string>\",\n          \"selections\": [\n            {\n              \"selector\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"role\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"selector\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"role\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      ],\n      \"method\": \"<string>\"\n    }\n  ],\n  \"encryptEmptyStrings\": \"<boolean>\",\n  \"authentication\": \"<string,null>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "0b21cfe7-a5a7-4837-b2e8-dcd9d2117459",
+              "name": "The Relay has been updated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "relays",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The id of the Relay to be updated."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"routes\": [\n    {\n      \"method\": \"POST\",\n      \"path\": \"/checkout\",\n      \"request\": [\n        {\n          \"action\": \"encrypt\",\n          \"selections\": [\n            {\n              \"type\": \"json\",\n              \"selector\": \"$.cardNumber\"\n            }\n          ]\n        }\n      ],\n      \"response\": []\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"relay_destination_d4ja57js9lnh\",\n  \"destinationDomain\": \"example.com\",\n  \"evervaultDomain\": \"example-com.app-12345.relay.evervault.app\",\n  \"encryptEmptyStrings\": true,\n  \"authentication\": null,\n  \"routes\": [\n    {\n      \"method\": \"POST\",\n      \"path\": \"/checkout\",\n      \"request\": [\n        {\n          \"action\": \"encrypt\",\n          \"selections\": [\n            {\n              \"type\": \"json\",\n              \"role\": \"pci\",\n              \"selector\": \"$.cardNumber\"\n            }\n          ]\n        }\n      ],\n      \"response\": []\n    }\n  ],\n  \"app\": \"app_cc7fcd533649\",\n  \"createdAt\": 1692972623233,\n  \"updatedAt\": 1692972623234\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "53f963aa-c003-4394-95f8-625956980d6f",
+          "name": "Delete a Relay",
+          "request": {
+            "name": "Delete a Relay",
+            "description": {
+              "content": "Deletes a [Relay](/relay). This action cannot be undone and the Relay domain will no longer forward requests to its destination domain.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "relays",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) The id of the Relay to be deleted."
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "477e0c8f-5cba-4bf7-91ea-63856ba89a66",
+              "name": "The Relay has been deleted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "relays",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The id of the Relay to be deleted."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a75de368-d37d-4304-a470-2206d52171bc",
+          "name": "Create a Custom Domain",
+          "request": {
+            "name": "Create a Custom Domain",
+            "description": {
+              "content": "Creates a custom domain for the Relay",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "relays",
+                ":relay_id",
+                "custom-domains"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "relay_id",
+                  "description": "(Required) The id of the Relay to which the custom domain should be added."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"customDomain\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "81b58510-cd60-47f6-abe4-210908212386",
+              "name": "The custom domain has been created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "relays",
+                    ":relay_id",
+                    "custom-domains"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "relay_id",
+                      "description": "(Required) The id of the Relay to which the custom domain should be added."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"customDomain\": \"subdomain.example.com\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"custom_domain_j3od9Bl0WV1n\",\n  \"customDomain\": \"subdomain.example.com\",\n  \"status\": \"active\",\n  \"validationRecord\": \"986f3008-86e7-4caf-bd8b-a5d312844153\",\n  \"relay\": \"relay_destination_d4ja57js9lnh\",\n  \"createdAt\": 1692972623233,\n  \"updatedAt\": 1692972623233\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8d50f61d-55be-41b4-9be1-a90821fed85b",
+          "name": "List all Custom Domains",
+          "request": {
+            "name": "List all Custom Domains",
+            "description": {
+              "content": "Lists all custom domains for a [Relay](/relay).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "relays",
+                ":relay_id",
+                "custom-domains"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "relay_id",
+                  "description": "(Required) The id of the Relay whose custom domains should be fetched."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "80b06b53-44a9-48c1-8073-0b8e69f3545c",
+              "name": "The Relay's custom domains have been fetched.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "relays",
+                    ":relay_id",
+                    "custom-domains"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "relay_id",
+                      "description": "(Required) The id of the Relay whose custom domains should be fetched."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"custom_domain_j3od9Bl0WV1n\",\n      \"customDomain\": \"subdomain.example.com\",\n      \"status\": \"active\",\n      \"validationRecord\": \"986f3008-86e7-4caf-bd8b-a5d312844153\",\n      \"relay\": \"relay_destination_d4ja57js9lnh\",\n      \"createdAt\": 1692972623233,\n      \"updatedAt\": 1692972623234\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b7fa1d56-2934-4866-a47a-35f7b9df742a",
+          "name": "Retrieve a Custom Domain",
+          "request": {
+            "name": "Retrieve a Custom Domain",
+            "description": {
+              "content": "Retrieves a custom domain for a [Relay](/relay).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "relays",
+                ":relay_id",
+                "custom-domains",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "relay_id",
+                  "description": "(Required) The id of the Relay to which the custom domain belongs."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) The id of the custom domain to be fetched."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "c9f6089c-4b37-47fc-a6e7-ce149da395cc",
+              "name": "The custom domain has been fetched.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "relays",
+                    ":relay_id",
+                    "custom-domains",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "relay_id",
+                      "description": "(Required) The id of the Relay to which the custom domain belongs."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The id of the custom domain to be fetched."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"custom_domain_j3od9Bl0WV1n\",\n  \"customDomain\": \"subdomain.example.com\",\n  \"status\": \"active\",\n  \"validationRecord\": \"986f3008-86e7-4caf-bd8b-a5d312844153\",\n  \"relay\": \"relay_destination_d4ja57js9lnh\",\n  \"createdAt\": 1692972623233,\n  \"updatedAt\": 1692972623233\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ddd4d016-1264-4071-b912-73799d2014e5",
+          "name": "Delete a Custom Domain",
+          "request": {
+            "name": "Delete a Custom Domain",
+            "description": {
+              "content": "Deletes a custom domain for a [Relay](/relay). This action cannot be undone.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "relays",
+                ":relay_id",
+                "custom-domains",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "relay_id",
+                  "description": "(Required) The id of the Relay to which the custom domain belongs."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) The id of the custom domain to be deleted."
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "1e13869a-c235-4066-875c-618912699ea4",
+              "name": "The custom domain has been deleted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "relays",
+                    ":relay_id",
+                    "custom-domains",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "relay_id",
+                      "description": "(Required) The id of the Relay to which the custom domain belongs."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The id of the custom domain to be deleted."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.evervault.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "a46e4c05-fb87-41ae-a079-d4ddf8767e82",
+    "name": "Evervault Relays API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Evervault API allows developers to interact programmatically with their Evervault apps using HTTP requests.\n\nContact Support:\n Name: Evervault Support Team\n Email: support@evervault.com",
+      "type": "text/plain"
+    }
+  }
+}

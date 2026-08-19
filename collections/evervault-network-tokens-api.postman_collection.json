@@ -1,0 +1,878 @@
+{
+  "item": [
+    {
+      "id": "527fb160-f691-4251-b1b2-8f32f605b152",
+      "name": "Network Tokens",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "72ef4764-01f6-41d6-ae3c-6b92152114d7",
+          "name": "Create a Network Token",
+          "request": {
+            "name": "Create a Network Token",
+            "description": {
+              "content": "Create a Network Token for a given card.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "payments",
+                "network-tokens"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"card\": {\n    \"number\": \"<string>\",\n    \"expiry\": {\n      \"month\": \"<string>\",\n      \"year\": \"<string>\"\n    },\n    \"cvc\": \"<string>\"\n  },\n  \"merchant\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "6373c8a1-97c5-4308-95ee-f07581ef2120",
+              "name": "Returns a Network Token object.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payments",
+                    "network-tokens"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"card\": {\n    \"number\": \"ev:debug:Tk9D:number:nTepvAI585M7lUVp:AkJ6Brzat0E7ui8DSKCSXO7AopU/+GFuBekQ6cGx7eTl:sfihK53itmHp+URxomnTITUpwQwM5nnRrnQ0qdIOUlA=:$\",\n    \"expiry\": {\n      \"month\": 9,\n      \"year\": \"26\"\n    },\n    \"cvc\": \"ev:debug:Tk9D:number:2GW8Nk96yfb2UXcw:A4UOUDGNb16Q//uBYVPibmfJ2734IrvPAoVY+8PvGG0C:5jtAu8KN1HiPeCNqSDCKMapfpg==:$\"\n  },\n  \"merchant\": \"merchant_ddsaJsda9d86\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"network_token_eead1d640d7c\",\n  \"number\": \"4498004918463434\",\n  \"expiry\": {\n    \"month\": \"13\",\n    \"year\": \"25\"\n  },\n  \"card\": {\n    \"lastFour\": \"4242\",\n    \"expiry\": {\n      \"month\": 9,\n      \"year\": \"26\"\n    },\n    \"brand\": \"visa\",\n    \"country\": \"us\",\n    \"currency\": \"usd\",\n    \"funding\": \"debit\",\n    \"segment\": \"consumer\",\n    \"issuer\": \"Gringotts Wizarding Bank and Trust Company\"\n  },\n  \"paymentAccountReference\": \"512381d9f8e0629211e3949a08002\",\n  \"tokenRequestorIdentifier\": \"40020248564\",\n  \"tokenServiceProvider\": \"vts\",\n  \"merchant\": \"merchant_ddsaJsda9d86\",\n  \"status\": \"active\",\n  \"createdAt\": 1692972623233,\n  \"updatedAt\": 1692972623768\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9c157894-ce4c-4083-b8dc-4ff235fb60bb",
+              "name": "The request was invalid or cannot be otherwise served.\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payments",
+                    "network-tokens"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"card\": {\n    \"number\": \"ev:debug:Tk9D:number:nTepvAI585M7lUVp:AkJ6Brzat0E7ui8DSKCSXO7AopU/+GFuBekQ6cGx7eTl:sfihK53itmHp+URxomnTITUpwQwM5nnRrnQ0qdIOUlA=:$\",\n    \"expiry\": {\n      \"month\": 9,\n      \"year\": \"26\"\n    },\n    \"cvc\": \"ev:debug:Tk9D:number:2GW8Nk96yfb2UXcw:A4UOUDGNb16Q//uBYVPibmfJ2734IrvPAoVY+8PvGG0C:5jtAu8KN1HiPeCNqSDCKMapfpg==:$\"\n  },\n  \"merchant\": \"merchant_ddsaJsda9d86\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"payments/network-tokens/ineligible-card\",\n  \"title\": \"Ineligible Card\",\n  \"detail\": \"The card is not eligible for tokenization. This may be due to the card issuer not supporting tokenization.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bfc89512-dd5c-4524-bfb0-832768834b31",
+              "name": "Unprocessable Entity\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payments",
+                    "network-tokens"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"card\": {\n    \"number\": \"ev:debug:Tk9D:number:nTepvAI585M7lUVp:AkJ6Brzat0E7ui8DSKCSXO7AopU/+GFuBekQ6cGx7eTl:sfihK53itmHp+URxomnTITUpwQwM5nnRrnQ0qdIOUlA=:$\",\n    \"expiry\": {\n      \"month\": 9,\n      \"year\": \"26\"\n    },\n    \"cvc\": \"ev:debug:Tk9D:number:2GW8Nk96yfb2UXcw:A4UOUDGNb16Q//uBYVPibmfJ2734IrvPAoVY+8PvGG0C:5jtAu8KN1HiPeCNqSDCKMapfpg==:$\"\n  },\n  \"merchant\": \"merchant_ddsaJsda9d86\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"payments/network-tokens/merchant-not-ready\",\n  \"title\": \"Merchant Not Ready\",\n  \"detail\": \"The merchant is not yet ready for tokenizing cards. Enrolling a merchant for network tokenization can take up to 48 hours. Please try again later.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "825fd918-43f4-4c6e-b6db-7b18e87b7ed4",
+              "name": "An error occurred while processing the request.\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payments",
+                    "network-tokens"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"card\": {\n    \"number\": \"ev:debug:Tk9D:number:nTepvAI585M7lUVp:AkJ6Brzat0E7ui8DSKCSXO7AopU/+GFuBekQ6cGx7eTl:sfihK53itmHp+URxomnTITUpwQwM5nnRrnQ0qdIOUlA=:$\",\n    \"expiry\": {\n      \"month\": 9,\n      \"year\": \"26\"\n    },\n    \"cvc\": \"ev:debug:Tk9D:number:2GW8Nk96yfb2UXcw:A4UOUDGNb16Q//uBYVPibmfJ2734IrvPAoVY+8PvGG0C:5jtAu8KN1HiPeCNqSDCKMapfpg==:$\"\n  },\n  \"merchant\": \"merchant_ddsaJsda9d86\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"payments/network-tokens/unavailable-token-service-provider\",\n  \"title\": \"Unavailable Token Service Provider\",\n  \"detail\": \"The Token Service Provider is unavailable. Please try again later.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "da7c144b-f520-4fff-b4f7-dbcedd73ba0f",
+          "name": "Retrieve a Network Token",
+          "request": {
+            "name": "Retrieve a Network Token",
+            "description": {
+              "content": "Retrieves a Network Token by its unique identifier.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "payments",
+                "network-tokens",
+                ":network_token_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "network_token_id",
+                  "description": "(Required) The unique identifier of the Network Token."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "e51cca36-9efb-40b8-a00b-daf29f54acb5",
+              "name": "Returns a Network Token object.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payments",
+                    "network-tokens",
+                    ":network_token_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "network_token_id",
+                      "description": "(Required) The unique identifier of the Network Token."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"network_token_eead1d640d7c\",\n  \"number\": \"4498004918463434\",\n  \"expiry\": {\n    \"month\": \"13\",\n    \"year\": \"25\"\n  },\n  \"card\": {\n    \"lastFour\": \"4242\",\n    \"expiry\": {\n      \"month\": 9,\n      \"year\": \"26\"\n    },\n    \"brand\": \"visa\",\n    \"country\": \"us\",\n    \"currency\": \"usd\",\n    \"funding\": \"debit\",\n    \"segment\": \"consumer\",\n    \"issuer\": \"Gringotts Wizarding Bank and Trust Company\"\n  },\n  \"paymentAccountReference\": \"512381d9f8e0629211e3949a08002\",\n  \"tokenRequestorIdentifier\": \"40020248564\",\n  \"tokenServiceProvider\": \"vts\",\n  \"merchant\": \"merchant_ddsaJsda9d86\",\n  \"status\": \"active\",\n  \"createdAt\": 1692972623233,\n  \"updatedAt\": 1692972623768\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "edc54354-820a-42af-917c-c10e1af2bb55",
+          "name": "Delete a Network Token",
+          "request": {
+            "name": "Delete a Network Token",
+            "description": {
+              "content": "Deletes a Network Token by its unique identifier.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "payments",
+                "network-tokens",
+                ":network_token_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "network_token_id",
+                  "description": "(Required) The unique identifier of the Network Token."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "3b914e82-32a3-4191-8835-c95d87bf7d7e",
+              "name": "Deletes a Network Token object.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payments",
+                    "network-tokens",
+                    ":network_token_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "network_token_id",
+                      "description": "(Required) The unique identifier of the Network Token."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d7762303-6cfa-4f26-890f-f396da0c65d5",
+          "name": "Create a Cryptogram",
+          "request": {
+            "name": "Create a Cryptogram",
+            "description": {
+              "content": "Creates a Network Token Cryptogram.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "payments",
+                "network-tokens",
+                ":network_token_id",
+                "cryptograms"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "network_token_id",
+                  "description": "(Required) The unique identifier of the Network Token."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "8cf49081-3fc7-4bad-8d5c-18526bb6ecdb",
+              "name": "Returns a Network Token Cryptogram object.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payments",
+                    "network-tokens",
+                    ":network_token_id",
+                    "cryptograms"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "network_token_id",
+                      "description": "(Required) The unique identifier of the Network Token."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"network_token_cryptogram_eead1d640d7c\",\n  \"cryptogram\": \"NTk0ZjM5M2QyNDMwNDE1MjkzMjg1ZTg5Y2NiZjdmNjE=\",\n  \"createdAt\": 1692972623233\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c7dd32da-d9fc-4dda-8a76-f00afe371240",
+          "name": "Simulate a Network Token Update",
+          "request": {
+            "name": "Simulate a Network Token Update",
+            "description": {
+              "content": "Simulates an update to a Network Token so that you can test your integration. Sandbox only.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "payments",
+                "network-tokens",
+                ":network_token_id",
+                "simulate"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "network_token_id",
+                  "description": "(Required) The id of the Network Token"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"updateType\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "bd2ad2ee-4270-4b22-94f9-3328b2447a22",
+              "name": "Returns the updated Network Token object.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payments",
+                    "network-tokens",
+                    ":network_token_id",
+                    "simulate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "network_token_id",
+                      "description": "(Required) The id of the Network Token"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"updateType\": \"new-token-expiry-and-number\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"network_token_eead1d640d7c\",\n  \"number\": \"4498004918463434\",\n  \"expiry\": {\n    \"month\": \"13\",\n    \"year\": \"25\"\n  },\n  \"card\": {\n    \"lastFour\": \"4242\",\n    \"expiry\": {\n      \"month\": 9,\n      \"year\": \"26\"\n    },\n    \"brand\": \"visa\",\n    \"country\": \"us\",\n    \"currency\": \"usd\",\n    \"funding\": \"debit\",\n    \"segment\": \"consumer\",\n    \"issuer\": \"Gringotts Wizarding Bank and Trust Company\"\n  },\n  \"paymentAccountReference\": \"512381d9f8e0629211e3949a08002\",\n  \"tokenRequestorIdentifier\": \"40020248564\",\n  \"tokenServiceProvider\": \"vts\",\n  \"merchant\": \"merchant_ddsaJsda9d86\",\n  \"status\": \"active\",\n  \"createdAt\": 1692972623233,\n  \"updatedAt\": 1692972623768\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8098f066-0b5e-4022-91d5-ab4a85e9e411",
+          "name": "Retrieve Card Art",
+          "request": {
+            "name": "Retrieve Card Art",
+            "description": {
+              "content": "Retrieves the card art for a Network Token by its unique identifier.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "payments",
+                "network-tokens",
+                ":network_token_id",
+                "card-art"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "network_token_id",
+                  "description": "(Required) The unique identifier of the Network Token."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "e78ce103-15f5-404a-bda5-a5a3546a8308",
+              "name": "Returns the card art for the Network Token.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payments",
+                    "network-tokens",
+                    ":network_token_id",
+                    "card-art"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "network_token_id",
+                      "description": "(Required) The unique identifier of the Network Token."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"image/png\",\n  \"data\": \"dGhlIGJhc2U2NCBlbmNvZGVkIGltYWdlIGRhdGE=\",\n  \"width\": 1536,\n  \"height\": 969\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.evervault.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "abeced10-92e2-4efa-be37-8e7ca10add1b",
+    "name": "Evervault Network Tokens API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Evervault API allows developers to interact programmatically with their Evervault apps using HTTP requests.\n\nContact Support:\n Name: Evervault Support Team\n Email: support@evervault.com",
+      "type": "text/plain"
+    }
+  }
+}

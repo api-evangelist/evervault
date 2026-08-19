@@ -1,0 +1,58 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Evervault Insights API",
+    "version": "0.0.1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Insights",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Card Insights",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.evervault.com/insights/cards",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "The Card Insights API allows you to perform address verification (AVS), name verification (ANI), and CVV verification checks. You can also check the card's push and pull transaction capabilities.\n"
+        },
+        {
+          "info": {
+            "name": "BIN Lookup",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.evervault.com/payments/bin-lookups",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Performs a BIN lookup for the provided card number and retrieves associated information such as the card brand, country, issuer, and more.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

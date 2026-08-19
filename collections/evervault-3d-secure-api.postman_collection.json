@@ -1,0 +1,419 @@
+{
+  "item": [
+    {
+      "id": "2854742d-5dbc-4cfe-bf30-be825342ea31",
+      "name": "3D Secure",
+      "description": {
+        "content": "3D Secure is a security protocol designed to prevent fraud in online card transactions. It adds an additional layer of authentication during the payment process.\n",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "197a5f2f-7e5d-4337-be48-f2ad7230df6f",
+          "name": "Create a 3DS Session",
+          "request": {
+            "name": "Create a 3DS Session",
+            "description": {
+              "content": "Creates a 3DS Session to initiate the 3DS Authentication process. The session ID must then be passed to our client-side SDK to complete the authentication process. [Learn more](/sdks/javascript#ui.threedsecure())\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "payments",
+                "3ds-sessions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"card\": {\n    \"number\": \"<string>\",\n    \"expiry\": {\n      \"month\": \"<string>\",\n      \"year\": \"<string>\"\n    }\n  },\n  \"merchant\": {\n    \"name\": \"<string>\",\n    \"website\": \"<string>\",\n    \"categoryCode\": \"<string>\",\n    \"country\": \"<iso-3166-1-alpha-2>\"\n  },\n  \"acquirer\": {\n    \"bin\": \"<string>\",\n    \"merchantIdentifier\": \"<string>\",\n    \"country\": \"<iso-3166-1-alpha-2>\"\n  },\n  \"customer\": {\n    \"name\": \"<string>\",\n    \"phone\": [\n      {\n        \"type\": \"<string>\",\n        \"countryCode\": \"<string>\",\n        \"number\": \"<string>\"\n      },\n      {\n        \"type\": \"<string>\",\n        \"countryCode\": \"<string>\",\n        \"number\": \"<string>\"\n      }\n    ],\n    \"email\": \"<email>\",\n    \"shipping\": {\n      \"address\": {\n        \"line1\": \"<string>\",\n        \"city\": \"<string>\",\n        \"postalCode\": \"<string>\",\n        \"country\": \"<iso-3166-1-alpha-2>\",\n        \"line2\": \"<string>\",\n        \"state\": \"<iso-3166-2-subdivision>\"\n      }\n    },\n    \"billing\": {\n      \"address\": {\n        \"line1\": \"<string>\",\n        \"city\": \"<string>\",\n        \"postalCode\": \"<string>\",\n        \"country\": \"<iso-3166-1-alpha-2>\",\n        \"line2\": \"<string>\",\n        \"state\": \"<iso-3166-2-subdivision>\"\n      },\n      \"taxIdentifier\": \"<string>\"\n    }\n  },\n  \"payment\": {\n    \"type\": \"<string>\",\n    \"amount\": \"<integer>\",\n    \"currency\": \"<iso-4217-alphabetic>\"\n  },\n  \"preferredVersions\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"challenge\": {\n    \"preference\": \"<string>\",\n    \"reason\": \"<null,string>\"\n  },\n  \"initiator\": {\n    \"type\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d2b83a5f-8470-4130-8fa4-aefacc8f9f72",
+              "name": "Returns a 3DS Session object.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payments",
+                    "3ds-sessions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"merchant\": {\n    \"name\": \"Ollivanders Wand Shop\",\n    \"website\": \"https://www.ollivanders.co.uk\",\n    \"categoryCode\": \"5945\",\n    \"country\": \"gb\"\n  },\n  \"card\": {\n    \"number\": \"4242424242424242\",\n    \"expiry\": {\n      \"month\": 9,\n      \"year\": \"26\"\n    }\n  },\n  \"payment\": {\n    \"type\": \"one-off\",\n    \"amount\": 1000,\n    \"currency\": \"eur\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"tds_57aa862f8bf7\",\n  \"merchant\": {\n    \"name\": \"Ollivanders Wand Shop\",\n    \"website\": \"https://www.ollivanders.co.uk\",\n    \"categoryCode\": \"5945\",\n    \"country\": \"gb\"\n  },\n  \"card\": {\n    \"lastFour\": \"4242\",\n    \"expiry\": {\n      \"month\": 9,\n      \"year\": \"26\"\n    },\n    \"brand\": \"visa\",\n    \"funding\": \"debit\",\n    \"segment\": \"consumer\",\n    \"country\": \"gb\",\n    \"currency\": \"gbp\"\n  },\n  \"initiator\": {\n    \"type\": \"customer\"\n  },\n  \"challenge\": {\n    \"preference\": \"no-preference\",\n    \"reason\": null\n  },\n  \"acquirer\": {\n    \"bin\": \"567834\",\n    \"merchantIdentifier\": \"530249576123943\",\n    \"country\": \"gb\"\n  },\n  \"payment\": {\n    \"type\": \"one-off\",\n    \"amount\": 1000,\n    \"currency\": \"eur\"\n  },\n  \"version\": \"2.2.0\",\n  \"status\": \"action-required\",\n  \"nextAction\": {\n    \"type\": \"use-sdk\"\n  },\n  \"ares\": {\n    \"transStatus\": {\n      \"value\": \"C\",\n      \"detail\": \"Challenge Required; Additional authentication is required using the CReq/CRes\"\n    },\n    \"transStatusReason\": null\n  },\n  \"cres\": null,\n  \"rreq\": null,\n  \"accessControlServer\": {\n    \"transactionIdentifier\": \"0f651348-c519-4cfb-b349-0b302af9861f\",\n    \"referenceNumber\": \"3DS_LOA_ACS_STIN_020200_00417\"\n  },\n  \"directoryServer\": {\n    \"transactionIdentifier\": \"71c5d726-5d4b-426c-9d7d-131970f41c5c\",\n    \"referenceNumber\": \"3DS_LOA_DIS_VISA_020200_00828\",\n    \"network\": \"visa\"\n  },\n  \"threeDSServer\": {\n    \"transactionIdentifier\": \"a623edc1-54bc-455d-9dea-c909783a37c3\"\n  },\n  \"createdAt\": 1692972623233,\n  \"updatedAt\": 1692972623768\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7a7cf408-6dcb-4f7c-bf61-e2fefa794f0a",
+              "name": "The request was invalid or cannot be otherwise served.\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payments",
+                    "3ds-sessions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"merchant\": {\n    \"name\": \"Ollivanders Wand Shop\",\n    \"website\": \"https://www.ollivanders.co.uk\",\n    \"categoryCode\": \"5945\",\n    \"country\": \"gb\"\n  },\n  \"card\": {\n    \"number\": \"4242424242424242\",\n    \"expiry\": {\n      \"month\": 9,\n      \"year\": \"26\"\n    }\n  },\n  \"payment\": {\n    \"type\": \"one-off\",\n    \"amount\": 1000,\n    \"currency\": \"eur\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"payments/3ds-sessions/short-name-required\",\n  \"title\": \"Short Name Required\",\n  \"detail\": \"Merchant merchant_eead1d640d7c's name is 50 characters, which exceeds the 3DS 40-character limit. Set a `shortName` on the merchant to use it for 3DS sessions.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9d44991c-0ac9-4d53-aee6-bdc76b6c3086",
+          "name": "Retrieve a 3DS Session",
+          "request": {
+            "name": "Retrieve a 3DS Session",
+            "description": {
+              "content": "Retrieve a 3DS Session.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "payments",
+                "3ds-sessions",
+                ":3ds_session_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "3ds_session_id",
+                  "description": "(Required) The id of the session"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "ee93659e-4e27-4543-9d45-c89f172b1930",
+              "name": "Returns a 3DS Session object.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payments",
+                    "3ds-sessions",
+                    ":3ds_session_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "3ds_session_id",
+                      "description": "(Required) The id of the session"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"tds_57aa862f8bf7\",\n  \"merchant\": {\n    \"name\": \"Ollivanders Wand Shop\",\n    \"website\": \"https://www.ollivanders.co.uk\",\n    \"categoryCode\": \"5945\",\n    \"country\": \"gb\"\n  },\n  \"card\": {\n    \"lastFour\": \"4242\",\n    \"expiry\": {\n      \"month\": 9,\n      \"year\": \"26\"\n    },\n    \"brand\": \"visa\",\n    \"funding\": \"debit\",\n    \"segment\": \"consumer\",\n    \"country\": \"gb\",\n    \"currency\": \"gbp\"\n  },\n  \"initiator\": {\n    \"type\": \"customer\"\n  },\n  \"challenge\": {\n    \"preference\": \"no-preference\",\n    \"reason\": null\n  },\n  \"acquirer\": {\n    \"bin\": \"567834\",\n    \"merchantIdentifier\": \"530249576123943\",\n    \"country\": \"gb\"\n  },\n  \"payment\": {\n    \"type\": \"one-off\",\n    \"amount\": 1000,\n    \"currency\": \"eur\"\n  },\n  \"version\": \"2.2.0\",\n  \"status\": \"action-required\",\n  \"nextAction\": {\n    \"type\": \"use-sdk\"\n  },\n  \"threeDSServer\": {\n    \"transactionIdentifier\": \"a623edc1-54bc-455d-9dea-c909783a37c3\"\n  },\n  \"createdAt\": 1692972623233,\n  \"updatedAt\": 1692972623768\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f511bdc9-8b1a-4933-bed8-f094bacf0afe",
+          "name": "Retrieve 3DS Messages",
+          "request": {
+            "name": "Retrieve 3DS Messages",
+            "description": {
+              "content": "Retrieve messages for a 3DS Session. This endpoint can be helpful for debugging 3DS sessions, providing insight into the raw 3DS messages that were exchanged between the 3DS Server and the Directory Server.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "payments",
+                "3ds-sessions",
+                ":3ds_session_id",
+                "messages"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "3ds_session_id",
+                  "description": "(Required) The id of the 3DS session"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "78802c61-89fa-4973-9894-298ef893d9eb",
+              "name": "Returns 3DS messages for the session.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payments",
+                    "3ds-sessions",
+                    ":3ds_session_id",
+                    "messages"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "3ds_session_id",
+                      "description": "(Required) The id of the 3DS session"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"messages\": [\n    {\n      \"type\": \"AReq\",\n      \"created_at\": 1751039450228,\n      \"data\": {\n        \"type\": \"AReq\",\n        \"threeDSCompInd\": \"N\",\n        \"threeDSRequestorAuthenticationInd\": \"01\",\n        \"threeDSRequestorChallengeInd\": \"82\",\n        \"threeDSRequestorID\": \"10085939*Example\",\n        \"threeDSRequestorName\": \"Example 3DSS_Merchant\",\n        \"threeDSRequestorURL\": \"https://example.com/\",\n        \"threeDSServerRefNumber\": \"EXAMPLE_3DS_REF_NUMBER\",\n        \"threeDSServerOperatorID\": \"10085939\",\n        \"threeDSServerTransID\": \"274af11d-2f5a-4050-b70e-8eda1e76f782\",\n        \"threeDSServerURL\": \"https://example.3ds.com/result\",\n        \"acctType\": \"03\",\n        \"acquirerBIN\": \"123456\",\n        \"acquirerMerchantID\": \"123456789012\",\n        \"browserAcceptHeader\": \"*/*\",\n        \"browserIP\": \"192.168.1.1\",\n        \"browserJavaEnabled\": false,\n        \"browserJavascriptEnabled\": true,\n        \"browserLanguage\": \"en-GB\",\n        \"browserColorDepth\": \"24\",\n        \"browserScreenHeight\": \"1080\",\n        \"browserScreenWidth\": \"1920\",\n        \"browserTZ\": \"0\",\n        \"browserUserAgent\": \"Mozilla/5.0 (Example Browser)\",\n        \"cardExpiryDate\": \"2712\",\n        \"acctNumber\": \"************1234\",\n        \"deviceChannel\": \"02\",\n        \"mcc\": \"1234\",\n        \"merchantCountryCode\": \"372\",\n        \"merchantName\": \"Example Merchant\",\n        \"messageCategory\": \"01\",\n        \"notificationURL\": \"https://example.3ds.com/notification\",\n        \"purchaseAmount\": \"100000\",\n        \"purchaseCurrency\": \"978\",\n        \"purchaseExponent\": \"2\",\n        \"purchaseDate\": \"20250627155050\",\n        \"transType\": \"01\"\n      }\n    },\n    {\n      \"type\": \"ARes\",\n      \"created_at\": 1751039450626,\n      \"data\": {\n        \"type\": \"ARes\",\n        \"threeDSServerTransID\": \"274af11d-2f5a-4050-b70e-8eda1e76f782\",\n        \"acsChallengeMandated\": \"Y\",\n        \"acsOperatorID\": \"123456789\",\n        \"acsReferenceNumber\": \"EXAMPLE_ACS_REF_NUMBER\",\n        \"acsTransID\": \"123456789012\",\n        \"acsURL\": \"https://example.3ds.com/creq\",\n        \"authenticationType\": \"02\",\n        \"dsReferenceNumber\": \"EXAMPLE_DS_REF_NUMBER\",\n        \"dsTransID\": \"4912cee8-3c89-4504-ac5b-0b2a3ef9489d\",\n        \"transStatus\": \"Y\",\n        \"eci\": \"05\"\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.evervault.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "e3146113-3109-432f-9845-6dc7cd5b63c9",
+    "name": "Evervault 3D Secure API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Evervault API allows developers to interact programmatically with their Evervault apps using HTTP requests.\n\nContact Support:\n Name: Evervault Support Team\n Email: support@evervault.com",
+      "type": "text/plain"
+    }
+  }
+}

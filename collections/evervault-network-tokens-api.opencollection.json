@@ -1,0 +1,162 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Evervault Network Tokens API",
+    "version": "0.0.1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Network Tokens",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create a Network Token",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.evervault.com/payments/network-tokens",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Create a Network Token for a given card.\n"
+        },
+        {
+          "info": {
+            "name": "Retrieve a Network Token",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.evervault.com/payments/network-tokens/:network_token_id",
+            "params": [
+              {
+                "name": "network_token_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the Network Token."
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Retrieves a Network Token by its unique identifier.\n"
+        },
+        {
+          "info": {
+            "name": "Delete a Network Token",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.evervault.com/payments/network-tokens/:network_token_id",
+            "params": [
+              {
+                "name": "network_token_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the Network Token."
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Deletes a Network Token by its unique identifier.\n"
+        },
+        {
+          "info": {
+            "name": "Create a Cryptogram",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.evervault.com/payments/network-tokens/:network_token_id/cryptograms",
+            "params": [
+              {
+                "name": "network_token_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the Network Token."
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Creates a Network Token Cryptogram.\n"
+        },
+        {
+          "info": {
+            "name": "Simulate a Network Token Update",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.evervault.com/payments/network-tokens/:network_token_id/simulate",
+            "params": [
+              {
+                "name": "network_token_id",
+                "value": "",
+                "type": "path",
+                "description": "The id of the Network Token"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Simulates an update to a Network Token so that you can test your integration. Sandbox only.\n"
+        },
+        {
+          "info": {
+            "name": "Retrieve Card Art",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.evervault.com/payments/network-tokens/:network_token_id/card-art",
+            "params": [
+              {
+                "name": "network_token_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the Network Token."
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Retrieves the card art for a Network Token by its unique identifier.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

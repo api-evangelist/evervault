@@ -1,0 +1,46 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Evervault Functions API",
+    "version": "0.0.1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Functions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Run a Function",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.evervault.com/functions/:function_name/runs",
+            "params": [
+              {
+                "name": "function_name",
+                "value": "",
+                "type": "path",
+                "description": "The name of the Function to be executed."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "The Function run endpoint lets you invoke an [Evervault Function](/primitives/functions). The body of the request should contain a payload, the value of which will be decrypted and passed as an argument to the Function.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

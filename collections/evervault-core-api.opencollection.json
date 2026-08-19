@@ -1,0 +1,350 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Evervault Core API",
+    "version": "0.0.1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Core",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Encrypt",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.evervault.com/encrypt",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "The encrypt endpoint can be used to encrypt the values of a JSON object, or file. When encrypting the values of a JSON object the `Content-Type` header should be set to `application/json`, when encrypting files it should be set to `application/octet-stream`.\n"
+        },
+        {
+          "info": {
+            "name": "Decrypt",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.evervault.com/decrypt",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "The decrypt endpoint can be used to decrypt the values of a JSON object, or file. When decrypting the values of a JSON object the `Content-Type` header should be set to `application/json`, when decrypting files it should be set to `application/octet-stream`.\n"
+        },
+        {
+          "info": {
+            "name": "Inspect",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.evervault.com/inspect",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Retrieve metadata for an encrypted value such as the time of encryption,\nthe type of data, the data role and category-specific metadata (e.g. card metadata)\nwithout accessing the plaintext value.\n"
+        },
+        {
+          "info": {
+            "name": "Run a Function",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.evervault.com/functions/:function_name/runs",
+            "params": [
+              {
+                "name": "function_name",
+                "value": "",
+                "type": "path",
+                "description": "The name of the Function to be executed."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "The Function run endpoint lets you invoke an [Evervault Function](/primitives/functions). The body of the request should contain a payload, the value of which will be decrypted and passed as an argument to the Function.\n"
+        },
+        {
+          "info": {
+            "name": "Create a Client Token",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.evervault.com/client-side-tokens",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Client-Side Tokens are restricted to specific payloads. By default, a Client-Side Token will expire after 5 minutes. The maximum expiration time of a token is 10 minutes. When using the REST API, the expiry field must be in epoch milliseconds.\n"
+        },
+        {
+          "info": {
+            "name": "List all Relays",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.evervault.com/relays",
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Lists all [Relays](/relay) for the App."
+        },
+        {
+          "info": {
+            "name": "Create a Relay",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.evervault.com/relays",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Creates a new [Relay](/relay)."
+        },
+        {
+          "info": {
+            "name": "Retrieve a Relay",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.evervault.com/relays/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The id of the Relay to be fetched."
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Retrieves a [Relay](/relay) by its ID."
+        },
+        {
+          "info": {
+            "name": "Updates a Relay",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.evervault.com/relays/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The id of the Relay to be updated."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Updates a [Relay](/relay). Any properties not provided are left unchanged."
+        },
+        {
+          "info": {
+            "name": "Delete a Relay",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.evervault.com/relays/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The id of the Relay to be deleted."
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Deletes a [Relay](/relay). This action cannot be undone and the Relay domain will no longer forward requests to its destination domain."
+        },
+        {
+          "info": {
+            "name": "List all Custom Domains",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.evervault.com/relays/:relay_id/custom-domains",
+            "params": [
+              {
+                "name": "relay_id",
+                "value": "",
+                "type": "path",
+                "description": "The id of the Relay whose custom domains should be fetched."
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Lists all custom domains for a [Relay](/relay)."
+        },
+        {
+          "info": {
+            "name": "Create a Custom Domain",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.evervault.com/relays/:relay_id/custom-domains",
+            "params": [
+              {
+                "name": "relay_id",
+                "value": "",
+                "type": "path",
+                "description": "The id of the Relay to which the custom domain should be added."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Creates a custom domain for the Relay"
+        },
+        {
+          "info": {
+            "name": "Retrieve a Custom Domain",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.evervault.com/relays/:relay_id/custom-domains/:id",
+            "params": [
+              {
+                "name": "relay_id",
+                "value": "",
+                "type": "path",
+                "description": "The id of the Relay to which the custom domain belongs."
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The id of the custom domain to be fetched."
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Retrieves a custom domain for a [Relay](/relay)."
+        },
+        {
+          "info": {
+            "name": "Delete a Custom Domain",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.evervault.com/relays/:relay_id/custom-domains/:id",
+            "params": [
+              {
+                "name": "relay_id",
+                "value": "",
+                "type": "path",
+                "description": "The id of the Relay to which the custom domain belongs."
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The id of the custom domain to be deleted."
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Deletes a custom domain for a [Relay](/relay). This action cannot be undone."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

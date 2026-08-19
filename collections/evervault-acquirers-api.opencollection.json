@@ -1,0 +1,144 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Evervault Acquirers API",
+    "version": "0.0.1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Acquirers",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Acquirers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.evervault.com/payments/acquirers",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "The page number to retrieve."
+              },
+              {
+                "name": "pageSize",
+                "value": "",
+                "type": "query",
+                "description": "The number of Acquirers to retrieve per page. The default is 50, which is also the maximum."
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Lists all Acquirers that have been created.\n"
+        },
+        {
+          "info": {
+            "name": "Create an Acquirer",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.evervault.com/payments/acquirers",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Creates an Acquirer to be used with 3DS sessions.\n"
+        },
+        {
+          "info": {
+            "name": "Retrieve an Acquirer",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.evervault.com/payments/acquirers/:acquirer_id",
+            "params": [
+              {
+                "name": "acquirer_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the Acquirer."
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Retrieves an Acquirer by its unique identifier.\n"
+        },
+        {
+          "info": {
+            "name": "Update an Acquirer",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.evervault.com/payments/acquirers/:acquirer_id",
+            "params": [
+              {
+                "name": "acquirer_id",
+                "value": "",
+                "type": "path",
+                "description": "The id of the Acquirer to be updated."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Updates an Acquirer by its unique identifier.\n"
+        },
+        {
+          "info": {
+            "name": "Delete an Acquirer",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.evervault.com/payments/acquirers/:acquirer_id",
+            "params": [
+              {
+                "name": "acquirer_id",
+                "value": "",
+                "type": "path",
+                "description": "The id of the Acquirer to be deleted."
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Deletes an Acquirer by its unique identifier.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

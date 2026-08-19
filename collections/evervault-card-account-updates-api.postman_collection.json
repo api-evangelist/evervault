@@ -1,0 +1,550 @@
+{
+  "item": [
+    {
+      "id": "7a614cc0-3782-4f75-ad1f-63581a27f71b",
+      "name": "Card Account Updates",
+      "description": {
+        "content": "If your account has access to [Card Account Updater](/cards/card-account-updater) you can use the Card Account Updater API to register cards for automatic updates. If an update is available for a card, the `replacement` field will be populated with the identifier of the new card.\n",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "586eb0ca-1d72-42c9-a4d6-688ad21e66a7",
+          "name": "Register a Card",
+          "request": {
+            "name": "Register a Card",
+            "description": {
+              "content": "When registering a card, you can provide either an Evervault encrypted card number or a plaintext card number. If you provide a plaintext card number it will be encrypted and the encrypted value will be returned in the response.\n\nCard registration is idempotent on card number. Registering the same card number a second time returns the existing Card object, rather than creating a new one. This means you can use the Card object `id` as a unique identifier. If you register an existing card number but with a different expiry date, the existing Card object is updated with the new date, and Evervault returns a `200 OK` response. A `201 Created` response indicates that a new Card object was created.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "payments",
+                "cards"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"number\": \"<string>\",\n  \"expiry\": {\n    \"month\": \"<string>\",\n    \"year\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "84ee1eee-70d3-4566-94b5-e6cc5e8c8dba",
+              "name": "Returns an existing Card object. If the card number is already registered but with a different expiry date, the date is updated to the value in the request before the Card object is returned.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payments",
+                    "cards"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"number\": \"ev:debug:Tk9D:number:nTepvAI585M7lUVp:AkJ6Brzat0E7ui8DSKCSXO7AopU/+GFuBekQ6cGx7eTl:sfihK53itmHp+URxomnTITUpwQwM5nnRrnQ0qdIOUlA=:$\",\n  \"expiry\": {\n    \"month\": 9,\n    \"year\": \"26\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"card_eead1d640d7c\",\n  \"number\": \"ev:debug:Tk9D:number:nTepvAI585M7lUVp:AkJ6Brzat0E7ui8DSKCSXO7AopU/+GFuBekQ6cGx7eTl:sfihK53itmHp+URxomnTITUpwQwM5nnRrnQ0qdIOUlA=:$\",\n  \"expiry\": {\n    \"month\": 9,\n    \"year\": \"26\"\n  },\n  \"bin\": \"424242\",\n  \"lastFour\": \"4242\",\n  \"brand\": \"visa\",\n  \"funding\": \"credit\",\n  \"segment\": \"consumer\",\n  \"country\": \"gb\",\n  \"currency\": \"gbp\",\n  \"issuer\": \"Gringotts Wizarding Bank and Trust Company\",\n  \"status\": \"active\",\n  \"replacement\": null,\n  \"automaticUpdates\": \"enabled\",\n  \"createdAt\": 169297262323,\n  \"updatedAt\": null\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4c7358a6-95ae-4df6-9495-37576e10a889",
+              "name": "Returns a new Card object.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payments",
+                    "cards"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"number\": \"ev:debug:Tk9D:number:nTepvAI585M7lUVp:AkJ6Brzat0E7ui8DSKCSXO7AopU/+GFuBekQ6cGx7eTl:sfihK53itmHp+URxomnTITUpwQwM5nnRrnQ0qdIOUlA=:$\",\n  \"expiry\": {\n    \"month\": 9,\n    \"year\": \"26\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"card_eead1d640d7c\",\n  \"number\": \"ev:debug:Tk9D:number:nTepvAI585M7lUVp:AkJ6Brzat0E7ui8DSKCSXO7AopU/+GFuBekQ6cGx7eTl:sfihK53itmHp+URxomnTITUpwQwM5nnRrnQ0qdIOUlA=:$\",\n  \"expiry\": {\n    \"month\": 9,\n    \"year\": \"26\"\n  },\n  \"bin\": \"424242\",\n  \"lastFour\": \"4242\",\n  \"brand\": \"visa\",\n  \"funding\": \"credit\",\n  \"segment\": \"consumer\",\n  \"country\": \"gb\",\n  \"currency\": \"gbp\",\n  \"issuer\": \"Gringotts Wizarding Bank and Trust Company\",\n  \"status\": \"active\",\n  \"replacement\": null,\n  \"automaticUpdates\": \"enabled\",\n  \"createdAt\": 169297262323,\n  \"updatedAt\": null\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b793596c-bfba-4c14-9ea7-3f0ceb2cc433",
+          "name": "Retrieve a Card",
+          "request": {
+            "name": "Retrieve a Card",
+            "description": {
+              "content": "Retrieves a Card by its unique identifier.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "payments",
+                "cards",
+                ":card_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "card_id",
+                  "description": "(Required) The unique identifier of the Card."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "8798c5b0-1af9-4022-9c8e-4c7f50721185",
+              "name": "Returns an existing Card object.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payments",
+                    "cards",
+                    ":card_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "card_id",
+                      "description": "(Required) The unique identifier of the Card."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"card_eead1d640d7c\",\n  \"number\": \"ev:debug:Tk9D:number:nTepvAI585M7lUVp:AkJ6Brzat0E7ui8DSKCSXO7AopU/+GFuBekQ6cGx7eTl:sfihK53itmHp+URxomnTITUpwQwM5nnRrnQ0qdIOUlA=:$\",\n  \"expiry\": {\n    \"month\": 9,\n    \"year\": \"26\"\n  },\n  \"bin\": \"424242\",\n  \"lastFour\": \"4242\",\n  \"brand\": \"visa\",\n  \"funding\": \"credit\",\n  \"segment\": \"consumer\",\n  \"country\": \"gb\",\n  \"currency\": \"gbp\",\n  \"issuer\": \"Gringotts Wizarding Bank and Trust Company\",\n  \"status\": \"active\",\n  \"replacement\": null,\n  \"automaticUpdates\": \"enabled\",\n  \"createdAt\": 169297262323,\n  \"updatedAt\": null\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b206cb2f-61ee-4f0d-825b-765d53d88a31",
+          "name": "Delete a Card",
+          "request": {
+            "name": "Delete a Card",
+            "description": {
+              "content": "Deletes a Card by its unique identifier.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "payments",
+                "cards",
+                ":card_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "card_id",
+                  "description": "(Required) The unique identifier of the Card."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "4af3124a-9af9-47cf-bd6d-513a5cfae13f",
+              "name": "Deletes a Card object.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payments",
+                    "cards",
+                    ":card_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "card_id",
+                      "description": "(Required) The unique identifier of the Card."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b8ad0a5e-ef15-41ef-b405-e0c4c62fcd04",
+          "name": "Simulate a Card Update",
+          "request": {
+            "name": "Simulate a Card Update",
+            "description": {
+              "content": "Simulates an update to a Card so that you can test your Card Account Updater integration. This endpoint is only available for [Sandbox Apps](/developers/sandbox).\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "payments",
+                "cards",
+                ":card_id",
+                "simulate"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "card_id",
+                  "description": "(Required) The id of the Card"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"updateType\": \"<string>\",\n  \"expiry\": {\n    \"month\": \"<string>\",\n    \"year\": \"<string>\"\n  },\n  \"number\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "578e48e7-32ce-42c0-a732-a703e8e08777",
+              "name": "Returns the updated Card object.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payments",
+                    "cards",
+                    ":card_id",
+                    "simulate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "card_id",
+                      "description": "(Required) The id of the Card"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"updateType\": \"new-account-number\",\n  \"number\": \"4242424242424242\",\n  \"expiry\": {\n    \"month\": 9,\n    \"year\": \"26\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"card_eead1d640d7c\",\n  \"number\": \"ev:debug:Tk9D:number:nTepvAI585M7lUVp:AkJ6Brzat0E7ui8DSKCSXO7AopU/+GFuBekQ6cGx7eTl:sfihK53itmHp+URxomnTITUpwQwM5nnRrnQ0qdIOUlA=:$\",\n  \"expiry\": {\n    \"month\": 9,\n    \"year\": \"26\"\n  },\n  \"bin\": \"424242\",\n  \"lastFour\": \"4242\",\n  \"brand\": \"visa\",\n  \"funding\": \"credit\",\n  \"segment\": \"consumer\",\n  \"country\": \"gb\",\n  \"currency\": \"gbp\",\n  \"issuer\": \"Gringotts Wizarding Bank and Trust Company\",\n  \"status\": \"replaced\",\n  \"replacement\": \"card_eead1d640d7c\",\n  \"automaticUpdates\": \"enabled\",\n  \"createdAt\": 169297262323,\n  \"updatedAt\": 169297262376\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.evervault.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "ccc6957f-b1c8-48b9-999f-853978a2e9cb",
+    "name": "Evervault Card Account Updates API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Evervault API allows developers to interact programmatically with their Evervault apps using HTTP requests.\n\nContact Support:\n Name: Evervault Support Team\n Email: support@evervault.com",
+      "type": "text/plain"
+    }
+  }
+}

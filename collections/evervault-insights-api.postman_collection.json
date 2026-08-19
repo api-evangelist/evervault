@@ -1,0 +1,258 @@
+{
+  "item": [
+    {
+      "id": "0b950273-4b06-457c-9f16-010bb0695d90",
+      "name": "Insights",
+      "description": {
+        "content": "The Evervault API provides several endpoints which can be used to retrieve additional information for cards and bin ranges. This can be used for tasks such as fraud detection and payment routing.\n",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "c5a4515c-5fbd-4799-be7c-b19d12aacd12",
+          "name": "Card Insights",
+          "request": {
+            "name": "Card Insights",
+            "description": {
+              "content": "The Card Insights API allows you to perform address verification (AVS), name verification (ANI), and CVV verification checks. You can also check the card's push and pull transaction capabilities.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "insights",
+                "cards"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"card\": {\n    \"number\": \"<string>\",\n    \"expiry\": {\n      \"month\": \"<string>\",\n      \"year\": \"<string>\"\n    },\n    \"cvv\": \"<string>\"\n  },\n  \"extensions\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"cardholder\": {\n    \"firstName\": \"<string>\",\n    \"lastName\": \"<string>\"\n  },\n  \"address\": {\n    \"postalCode\": \"<string>\",\n    \"line1\": \"<string>\",\n    \"line2\": \"<string>\",\n    \"city\": \"<string>\",\n    \"state\": \"<iso-3166-2-subdivision>\",\n    \"country\": \"<iso-3166-1-alpha-2>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d2dfb95b-109e-4001-9781-9296e9c8a371",
+              "name": "Returns the Card Insight object",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "insights",
+                    "cards"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"card\": {\n    \"number\": \"4111111111111111\",\n    \"expiry\": {\n      \"month\": 9,\n      \"year\": \"29\"\n    },\n    \"cvv\": \"123\"\n  },\n  \"extensions\": [\n    \"capabilities\",\n    \"cvv\",\n    \"address\",\n    \"cardholder\"\n  ],\n  \"cardholder\": {\n    \"firstName\": \"John\",\n    \"lastName\": \"Doe\"\n  },\n  \"address\": {\n    \"postalCode\": \"10001\",\n    \"line1\": \"123 Main Street\",\n    \"line2\": \"Apt 4B\",\n    \"city\": \"New York\",\n    \"state\": \"ny\",\n    \"country\": \"us\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"card_insight_1234567890\",\n  \"fingerprint\": \"WUlcOAgQcTN1GEUaoaKrLH1wL2PZrjsUS7byUGZyUEA\",\n  \"bin\": {\n    \"brand\": \"visa\",\n    \"funding\": \"credit\",\n    \"segment\": \"consumer\",\n    \"country\": \"us\",\n    \"currency\": \"usd\",\n    \"issuer\": \"Gringotts Wizarding Bank and Trust Company\",\n    \"productName\": \"Visa Credit\",\n    \"fastFunds\": {\n      \"domestic\": true,\n      \"crossBorder\": true\n    },\n    \"threeDS\": {\n      \"supportedVersions\": {\n        \"accessControlServer\": [\n          \"2.2.0\"\n        ],\n        \"directoryServer\": [\n          \"2.2.0\",\n          \"2.3.1\"\n        ]\n      },\n      \"acsInfoIndicators\": [\n        {\n          \"code\": \"acs-auth-available\",\n          \"indicator\": \"01\",\n          \"description\": \"Authentication Available at ACS\"\n        }\n      ]\n    },\n    \"type\": \"card\"\n  },\n  \"capabilities\": {\n    \"push\": {\n      \"enabled\": true,\n      \"network\": \"visa\",\n      \"type\": \"credit\",\n      \"availability\": \"immediate\",\n      \"regulated\": true,\n      \"currency\": {\n        \"alphaCode\": \"usd\",\n        \"numericCode\": \"840\"\n      },\n      \"country\": {\n        \"alphaCode\": \"us\",\n        \"numericCode\": \"840\"\n      }\n    },\n    \"pull\": {\n      \"enabled\": true,\n      \"network\": \"visa\",\n      \"type\": \"credit\",\n      \"regulated\": true,\n      \"currency\": {\n        \"alphaCode\": \"usd\",\n        \"numericCode\": \"840\"\n      },\n      \"country\": {\n        \"alphaCode\": \"us\",\n        \"numericCode\": \"840\"\n      }\n    }\n  },\n  \"fees\": null,\n  \"cvv\": {\n    \"code\": \"match\",\n    \"value\": \"M\"\n  },\n  \"address\": {\n    \"avsIdentifier\": \"aBcdeFGhIJKlmnoPqR\",\n    \"networkIdentifier\": \"1234567890\",\n    \"networkResponseCode\": {\n      \"value\": \"85\"\n    },\n    \"result\": {\n      \"value\": \"Y\",\n      \"address\": \"match\",\n      \"zip\": \"match\"\n    }\n  },\n  \"cardholder\": {\n    \"result\": {\n      \"value\": \"M\",\n      \"code\": \"match-performed\"\n    },\n    \"fullName\": {\n      \"value\": \"M\",\n      \"code\": \"match\"\n    },\n    \"firstName\": {\n      \"value\": \"M\",\n      \"code\": \"match\"\n    },\n    \"lastName\": {\n      \"value\": \"M\",\n      \"code\": \"match\"\n    }\n  },\n  \"paymentAccountReference\": \"V0010011111111111111111111111\",\n  \"createdAt\": 169297262323\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "665a09fc-3368-4947-ace9-4f520f756ab3",
+          "name": "BIN Lookup",
+          "request": {
+            "name": "BIN Lookup",
+            "description": {
+              "content": "Performs a BIN lookup for the provided card number and retrieves associated information such as the card brand, country, issuer, and more.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "payments",
+                "bin-lookups"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"number\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "8c64ad74-25a3-4fe2-a5c0-a7560fe37515",
+              "name": "Returns BIN details for the provided card number.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payments",
+                    "bin-lookups"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"number\": \"4242424242424242\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"bin_lookup_1234567890\",\n  \"brand\": \"visa\",\n  \"funding\": \"credit\",\n  \"segment\": \"consumer\",\n  \"country\": \"gb\",\n  \"currency\": \"gbp\",\n  \"issuer\": \"Gringotts Wizarding Bank and Trust Company\",\n  \"productName\": \"Visa Debit\",\n  \"fastFunds\": {\n    \"domestic\": true,\n    \"crossBorder\": true\n  },\n  \"threeDS\": {\n    \"supportedVersions\": {\n      \"accessControlServer\": [\n        \"2.2.0\"\n      ],\n      \"directoryServer\": [\n        \"2.2.0\",\n        \"2.3.1\"\n      ]\n    },\n    \"acsInfoIndicators\": [\n      {\n        \"code\": \"acs-auth-available\",\n        \"indicator\": \"01\",\n        \"description\": \"Authentication Available at ACS\"\n      }\n    ]\n  },\n  \"type\": \"card\",\n  \"createdAt\": 169297262323\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.evervault.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "67f8fd1f-6a20-4210-9203-b8c776a56c38",
+    "name": "Evervault Insights API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Evervault API allows developers to interact programmatically with their Evervault apps using HTTP requests.\n\nContact Support:\n Name: Evervault Support Team\n Email: support@evervault.com",
+      "type": "text/plain"
+    }
+  }
+}

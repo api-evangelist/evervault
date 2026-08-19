@@ -1,0 +1,610 @@
+{
+  "item": [
+    {
+      "id": "efb422e2-be2c-441b-a10a-c4100d863bc0",
+      "name": "Merchants",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "df56025a-cc92-450d-9994-65639ee695c0",
+          "name": "Create a Merchant",
+          "request": {
+            "name": "Create a Merchant",
+            "description": {
+              "content": "Enrolls a Merchant with Card Networks.\n\nIn rare cases it can take up to 48 hours to enroll a merchant with each of the card networks. If you are still unable to provision network tokens after this period, please contact support@evervault.com\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "payments",
+                "merchants"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"website\": \"<string>\",\n  \"categoryCode\": \"<string>\",\n  \"business\": {\n    \"legalName\": \"<string>\",\n    \"address\": {\n      \"line1\": \"<string>\",\n      \"city\": \"<string>\",\n      \"postalCode\": \"<string>\",\n      \"country\": \"<iso-3166-1-alpha-2>\",\n      \"line2\": \"<string>\",\n      \"state\": \"<iso-3166-2-subdivision>\"\n    }\n  },\n  \"shortName\": \"<string>\",\n  \"networkTokens\": {\n    \"enrolment\": [\n      {\n        \"cardBrand\": \"<string>\",\n        \"tokenRequestorIdentifier\": \"<string,null>\"\n      },\n      {\n        \"cardBrand\": \"<string>\",\n        \"tokenRequestorIdentifier\": \"<string,null>\"\n      }\n    ]\n  },\n  \"applePay\": {\n    \"domains\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b2a2ccc1-4c3b-475c-b7cf-91f7542e47db",
+              "name": "Returns a Merchant object.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payments",
+                    "merchants"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Ollivanders Wand Shop\",\n  \"website\": \"https://www.ollivanders.co.uk\",\n  \"categoryCode\": \"5945\",\n  \"business\": {\n    \"legalName\": \"Ollivanders Wand Shop Ltd\",\n    \"address\": {\n      \"line1\": \"Diagon Alley\",\n      \"city\": \"London\",\n      \"postalCode\": \"WD1 1AA\",\n      \"country\": \"gb\"\n    }\n  },\n  \"applePay\": {\n    \"domains\": [\n      \"ollivanders.co.uk\"\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"merchant_eead1d640d7c\",\n  \"name\": \"Ollivanders Wand Shop\",\n  \"website\": \"https://www.ollivanders.co.uk\",\n  \"categoryCode\": \"5945\",\n  \"business\": {\n    \"legalName\": \"Ollivanders Wand Shop Ltd\",\n    \"address\": {\n      \"line1\": \"Diagon Alley\",\n      \"city\": \"London\",\n      \"postalCode\": \"WD1 1AA\",\n      \"country\": \"gb\"\n    }\n  },\n  \"networkTokens\": {\n    \"enrolment\": [\n      {\n        \"cardBrand\": \"mastercard\",\n        \"tokenRequestorIdentifier\": \"50165156978\",\n        \"status\": \"active\"\n      },\n      {\n        \"cardBrand\": \"visa\",\n        \"tokenRequestorIdentifier\": \"40238123804\",\n        \"status\": \"active\"\n      },\n      {\n        \"cardBrand\": \"american-express\",\n        \"tokenRequestorIdentifier\": null,\n        \"status\": \"inactive\"\n      }\n    ]\n  },\n  \"applePay\": {\n    \"domains\": [\n      {\n        \"domain\": \"ollivanders.co.uk\",\n        \"status\": \"pending\"\n      }\n    ]\n  },\n  \"createdAt\": 1692972623233,\n  \"updatedAt\": 1692972623768\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f72a57b7-df13-47cb-ae27-f06c3c20734d",
+          "name": "List Merchants",
+          "request": {
+            "name": "List Merchants",
+            "description": {
+              "content": "Lists all Merchants that have been created.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "payments",
+                "merchants"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "0",
+                  "description": "The page number to retrieve."
+                },
+                {
+                  "disabled": false,
+                  "key": "pageSize",
+                  "value": "50",
+                  "description": "The number of Merchants to retrieve per page (default is 50)."
+                },
+                {
+                  "disabled": false,
+                  "key": "q",
+                  "value": "<string>",
+                  "description": "Filter the Merchants by name."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "31f7aa44-2828-42aa-9211-7b392c43c448",
+              "name": "Returns a list of Merchant objects.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payments",
+                    "merchants"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "0"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "50"
+                    },
+                    {
+                      "key": "q",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"merchant_eead1d640d7c\",\n      \"name\": \"Ollivanders Wand Shop\",\n      \"website\": \"https://www.ollivanders.co.uk\",\n      \"categoryCode\": \"5945\",\n      \"business\": {\n        \"legalName\": \"Ollivanders Wand Shop Ltd\",\n        \"address\": {\n          \"line1\": \"Diagon Alley\",\n          \"city\": \"London\",\n          \"postalCode\": \"WD1 1AA\",\n          \"country\": \"gb\"\n        }\n      },\n      \"networkTokens\": {\n        \"enrolment\": [\n          {\n            \"cardBrand\": \"mastercard\",\n            \"tokenRequestorIdentifier\": \"50165156978\",\n            \"status\": \"active\"\n          },\n          {\n            \"cardBrand\": \"visa\",\n            \"tokenRequestorIdentifier\": \"40238123804\",\n            \"status\": \"active\"\n          },\n          {\n            \"cardBrand\": \"american-express\",\n            \"tokenRequestorIdentifier\": null,\n            \"status\": \"inactive\"\n          }\n        ]\n      },\n      \"createdAt\": 1692972623233,\n      \"updatedAt\": 1692972623768\n    }\n  ],\n  \"pageSize\": 50,\n  \"nextPage\": null,\n  \"total\": 1\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "38af9aec-de90-4872-b4c9-1d08a064d50c",
+          "name": "Retrieve a Merchant",
+          "request": {
+            "name": "Retrieve a Merchant",
+            "description": {
+              "content": "Retrieves a Merchant by its unique identifier.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "payments",
+                "merchants",
+                ":merchant_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "merchant_id",
+                  "description": "(Required) The unique identifier of the merchant."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "e89804c9-484f-4ce2-8ee6-22e330cbdbf2",
+              "name": "Returns a Merchant object.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payments",
+                    "merchants",
+                    ":merchant_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "merchant_id",
+                      "description": "(Required) The unique identifier of the merchant."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"merchant_eead1d640d7c\",\n  \"name\": \"Ollivanders Wand Shop\",\n  \"website\": \"https://www.ollivanders.co.uk\",\n  \"categoryCode\": \"5945\",\n  \"business\": {\n    \"legalName\": \"Ollivanders Wand Shop Ltd.\",\n    \"address\": {\n      \"line1\": \"Diagon Alley\",\n      \"city\": \"London\",\n      \"postalCode\": \"WD1 1AA\",\n      \"country\": \"gb\"\n    }\n  },\n  \"networkTokens\": {\n    \"enrolment\": [\n      {\n        \"cardBrand\": \"mastercard\",\n        \"tokenRequestorIdentifier\": \"50165156978\",\n        \"status\": \"active\"\n      },\n      {\n        \"cardBrand\": \"visa\",\n        \"tokenRequestorIdentifier\": \"40238123804\",\n        \"status\": \"active\"\n      },\n      {\n        \"cardBrand\": \"american-express\",\n        \"tokenRequestorIdentifier\": null,\n        \"status\": \"inactive\"\n      }\n    ]\n  },\n  \"applePay\": {\n    \"domains\": [\n      {\n        \"domain\": \"ollivanders.co.uk\",\n        \"status\": \"active\"\n      }\n    ]\n  },\n  \"createdAt\": 1692972623233,\n  \"updatedAt\": 1692972623768\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2c348ee1-eb9a-4270-8be8-b69f32aa497d",
+          "name": "Update a Merchant",
+          "request": {
+            "name": "Update a Merchant",
+            "description": {
+              "content": "Updates a Merchant by its unique identifier.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "payments",
+                "merchants",
+                ":merchant_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "merchant_id",
+                  "description": "(Required) The id of the Merchant to be updated."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"shortName\": \"<string>\",\n  \"applePay\": {\n    \"domains\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "883a1f90-0433-4b08-a50a-16dc1454ce9d",
+              "name": "Returns the updated Merchant object.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payments",
+                    "merchants",
+                    ":merchant_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "merchant_id",
+                      "description": "(Required) The id of the Merchant to be updated."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"shortName\": \"Ollivanders\",\n  \"applePay\": {\n    \"domains\": [\n      \"ollivanders.co.uk\"\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"merchant_eead1d640d7c\",\n  \"name\": \"Ollivanders Wand Shop\",\n  \"shortName\": \"Ollivanders\",\n  \"website\": \"https://www.ollivanders.co.uk\",\n  \"categoryCode\": \"5945\",\n  \"business\": {\n    \"legalName\": \"Ollivanders Wand Shop Ltd.\",\n    \"address\": {\n      \"line1\": \"Diagon Alley\",\n      \"city\": \"London\",\n      \"postalCode\": \"WD1 1AA\",\n      \"country\": \"gb\"\n    }\n  },\n  \"networkTokens\": {\n    \"enrolment\": [\n      {\n        \"cardBrand\": \"mastercard\",\n        \"tokenRequestorIdentifier\": \"50165156978\",\n        \"status\": \"active\"\n      },\n      {\n        \"cardBrand\": \"visa\",\n        \"tokenRequestorIdentifier\": \"402338123804\",\n        \"status\": \"active\"\n      },\n      {\n        \"cardBrand\": \"american-express\",\n        \"tokenRequestorIdentifier\": null,\n        \"status\": \"inactive\"\n      }\n    ]\n  },\n  \"applePay\": {\n    \"domains\": [\n      {\n        \"domain\": \"ollivanders.co.uk\",\n        \"status\": \"pending\"\n      }\n    ]\n  },\n  \"createdAt\": 1692972623233,\n  \"updatedAt\": 1692972623768\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f02b1a60-e09a-44ae-b483-ef2878350a76",
+          "name": "Delete a Merchant",
+          "request": {
+            "name": "Delete a Merchant",
+            "description": {
+              "content": "Deletes a Merchant by its unique identifier.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "payments",
+                "merchants",
+                ":merchant_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "merchant_id",
+                  "description": "(Required) The id of the Merchant to be deleted."
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "17c6bdc2-9800-45bd-af49-5e6b4a74cf41",
+              "name": "Merchant successfully deleted.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payments",
+                    "merchants",
+                    ":merchant_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "merchant_id",
+                      "description": "(Required) The id of the Merchant to be deleted."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.evervault.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "0a091e83-dcdf-475d-be6e-5195a47d0b84",
+    "name": "Evervault Merchants API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Evervault API allows developers to interact programmatically with their Evervault apps using HTTP requests.\n\nContact Support:\n Name: Evervault Support Team\n Email: support@evervault.com",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,144 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Evervault Webhooks API",
+    "version": "0.0.1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Webhooks",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all Webhook Endpoints",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.evervault.com/webhook-endpoints",
+            "params": [
+              {
+                "name": "limit",
+                "value": "10",
+                "type": "query",
+                "description": "The maximum number of Webhook Endpoints to return (Default is 10)."
+              },
+              {
+                "name": "startingAfter",
+                "value": "webhook_endpoint_wd7c640d1daee",
+                "type": "query",
+                "description": "The identifier of the last Webhook Endpoint in the previous page of results."
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Lists all Webhook Endpoints\n"
+        },
+        {
+          "info": {
+            "name": "Create a Webhook Endpoint",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.evervault.com/webhook-endpoints",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Create a Webhook Endpoint"
+        },
+        {
+          "info": {
+            "name": "Retrieve a Webhook Endpoint",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.evervault.com/webhook-endpoints/:webhook_endpoint_id",
+            "params": [
+              {
+                "name": "webhook_endpoint_id",
+                "value": "webhook_endpoint_eead1d640d7c",
+                "type": "path",
+                "description": "The identifier of the Webhook Endpoint to retrieve."
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Retrieves a Webhook Endpoint\n"
+        },
+        {
+          "info": {
+            "name": "Update a Webhook Endpoint",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.evervault.com/webhook-endpoints/:webhook_endpoint_id",
+            "params": [
+              {
+                "name": "webhook_endpoint_id",
+                "value": "webhook_endpoint_eead1d640d7c",
+                "type": "path",
+                "description": "The identifier of the Webhook Endpoint to update."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Updates a Webhook Endpoint\n"
+        },
+        {
+          "info": {
+            "name": "Delete a Webhook Endpoint",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.evervault.com/webhook-endpoints/:webhook_endpoint_id",
+            "params": [
+              {
+                "name": "webhook_endpoint_id",
+                "value": "webhook_endpoint_eead1d640d7c",
+                "type": "path",
+                "description": "The identifier of the Webhook Endpoint to delete."
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Delete a Webhook Endpoint\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

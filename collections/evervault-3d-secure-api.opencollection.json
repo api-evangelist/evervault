@@ -1,0 +1,86 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Evervault 3D Secure API",
+    "version": "0.0.1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "3D Secure",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create a 3DS Session",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.evervault.com/payments/3ds-sessions",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Creates a 3DS Session to initiate the 3DS Authentication process. The session ID must then be passed to our client-side SDK to complete the authentication process. [Learn more](/sdks/javascript#ui.threedsecure())\n"
+        },
+        {
+          "info": {
+            "name": "Retrieve a 3DS Session",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.evervault.com/payments/3ds-sessions/:3ds_session_id",
+            "params": [
+              {
+                "name": "3ds_session_id",
+                "value": "",
+                "type": "path",
+                "description": "The id of the session"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Retrieve a 3DS Session.\n"
+        },
+        {
+          "info": {
+            "name": "Retrieve 3DS Messages",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.evervault.com/payments/3ds-sessions/:3ds_session_id/messages",
+            "params": [
+              {
+                "name": "3ds_session_id",
+                "value": "",
+                "type": "path",
+                "description": "The id of the 3DS session"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Retrieve messages for a 3DS Session. This endpoint can be helpful for debugging 3DS sessions, providing insight into the raw 3DS messages that were exchanged between the 3DS Server and the Directory Server.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

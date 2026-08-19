@@ -1,0 +1,242 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Evervault Relays API",
+    "version": "0.0.1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Relays",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all Relays",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.evervault.com/relays",
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Lists all [Relays](/relay) for the App."
+        },
+        {
+          "info": {
+            "name": "Create a Relay",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.evervault.com/relays",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Creates a new [Relay](/relay)."
+        },
+        {
+          "info": {
+            "name": "Retrieve a Relay",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.evervault.com/relays/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The id of the Relay to be fetched."
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Retrieves a [Relay](/relay) by its ID."
+        },
+        {
+          "info": {
+            "name": "Updates a Relay",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.evervault.com/relays/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The id of the Relay to be updated."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Updates a [Relay](/relay). Any properties not provided are left unchanged."
+        },
+        {
+          "info": {
+            "name": "Delete a Relay",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.evervault.com/relays/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The id of the Relay to be deleted."
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Deletes a [Relay](/relay). This action cannot be undone and the Relay domain will no longer forward requests to its destination domain."
+        },
+        {
+          "info": {
+            "name": "List all Custom Domains",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.evervault.com/relays/:relay_id/custom-domains",
+            "params": [
+              {
+                "name": "relay_id",
+                "value": "",
+                "type": "path",
+                "description": "The id of the Relay whose custom domains should be fetched."
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Lists all custom domains for a [Relay](/relay)."
+        },
+        {
+          "info": {
+            "name": "Create a Custom Domain",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.evervault.com/relays/:relay_id/custom-domains",
+            "params": [
+              {
+                "name": "relay_id",
+                "value": "",
+                "type": "path",
+                "description": "The id of the Relay to which the custom domain should be added."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Creates a custom domain for the Relay"
+        },
+        {
+          "info": {
+            "name": "Retrieve a Custom Domain",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.evervault.com/relays/:relay_id/custom-domains/:id",
+            "params": [
+              {
+                "name": "relay_id",
+                "value": "",
+                "type": "path",
+                "description": "The id of the Relay to which the custom domain belongs."
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The id of the custom domain to be fetched."
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Retrieves a custom domain for a [Relay](/relay)."
+        },
+        {
+          "info": {
+            "name": "Delete a Custom Domain",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.evervault.com/relays/:relay_id/custom-domains/:id",
+            "params": [
+              {
+                "name": "relay_id",
+                "value": "",
+                "type": "path",
+                "description": "The id of the Relay to which the custom domain belongs."
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The id of the custom domain to be deleted."
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Deletes a custom domain for a [Relay](/relay). This action cannot be undone."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

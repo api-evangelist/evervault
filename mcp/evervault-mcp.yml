@@ -2,8 +2,8 @@ generated: '2026-07-19'
 method: derived
 status: candidate
 source: openapi/evervault-openapi-original.json
-note: No official Evervault MCP server found as of generation date. Candidate tool
-  list derived one-per-operation from the OpenAPI so an MCP server can be forged.
+note: No official Evervault MCP server found as of generation date. Candidate tool list derived one-per-operation
+  from the OpenAPI so an MCP server can be forged.
 server:
   name: evervault
   transport: http
@@ -140,3 +140,9 @@ tools:
 - name: deleteWebhookEndpoint
   description: Delete a Webhook Endpoint
   source_operation: openapi/evervault-openapi-original.json#deleteWebhookEndpoint
+deployment:
+  mode: none
+  verified: derived
+  tools: 44
+  checked: '2026-08-12'
+  source: catalog MCP census
