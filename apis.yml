@@ -182,6 +182,8 @@ apis:
   humanURL: https://docs.evervault.com/api
   baseURL: https://api.evervault.com
   tags:
+  - Webhook
+  tags_raw:
   - Webhooks
   properties:
   - type: OpenAPI
