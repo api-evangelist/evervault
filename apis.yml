@@ -9,6 +9,18 @@ description: >-
   Nitro Enclave workloads), UI Components for PCI-compliant card collection, plus payments
   tooling: network tokens, 3D Secure, BIN lookup, card account updater, and multi-PSP
   routing. Evervault is PCI DSS Level 1 and SOC 2 Type II, and supports HIPAA and GDPR.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: unknown
   onboarding: self-serve
