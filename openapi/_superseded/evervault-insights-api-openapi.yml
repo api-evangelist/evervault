@@ -1,4 +1,4 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
   title: Evervault Insights API
   version: 0.0.1
@@ -313,6 +313,75 @@ paths:
                     createdAt: 169297262323
 components:
   schemas:
+    BinLookup:
+      x-section: Payments
+      x-group: BIN Lookups
+      type: object
+      summary: The BIN Lookup Object
+      properties:
+        id:
+          type: string
+          description: The unique identifier for the BIN lookup
+          example: bin_lookup_1234567890
+        brand:
+          $ref: '#/components/schemas/CardBrand'
+        funding:
+          $ref: '#/components/schemas/CardFunding'
+        segment:
+          $ref: '#/components/schemas/CardSegment'
+        country:
+          type: string
+          format: iso-3166-1-alpha-2
+          description: The country associated with the card.
+          example: gb
+        currency:
+          type: string
+          description: The currency associated with the card (ISO 4217)
+          example: gbp
+        issuer:
+          type: string
+          description: The name of the issuer bank
+          example: Gringotts Wizarding Bank and Trust Company
+        type:
+          type:
+          - 'null'
+          - string
+          enum:
+          - null
+          - card
+          - network-token
+          x-enum-description:
+            card: A card range was identified
+            network-token: A network token range was identified
+            'null': None identified
+          description: Type of card range identified during the lookup
+          example: null
+        productName:
+          type: string
+          description: The name of the product associated with the card
+          example: Visa Debit
+        fastFunds:
+          $ref: '#/components/schemas/CardFastFunds'
+        threeDS:
+          $ref: '#/components/schemas/CardThreeDSMetadata'
+        createdAt:
+          type: integer
+          description: Unix timestamp of when the BIN lookup was created
+          example: 169297262323
+      example:
+        id: bin_lookup_1234567890
+        brand: visa
+        funding: credit
+        segment: consumer
+        country: gb
+        currency: gbp
+        issuer: Gringotts Wizarding Bank and Trust Company
+        productName: Visa Debit
+        fastFunds:
+          domestic: true
+          crossBorder: false
+        type: card
+        createdAt: 169297262323
     CardInsightCardholder:
       type: object
       summary: The result of the name verification (ANI)
@@ -389,6 +458,113 @@ components:
               - match
               - partial-match
               - no-match
+    CardSegment:
+      type: string
+      enum:
+      - consumer
+      - commercial
+      - business
+      - government
+      - payouts
+      - all
+      x-enum-description:
+        consumer: Personal use cards
+        commercial: Cards used by large organizations or corporations
+        business: Small to medium-sized business use
+        government: Cards used by government entities
+        payouts: Cards designed to disburse payments like payroll or cashback
+        all: General-purpose cards not confined to a specific segment
+      description: 'The card segment indicates the primary market or usage category of the
+
+        card.
+
+        '
+      example: consumer
+    CardInsightAddress:
+      type: object
+      summary: The result of the address verification check (AVS)
+      properties:
+        avsIdentifier:
+          type: string
+          description: A unique identifier generated for this AVS verification
+          example: aBcdeFGhIJKlmnoPqR
+        networkIdentifier:
+          type: string
+          description: A network generated transaction identifier that is unique to every authorization and financial request.
+          example: '1234567890'
+        networkResponseCode:
+          type: object
+          description: Network response code returned when an authorization fails at the network or beyond
+          properties:
+            value:
+              type: string
+              description: The raw network response code
+              example: '85'
+        result:
+          type: object
+          description: The result of the address verification check (AVS)
+          properties:
+            value:
+              type: string
+              description: The raw result code
+              example: Y
+            address:
+              type: string
+              description: The match code for the address portion of the AVS (excludes zip code)
+              enum:
+              - match
+              - no-match
+              - unknown
+              - unavailable
+            zip:
+              type: string
+              description: The match code for the zip code portion of the address (excludes line1, line2, etc.)
+              enum:
+              - match
+              - no-match
+              - unknown
+              - unavailable
+    CardBrand:
+      type: string
+      enum:
+      - visa
+      - mastercard
+      - american-express
+      - discover
+      - diners-club
+      - jcb
+      - unionpay
+      description: The card brand associated with the payment card.
+      example: visa
+    CardFastFunds:
+      type: object
+      summary: Fast Funds
+      description: 'Specifies the availability of instant payment capabilities for card transactions,
+
+        indicating whether funds can be transferred immediately both within the same country
+
+        and across international borders.
+
+        '
+      properties:
+        domestic:
+          type: boolean
+          description: 'When true, indicates that instant payments are supported for transactions
+
+            within the same country/domestic market. This allows for immediate funds
+
+            availability for local transfers.
+
+            '
+        crossBorder:
+          type: boolean
+          description: 'When true, indicates that instant payments are supported for international
+
+            transactions between different countries. This enables immediate funds
+
+            availability for cross-border transfers.
+
+            '
     CardThreeDSMetadata:
       type: object
       summary: 3DS
@@ -497,57 +673,6 @@ components:
               description:
                 type: string
                 description: Human-readable description of the indicator
-    CardFastFunds:
-      type: object
-      summary: Fast Funds
-      description: 'Specifies the availability of instant payment capabilities for card transactions,
-
-        indicating whether funds can be transferred immediately both within the same country
-
-        and across international borders.
-
-        '
-      properties:
-        domestic:
-          type: boolean
-          description: 'When true, indicates that instant payments are supported for transactions
-
-            within the same country/domestic market. This allows for immediate funds
-
-            availability for local transfers.
-
-            '
-        crossBorder:
-          type: boolean
-          description: 'When true, indicates that instant payments are supported for international
-
-            transactions between different countries. This enables immediate funds
-
-            availability for cross-border transfers.
-
-            '
-    CardSegment:
-      type: string
-      enum:
-      - consumer
-      - commercial
-      - business
-      - government
-      - payouts
-      - all
-      x-enum-description:
-        consumer: Personal use cards
-        commercial: Cards used by large organizations or corporations
-        business: Small to medium-sized business use
-        government: Cards used by government entities
-        payouts: Cards designed to disburse payments like payroll or cashback
-        all: General-purpose cards not confined to a specific segment
-      description: 'The card segment indicates the primary market or usage category of the
-
-        card.
-
-        '
-      example: consumer
     CardInsightCapabilities:
       type: object
       summary: The push or pull capability of the card.
@@ -599,6 +724,26 @@ components:
               type: string
               description: The ISO 3166-1 three digit code for the country
               example: '840'
+    CardFunding:
+      type: string
+      enum:
+      - debit
+      - credit
+      - prepaid
+      - deferred-debit
+      - charge
+      x-enum-description:
+        debit: Draw funds directly from a linked bank account
+        credit: Provide a line of credit from which users can borrow funds for transactions
+        prepaid: Loaded with a set amount of funds in advance and can be used until the balance is depleted
+        deferred-debit: Combine aspects of debit and credit cards, allowing transactions to be debited from a linked account at a later date, usually monthly
+        charge: Require full payment of the balance at the end of each billing cycle, but do not have a pre-set spending limit
+      description: 'The card funding type specifies the method by which transactions are
+
+        financed.
+
+        '
+      example: debit
     CardInsight:
       type: object
       summary: The Card Insight Object
@@ -771,151 +916,6 @@ components:
             code: match
         paymentAccountReference: V0010011111111111111111111111
         createdAt: 169297262323
-    BinLookup:
-      x-section: Payments
-      x-group: BIN Lookups
-      type: object
-      summary: The BIN Lookup Object
-      properties:
-        id:
-          type: string
-          description: The unique identifier for the BIN lookup
-          example: bin_lookup_1234567890
-        brand:
-          $ref: '#/components/schemas/CardBrand'
-        funding:
-          $ref: '#/components/schemas/CardFunding'
-        segment:
-          $ref: '#/components/schemas/CardSegment'
-        country:
-          type: string
-          format: iso-3166-1-alpha-2
-          description: The country associated with the card.
-          example: gb
-        currency:
-          type: string
-          description: The currency associated with the card (ISO 4217)
-          example: gbp
-        issuer:
-          type: string
-          description: The name of the issuer bank
-          example: Gringotts Wizarding Bank and Trust Company
-        type:
-          type:
-          - 'null'
-          - string
-          enum:
-          - null
-          - card
-          - network-token
-          x-enum-description:
-            card: A card range was identified
-            network-token: A network token range was identified
-            'null': None identified
-          description: Type of card range identified during the lookup
-          example: null
-        productName:
-          type: string
-          description: The name of the product associated with the card
-          example: Visa Debit
-        fastFunds:
-          $ref: '#/components/schemas/CardFastFunds'
-        threeDS:
-          $ref: '#/components/schemas/CardThreeDSMetadata'
-        createdAt:
-          type: integer
-          description: Unix timestamp of when the BIN lookup was created
-          example: 169297262323
-      example:
-        id: bin_lookup_1234567890
-        brand: visa
-        funding: credit
-        segment: consumer
-        country: gb
-        currency: gbp
-        issuer: Gringotts Wizarding Bank and Trust Company
-        productName: Visa Debit
-        fastFunds:
-          domestic: true
-          crossBorder: false
-        type: card
-        createdAt: 169297262323
-    CardInsightAddress:
-      type: object
-      summary: The result of the address verification check (AVS)
-      properties:
-        avsIdentifier:
-          type: string
-          description: A unique identifier generated for this AVS verification
-          example: aBcdeFGhIJKlmnoPqR
-        networkIdentifier:
-          type: string
-          description: A network generated transaction identifier that is unique to every authorization and financial request.
-          example: '1234567890'
-        networkResponseCode:
-          type: object
-          description: Network response code returned when an authorization fails at the network or beyond
-          properties:
-            value:
-              type: string
-              description: The raw network response code
-              example: '85'
-        result:
-          type: object
-          description: The result of the address verification check (AVS)
-          properties:
-            value:
-              type: string
-              description: The raw result code
-              example: Y
-            address:
-              type: string
-              description: The match code for the address portion of the AVS (excludes zip code)
-              enum:
-              - match
-              - no-match
-              - unknown
-              - unavailable
-            zip:
-              type: string
-              description: The match code for the zip code portion of the address (excludes line1, line2, etc.)
-              enum:
-              - match
-              - no-match
-              - unknown
-              - unavailable
-    CardFunding:
-      type: string
-      enum:
-      - debit
-      - credit
-      - prepaid
-      - deferred-debit
-      - charge
-      x-enum-description:
-        debit: Draw funds directly from a linked bank account
-        credit: Provide a line of credit from which users can borrow funds for transactions
-        prepaid: Loaded with a set amount of funds in advance and can be used until the balance is depleted
-        deferred-debit: Combine aspects of debit and credit cards, allowing transactions to be debited from a linked account at a later date, usually monthly
-        charge: Require full payment of the balance at the end of each billing cycle, but do not have a pre-set spending limit
-      description: 'The card funding type specifies the method by which transactions are
-
-        financed.
-
-        '
-      example: debit
-    CardBrand:
-      type: string
-      enum:
-      - visa
-      - mastercard
-      - american-express
-      - discover
-      - diners-club
-      - jcb
-      - unionpay
-      description: The card brand associated with the payment card.
-      example: visa
   securitySchemes:
     ApiKey:
       type: http

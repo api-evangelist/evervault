@@ -1,4 +1,4 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
   title: Evervault Card Account Updates API
   version: 0.0.1
@@ -334,76 +334,6 @@ components:
           $ref: '#/components/schemas/CardExpiry'
       required:
       - updateType
-    CardSegment:
-      type: string
-      enum:
-      - consumer
-      - commercial
-      - business
-      - government
-      - payouts
-      - all
-      x-enum-description:
-        consumer: Personal use cards
-        commercial: Cards used by large organizations or corporations
-        business: Small to medium-sized business use
-        government: Cards used by government entities
-        payouts: Cards designed to disburse payments like payroll or cashback
-        all: General-purpose cards not confined to a specific segment
-      description: 'The card segment indicates the primary market or usage category of the
-
-        card.
-
-        '
-      example: consumer
-    CauAclUpdate:
-      type: object
-      description: Account closure
-      properties:
-        updateType:
-          type: string
-          description: The type of update to simulate.
-          enum:
-          - account-closure
-      required:
-      - updateType
-    CauNanUpdate:
-      type: object
-      description: New account number
-      properties:
-        updateType:
-          type: string
-          description: The type of update to simulate.
-          enum:
-          - new-account-number
-        expiry:
-          $ref: '#/components/schemas/CardExpiry'
-        number:
-          type: string
-          description: The card number. Can be clear-text or an Evervault encrypted string.
-          example: '4242424242424242'
-      required:
-      - updateType
-    CardFunding:
-      type: string
-      enum:
-      - debit
-      - credit
-      - prepaid
-      - deferred-debit
-      - charge
-      x-enum-description:
-        debit: Draw funds directly from a linked bank account
-        credit: Provide a line of credit from which users can borrow funds for transactions
-        prepaid: Loaded with a set amount of funds in advance and can be used until the balance is depleted
-        deferred-debit: Combine aspects of debit and credit cards, allowing transactions to be debited from a linked account at a later date, usually monthly
-        charge: Require full payment of the balance at the end of each billing cycle, but do not have a pre-set spending limit
-      description: 'The card funding type specifies the method by which transactions are
-
-        financed.
-
-        '
-      example: debit
     Card:
       x-section: Payments
       x-group: Cards
@@ -512,6 +442,39 @@ components:
         automaticUpdates: enabled
         createdAt: 169297262323
         updatedAt: null
+    CauAclUpdate:
+      type: object
+      description: Account closure
+      properties:
+        updateType:
+          type: string
+          description: The type of update to simulate.
+          enum:
+          - account-closure
+      required:
+      - updateType
+    CardSegment:
+      type: string
+      enum:
+      - consumer
+      - commercial
+      - business
+      - government
+      - payouts
+      - all
+      x-enum-description:
+        consumer: Personal use cards
+        commercial: Cards used by large organizations or corporations
+        business: Small to medium-sized business use
+        government: Cards used by government entities
+        payouts: Cards designed to disburse payments like payroll or cashback
+        all: General-purpose cards not confined to a specific segment
+      description: 'The card segment indicates the primary market or usage category of the
+
+        card.
+
+        '
+      example: consumer
     CardBrand:
       type: string
       enum:
@@ -524,6 +487,43 @@ components:
       - unionpay
       description: The card brand associated with the payment card.
       example: visa
+    CauNanUpdate:
+      type: object
+      description: New account number
+      properties:
+        updateType:
+          type: string
+          description: The type of update to simulate.
+          enum:
+          - new-account-number
+        expiry:
+          $ref: '#/components/schemas/CardExpiry'
+        number:
+          type: string
+          description: The card number. Can be clear-text or an Evervault encrypted string.
+          example: '4242424242424242'
+      required:
+      - updateType
+    CardFunding:
+      type: string
+      enum:
+      - debit
+      - credit
+      - prepaid
+      - deferred-debit
+      - charge
+      x-enum-description:
+        debit: Draw funds directly from a linked bank account
+        credit: Provide a line of credit from which users can borrow funds for transactions
+        prepaid: Loaded with a set amount of funds in advance and can be used until the balance is depleted
+        deferred-debit: Combine aspects of debit and credit cards, allowing transactions to be debited from a linked account at a later date, usually monthly
+        charge: Require full payment of the balance at the end of each billing cycle, but do not have a pre-set spending limit
+      description: 'The card funding type specifies the method by which transactions are
+
+        financed.
+
+        '
+      example: debit
     CardExpiry:
       type: object
       properties:

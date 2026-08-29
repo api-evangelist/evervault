@@ -1,4 +1,4 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
   title: Evervault Payments API
   version: 0.0.1
@@ -2501,231 +2501,23 @@ paths:
                     updatedAt: 169297262376
 components:
   schemas:
-    PaymentOneOff:
+    CauNanUpdate:
       type: object
-      summary: One-Off Payment
-      description: A payment that is made in a single transaction.
+      description: New account number
       properties:
-        type:
+        updateType:
           type: string
-          description: The value `one-off`.
+          description: The type of update to simulate.
           enum:
-          - one-off
-          example: one-off
-        amount:
-          type: integer
-          description: The amount of the payment in the smallest currency unit (e.g. cents).
-          example: 1000
-        currency:
+          - new-account-number
+        expiry:
+          $ref: '#/components/schemas/CardExpiry'
+        number:
           type: string
-          format: iso-4217-alphabetic
-          description: The currency of the payment.
-          example: gbp
+          description: The card number. Can be clear-text or an Evervault encrypted string.
+          example: '4242424242424242'
       required:
-      - type
-      - amount
-      - currency
-    ThreeDSChallenge:
-      type: object
-      description: Details about the 3DS challenge.
-      properties:
-        preference:
-          type: string
-          description: The 3DS challenge preference.
-          enum:
-          - no-preference
-          - challenge-requested
-          - challenge-mandated
-          - no-challenge-requested
-        reason:
-          type:
-          - 'null'
-          - string
-          description: The reason for not requesting a challenge. This value should only be present when the preference is `no-challenge-requested`.
-          enum:
-          - null
-          - data-sharing
-          - low-value
-          - low-risk
-          - secure-corporate-payment
-          - authentication-already-performed
-      required:
-      - preference
-    ThreeDSAccessControlServer:
-      type: object
-      description: Details about the Access Control Server involved in the 3DS transaction.
-      properties:
-        transactionIdentifier:
-          type: string
-          description: The Access Control Server's transaction identifier.
-          example: d351441b-f9e6-46e3-a726-9fc4f39bbaaa
-        referenceNumber:
-          type: string
-          description: The Access Control Server's reference number assigned by EMVCo.
-          example: 3DS_LOA_ACS_STIN_020200_00417
-        operatorIdentifier:
-          type:
-          - 'null'
-          - string
-          description: The identifier of the Access Control Server's operator, when the ACS provides it.
-          example: Evervault
-    CardFastFunds:
-      type: object
-      summary: Fast Funds
-      description: 'Specifies the availability of instant payment capabilities for card transactions,
-
-        indicating whether funds can be transferred immediately both within the same country
-
-        and across international borders.
-
-        '
-      properties:
-        domestic:
-          type: boolean
-          description: 'When true, indicates that instant payments are supported for transactions
-
-            within the same country/domestic market. This allows for immediate funds
-
-            availability for local transfers.
-
-            '
-        crossBorder:
-          type: boolean
-          description: 'When true, indicates that instant payments are supported for international
-
-            transactions between different countries. This enables immediate funds
-
-            availability for cross-border transfers.
-
-            '
-    Address:
-      type: object
-      properties:
-        line1:
-          type: string
-          description: 'The first line of the address.
-
-            '
-          pattern: ^[À-ÖØ-öø-ǿa-zA-Z0-9().\-_#,;/@$!% ]+$
-          example: 123 Main St
-        line2:
-          type: string
-          description: 'The second line of the address.
-
-            '
-          pattern: ^[À-ÖØ-öø-ǿa-zA-Z0-9().\-_#,;/@$!% ]+$
-          example: Floor 4
-        city:
-          type: string
-          description: The city where the address is located.
-          pattern: "^[0-9a-zA-Z _\\-¡-\uFFFF]+$"
-          example: Springfield
-        state:
-          type: string
-          description: The state or province code. Required when `country` is `us`, `ca`, or `au`.
-          format: iso-3166-2-subdivision
-          example: ny
-        postalCode:
-          type: string
-          description: The postal code of the address.
-          pattern: ^[0-9a-zA-Z ]*$
-          example: 13468
-        country:
-          type: string
-          format: iso-3166-1-alpha-2
-          description: The country where the address is located.
-          example: us
-      required:
-      - line1
-      - city
-      - postalCode
-      - country
-    Error:
-      type: object
-      properties:
-        code:
-          type: string
-          description: A distinct error code, presented in slug format, that identifies a specific error.
-          example: invalid-request
-        title:
-          type: string
-          description: A short, human-readable summary of the error.
-          example: Invalid Request
-        status:
-          type: integer
-          description: The HTTP status code for the error.
-          example: 400
-        detail:
-          type: string
-          description: A human-readable explanation of the error.
-          example: The provided action was invalid
-        fields:
-          type: array
-          items:
-            type: object
-            properties:
-              pointer:
-                type: string
-                description: The JSON pointer to the field that caused the error.
-                example: /card/number
-              reason:
-                type: string
-                description: A human-readable explanation of the error for this field.
-                example: The card number is required
-          example:
-          - pointer: /card/number
-            reason: The card number is required
-    CardInsightCapabilities:
-      type: object
-      summary: The push or pull capability of the card.
-      properties:
-        enabled:
-          type: boolean
-          description: Indicates if push or pull transactions are enabled for the supplied card
-          example: true
-        network:
-          type: string
-          description: The card network for the supplied card
-          example: visa
-        type:
-          type: string
-          description: The funding type of the card
-          example: credit
-        availability:
-          type: string
-          description: Indicates the typical time for payouts
-          enum:
-          - immediate
-          - next-day
-          - next-few
-        regulated:
-          type: boolean
-          description: Indicates if the issuer is a regulated institution
-          example: true
-        currency:
-          type: object
-          description: The currency of the card
-          properties:
-            alphaCode:
-              type: string
-              description: The ISO 4217 alphabetic code for the currency
-              example: usd
-            numericCode:
-              type: string
-              description: The ISO 4217 numeric code for the currency
-              example: '840'
-        country:
-          type: object
-          description: The country the card is issued in
-          properties:
-            alphaCode:
-              type: string
-              description: The ISO 3166-1 two character alphabetic code for the country
-              example: us
-            numericCode:
-              type: string
-              description: The ISO 3166-1 three digit code for the country
-              example: '840'
+      - updateType
     CardInsight:
       type: object
       summary: The Card Insight Object
@@ -2898,44 +2690,125 @@ components:
             code: match
         paymentAccountReference: V0010011111111111111111111111
         createdAt: 169297262323
-    ThreeDSDirectoryServer:
+    PaymentOneOff:
       type: object
-      description: Details about the Directory Server involved in the 3DS transaction.
+      summary: One-Off Payment
+      description: A payment that is made in a single transaction.
+      properties:
+        type:
+          type: string
+          description: The value `one-off`.
+          enum:
+          - one-off
+          example: one-off
+        amount:
+          type: integer
+          description: The amount of the payment in the smallest currency unit (e.g. cents).
+          example: 1000
+        currency:
+          type: string
+          format: iso-4217-alphabetic
+          description: The currency of the payment.
+          example: gbp
+      required:
+      - type
+      - amount
+      - currency
+    AcquirerConfiguration:
+      type: object
+      summary: The Acquirer Object
+      properties:
+        id:
+          type: string
+          description: The unique identifier of the acquirer configuration.
+          example: acquirer_eead1d640d7c
+        name:
+          type: string
+          description: The name of the acquirer configuration.
+        description:
+          type: string
+          description: The description of the acquirer configuration.
+        default:
+          type: boolean
+        configurations:
+          type: array
+          description: The acquirer configuration settings.
+          items:
+            type: object
+            properties:
+              network:
+                type: string
+                enum:
+                - visa
+                - mastercard
+                - american-express
+                - discover
+                example: mastercard
+                description: The card network of the Acquirer. `discover` covers Discover, Diners Club, and JCB (US only).
+              bin:
+                type: string
+                pattern: ^[0-9]{6,11}$
+                minLength: 6
+                maxLength: 11
+                example: '424242'
+                description: The Bank Identification Number (BIN) of the Acquirer. Must be 6 to 11 digits.
+              acquirerMerchantIdentifier:
+                type: string
+                description: The merchant identifier the configuration is associated with.
+                example: '38191048173'
+              state:
+                type: string
+                example: active
+              country:
+                description: The country of the acquirer configuration, used when creating 3DS sessions.
+                type: string
+                format: iso-3166-1-alpha-2
+                example: ie
+            required:
+            - network
+            - bin
+            - acquirerMerchantIdentifier
+            - state
+            - country
+      required:
+      - id
+      - name
+      - default
+      - configurations
+      example:
+        id: acquirer_eead1d640d7c
+        name: Ollivanders Wand Shop Production Configuration
+        description: Ollivanders Wand Shop Production Configuration
+        default: true
+        configurations:
+        - network: mastercard
+          bin: '424242'
+          acquirerMerchantIdentifier: '38191048173'
+          state: active
+          country: ie
+        - network: visa
+          bin: '424242'
+          acquirerMerchantIdentifier: '38191048173'
+          state: active
+          country: ie
+    ThreeDSAccessControlServer:
+      type: object
+      description: Details about the Access Control Server involved in the 3DS transaction.
       properties:
         transactionIdentifier:
           type: string
-          description: The Directory Server's transaction identifier.
-          example: 18030e14-fafa-462e-bfc0-da733196e808
+          description: The Access Control Server's transaction identifier.
+          example: d351441b-f9e6-46e3-a726-9fc4f39bbaaa
         referenceNumber:
           type: string
-          description: The Directory Server's reference number assigned by EMVCo.
-          example: 3DS_LOA_DIS_VISA_020200_00828
-        network:
-          type: string
-          enum:
-          - visa
-          - mastercard
-          - american-express
-          - discover
-          - jcb
-          - unionpay
-          - rupay
-          description: The network of the Directory Server.
-          example: visa
-    CardExpiry:
-      type: object
-      properties:
-        month:
-          type: string
-          description: The card expiry month, in MM format (e.g. 12 for December)
-          example: 09
-        year:
-          type: string
-          description: The card expiry year, in YY format (e.g. 26 for 2026)
-          example: '26'
-      required:
-      - month
-      - year
+          description: The Access Control Server's reference number assigned by EMVCo.
+          example: 3DS_LOA_ACS_STIN_020200_00417
+        operatorIdentifier:
+          type:
+          - 'null'
+          - string
+          description: The identifier of the Access Control Server's operator, when the ACS provides it.
+          example: Evervault
     PaymentInstallment:
       type: object
       summary: Installment Payment
@@ -2978,316 +2851,6 @@ components:
       - currency
       - installments
       - frequency
-    CauAclUpdate:
-      type: object
-      description: Account closure
-      properties:
-        updateType:
-          type: string
-          description: The type of update to simulate.
-          enum:
-          - account-closure
-      required:
-      - updateType
-    NetworkToken:
-      summary: The Network Token Object
-      type: object
-      properties:
-        id:
-          type: string
-          description: A unique identifier representing a specific Network Token.
-          example: network_token_eead1d640d7c
-        number:
-          type: string
-          description: The unique number of the Network Token.
-          example: '4545454545454545'
-        expiry:
-          type: object
-          description: The expiry details of the Network Token.
-          properties:
-            month:
-              type: string
-              description: The month of the Network Token's expiry date, in MM format (e.g. 12 for December)
-              example: '12'
-            year:
-              type: string
-              description: The year of the Network Token's expiry date, in YY format (e.g. 26 for 2026)
-              example: '23'
-        card:
-          type: object
-          description: The details of the underlying encrypted card.
-          properties:
-            lastFour:
-              type: string
-              description: The last four digits of the card number.
-              example: '4545'
-            expiry:
-              type: object
-              description: The expiry details of the card.
-              properties:
-                month:
-                  type: string
-                  description: The month of the card's expiry date, in MM format (e.g. 12 for December)
-                  example: '12'
-                year:
-                  type: string
-                  description: The year of the card's expiry date, in YY format (e.g. 26 for 2026)
-                  example: '23'
-            brand:
-              type: string
-              enum:
-              - visa
-              - mastercard
-              - american-express
-              description: The card brand associated with the payment card.
-              example: visa
-        tokenRequestorIdentifier:
-          type: string
-          description: The identifier of the Token Requestor (TRID) that requested the Network Token.
-          example: '50165156978'
-        tokenServiceProvider:
-          type: string
-          description: The Token Service Provider (TSP) that issued the Network Token.
-          enum:
-          - mdes
-          - vts
-          - aets
-        paymentAccountReference:
-          type: string
-          description: The unique identifier of the Payment Account associated with this Network Token.
-          example: 512381d9f8e0629211e3949a08002
-        status:
-          type: string
-          enum:
-          - active
-          - inactive
-          - blocked
-          - provisioning
-          - suspended
-          - deleted
-          - expired
-          description: The status of the Network Token. Active means the token is valid and can be used for payments. Inactive means the token exists but is not currently active. Blocked and provisioning are reserved for future use. Suspended means the token is temporarily unusable but may be reactivated by the issuer or transition to deleted. Deleted is a terminal state where the token is permanently removed and a new credential must be obtained. Expired means the token has passed its expiration date and should not be used for transactions.
-          example: active
-        merchant:
-          type: string
-          description: The unique identifier of the Merchant associated with this Network Token.
-          example: merchant_eead1d640d7c
-        createdAt:
-          type: integer
-          format: int64
-          description: The exact time, in epoch milliseconds, when this Network Token was created.
-          example: 1692972623233
-        updatedAt:
-          type: integer
-          format: int64
-          description: The exact time, in epoch milliseconds, when this Network Token was last updated.
-          example: 1692972623768
-      required:
-      - id
-      - number
-      - expiry
-      - card
-      - tokenRequestorIdentifier
-      - tokenServiceProvider
-      - status
-      - merchant
-      - createdAt
-      example:
-        id: network_token_eead1d640d7c
-        number: '4498004918463434'
-        expiry:
-          month: '13'
-          year: '25'
-        card:
-          lastFour: '4242'
-          expiry:
-            month: 09
-            year: '26'
-          brand: visa
-        paymentAccountReference: 512381d9f8e0629211e3949a08002
-        tokenRequestorIdentifier: '40020248564'
-        tokenServiceProvider: vts
-        merchant: merchant_ddsaJsda9d86
-        status: active
-        createdAt: 1692972623233
-        updatedAt: 1692972623768
-    CauNedUpdate:
-      type: object
-      description: New expiry date
-      properties:
-        updateType:
-          type: string
-          description: The type of update to simulate.
-          enum:
-          - new-expiry-date
-        expiry:
-          $ref: '#/components/schemas/CardExpiry'
-      required:
-      - updateType
-    CardArt:
-      type: object
-      properties:
-        type:
-          type: string
-          description: The MIME type of the card art image.
-          example: image/png
-        data:
-          type: string
-          description: The base64-encoded image data of the card art.
-          example: dGhlIGJhc2U2NCBlbmNvZGVkIGltYWdlIGRhdGE=
-        width:
-          type: integer
-          description: The width of the card art image in pixels.
-          example: 1536
-        height:
-          type: integer
-          description: The height of the card art image in pixels.
-          example: 969
-      required:
-      - type
-      - data
-      - width
-      - height
-    MerchantNetworkTokenStatus:
-      type: object
-      properties:
-        enrolment:
-          type: array
-          description: 'An array detailing the Merchant''s enrollment status for network token issuance across different card brands.
-
-            '
-          items:
-            type: object
-            properties:
-              cardBrand:
-                $ref: '#/components/schemas/CardBrand'
-                description: The card brand (e.g., Visa, Mastercard, American Express) for which the enrollment status is being described. Currently, Network Tokens is only supported for Visa, Mastercard and American Express.
-              tokenRequestorIdentifier:
-                type:
-                - string
-                - 'null'
-                description: The unique Token Requestor Identifier (TRID) associated with the Merchant for the specific card brand. This identifier is used when creating Network Tokens for the Merchant.
-                example: '50165156978'
-              status:
-                type: string
-                enum:
-                - active
-                - inactive
-                description: 'The current stage of the Merchant''s enrolment process for network token issuance with the specified card brand.
-
-                  '
-                example: active
-                x-enum-description:
-                  active: The Merchant is fully enrolled and can create Network Tokens for the card brand.
-                  inactive: The Merchant is not enrolled for the card brand.
-    CardThreeDSMetadata:
-      type: object
-      summary: 3DS
-      description: "Metadata about 3DS capabilities, including supported versions \nand ACS (Access Control Server) indicators.\n"
-      properties:
-        supportedVersions:
-          type: object
-          description: The 3DS versions supported by the ACS and DS
-          properties:
-            accessControlServer:
-              type: array
-              items:
-                type: string
-                description: Array of 3DS versions supported by the Access Control Server
-                example: 2.2.0
-            directoryServer:
-              type: array
-              items:
-                type: string
-                description: Array of 3DS versions supported by the Directory Server
-                example: 2.3.1
-        acsInfoIndicators:
-          type: array
-          description: Array of ACS information indicators
-          items:
-            type: object
-            properties:
-              code:
-                type: string
-                description: 'The indicator code, the following values are supported:
-
-
-                  - `authentication-available`
-
-                  - `attempts-supported`
-
-                  - `decoupled-authentication-supported`
-
-                  - `trustlist-supported`
-
-                  - `device-binding-supported`
-
-                  - `webauthn-authentication-supported`
-
-                  - `spc-authentication-supported`
-
-                  - `tra-exemption-supported`
-
-                  - `trustlist-exemption-supported`
-
-                  - `low-value-exemption-supported`
-
-                  - `secure-corporate-payments-exemption-supported`
-
-                  - `emvco-reserved`
-
-                  - `ds-reserved`
-
-
-                  **American Express only:**
-
-                  - `issuer-tra-exemption-supported`
-
-                  - `issuer-trustlist-exemption-supported`
-
-                  - `issuer-low-value-exemption-supported`
-
-                  - `issuer-secure-corporate-payments-exemption-supported`
-
-                  - `bridging-message-extension-supported`
-
-
-                  **Mastercard only:**
-
-                  - `smart-auth-direct-stand-in-only`
-
-                  - `smart-auth-direct`
-
-                  - `payment-transactions-supported`
-
-                  - `non-payment-transactions-supported`
-
-                  - `app-channel-supported`
-
-                  - `browser-channel-supported`
-
-                  - `app-acs-challenge-supported`
-
-                  - `browser-acs-challenge-supported`
-
-
-                  **Visa only:**
-
-                  - `issuer-tra-exemption-supported`
-
-                  - `data-only-supported`
-
-                  - `delegated-authentication-supported`
-
-                  - `digital-auth-framework-supported`
-
-                  '
-              indicator:
-                type: string
-                description: The raw numeric indicator value, ranges from 01 to 99
-              description:
-                type: string
-                description: Human-readable description of the indicator
     Acquirer:
       type: object
       description: The acquirer of the payment.
@@ -3312,50 +2875,6 @@ components:
       - bin
       - merchantIdentifier
       - country
-    CardInsightAddress:
-      type: object
-      summary: The result of the address verification check (AVS)
-      properties:
-        avsIdentifier:
-          type: string
-          description: A unique identifier generated for this AVS verification
-          example: aBcdeFGhIJKlmnoPqR
-        networkIdentifier:
-          type: string
-          description: A network generated transaction identifier that is unique to every authorization and financial request.
-          example: '1234567890'
-        networkResponseCode:
-          type: object
-          description: Network response code returned when an authorization fails at the network or beyond
-          properties:
-            value:
-              type: string
-              description: The raw network response code
-              example: '85'
-        result:
-          type: object
-          description: The result of the address verification check (AVS)
-          properties:
-            value:
-              type: string
-              description: The raw result code
-              example: Y
-            address:
-              type: string
-              description: The match code for the address portion of the AVS (excludes zip code)
-              enum:
-              - match
-              - no-match
-              - unknown
-              - unavailable
-            zip:
-              type: string
-              description: The match code for the zip code portion of the address (excludes line1, line2, etc.)
-              enum:
-              - match
-              - no-match
-              - unknown
-              - unavailable
     BinLookup:
       x-section: Payments
       x-group: BIN Lookups
@@ -3425,300 +2944,26 @@ components:
           crossBorder: false
         type: card
         createdAt: 169297262323
-    PaymentRecurring:
+    NetworkTokenCryptogram:
       type: object
-      summary: Recurring Payment
-      description: A repeating payment with a regular interval.
-      properties:
-        type:
-          type: string
-          description: The value `recurring`.
-          enum:
-          - recurring
-        amount:
-          type: integer
-          description: The amount of the payment in the smallest currency unit (e.g. cents).
-          example: 1000
-        currency:
-          type: string
-          format: iso-4217-alphabetic
-          description: The currency of the payment.
-          example: gbp
-        frequency:
-          type: string
-          description: Indicates the minimum time between authorizations.
-          enum:
-          - daily
-          - weekly
-          - monthly
-          - quarterly
-          - annually
-          example: monthly
-        expiry:
-          type: integer
-          description: The epoch time in seconds when the recurring payment expires. Maximum value is 4102394400 (equivalent to 2099-12-31).
-      required:
-      - type
-      - amount
-      - currency
-      - frequency
-      - expiry
-    MerchantApplePay:
-      type: object
-      properties:
-        domains:
-          type: array
-          description: 'The domains the Merchant has enrolled with Apple Pay and the status of the enrollment.
-
-            '
-          items:
-            type: object
-            properties:
-              domain:
-                type: string
-                description: The top-level domain name of the Merchant's website.
-                example: ollivanders.co.uk
-              status:
-                type: string
-                enum:
-                - active
-                - pending
-                - failed
-                description: 'The current status of the Merchant''s Apple Pay enrollment for the
-
-                  specified domain. `active` means the Merchant is fully enrolled and
-
-                  can accept Apple Pay payments on the domain.
-
-                  '
-                example: active
-    CardFunding:
-      type: string
-      enum:
-      - debit
-      - credit
-      - prepaid
-      - deferred-debit
-      - charge
-      x-enum-description:
-        debit: Draw funds directly from a linked bank account
-        credit: Provide a line of credit from which users can borrow funds for transactions
-        prepaid: Loaded with a set amount of funds in advance and can be used until the balance is depleted
-        deferred-debit: Combine aspects of debit and credit cards, allowing transactions to be debited from a linked account at a later date, usually monthly
-        charge: Require full payment of the balance at the end of each billing cycle, but do not have a pre-set spending limit
-      description: 'The card funding type specifies the method by which transactions are
-
-        financed.
-
-        '
-      example: debit
-    Merchant:
-      type: object
-      summary: The Merchant Object
       properties:
         id:
           type: string
-          description: A unique identifier assigned to each Merchant.
-          example: merchant_eead1d640d7c
-        name:
+          description: A unique identifier representing a specific Network Token Cryptogram.
+          example: network_token_cryptogram_eead1d640d7c
+        cryptogram:
           type: string
-          description: The official name of the Merchant as recognized in transactions and communications. This name is used for display purposes and may be the company's trade name or a derived nickname.
-          pattern: ^[a-zA-Z0-9 ]{1,60}$
-          example: Acme
-        shortName:
-          type: string
-          description: 'A shorter version of the Merchant''s name. When creating a 3D Secure session that references this Merchant by ID, `shortName` is used in place of `name` if `name` exceeds the 40-character limit imposed by the 3D Secure specification.
-
-            '
-          pattern: ^[a-zA-Z0-9 ]{1,40}$
-          example: Acme
-        website:
-          type: string
-          description: The official website URL of the Merchant. The domain must use a valid IANA top-level domain. See https://data.iana.org/TLD/tlds-alpha-by-domain.txt
-          example: https://www.acme.com
-        business:
-          type: object
-          description: The business details of the Merchant.
-          properties:
-            legalName:
-              type: string
-              description: The legal name under which the Merchant's business is registered.
-              pattern: ^[a-zA-Z0-9 ]{1,60}$
-              example: Acme Corp
-            address:
-              $ref: '#/components/schemas/Address'
-              description: The physical address of the Merchant's principal place of business.
-        categoryCode:
-          type: string
-          description: The 4-digit Merchant Category Code (MCC).
-          example: '5945'
-        networkTokens:
-          $ref: '#/components/schemas/MerchantNetworkTokenStatus'
-          description: The Merchant's Network Token configuration.
-        applePay:
-          $ref: '#/components/schemas/MerchantApplePay'
-          description: The Merchant's Apple Pay configuration.
+          description: The value of the Network Token Cryptogram. This is the value that is used embedded in the Authorization request.
+          example: NTk0ZjM5M2QyNDMwNDE1MjkzMjg1ZTg5Y2NiZjdmNjE=
         createdAt:
           type: integer
           format: int64
-          description: The exact time, in epoch milliseconds, when this Merchant was created.
+          description: The exact time, in epoch milliseconds, when this Network Token Cryptogram was created.
           example: 1692972623233
-        updatedAt:
-          type: integer
-          format: int64
-          description: The exact time, in epoch milliseconds, when this Merchant was last updated.
-          example: 1692972623768
       required:
       - id
-      - name
-      - website
+      - cryptogram
       - createdAt
-      example:
-        id: merchant_eead1d640d7c
-        name: Ollivanders Wand Shop
-        website: https://www.ollivanders.co.uk
-        categoryCode: '5945'
-        business:
-          legalName: Ollivanders Wand Shop Ltd
-          address:
-            line1: Diagon Alley
-            city: London
-            postalCode: WD1 1AA
-            country: gb
-        networkTokens:
-          enrolment:
-          - cardBrand: mastercard
-            tokenRequestorIdentifier: '50165156978'
-            status: active
-          - cardBrand: visa
-            tokenRequestorIdentifier: '40238123804'
-            status: active
-          - cardBrand: american-express
-            tokenRequestorIdentifier: null
-            status: inactive
-        applePay:
-          domains:
-          - domain: store.ollivanders.co.uk
-            status: active
-        createdAt: 1692972623233
-        updatedAt: 1692972623768
-    ThreeDSInitiator:
-      type: object
-      description: Details about the transaction initiation process.
-      oneOf:
-      - type: object
-        summary: Customer-Initiated Transaction (CIT)
-        properties:
-          type:
-            type: string
-            enum:
-            - customer
-            description: The value `customer`.
-      - type: object
-        summary: Merchant-Initiated Transaction (MIT)
-        properties:
-          type:
-            type: string
-            enum:
-            - merchant
-            description: The value `merchant`.
-          reason:
-            type: string
-            enum:
-            - recurring
-            - installment
-            - mail-order
-            - telephone-order
-            - add-card
-            - maintain-card
-            - other-payment
-            - account-verification
-            - split-shipment
-            - delayed-shipment
-            description: The reason for the transaction to be initiated by the merchant. This field is mandatory when the `type` is `merchant`.
-          initialSession:
-            type: string
-            description: 'The ID of the initial session. This can either be an Evervault 3DS Session ID or a `threeDSServer.transactionIdentifier`. This field should be provided if the merchant has previously authenticated the cardholder using 3DS.
-
-              The API does not currently enforce this requirement, but it is recommended to always provide this field. In some cases Authentications will error if this field is not populated.
-
-              '
-    CardInsightCardholder:
-      type: object
-      summary: The result of the name verification (ANI)
-      properties:
-        result:
-          type: object
-          description: The result
-          properties:
-            value:
-              type: string
-              description: The raw result code returned for the ANI check
-              enum:
-              - M
-              - N
-              - U
-            code:
-              type: string
-              description: A human readable version of the ANI result code
-              enum:
-              - match-performed
-              - no-match-performed
-              - unsupported
-        fullName:
-          type: object
-          description: The result
-          properties:
-            value:
-              type: string
-              description: The raw match code returned for the ANI check for the full name
-              enum:
-              - M
-              - P
-              - N
-            code:
-              type: string
-              description: A human readable version of the ANI match code
-              enum:
-              - match
-              - partial-match
-              - no-match
-        firstName:
-          type: object
-          description: The result
-          properties:
-            value:
-              type: string
-              description: The raw match code returned for the ANI check for the first name
-              enum:
-              - M
-              - P
-              - N
-            code:
-              type: string
-              description: A human readable version of the ANI match code
-              enum:
-              - match
-              - partial-match
-              - no-match
-        lastName:
-          type: object
-          description: The result
-          properties:
-            value:
-              type: string
-              description: The raw match code returned for the ANI check for the last name
-              enum:
-              - M
-              - P
-              - N
-            code:
-              type: string
-              description: A human readable version of the ANI match code
-              enum:
-              - match
-              - partial-match
-              - no-match
     ThreeDSSession:
       type: object
       summary: The 3DS Session Object
@@ -4078,26 +3323,837 @@ components:
       - version
       - status
       - createdAt
-    NetworkTokenCryptogram:
+    NetworkToken:
+      summary: The Network Token Object
       type: object
       properties:
         id:
           type: string
-          description: A unique identifier representing a specific Network Token Cryptogram.
-          example: network_token_cryptogram_eead1d640d7c
-        cryptogram:
+          description: A unique identifier representing a specific Network Token.
+          example: network_token_eead1d640d7c
+        number:
           type: string
-          description: The value of the Network Token Cryptogram. This is the value that is used embedded in the Authorization request.
-          example: NTk0ZjM5M2QyNDMwNDE1MjkzMjg1ZTg5Y2NiZjdmNjE=
+          description: The unique number of the Network Token.
+          example: '4545454545454545'
+        expiry:
+          type: object
+          description: The expiry details of the Network Token.
+          properties:
+            month:
+              type: string
+              description: The month of the Network Token's expiry date, in MM format (e.g. 12 for December)
+              example: '12'
+            year:
+              type: string
+              description: The year of the Network Token's expiry date, in YY format (e.g. 26 for 2026)
+              example: '23'
+        card:
+          type: object
+          description: The details of the underlying encrypted card.
+          properties:
+            lastFour:
+              type: string
+              description: The last four digits of the card number.
+              example: '4545'
+            expiry:
+              type: object
+              description: The expiry details of the card.
+              properties:
+                month:
+                  type: string
+                  description: The month of the card's expiry date, in MM format (e.g. 12 for December)
+                  example: '12'
+                year:
+                  type: string
+                  description: The year of the card's expiry date, in YY format (e.g. 26 for 2026)
+                  example: '23'
+            brand:
+              type: string
+              enum:
+              - visa
+              - mastercard
+              - american-express
+              description: The card brand associated with the payment card.
+              example: visa
+        tokenRequestorIdentifier:
+          type: string
+          description: The identifier of the Token Requestor (TRID) that requested the Network Token.
+          example: '50165156978'
+        tokenServiceProvider:
+          type: string
+          description: The Token Service Provider (TSP) that issued the Network Token.
+          enum:
+          - mdes
+          - vts
+          - aets
+        paymentAccountReference:
+          type: string
+          description: The unique identifier of the Payment Account associated with this Network Token.
+          example: 512381d9f8e0629211e3949a08002
+        status:
+          type: string
+          enum:
+          - active
+          - inactive
+          - blocked
+          - provisioning
+          - suspended
+          - deleted
+          - expired
+          description: The status of the Network Token. Active means the token is valid and can be used for payments. Inactive means the token exists but is not currently active. Blocked and provisioning are reserved for future use. Suspended means the token is temporarily unusable but may be reactivated by the issuer or transition to deleted. Deleted is a terminal state where the token is permanently removed and a new credential must be obtained. Expired means the token has passed its expiration date and should not be used for transactions.
+          example: active
+        merchant:
+          type: string
+          description: The unique identifier of the Merchant associated with this Network Token.
+          example: merchant_eead1d640d7c
         createdAt:
           type: integer
           format: int64
-          description: The exact time, in epoch milliseconds, when this Network Token Cryptogram was created.
+          description: The exact time, in epoch milliseconds, when this Network Token was created.
           example: 1692972623233
+        updatedAt:
+          type: integer
+          format: int64
+          description: The exact time, in epoch milliseconds, when this Network Token was last updated.
+          example: 1692972623768
       required:
       - id
-      - cryptogram
+      - number
+      - expiry
+      - card
+      - tokenRequestorIdentifier
+      - tokenServiceProvider
+      - status
+      - merchant
       - createdAt
+      example:
+        id: network_token_eead1d640d7c
+        number: '4498004918463434'
+        expiry:
+          month: '13'
+          year: '25'
+        card:
+          lastFour: '4242'
+          expiry:
+            month: 09
+            year: '26'
+          brand: visa
+        paymentAccountReference: 512381d9f8e0629211e3949a08002
+        tokenRequestorIdentifier: '40020248564'
+        tokenServiceProvider: vts
+        merchant: merchant_ddsaJsda9d86
+        status: active
+        createdAt: 1692972623233
+        updatedAt: 1692972623768
+    Merchant:
+      type: object
+      summary: The Merchant Object
+      properties:
+        id:
+          type: string
+          description: A unique identifier assigned to each Merchant.
+          example: merchant_eead1d640d7c
+        name:
+          type: string
+          description: The official name of the Merchant as recognized in transactions and communications. This name is used for display purposes and may be the company's trade name or a derived nickname.
+          pattern: ^[a-zA-Z0-9 ]{1,60}$
+          example: Acme
+        shortName:
+          type: string
+          description: 'A shorter version of the Merchant''s name. When creating a 3D Secure session that references this Merchant by ID, `shortName` is used in place of `name` if `name` exceeds the 40-character limit imposed by the 3D Secure specification.
+
+            '
+          pattern: ^[a-zA-Z0-9 ]{1,40}$
+          example: Acme
+        website:
+          type: string
+          description: The official website URL of the Merchant. The domain must use a valid IANA top-level domain. See https://data.iana.org/TLD/tlds-alpha-by-domain.txt
+          example: https://www.acme.com
+        business:
+          type: object
+          description: The business details of the Merchant.
+          properties:
+            legalName:
+              type: string
+              description: The legal name under which the Merchant's business is registered.
+              pattern: ^[a-zA-Z0-9 ]{1,60}$
+              example: Acme Corp
+            address:
+              $ref: '#/components/schemas/Address'
+              description: The physical address of the Merchant's principal place of business.
+        categoryCode:
+          type: string
+          description: The 4-digit Merchant Category Code (MCC).
+          example: '5945'
+        networkTokens:
+          $ref: '#/components/schemas/MerchantNetworkTokenStatus'
+          description: The Merchant's Network Token configuration.
+        applePay:
+          $ref: '#/components/schemas/MerchantApplePay'
+          description: The Merchant's Apple Pay configuration.
+        createdAt:
+          type: integer
+          format: int64
+          description: The exact time, in epoch milliseconds, when this Merchant was created.
+          example: 1692972623233
+        updatedAt:
+          type: integer
+          format: int64
+          description: The exact time, in epoch milliseconds, when this Merchant was last updated.
+          example: 1692972623768
+      required:
+      - id
+      - name
+      - website
+      - createdAt
+      example:
+        id: merchant_eead1d640d7c
+        name: Ollivanders Wand Shop
+        website: https://www.ollivanders.co.uk
+        categoryCode: '5945'
+        business:
+          legalName: Ollivanders Wand Shop Ltd
+          address:
+            line1: Diagon Alley
+            city: London
+            postalCode: WD1 1AA
+            country: gb
+        networkTokens:
+          enrolment:
+          - cardBrand: mastercard
+            tokenRequestorIdentifier: '50165156978'
+            status: active
+          - cardBrand: visa
+            tokenRequestorIdentifier: '40238123804'
+            status: active
+          - cardBrand: american-express
+            tokenRequestorIdentifier: null
+            status: inactive
+        applePay:
+          domains:
+          - domain: store.ollivanders.co.uk
+            status: active
+        createdAt: 1692972623233
+        updatedAt: 1692972623768
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+          description: A distinct error code, presented in slug format, that identifies a specific error.
+          example: invalid-request
+        title:
+          type: string
+          description: A short, human-readable summary of the error.
+          example: Invalid Request
+        status:
+          type: integer
+          description: The HTTP status code for the error.
+          example: 400
+        detail:
+          type: string
+          description: A human-readable explanation of the error.
+          example: The provided action was invalid
+        fields:
+          type: array
+          items:
+            type: object
+            properties:
+              pointer:
+                type: string
+                description: The JSON pointer to the field that caused the error.
+                example: /card/number
+              reason:
+                type: string
+                description: A human-readable explanation of the error for this field.
+                example: The card number is required
+          example:
+          - pointer: /card/number
+            reason: The card number is required
+    CardInsightAddress:
+      type: object
+      summary: The result of the address verification check (AVS)
+      properties:
+        avsIdentifier:
+          type: string
+          description: A unique identifier generated for this AVS verification
+          example: aBcdeFGhIJKlmnoPqR
+        networkIdentifier:
+          type: string
+          description: A network generated transaction identifier that is unique to every authorization and financial request.
+          example: '1234567890'
+        networkResponseCode:
+          type: object
+          description: Network response code returned when an authorization fails at the network or beyond
+          properties:
+            value:
+              type: string
+              description: The raw network response code
+              example: '85'
+        result:
+          type: object
+          description: The result of the address verification check (AVS)
+          properties:
+            value:
+              type: string
+              description: The raw result code
+              example: Y
+            address:
+              type: string
+              description: The match code for the address portion of the AVS (excludes zip code)
+              enum:
+              - match
+              - no-match
+              - unknown
+              - unavailable
+            zip:
+              type: string
+              description: The match code for the zip code portion of the address (excludes line1, line2, etc.)
+              enum:
+              - match
+              - no-match
+              - unknown
+              - unavailable
+    CardInsightCapabilities:
+      type: object
+      summary: The push or pull capability of the card.
+      properties:
+        enabled:
+          type: boolean
+          description: Indicates if push or pull transactions are enabled for the supplied card
+          example: true
+        network:
+          type: string
+          description: The card network for the supplied card
+          example: visa
+        type:
+          type: string
+          description: The funding type of the card
+          example: credit
+        availability:
+          type: string
+          description: Indicates the typical time for payouts
+          enum:
+          - immediate
+          - next-day
+          - next-few
+        regulated:
+          type: boolean
+          description: Indicates if the issuer is a regulated institution
+          example: true
+        currency:
+          type: object
+          description: The currency of the card
+          properties:
+            alphaCode:
+              type: string
+              description: The ISO 4217 alphabetic code for the currency
+              example: usd
+            numericCode:
+              type: string
+              description: The ISO 4217 numeric code for the currency
+              example: '840'
+        country:
+          type: object
+          description: The country the card is issued in
+          properties:
+            alphaCode:
+              type: string
+              description: The ISO 3166-1 two character alphabetic code for the country
+              example: us
+            numericCode:
+              type: string
+              description: The ISO 3166-1 three digit code for the country
+              example: '840'
+    Address:
+      type: object
+      properties:
+        line1:
+          type: string
+          description: 'The first line of the address.
+
+            '
+          pattern: ^[À-ÖØ-öø-ǿa-zA-Z0-9().\-_#,;/@$!% ]+$
+          example: 123 Main St
+        line2:
+          type: string
+          description: 'The second line of the address.
+
+            '
+          pattern: ^[À-ÖØ-öø-ǿa-zA-Z0-9().\-_#,;/@$!% ]+$
+          example: Floor 4
+        city:
+          type: string
+          description: The city where the address is located.
+          pattern: "^[0-9a-zA-Z _\\-¡-\uFFFF]+$"
+          example: Springfield
+        state:
+          type: string
+          description: The state or province code. Required when `country` is `us`, `ca`, or `au`.
+          format: iso-3166-2-subdivision
+          example: ny
+        postalCode:
+          type: string
+          description: The postal code of the address.
+          pattern: ^[0-9a-zA-Z ]*$
+          example: 13468
+        country:
+          type: string
+          format: iso-3166-1-alpha-2
+          description: The country where the address is located.
+          example: us
+      required:
+      - line1
+      - city
+      - postalCode
+      - country
+    ThreeDSChallenge:
+      type: object
+      description: Details about the 3DS challenge.
+      properties:
+        preference:
+          type: string
+          description: The 3DS challenge preference.
+          enum:
+          - no-preference
+          - challenge-requested
+          - challenge-mandated
+          - no-challenge-requested
+        reason:
+          type:
+          - 'null'
+          - string
+          description: The reason for not requesting a challenge. This value should only be present when the preference is `no-challenge-requested`.
+          enum:
+          - null
+          - data-sharing
+          - low-value
+          - low-risk
+          - secure-corporate-payment
+          - authentication-already-performed
+      required:
+      - preference
+    CauAclUpdate:
+      type: object
+      description: Account closure
+      properties:
+        updateType:
+          type: string
+          description: The type of update to simulate.
+          enum:
+          - account-closure
+      required:
+      - updateType
+    CardThreeDSMetadata:
+      type: object
+      summary: 3DS
+      description: "Metadata about 3DS capabilities, including supported versions \nand ACS (Access Control Server) indicators.\n"
+      properties:
+        supportedVersions:
+          type: object
+          description: The 3DS versions supported by the ACS and DS
+          properties:
+            accessControlServer:
+              type: array
+              items:
+                type: string
+                description: Array of 3DS versions supported by the Access Control Server
+                example: 2.2.0
+            directoryServer:
+              type: array
+              items:
+                type: string
+                description: Array of 3DS versions supported by the Directory Server
+                example: 2.3.1
+        acsInfoIndicators:
+          type: array
+          description: Array of ACS information indicators
+          items:
+            type: object
+            properties:
+              code:
+                type: string
+                description: 'The indicator code, the following values are supported:
+
+
+                  - `authentication-available`
+
+                  - `attempts-supported`
+
+                  - `decoupled-authentication-supported`
+
+                  - `trustlist-supported`
+
+                  - `device-binding-supported`
+
+                  - `webauthn-authentication-supported`
+
+                  - `spc-authentication-supported`
+
+                  - `tra-exemption-supported`
+
+                  - `trustlist-exemption-supported`
+
+                  - `low-value-exemption-supported`
+
+                  - `secure-corporate-payments-exemption-supported`
+
+                  - `emvco-reserved`
+
+                  - `ds-reserved`
+
+
+                  **American Express only:**
+
+                  - `issuer-tra-exemption-supported`
+
+                  - `issuer-trustlist-exemption-supported`
+
+                  - `issuer-low-value-exemption-supported`
+
+                  - `issuer-secure-corporate-payments-exemption-supported`
+
+                  - `bridging-message-extension-supported`
+
+
+                  **Mastercard only:**
+
+                  - `smart-auth-direct-stand-in-only`
+
+                  - `smart-auth-direct`
+
+                  - `payment-transactions-supported`
+
+                  - `non-payment-transactions-supported`
+
+                  - `app-channel-supported`
+
+                  - `browser-channel-supported`
+
+                  - `app-acs-challenge-supported`
+
+                  - `browser-acs-challenge-supported`
+
+
+                  **Visa only:**
+
+                  - `issuer-tra-exemption-supported`
+
+                  - `data-only-supported`
+
+                  - `delegated-authentication-supported`
+
+                  - `digital-auth-framework-supported`
+
+                  '
+              indicator:
+                type: string
+                description: The raw numeric indicator value, ranges from 01 to 99
+              description:
+                type: string
+                description: Human-readable description of the indicator
+    CardInsightCardholder:
+      type: object
+      summary: The result of the name verification (ANI)
+      properties:
+        result:
+          type: object
+          description: The result
+          properties:
+            value:
+              type: string
+              description: The raw result code returned for the ANI check
+              enum:
+              - M
+              - N
+              - U
+            code:
+              type: string
+              description: A human readable version of the ANI result code
+              enum:
+              - match-performed
+              - no-match-performed
+              - unsupported
+        fullName:
+          type: object
+          description: The result
+          properties:
+            value:
+              type: string
+              description: The raw match code returned for the ANI check for the full name
+              enum:
+              - M
+              - P
+              - N
+            code:
+              type: string
+              description: A human readable version of the ANI match code
+              enum:
+              - match
+              - partial-match
+              - no-match
+        firstName:
+          type: object
+          description: The result
+          properties:
+            value:
+              type: string
+              description: The raw match code returned for the ANI check for the first name
+              enum:
+              - M
+              - P
+              - N
+            code:
+              type: string
+              description: A human readable version of the ANI match code
+              enum:
+              - match
+              - partial-match
+              - no-match
+        lastName:
+          type: object
+          description: The result
+          properties:
+            value:
+              type: string
+              description: The raw match code returned for the ANI check for the last name
+              enum:
+              - M
+              - P
+              - N
+            code:
+              type: string
+              description: A human readable version of the ANI match code
+              enum:
+              - match
+              - partial-match
+              - no-match
+    CardFastFunds:
+      type: object
+      summary: Fast Funds
+      description: 'Specifies the availability of instant payment capabilities for card transactions,
+
+        indicating whether funds can be transferred immediately both within the same country
+
+        and across international borders.
+
+        '
+      properties:
+        domestic:
+          type: boolean
+          description: 'When true, indicates that instant payments are supported for transactions
+
+            within the same country/domestic market. This allows for immediate funds
+
+            availability for local transfers.
+
+            '
+        crossBorder:
+          type: boolean
+          description: 'When true, indicates that instant payments are supported for international
+
+            transactions between different countries. This enables immediate funds
+
+            availability for cross-border transfers.
+
+            '
+    ThreeDSDirectoryServer:
+      type: object
+      description: Details about the Directory Server involved in the 3DS transaction.
+      properties:
+        transactionIdentifier:
+          type: string
+          description: The Directory Server's transaction identifier.
+          example: 18030e14-fafa-462e-bfc0-da733196e808
+        referenceNumber:
+          type: string
+          description: The Directory Server's reference number assigned by EMVCo.
+          example: 3DS_LOA_DIS_VISA_020200_00828
+        network:
+          type: string
+          enum:
+          - visa
+          - mastercard
+          - american-express
+          - discover
+          - jcb
+          - unionpay
+          - rupay
+          description: The network of the Directory Server.
+          example: visa
+    MerchantApplePay:
+      type: object
+      properties:
+        domains:
+          type: array
+          description: 'The domains the Merchant has enrolled with Apple Pay and the status of the enrollment.
+
+            '
+          items:
+            type: object
+            properties:
+              domain:
+                type: string
+                description: The top-level domain name of the Merchant's website.
+                example: ollivanders.co.uk
+              status:
+                type: string
+                enum:
+                - active
+                - pending
+                - failed
+                description: 'The current status of the Merchant''s Apple Pay enrollment for the
+
+                  specified domain. `active` means the Merchant is fully enrolled and
+
+                  can accept Apple Pay payments on the domain.
+
+                  '
+                example: active
+    MerchantNetworkTokenStatus:
+      type: object
+      properties:
+        enrolment:
+          type: array
+          description: 'An array detailing the Merchant''s enrollment status for network token issuance across different card brands.
+
+            '
+          items:
+            type: object
+            properties:
+              cardBrand:
+                $ref: '#/components/schemas/CardBrand'
+                description: The card brand (e.g., Visa, Mastercard, American Express) for which the enrollment status is being described. Currently, Network Tokens is only supported for Visa, Mastercard and American Express.
+              tokenRequestorIdentifier:
+                type:
+                - string
+                - 'null'
+                description: The unique Token Requestor Identifier (TRID) associated with the Merchant for the specific card brand. This identifier is used when creating Network Tokens for the Merchant.
+                example: '50165156978'
+              status:
+                type: string
+                enum:
+                - active
+                - inactive
+                description: 'The current stage of the Merchant''s enrolment process for network token issuance with the specified card brand.
+
+                  '
+                example: active
+                x-enum-description:
+                  active: The Merchant is fully enrolled and can create Network Tokens for the card brand.
+                  inactive: The Merchant is not enrolled for the card brand.
+    CardArt:
+      type: object
+      properties:
+        type:
+          type: string
+          description: The MIME type of the card art image.
+          example: image/png
+        data:
+          type: string
+          description: The base64-encoded image data of the card art.
+          example: dGhlIGJhc2U2NCBlbmNvZGVkIGltYWdlIGRhdGE=
+        width:
+          type: integer
+          description: The width of the card art image in pixels.
+          example: 1536
+        height:
+          type: integer
+          description: The height of the card art image in pixels.
+          example: 969
+      required:
+      - type
+      - data
+      - width
+      - height
+    CardExpiry:
+      type: object
+      properties:
+        month:
+          type: string
+          description: The card expiry month, in MM format (e.g. 12 for December)
+          example: 09
+        year:
+          type: string
+          description: The card expiry year, in YY format (e.g. 26 for 2026)
+          example: '26'
+      required:
+      - month
+      - year
+    CauNedUpdate:
+      type: object
+      description: New expiry date
+      properties:
+        updateType:
+          type: string
+          description: The type of update to simulate.
+          enum:
+          - new-expiry-date
+        expiry:
+          $ref: '#/components/schemas/CardExpiry'
+      required:
+      - updateType
+    ThreeDSInitiator:
+      type: object
+      description: Details about the transaction initiation process.
+      oneOf:
+      - type: object
+        summary: Customer-Initiated Transaction (CIT)
+        properties:
+          type:
+            type: string
+            enum:
+            - customer
+            description: The value `customer`.
+      - type: object
+        summary: Merchant-Initiated Transaction (MIT)
+        properties:
+          type:
+            type: string
+            enum:
+            - merchant
+            description: The value `merchant`.
+          reason:
+            type: string
+            enum:
+            - recurring
+            - installment
+            - mail-order
+            - telephone-order
+            - add-card
+            - maintain-card
+            - other-payment
+            - account-verification
+            - split-shipment
+            - delayed-shipment
+            description: The reason for the transaction to be initiated by the merchant. This field is mandatory when the `type` is `merchant`.
+          initialSession:
+            type: string
+            description: 'The ID of the initial session. This can either be an Evervault 3DS Session ID or a `threeDSServer.transactionIdentifier`. This field should be provided if the merchant has previously authenticated the cardholder using 3DS.
+
+              The API does not currently enforce this requirement, but it is recommended to always provide this field. In some cases Authentications will error if this field is not populated.
+
+              '
+    CardFunding:
+      type: string
+      enum:
+      - debit
+      - credit
+      - prepaid
+      - deferred-debit
+      - charge
+      x-enum-description:
+        debit: Draw funds directly from a linked bank account
+        credit: Provide a line of credit from which users can borrow funds for transactions
+        prepaid: Loaded with a set amount of funds in advance and can be used until the balance is depleted
+        deferred-debit: Combine aspects of debit and credit cards, allowing transactions to be debited from a linked account at a later date, usually monthly
+        charge: Require full payment of the balance at the end of each billing cycle, but do not have a pre-set spending limit
+      description: 'The card funding type specifies the method by which transactions are
+
+        financed.
+
+        '
+      example: debit
     CardSegment:
       type: string
       enum:
@@ -4120,100 +4176,44 @@ components:
 
         '
       example: consumer
-    AcquirerConfiguration:
+    PaymentRecurring:
       type: object
-      summary: The Acquirer Object
+      summary: Recurring Payment
+      description: A repeating payment with a regular interval.
       properties:
-        id:
+        type:
           type: string
-          description: The unique identifier of the acquirer configuration.
-          example: acquirer_eead1d640d7c
-        name:
-          type: string
-          description: The name of the acquirer configuration.
-        description:
-          type: string
-          description: The description of the acquirer configuration.
-        default:
-          type: boolean
-        configurations:
-          type: array
-          description: The acquirer configuration settings.
-          items:
-            type: object
-            properties:
-              network:
-                type: string
-                enum:
-                - visa
-                - mastercard
-                - american-express
-                - discover
-                example: mastercard
-                description: The card network of the Acquirer. `discover` covers Discover, Diners Club, and JCB (US only).
-              bin:
-                type: string
-                pattern: ^[0-9]{6,11}$
-                minLength: 6
-                maxLength: 11
-                example: '424242'
-                description: The Bank Identification Number (BIN) of the Acquirer. Must be 6 to 11 digits.
-              acquirerMerchantIdentifier:
-                type: string
-                description: The merchant identifier the configuration is associated with.
-                example: '38191048173'
-              state:
-                type: string
-                example: active
-              country:
-                description: The country of the acquirer configuration, used when creating 3DS sessions.
-                type: string
-                format: iso-3166-1-alpha-2
-                example: ie
-            required:
-            - network
-            - bin
-            - acquirerMerchantIdentifier
-            - state
-            - country
-      required:
-      - id
-      - name
-      - default
-      - configurations
-      example:
-        id: acquirer_eead1d640d7c
-        name: Ollivanders Wand Shop Production Configuration
-        description: Ollivanders Wand Shop Production Configuration
-        default: true
-        configurations:
-        - network: mastercard
-          bin: '424242'
-          acquirerMerchantIdentifier: '38191048173'
-          state: active
-          country: ie
-        - network: visa
-          bin: '424242'
-          acquirerMerchantIdentifier: '38191048173'
-          state: active
-          country: ie
-    CauNanUpdate:
-      type: object
-      description: New account number
-      properties:
-        updateType:
-          type: string
-          description: The type of update to simulate.
+          description: The value `recurring`.
           enum:
-          - new-account-number
-        expiry:
-          $ref: '#/components/schemas/CardExpiry'
-        number:
+          - recurring
+        amount:
+          type: integer
+          description: The amount of the payment in the smallest currency unit (e.g. cents).
+          example: 1000
+        currency:
           type: string
-          description: The card number. Can be clear-text or an Evervault encrypted string.
-          example: '4242424242424242'
+          format: iso-4217-alphabetic
+          description: The currency of the payment.
+          example: gbp
+        frequency:
+          type: string
+          description: Indicates the minimum time between authorizations.
+          enum:
+          - daily
+          - weekly
+          - monthly
+          - quarterly
+          - annually
+          example: monthly
+        expiry:
+          type: integer
+          description: The epoch time in seconds when the recurring payment expires. Maximum value is 4102394400 (equivalent to 2099-12-31).
       required:
-      - updateType
+      - type
+      - amount
+      - currency
+      - frequency
+      - expiry
     Card:
       x-section: Payments
       x-group: Cards

@@ -1,27 +1,48 @@
 {
   "provider": "evervault",
   "sources": [
-    "evervault-openapi-original.json"
+    "_original/evervault-openapi-original.json"
   ],
   "outputs": [
-    "evervault-3d-secure-api-openapi.yml",
-    "evervault-acquirers-api-openapi.yml",
-    "evervault-card-account-updates-api-openapi.yml",
-    "evervault-client-tokens-api-openapi.yml",
     "evervault-core-api-openapi.yml",
-    "evervault-functions-api-openapi.yml",
-    "evervault-insights-api-openapi.yml",
-    "evervault-merchants-api-openapi.yml",
-    "evervault-network-tokens-api-openapi.yml",
+    "evervault-evervault-api-api-openapi.yml",
     "evervault-payments-api-openapi.yml",
-    "evervault-relays-api-openapi.yml",
     "evervault-webhooks-api-openapi.yml"
   ],
-  "archived": [
-    "archived openapi/evervault-openapi-original.json"
-  ],
+  "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "evervault-openapi-original.json: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "evervault-openapi-original.json: tagged webhooks POST functionRunCompleted -> Evervault API",
+    "evervault-openapi-original.json: tagged webhooks POST functionDeploymentStarted -> Evervault API",
+    "evervault-openapi-original.json: tagged webhooks POST functionDeploymentUpdated -> Evervault API",
+    "evervault-openapi-original.json: tagged webhooks POST functionDeploymentFinished -> Evervault API",
+    "evervault-openapi-original.json: tagged webhooks POST merchantUpdated -> Evervault API",
+    "evervault-openapi-original.json: tagged webhooks POST networkTokenUpdated -> Evervault API",
+    "evervault-openapi-original.json: tagged webhooks POST cardUpdated -> Evervault API",
+    "evervault-openapi-original.json: tagged webhooks POST threeDSSessionSuccess -> Evervault API",
+    "evervault-openapi-original.json: tagged webhooks POST threeDSSessionFailure -> Evervault API",
+    "evervault-openapi-original.json: tagged webhooks POST enclaveDeploymentStarted -> Evervault API",
+    "evervault-openapi-original.json: tagged webhooks POST enclaveDeploymentUpdated -> Evervault API",
+    "evervault-openapi-original.json: tagged webhooks POST enclaveDeploymentFinished -> Evervault API",
+    "evervault-openapi-original.json: tagged webhooks POST auditLogEvent -> Evervault API",
+    "evervault-openapi-original.json: declared missing tag: Evervault API",
+    "evervault-openapi-original.json: multi-axis tagging (13 tags, 4 first tags, 1.63x duplication over 57 operations) \u2014 split on first tag, 36 operations narrowed"
+  ],
+  "skipped": [
+    "evervault-3d-secure-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "evervault-acquirers-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "evervault-card-account-updates-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "evervault-client-tokens-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "evervault-core-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "evervault-functions-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "evervault-insights-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "evervault-merchants-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "evervault-network-tokens-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "evervault-payments-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "evervault-relays-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "evervault-webhooks-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

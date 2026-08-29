@@ -1,4 +1,4 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
   title: Evervault Network Tokens API
   version: 0.0.1
@@ -510,26 +510,6 @@ components:
       - data
       - width
       - height
-    NetworkTokenCryptogram:
-      type: object
-      properties:
-        id:
-          type: string
-          description: A unique identifier representing a specific Network Token Cryptogram.
-          example: network_token_cryptogram_eead1d640d7c
-        cryptogram:
-          type: string
-          description: The value of the Network Token Cryptogram. This is the value that is used embedded in the Authorization request.
-          example: NTk0ZjM5M2QyNDMwNDE1MjkzMjg1ZTg5Y2NiZjdmNjE=
-        createdAt:
-          type: integer
-          format: int64
-          description: The exact time, in epoch milliseconds, when this Network Token Cryptogram was created.
-          example: 1692972623233
-      required:
-      - id
-      - cryptogram
-      - createdAt
     Error:
       type: object
       properties:
@@ -687,6 +667,26 @@ components:
         status: active
         createdAt: 1692972623233
         updatedAt: 1692972623768
+    NetworkTokenCryptogram:
+      type: object
+      properties:
+        id:
+          type: string
+          description: A unique identifier representing a specific Network Token Cryptogram.
+          example: network_token_cryptogram_eead1d640d7c
+        cryptogram:
+          type: string
+          description: The value of the Network Token Cryptogram. This is the value that is used embedded in the Authorization request.
+          example: NTk0ZjM5M2QyNDMwNDE1MjkzMjg1ZTg5Y2NiZjdmNjE=
+        createdAt:
+          type: integer
+          format: int64
+          description: The exact time, in epoch milliseconds, when this Network Token Cryptogram was created.
+          example: 1692972623233
+      required:
+      - id
+      - cryptogram
+      - createdAt
     CardExpiry:
       type: object
       properties:

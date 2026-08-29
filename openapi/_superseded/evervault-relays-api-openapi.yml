@@ -1,4 +1,4 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
   title: Evervault Relays API
   version: 0.0.1
@@ -508,6 +508,74 @@ components:
       - path
       - request
       - response
+    RelayAction:
+      type: object
+      properties:
+        action:
+          type: string
+          description: The operation to perform on the selected data.
+          enum:
+          - encrypt
+          - decrypt
+          example: encrypt
+        selections:
+          type: array
+          description: The selections of data on which the operation will be performed.
+          items:
+            $ref: '#/components/schemas/RelaySelection'
+      required:
+      - action
+      - selections
+    CustomDomain:
+      x-section: Relays
+      x-group: Custom Domains
+      type: object
+      summary: The Custom Domain Object
+      properties:
+        id:
+          type: string
+          description: The unique identifier for the custom domain.
+          example: custom_domain_j3od9Bl0WV1n
+        customDomain:
+          type: string
+          description: The customer managed domain to which requests to be relayed to your domain should be sent.
+          example: subdomain.example.com
+        relay:
+          type: string
+          description: The ID of the Relay with which this custom domain is associated.
+          example: relay_destination_d4ja57js9lnh
+        status:
+          type: string
+          enum:
+          - active
+          - inactive
+          description: The status of the domains DNS verification.
+          x-enum-description:
+            active: The domain is active and can be used for requests
+            inactive: The domain is inactive and cannot be used for requests
+        validationRecord:
+          type: string
+          format: uuidv4
+          description: Validation TXT record to be added on the `_ev-custom-relay` subdomain of your custom domain
+          example: 986f3008-86e7-4caf-bd8b-a5d312844153
+        createdAt:
+          type: integer
+          format: int64
+          description: The exact time, in epoch milliseconds, when this custom domain was created.
+          example: 1692972623233
+        updatedAt:
+          type: integer
+          format: int64
+          description: The exact time, in epoch milliseconds, when this custom domain was last updated.
+          example: 1692972623233
+      example:
+        id: custom_domain_j3od9Bl0WV1n
+        customDomain: subdomain.example.com
+        status: active
+        validationRecord: 986f3008-86e7-4caf-bd8b-a5d312844153
+        relay: relay_destination_d4ja57js9lnh
+        createdAt: 1692972623233
+        updatedAt: 1692972623233
     Relay:
       x-section: Relays
       type: object
@@ -608,74 +676,6 @@ components:
           example: $.cardNumber
       required:
       - selector
-    RelayAction:
-      type: object
-      properties:
-        action:
-          type: string
-          description: The operation to perform on the selected data.
-          enum:
-          - encrypt
-          - decrypt
-          example: encrypt
-        selections:
-          type: array
-          description: The selections of data on which the operation will be performed.
-          items:
-            $ref: '#/components/schemas/RelaySelection'
-      required:
-      - action
-      - selections
-    CustomDomain:
-      x-section: Relays
-      x-group: Custom Domains
-      type: object
-      summary: The Custom Domain Object
-      properties:
-        id:
-          type: string
-          description: The unique identifier for the custom domain.
-          example: custom_domain_j3od9Bl0WV1n
-        customDomain:
-          type: string
-          description: The customer managed domain to which requests to be relayed to your domain should be sent.
-          example: subdomain.example.com
-        relay:
-          type: string
-          description: The ID of the Relay with which this custom domain is associated.
-          example: relay_destination_d4ja57js9lnh
-        status:
-          type: string
-          enum:
-          - active
-          - inactive
-          description: The status of the domains DNS verification.
-          x-enum-description:
-            active: The domain is active and can be used for requests
-            inactive: The domain is inactive and cannot be used for requests
-        validationRecord:
-          type: string
-          format: uuidv4
-          description: Validation TXT record to be added on the `_ev-custom-relay` subdomain of your custom domain
-          example: 986f3008-86e7-4caf-bd8b-a5d312844153
-        createdAt:
-          type: integer
-          format: int64
-          description: The exact time, in epoch milliseconds, when this custom domain was created.
-          example: 1692972623233
-        updatedAt:
-          type: integer
-          format: int64
-          description: The exact time, in epoch milliseconds, when this custom domain was last updated.
-          example: 1692972623233
-      example:
-        id: custom_domain_j3od9Bl0WV1n
-        customDomain: subdomain.example.com
-        status: active
-        validationRecord: 986f3008-86e7-4caf-bd8b-a5d312844153
-        relay: relay_destination_d4ja57js9lnh
-        createdAt: 1692972623233
-        updatedAt: 1692972623233
   securitySchemes:
     ApiKey:
       type: http

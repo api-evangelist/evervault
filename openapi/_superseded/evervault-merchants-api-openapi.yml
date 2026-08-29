@@ -1,4 +1,4 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
   title: Evervault Merchants API
   version: 0.0.1
@@ -432,80 +432,6 @@ paths:
           description: Merchant successfully deleted.
 components:
   schemas:
-    MerchantNetworkTokenStatus:
-      type: object
-      properties:
-        enrolment:
-          type: array
-          description: 'An array detailing the Merchant''s enrollment status for network token issuance across different card brands.
-
-            '
-          items:
-            type: object
-            properties:
-              cardBrand:
-                $ref: '#/components/schemas/CardBrand'
-                description: The card brand (e.g., Visa, Mastercard, American Express) for which the enrollment status is being described. Currently, Network Tokens is only supported for Visa, Mastercard and American Express.
-              tokenRequestorIdentifier:
-                type:
-                - string
-                - 'null'
-                description: The unique Token Requestor Identifier (TRID) associated with the Merchant for the specific card brand. This identifier is used when creating Network Tokens for the Merchant.
-                example: '50165156978'
-              status:
-                type: string
-                enum:
-                - active
-                - inactive
-                description: 'The current stage of the Merchant''s enrolment process for network token issuance with the specified card brand.
-
-                  '
-                example: active
-                x-enum-description:
-                  active: The Merchant is fully enrolled and can create Network Tokens for the card brand.
-                  inactive: The Merchant is not enrolled for the card brand.
-    Address:
-      type: object
-      properties:
-        line1:
-          type: string
-          description: 'The first line of the address.
-
-            '
-          pattern: ^[À-ÖØ-öø-ǿa-zA-Z0-9().\-_#,;/@$!% ]+$
-          example: 123 Main St
-        line2:
-          type: string
-          description: 'The second line of the address.
-
-            '
-          pattern: ^[À-ÖØ-öø-ǿa-zA-Z0-9().\-_#,;/@$!% ]+$
-          example: Floor 4
-        city:
-          type: string
-          description: The city where the address is located.
-          pattern: "^[0-9a-zA-Z _\\-¡-\uFFFF]+$"
-          example: Springfield
-        state:
-          type: string
-          description: The state or province code. Required when `country` is `us`, `ca`, or `au`.
-          format: iso-3166-2-subdivision
-          example: ny
-        postalCode:
-          type: string
-          description: The postal code of the address.
-          pattern: ^[0-9a-zA-Z ]*$
-          example: 13468
-        country:
-          type: string
-          format: iso-3166-1-alpha-2
-          description: The country where the address is located.
-          example: us
-      required:
-      - line1
-      - city
-      - postalCode
-      - country
     MerchantApplePay:
       type: object
       properties:
@@ -535,18 +461,6 @@ components:
 
                   '
                 example: active
-    CardBrand:
-      type: string
-      enum:
-      - visa
-      - mastercard
-      - american-express
-      - discover
-      - diners-club
-      - jcb
-      - unionpay
-      description: The card brand associated with the payment card.
-      example: visa
     Merchant:
       type: object
       summary: The Merchant Object
@@ -637,6 +551,92 @@ components:
             status: active
         createdAt: 1692972623233
         updatedAt: 1692972623768
+    CardBrand:
+      type: string
+      enum:
+      - visa
+      - mastercard
+      - american-express
+      - discover
+      - diners-club
+      - jcb
+      - unionpay
+      description: The card brand associated with the payment card.
+      example: visa
+    MerchantNetworkTokenStatus:
+      type: object
+      properties:
+        enrolment:
+          type: array
+          description: 'An array detailing the Merchant''s enrollment status for network token issuance across different card brands.
+
+            '
+          items:
+            type: object
+            properties:
+              cardBrand:
+                $ref: '#/components/schemas/CardBrand'
+                description: The card brand (e.g., Visa, Mastercard, American Express) for which the enrollment status is being described. Currently, Network Tokens is only supported for Visa, Mastercard and American Express.
+              tokenRequestorIdentifier:
+                type:
+                - string
+                - 'null'
+                description: The unique Token Requestor Identifier (TRID) associated with the Merchant for the specific card brand. This identifier is used when creating Network Tokens for the Merchant.
+                example: '50165156978'
+              status:
+                type: string
+                enum:
+                - active
+                - inactive
+                description: 'The current stage of the Merchant''s enrolment process for network token issuance with the specified card brand.
+
+                  '
+                example: active
+                x-enum-description:
+                  active: The Merchant is fully enrolled and can create Network Tokens for the card brand.
+                  inactive: The Merchant is not enrolled for the card brand.
+    Address:
+      type: object
+      properties:
+        line1:
+          type: string
+          description: 'The first line of the address.
+
+            '
+          pattern: ^[À-ÖØ-öø-ǿa-zA-Z0-9().\-_#,;/@$!% ]+$
+          example: 123 Main St
+        line2:
+          type: string
+          description: 'The second line of the address.
+
+            '
+          pattern: ^[À-ÖØ-öø-ǿa-zA-Z0-9().\-_#,;/@$!% ]+$
+          example: Floor 4
+        city:
+          type: string
+          description: The city where the address is located.
+          pattern: "^[0-9a-zA-Z _\\-¡-\uFFFF]+$"
+          example: Springfield
+        state:
+          type: string
+          description: The state or province code. Required when `country` is `us`, `ca`, or `au`.
+          format: iso-3166-2-subdivision
+          example: ny
+        postalCode:
+          type: string
+          description: The postal code of the address.
+          pattern: ^[0-9a-zA-Z ]*$
+          example: 13468
+        country:
+          type: string
+          format: iso-3166-1-alpha-2
+          description: The country where the address is located.
+          example: us
+      required:
+      - line1
+      - city
+      - postalCode
+      - country
   securitySchemes:
     ApiKey:
       type: http
