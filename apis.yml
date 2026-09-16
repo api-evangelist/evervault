@@ -1,14 +1,12 @@
 aid: evervault
 name: Evervault
-description: >-
-  Evervault is a data-security and payments-infrastructure platform that lets developers
-  encrypt, tokenize, and process sensitive data - especially cardholder data - without it
-  touching their own infrastructure. Its model stores encryption keys on Evervault's side
-  while customers hold the ciphertext, reducing breach scope. Core products include Relay
-  (an encrypting/decrypting proxy), Functions (secure serverless runtimes), Enclaves (AWS
-  Nitro Enclave workloads), UI Components for PCI-compliant card collection, plus payments
-  tooling: network tokens, 3D Secure, BIN lookup, card account updater, and multi-PSP
-  routing. Evervault is PCI DSS Level 1 and SOC 2 Type II, and supports HIPAA and GDPR.
+description: 'Evervault is a data-security and payments-infrastructure platform that lets developers encrypt,
+  tokenize, and process sensitive data - especially cardholder data - without it touching their own infrastructure.
+  Its model stores encryption keys on Evervault''s side while customers hold the ciphertext, reducing
+  breach scope. Core products include Relay (an encrypting/decrypting proxy), Functions (secure serverless
+  runtimes), Enclaves (AWS Nitro Enclave workloads), UI Components for PCI-compliant card collection,
+  plus payments tooling: network tokens, 3D Secure, BIN lookup, card account updater, and multi-PSP routing.
+  Evervault is PCI DSS Level 1 and SOC 2 Type II, and supports HIPAA and GDPR.'
 deliveryModel:
   model: saas
   open_source: false
@@ -46,7 +44,7 @@ x-tier: active
 x-tier-reason: enriched-real-api
 specificationVersion: '0.23'
 created: '2026-07-17'
-modified: '2026-07-19'
+modified: '2026-09-16'
 tags:
 - Company
 - Data
@@ -96,7 +94,7 @@ apis:
   - type: OpenAPI
     url: openapi/evervault-webhooks-api-openapi.yml
 - aid: evervault:evervault-evervault-api-api
-  name: Evervault Evervault API
+  name: Evervault API
   description: The Evervault API API from Evervault — 0 operation(s) for evervault api.
   humanURL: https://docs.evervault.com/api
   baseURL: https://api.evervault.com
@@ -148,7 +146,10 @@ common:
   url: sandbox/evervault-sandbox.yml
 - type: X-MCPServerCandidate
   url: mcp/evervault-mcp.yml
-  note: 'Renamed from MCPServer 2026-09-03 (roadmap#247): the manifest self-describes as status: candidate — a tool list derived from the published API contracts, not an existing server. The scorer already read the manifest and reported mcp_server correctly; the MCPServer type was crediting the artifact-type surfaces with a server that does not exist.'
+  note: 'Renamed from MCPServer 2026-09-03 (roadmap#247): the manifest self-describes as status: candidate
+    — a tool list derived from the published API contracts, not an existing server. The scorer already
+    read the manifest and reported mcp_server correctly; the MCPServer type was crediting the artifact-type
+    surfaces with a server that does not exist.'
 - type: AgentSkill
   url: skills/_index.yml
 - type: LLMsTxt
