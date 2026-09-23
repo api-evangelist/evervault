@@ -18,7 +18,6 @@ paths:
     post:
       summary: Create a Webhook Endpoint
       operationId: createWebhookEndpoint
-      description: Create a Webhook Endpoint
       tags:
       - Webhooks
       security:
@@ -74,9 +73,7 @@ paths:
     get:
       summary: List all Webhook Endpoints
       operationId: listWebhookEndpoints
-      description: 'Lists all Webhook Endpoints
-
-        '
+      description: Lists all Webhook Endpoints
       tags:
       - Webhooks
       security:
@@ -137,9 +134,7 @@ paths:
     get:
       summary: Retrieve a Webhook Endpoint
       operationId: getWebhookEndpoint
-      description: 'Retrieves a Webhook Endpoint
-
-        '
+      description: Retrieves a Webhook Endpoint
       tags:
       - Webhooks
       security:
@@ -178,9 +173,7 @@ paths:
     patch:
       summary: Update a Webhook Endpoint
       operationId: updateWebhookEndpoint
-      description: 'Updates a Webhook Endpoint
-
-        '
+      description: Updates a Webhook Endpoint
       tags:
       - Webhooks
       security:
@@ -238,9 +231,6 @@ paths:
     delete:
       summary: Delete a Webhook Endpoint
       operationId: deleteWebhookEndpoint
-      description: 'Delete a Webhook Endpoint
-
-        '
       tags:
       - Webhooks
       security:

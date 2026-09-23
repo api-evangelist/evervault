@@ -29,20 +29,13 @@
     "evervault-openapi-original.json: tagged webhooks POST enclaveDeploymentFinished -> Evervault API",
     "evervault-openapi-original.json: tagged webhooks POST auditLogEvent -> Evervault API",
     "evervault-openapi-original.json: declared missing tag: Evervault API",
-    "evervault-openapi-original.json: multi-axis tagging (13 tags, 4 first tags, 1.63x duplication over 57 operations) \u2014 split on first tag, 36 operations narrowed"
+    "evervault-openapi-original.json: multi-axis tagging (13 tags, 4 first tags, 1.63x duplication over 57 operations) \u2014 split on first tag, 36 operations narrowed",
+    "apis.yml register: already-registered"
   ],
   "skipped": [
-    "evervault-3d-secure-api-openapi.yml: previously refined output, superseded by openapi/_original/",
-    "evervault-acquirers-api-openapi.yml: previously refined output, superseded by openapi/_original/",
-    "evervault-card-account-updates-api-openapi.yml: previously refined output, superseded by openapi/_original/",
-    "evervault-client-tokens-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "evervault-core-api-openapi.yml: previously refined output, superseded by openapi/_original/",
-    "evervault-functions-api-openapi.yml: previously refined output, superseded by openapi/_original/",
-    "evervault-insights-api-openapi.yml: previously refined output, superseded by openapi/_original/",
-    "evervault-merchants-api-openapi.yml: previously refined output, superseded by openapi/_original/",
-    "evervault-network-tokens-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "evervault-evervault-api-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "evervault-payments-api-openapi.yml: previously refined output, superseded by openapi/_original/",
-    "evervault-relays-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "evervault-webhooks-api-openapi.yml: previously refined output, superseded by openapi/_original/"
   ]
 }

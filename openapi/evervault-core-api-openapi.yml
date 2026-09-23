@@ -18,9 +18,7 @@ paths:
     post:
       x-section: Core
       summary: Encrypt
-      description: 'The encrypt endpoint can be used to encrypt the values of a JSON object, or file. When encrypting the values of a JSON object the `Content-Type` header should be set to `application/json`, when encrypting files it should be set to `application/octet-stream`.
-
-        '
+      description: The encrypt endpoint can be used to encrypt the values of a JSON object, or file. When encrypting the values of a JSON object the `Content-Type` header should be set to `application/json`, when encrypting files it should be set to `application/octet-stream`.
       operationId: encrypt
       security:
       - ApiKey: []
@@ -113,9 +111,7 @@ paths:
     post:
       x-section: Core
       summary: Decrypt
-      description: 'The decrypt endpoint can be used to decrypt the values of a JSON object, or file. When decrypting the values of a JSON object the `Content-Type` header should be set to `application/json`, when decrypting files it should be set to `application/octet-stream`.
-
-        '
+      description: The decrypt endpoint can be used to decrypt the values of a JSON object, or file. When decrypting the values of a JSON object the `Content-Type` header should be set to `application/json`, when decrypting files it should be set to `application/octet-stream`.
       operationId: decrypt
       security:
       - ApiKey:
@@ -216,9 +212,7 @@ paths:
 
         the type of data, the data role and category-specific metadata (e.g. card metadata)
 
-        without accessing the plaintext value.
-
-        '
+        without accessing the plaintext value.'
       tags:
       - Core
       security:
@@ -325,9 +319,7 @@ paths:
       x-section: Functions
       summary: Run a Function
       operationId: createFunctionRun
-      description: 'The Function run endpoint lets you invoke an [Evervault Function](/primitives/functions). The body of the request should contain a payload, the value of which will be decrypted and passed as an argument to the Function.
-
-        '
+      description: The Function run endpoint lets you invoke an Evervault Function. The body of the request should contain a payload, the value of which will be decrypted and passed as an argument to the Function.
       tags:
       - Core
       security:
@@ -439,9 +431,7 @@ paths:
     post:
       summary: Create a Client Token
       operationId: create-client-side-token
-      description: 'Client-Side Tokens are restricted to specific payloads. By default, a Client-Side Token will expire after 5 minutes. The maximum expiration time of a token is 10 minutes. When using the REST API, the expiry field must be in epoch milliseconds.
-
-        '
+      description: Client-Side Tokens are restricted to specific payloads. By default, a Client-Side Token will expire after 5 minutes. The maximum expiration time of a token is 10 minutes. When using the REST API, the expiry field must be in epoch milliseconds.
       tags:
       - Core
       security:
@@ -493,7 +483,7 @@ paths:
     post:
       operationId: createRelay
       summary: Create a Relay
-      description: Creates a new [Relay](/relay).
+      description: Creates a new Relay.
       tags:
       - Core
       security:
@@ -590,7 +580,7 @@ paths:
     get:
       operationId: listRelays
       summary: List all Relays
-      description: Lists all [Relays](/relay) for the App.
+      description: Lists all Relays for the App.
       tags:
       - Core
       security:
@@ -641,7 +631,7 @@ paths:
     get:
       operationId: fetchRelay
       summary: Retrieve a Relay
-      description: Retrieves a [Relay](/relay) by its ID.
+      description: Retrieves a Relay by its ID.
       tags:
       - Core
       security:
@@ -686,7 +676,7 @@ paths:
     patch:
       operationId: updateRelay
       summary: Updates a Relay
-      description: Updates a [Relay](/relay). Any properties not provided are left unchanged.
+      description: Updates a Relay. Any properties not provided are left unchanged.
       tags:
       - Core
       security:
@@ -770,7 +760,7 @@ paths:
     delete:
       operationId: deleteRelay
       summary: Delete a Relay
-      description: Deletes a [Relay](/relay). This action cannot be undone and the Relay domain will no longer forward requests to its destination domain.
+      description: Deletes a Relay. This action cannot be undone and the Relay domain will no longer forward requests to its destination domain.
       tags:
       - Core
       security:
@@ -841,7 +831,7 @@ paths:
     get:
       summary: List all Custom Domains
       operationId: fetchCustomDomainsForRelay
-      description: Lists all custom domains for a [Relay](/relay).
+      description: Lists all custom domains for a Relay.
       tags:
       - Core
       security:
@@ -883,7 +873,7 @@ paths:
     get:
       summary: Retrieve a Custom Domain
       operationId: retrieveCustomDomain
-      description: Retrieves a custom domain for a [Relay](/relay).
+      description: Retrieves a custom domain for a Relay.
       tags:
       - Core
       security:
@@ -924,7 +914,7 @@ paths:
     delete:
       summary: Delete a Custom Domain
       operationId: deleteCustomDomain
-      description: Deletes a custom domain for a [Relay](/relay). This action cannot be undone.
+      description: Deletes a custom domain for a Relay. This action cannot be undone.
       tags:
       - Core
       security:
@@ -997,137 +987,6 @@ components:
         relay: relay_destination_d4ja57js9lnh
         createdAt: 1692972623233
         updatedAt: 1692972623233
-    FunctionRun:
-      type: object
-      properties:
-        id:
-          type: string
-          description: A unique identifier representing this specific Function execution instance.
-          example: func_run_eead1d640d7c
-        status:
-          type: string
-          description: The outcome of the Function execution.
-          enum:
-          - success
-          - failure
-          - scheduled
-          x-enum-description:
-            success: The Function executed successfully
-            failure: The Function encountered an error
-            scheduled: The Function execution has been queued
-          example: success
-        result:
-          type: object
-          description: This field represents the output returned by the Function. This is provided only when the Function execution status is 'success'.
-          example:
-            message: Hello, World
-        error:
-          type:
-          - object
-          - 'null'
-          description: This field details any error that occurred during Function execution. This is present only if the status is 'failure'.
-          properties:
-            message:
-              type: string
-              description: A concise explanation of the error that occurred during Function execution.
-              example: Some error message!
-            stack:
-              type: string
-              description: A trace detailing the sequence of events leading to the error, useful for debugging purposes.
-              example: "Error: Some error message!\n    at exports.handler (/runtime/app/index.js:5:11)\n    at /runtime/index.js:64:26\n    at new Promise (<anonymous>)\n    at /runtime/index.js:51:16"
-        createdAt:
-          type: integer
-          format: int64
-          description: The exact time, in epoch milliseconds, when this Function execution was triggered.
-          example: 1692972623233
-    ClientSideToken:
-      type: object
-      properties:
-        id:
-          type: string
-          description: The id of the token
-          example: client_side_token_TDbEef6lgIs
-        token:
-          type: string
-          description: The token
-          example: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ2ZXJzaW9uIjoxLCJhcHBfdXVpZCI6ImFwcF82YWJlZDM1ZDc2YjkiLCJ0ZWFtX3V1aWQiOiJ0ZWFtX2FiZjU1YTk5MTY0NSIsImp0aSI6ImNsaWVudF9zaWRlX3Rva2VuX1REYkVlZjZsZ0lzIiwiZXhwIjoxNzA3MjMzODQxOTgxLCJhY3Rpb24iOiJhcGk6ZGVjcnlwdCIsInJlc291cmNlIjpudWxsLCJoYXNoZWRfYm9keSI6IlJCTnZvMVd6WjRvUlJxMFc5LWhrbnBUN1Q4SWY1MzZERU1CZzloeXFfNG8iLCJjbGllbnRfaXAiOm51bGx9.ea1w3TlZ7p-OLVs-NOAUMij4V5w-9vMAD8W2WEoklsDwwgy8HANXP4e8eAjTA0CkELoUL2FgNesS6S77Z-coG1Yw9TGnkEchgkA6RAXqF65t1bLrW0rvl2AzwFZNwJpEbJc37YqyC2xGeermmYKZCu6in97_fe4rAXSYQiuVtN6V8uLSlAgP9Mr0BmNIf49fnskbc0y2-2qewvZfRM7mPQ6NXcQE_jhUjy3OhaohdvU1FpaLs3OrzW2Ej8wE1hOjc5hRtT2cslaY4Bl2x4YNMRVObWg7GYCdETG280ilXTUu9jIPmkXt8QBzouZOP5nuhCjYxFJ2fYZMLj7vYukwdiyBtiUADXDzmnFyh7icAWib76z_hW3VLRjQSlq-fgvQJfM71j5RGBEmLrQNAPRREYjCiM8cwmOh5sFaLdmu4wM6-lgPn8dvHSqENwggs_nfxPyavHChNn8KOo4FS64YYeB28hqSvBAMT-umCdv7n2I-YF6fJOpgJrQOK35MPt4kKfqULJ45wpSnzsSpT9kTrLw0-9-6JpMtsQio0UJ27aXHMPErFcNMcW2hEhPdNsjSfIEmK7lCaUOed-wETkkfIaoTe5ly051baj-VWbAbNXH2jduia2rCZoofXTABADRzeBrFyDNRZXNQ205n0xh3PpIcazKw_vCAD_EDXmcCsFo
-        expiry:
-          type: integer
-          description: The expiry of the token in unix millis format
-          example: 1707233841981
-        createdAt:
-          type: integer
-          description: The creation time of the token in unix millis format
-          example: 1707233541981
-    CardFunding:
-      type: string
-      enum:
-      - debit
-      - credit
-      - prepaid
-      - deferred-debit
-      - charge
-      x-enum-description:
-        debit: Draw funds directly from a linked bank account
-        credit: Provide a line of credit from which users can borrow funds for transactions
-        prepaid: Loaded with a set amount of funds in advance and can be used until the balance is depleted
-        deferred-debit: Combine aspects of debit and credit cards, allowing transactions to be debited from a linked account at a later date, usually monthly
-        charge: Require full payment of the balance at the end of each billing cycle, but do not have a pre-set spending limit
-      description: 'The card funding type specifies the method by which transactions are
-
-        financed.
-
-        '
-      example: debit
-    CardSegment:
-      type: string
-      enum:
-      - consumer
-      - commercial
-      - business
-      - government
-      - payouts
-      - all
-      x-enum-description:
-        consumer: Personal use cards
-        commercial: Cards used by large organizations or corporations
-        business: Small to medium-sized business use
-        government: Cards used by government entities
-        payouts: Cards designed to disburse payments like payroll or cashback
-        all: General-purpose cards not confined to a specific segment
-      description: 'The card segment indicates the primary market or usage category of the
-
-        card.
-
-        '
-      example: consumer
-    RelaySelection:
-      type: object
-      properties:
-        type:
-          type: string
-          description: The type of the selector used to identify the data on which the action should be performed.
-          enum:
-          - header
-          - json
-          - form
-          x-enum-description:
-            header: '`selector` should be a case-insensitive header name'
-            json: '`selector` should be a valid JSONPath string to select fields in the JSON payload'
-            form: '`selector` should be an exact form field name'
-          example: json
-        role:
-          type: string
-          description: The role of the encrypted field that must be matched for the operation to be performed.
-          example: pci
-        selector:
-          type: string
-          description: 'The selector that identifies the data on which the action should be performed
-
-            '
-          example: $.cardNumber
-      required:
-      - selector
     RelayAction:
       type: object
       properties:
@@ -1146,6 +1005,18 @@ components:
       required:
       - action
       - selections
+    CardBrand:
+      type: string
+      enum:
+      - visa
+      - mastercard
+      - american-express
+      - discover
+      - diners-club
+      - jcb
+      - unionpay
+      description: The card brand associated with the payment card.
+      example: visa
     Relay:
       x-section: Relays
       type: object
@@ -1219,6 +1090,172 @@ components:
         app: app_cc7fcd533649
         createdAt: 1692972623233
         updatedAt: 1692972623234
+    RelaySelection:
+      type: object
+      properties:
+        type:
+          type: string
+          description: The type of the selector used to identify the data on which the action should be performed.
+          enum:
+          - header
+          - json
+          - form
+          x-enum-description:
+            header: '`selector` should be a case-insensitive header name'
+            json: '`selector` should be a valid JSONPath string to select fields in the JSON payload'
+            form: '`selector` should be an exact form field name'
+          example: json
+        role:
+          type: string
+          description: The role of the encrypted field that must be matched for the operation to be performed.
+          example: pci
+        selector:
+          type: string
+          description: 'The selector that identifies the data on which the action should be performed
+
+            '
+          example: $.cardNumber
+      required:
+      - selector
+    ClientSideToken:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The id of the token
+          example: client_side_token_TDbEef6lgIs
+        token:
+          type: string
+          description: The token
+          example: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ2ZXJzaW9uIjoxLCJhcHBfdXVpZCI6ImFwcF82YWJlZDM1ZDc2YjkiLCJ0ZWFtX3V1aWQiOiJ0ZWFtX2FiZjU1YTk5MTY0NSIsImp0aSI6ImNsaWVudF9zaWRlX3Rva2VuX1REYkVlZjZsZ0lzIiwiZXhwIjoxNzA3MjMzODQxOTgxLCJhY3Rpb24iOiJhcGk6ZGVjcnlwdCIsInJlc291cmNlIjpudWxsLCJoYXNoZWRfYm9keSI6IlJCTnZvMVd6WjRvUlJxMFc5LWhrbnBUN1Q4SWY1MzZERU1CZzloeXFfNG8iLCJjbGllbnRfaXAiOm51bGx9.ea1w3TlZ7p-OLVs-NOAUMij4V5w-9vMAD8W2WEoklsDwwgy8HANXP4e8eAjTA0CkELoUL2FgNesS6S77Z-coG1Yw9TGnkEchgkA6RAXqF65t1bLrW0rvl2AzwFZNwJpEbJc37YqyC2xGeermmYKZCu6in97_fe4rAXSYQiuVtN6V8uLSlAgP9Mr0BmNIf49fnskbc0y2-2qewvZfRM7mPQ6NXcQE_jhUjy3OhaohdvU1FpaLs3OrzW2Ej8wE1hOjc5hRtT2cslaY4Bl2x4YNMRVObWg7GYCdETG280ilXTUu9jIPmkXt8QBzouZOP5nuhCjYxFJ2fYZMLj7vYukwdiyBtiUADXDzmnFyh7icAWib76z_hW3VLRjQSlq-fgvQJfM71j5RGBEmLrQNAPRREYjCiM8cwmOh5sFaLdmu4wM6-lgPn8dvHSqENwggs_nfxPyavHChNn8KOo4FS64YYeB28hqSvBAMT-umCdv7n2I-YF6fJOpgJrQOK35MPt4kKfqULJ45wpSnzsSpT9kTrLw0-9-6JpMtsQio0UJ27aXHMPErFcNMcW2hEhPdNsjSfIEmK7lCaUOed-wETkkfIaoTe5ly051baj-VWbAbNXH2jduia2rCZoofXTABADRzeBrFyDNRZXNQ205n0xh3PpIcazKw_vCAD_EDXmcCsFo
+        expiry:
+          type: integer
+          description: The expiry of the token in unix millis format
+          example: 1707233841981
+        createdAt:
+          type: integer
+          description: The creation time of the token in unix millis format
+          example: 1707233541981
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+          description: A distinct error code, presented in slug format, that identifies a specific error.
+          example: invalid-request
+        title:
+          type: string
+          description: A short, human-readable summary of the error.
+          example: Invalid Request
+        status:
+          type: integer
+          description: The HTTP status code for the error.
+          example: 400
+        detail:
+          type: string
+          description: A human-readable explanation of the error.
+          example: The provided action was invalid
+        fields:
+          type: array
+          items:
+            type: object
+            properties:
+              pointer:
+                type: string
+                description: The JSON pointer to the field that caused the error.
+                example: /card/number
+              reason:
+                type: string
+                description: A human-readable explanation of the error for this field.
+                example: The card number is required
+          example:
+          - pointer: /card/number
+            reason: The card number is required
+    CardFunding:
+      type: string
+      enum:
+      - debit
+      - credit
+      - prepaid
+      - deferred-debit
+      - charge
+      x-enum-description:
+        debit: Draw funds directly from a linked bank account
+        credit: Provide a line of credit from which users can borrow funds for transactions
+        prepaid: Loaded with a set amount of funds in advance and can be used until the balance is depleted
+        deferred-debit: Combine aspects of debit and credit cards, allowing transactions to be debited from a linked account at a later date, usually monthly
+        charge: Require full payment of the balance at the end of each billing cycle, but do not have a pre-set spending limit
+      description: 'The card funding type specifies the method by which transactions are
+
+        financed.
+
+        '
+      example: debit
+    CardSegment:
+      type: string
+      enum:
+      - consumer
+      - commercial
+      - business
+      - government
+      - payouts
+      - all
+      x-enum-description:
+        consumer: Personal use cards
+        commercial: Cards used by large organizations or corporations
+        business: Small to medium-sized business use
+        government: Cards used by government entities
+        payouts: Cards designed to disburse payments like payroll or cashback
+        all: General-purpose cards not confined to a specific segment
+      description: 'The card segment indicates the primary market or usage category of the
+
+        card.
+
+        '
+      example: consumer
+    FunctionRun:
+      type: object
+      properties:
+        id:
+          type: string
+          description: A unique identifier representing this specific Function execution instance.
+          example: func_run_eead1d640d7c
+        status:
+          type: string
+          description: The outcome of the Function execution.
+          enum:
+          - success
+          - failure
+          - scheduled
+          x-enum-description:
+            success: The Function executed successfully
+            failure: The Function encountered an error
+            scheduled: The Function execution has been queued
+          example: success
+        result:
+          type: object
+          description: This field represents the output returned by the Function. This is provided only when the Function execution status is 'success'.
+          example:
+            message: Hello, World
+        error:
+          type:
+          - object
+          - 'null'
+          description: This field details any error that occurred during Function execution. This is present only if the status is 'failure'.
+          properties:
+            message:
+              type: string
+              description: A concise explanation of the error that occurred during Function execution.
+              example: Some error message!
+            stack:
+              type: string
+              description: A trace detailing the sequence of events leading to the error, useful for debugging purposes.
+              example: "Error: Some error message!\n    at exports.handler (/runtime/app/index.js:5:11)\n    at /runtime/index.js:64:26\n    at new Promise (<anonymous>)\n    at /runtime/index.js:51:16"
+        createdAt:
+          type: integer
+          format: int64
+          description: The exact time, in epoch milliseconds, when this Function execution was triggered.
+          example: 1692972623233
     RelayRoute:
       type: object
       properties:
@@ -1289,53 +1326,6 @@ components:
       required:
       - bin
       - lastFour
-    CardBrand:
-      type: string
-      enum:
-      - visa
-      - mastercard
-      - american-express
-      - discover
-      - diners-club
-      - jcb
-      - unionpay
-      description: The card brand associated with the payment card.
-      example: visa
-    Error:
-      type: object
-      properties:
-        code:
-          type: string
-          description: A distinct error code, presented in slug format, that identifies a specific error.
-          example: invalid-request
-        title:
-          type: string
-          description: A short, human-readable summary of the error.
-          example: Invalid Request
-        status:
-          type: integer
-          description: The HTTP status code for the error.
-          example: 400
-        detail:
-          type: string
-          description: A human-readable explanation of the error.
-          example: The provided action was invalid
-        fields:
-          type: array
-          items:
-            type: object
-            properties:
-              pointer:
-                type: string
-                description: The JSON pointer to the field that caused the error.
-                example: /card/number
-              reason:
-                type: string
-                description: A human-readable explanation of the error for this field.
-                example: The card number is required
-          example:
-          - pointer: /card/number
-            reason: The card number is required
   securitySchemes:
     ApiKey:
       type: http
