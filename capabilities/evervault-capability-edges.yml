@@ -1,0 +1,26 @@
+slug: evervault
+provider: Evervault
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 1
+edges:
+- tag: Core
+  spec_file: evervault-core-api-openapi.yml
+  capability_id: BC-620
+  capability_id_l1: BC-620
+  capability_name: Cybersecurity Management
+  confidence: 0.7
+  evidence: POST /encrypt encrypt; POST /decrypt decrypt; POST /relays createRelay (an encrypting/decrypting
+    proxy)
+  reason: Operations provide encryption, decryption and an encrypting proxy for sensitive data, which
+    is technical security control delivery under Cybersecurity Management. No single L2 fits cleanly (it
+    is neither IAM nor vulnerability management), so only the L1 is asserted.

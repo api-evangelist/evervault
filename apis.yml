@@ -104,6 +104,9 @@ apis:
   - type: OpenAPI
     url: openapi/evervault-evervault-api-api-openapi.yml
 common:
+- type: CapabilityMap
+  url: capabilities/evervault-capability-edges.yml
+  name: Evervault Business Capability Map
 - type: Overlay
   url: overlays/evervault-openapi-overlay.yaml
 - type: PostmanWorkspace
