@@ -778,24 +778,231 @@ webhooks:
       - Evervault API
 components:
   schemas:
-    EnclaveDeployment:
+    ThreeDSChallenge:
+      type: object
+      description: Details about the 3DS challenge.
+      properties:
+        preference:
+          type: string
+          description: The 3DS challenge preference.
+          enum:
+          - no-preference
+          - challenge-requested
+          - challenge-mandated
+          - no-challenge-requested
+        reason:
+          type:
+          - 'null'
+          - string
+          description: The reason for not requesting a challenge. This value should only be present when the preference is `no-challenge-requested`.
+          enum:
+          - null
+          - data-sharing
+          - low-value
+          - low-risk
+          - secure-corporate-payment
+          - authentication-already-performed
+      required:
+      - preference
+    Address:
+      type: object
+      properties:
+        line1:
+          type: string
+          description: 'The first line of the address.
+
+            '
+          pattern: ^[À-ÖØ-öø-ǿa-zA-Z0-9().\-_#,;/@$!% ]+$
+          example: 123 Main St
+        line2:
+          type: string
+          description: 'The second line of the address.
+
+            '
+          pattern: ^[À-ÖØ-öø-ǿa-zA-Z0-9().\-_#,;/@$!% ]+$
+          example: Floor 4
+        city:
+          type: string
+          description: The city where the address is located.
+          pattern: "^[0-9a-zA-Z _\\-¡-\uFFFF]+$"
+          example: Springfield
+        state:
+          type: string
+          description: The state or province code. Required when `country` is `us`, `ca`, or `au`.
+          format: iso-3166-2-subdivision
+          example: ny
+        postalCode:
+          type: string
+          description: The postal code of the address.
+          pattern: ^[0-9a-zA-Z ]*$
+          example: 13468
+        country:
+          type: string
+          format: iso-3166-1-alpha-2
+          description: The country where the address is located.
+          example: us
+      required:
+      - line1
+      - city
+      - postalCode
+      - country
+    Acquirer:
+      type: object
+      description: The acquirer of the payment.
+      properties:
+        bin:
+          type: string
+          pattern: ^[0-9]{6,11}$
+          minLength: 6
+          maxLength: 11
+          description: The Bank Identification Number (BIN) of the acquirer. Must be 6 to 11 digits.
+          example: '42424242'
+        merchantIdentifier:
+          type: string
+          description: The merchant identifier assigned by the acquirer.
+          example: '5945'
+        country:
+          type: string
+          description: The country code of the acquirer
+          format: iso-3166-1-alpha-2
+          example: ie
+      required:
+      - bin
+      - merchantIdentifier
+      - country
+    ThreeDSAccessControlServer:
+      type: object
+      description: Details about the Access Control Server involved in the 3DS transaction.
+      properties:
+        transactionIdentifier:
+          type: string
+          description: The Access Control Server's transaction identifier.
+          example: d351441b-f9e6-46e3-a726-9fc4f39bbaaa
+        referenceNumber:
+          type: string
+          description: The Access Control Server's reference number assigned by EMVCo.
+          example: 3DS_LOA_ACS_STIN_020200_00417
+        operatorIdentifier:
+          type:
+          - 'null'
+          - string
+          description: The identifier of the Access Control Server's operator, when the ACS provides it.
+          example: Evervault
+    PaymentRecurring:
+      type: object
+      summary: Recurring Payment
+      description: A repeating payment with a regular interval.
+      properties:
+        type:
+          type: string
+          description: The value `recurring`.
+          enum:
+          - recurring
+        amount:
+          type: integer
+          description: The amount of the payment in the smallest currency unit (e.g. cents).
+          example: 1000
+        currency:
+          type: string
+          format: iso-4217-alphabetic
+          description: The currency of the payment.
+          example: gbp
+        frequency:
+          type: string
+          description: Indicates the minimum time between authorizations.
+          enum:
+          - daily
+          - weekly
+          - monthly
+          - quarterly
+          - annually
+          example: monthly
+        expiry:
+          type: integer
+          description: The epoch time in seconds when the recurring payment expires. Maximum value is 4102394400 (equivalent to 2099-12-31).
+      required:
+      - type
+      - amount
+      - currency
+      - frequency
+      - expiry
+    CardFunding:
+      type: string
+      enum:
+      - debit
+      - credit
+      - prepaid
+      - deferred-debit
+      - charge
+      x-enum-description:
+        debit: Draw funds directly from a linked bank account
+        credit: Provide a line of credit from which users can borrow funds for transactions
+        prepaid: Loaded with a set amount of funds in advance and can be used until the balance is depleted
+        deferred-debit: Combine aspects of debit and credit cards, allowing transactions to be debited from a linked account at a later date, usually monthly
+        charge: Require full payment of the balance at the end of each billing cycle, but do not have a pre-set spending limit
+      description: 'The card funding type specifies the method by which transactions are
+
+        financed.
+
+        '
+      example: debit
+    FunctionRun:
       type: object
       properties:
         id:
           type: string
-          description: The id of the Enclave Deployment.
-          example: enclave_deployment_0aa6ff0fee57
-        enclave:
+          description: A unique identifier representing this specific Function execution instance.
+          example: func_run_eead1d640d7c
+        status:
+          type: string
+          description: The outcome of the Function execution.
+          enum:
+          - success
+          - failure
+          - scheduled
+          x-enum-description:
+            success: The Function executed successfully
+            failure: The Function encountered an error
+            scheduled: The Function execution has been queued
+          example: success
+        result:
+          type: object
+          description: This field represents the output returned by the Function. This is provided only when the Function execution status is 'success'.
+          example:
+            message: Hello, World
+        error:
+          type:
+          - object
+          - 'null'
+          description: This field details any error that occurred during Function execution. This is present only if the status is 'failure'.
+          properties:
+            message:
+              type: string
+              description: A concise explanation of the error that occurred during Function execution.
+              example: Some error message!
+            stack:
+              type: string
+              description: A trace detailing the sequence of events leading to the error, useful for debugging purposes.
+              example: "Error: Some error message!\n    at exports.handler (/runtime/app/index.js:5:11)\n    at /runtime/index.js:64:26\n    at new Promise (<anonymous>)\n    at /runtime/index.js:51:16"
+        createdAt:
+          type: integer
+          format: int64
+          description: The exact time, in epoch milliseconds, when this Function execution was triggered.
+          example: 1692972623233
+    FunctionDeployment:
+      type: object
+      properties:
+        function:
           type: object
           properties:
             id:
               type: string
-              description: The id of the Enclave.
-              example: enclave_0aa6ff0fee57
+              description: The id of the Function.
+              example: func_0aa6ff0fee57
             name:
               type: string
-              description: The name of the Enclave.
-              example: My Enclave
+              description: The name of the Function.
+              example: my-function
         app:
           type: object
           properties:
@@ -820,79 +1027,85 @@ components:
               example: My Team
         message:
           type: string
-          description: The latest message for the enclave deployment status.
+          description: The latest message for the function deployment status.
         status:
           type: string
-          description: The status of the enclave deployment.
-        stage:
-          type: string
-          description: The stage of the enclave deployment.
+          description: The status of the function deployment.
         dashboardUrl:
           type: string
-          description: A URL to the dashboard for the enclave deployment.
-        versionMetadata:
-          type: object
-          properties:
-            version:
-              type: integer
-              description: The version of the enclave deployment.
-            controlPlaneVersion:
-              type: string
-              description: The version of the control plane.
-            dataPlaneVersion:
-              type: string
-              description: The version of the data plane.
-            debugMode:
-              type: boolean
-              description: Whether the enclave is in debug mode.
-            pcrs:
-              type: object
-              properties:
-                pcr0:
-                  type: string
-                  description: The PCR0 value.
-                pcr1:
-                  type: string
-                  description: The PCR1 value.
-                pcr2:
-                  type: string
-                  description: The PCR2 value.
-                pcr8:
-                  type: string
-                  description: The PCR8 value.
+          description: A URL to the dashboard for the function deployment.
         createdAt:
-          type: string
+          type: integer
+          format: int64
           description: The time the deployment was started.
         updatedAt:
-          type: string
+          type: integer
+          format: int64
           description: The time the deployment was last updated.
-        startedAt:
-          type: string
-          description: The time the deployment was started.
-    ThreeDSDirectoryServer:
+    CardSegment:
+      type: string
+      enum:
+      - consumer
+      - commercial
+      - business
+      - government
+      - payouts
+      - all
+      x-enum-description:
+        consumer: Personal use cards
+        commercial: Cards used by large organizations or corporations
+        business: Small to medium-sized business use
+        government: Cards used by government entities
+        payouts: Cards designed to disburse payments like payroll or cashback
+        all: General-purpose cards not confined to a specific segment
+      description: 'The card segment indicates the primary market or usage category of the
+
+        card.
+
+        '
+      example: consumer
+    PaymentInstallment:
       type: object
-      description: Details about the Directory Server involved in the 3DS transaction.
+      summary: Installment Payment
+      description: A repeating payment for paying a total amount in multiple installments.
       properties:
-        transactionIdentifier:
+        type:
           type: string
-          description: The Directory Server's transaction identifier.
-          example: 18030e14-fafa-462e-bfc0-da733196e808
-        referenceNumber:
-          type: string
-          description: The Directory Server's reference number assigned by EMVCo.
-          example: 3DS_LOA_DIS_VISA_020200_00828
-        network:
-          type: string
+          description: The value `installment`.
           enum:
-          - visa
-          - mastercard
-          - american-express
-          - discover
-          - jcb
-          - unionpay
-          - rupay
-          description: The network of the Directory Server.
-          example: visa
+          - installment
+        amount:
+          type: integer
+          description: The amount of the payment in the smallest currency unit (e.g. cents).
+          example: 1000
+        currency:
+          type: string
+          format: iso-4217-alphabetic
+          description: The currency of the payment.
+          example: gbp
+        installments:
+          type: integer
+          description: The number of installments.
+          example: 12
+        frequency:
+          type: string
+          description: Indicates the minimum time between authorizations.
+          enum:
+          - daily
+          - weekly
+          - monthly
+          - quarterly
+          - annually
+          example: monthly
+        expiry:
+          type: integer
+          description: The epoch time in seconds when the installment expires. Maximum value is 4102394400 (equivalent to 2099-12-31).
+      required:
+      - type
+      - amount
+      - currency
+      - installments
+      - frequency
     NetworkToken:
       summary: The Network Token Object
       type: object
@@ -1015,658 +1228,30 @@ components:
         status: active
         createdAt: 1692972623233
         updatedAt: 1692972623768
-    CardFunding:
-      type: string
-      enum:
-      - debit
-      - credit
-      - prepaid
-      - deferred-debit
-      - charge
-      x-enum-description:
-        debit: Draw funds directly from a linked bank account
-        credit: Provide a line of credit from which users can borrow funds for transactions
-        prepaid: Loaded with a set amount of funds in advance and can be used until the balance is depleted
-        deferred-debit: Combine aspects of debit and credit cards, allowing transactions to be debited from a linked account at a later date, usually monthly
-        charge: Require full payment of the balance at the end of each billing cycle, but do not have a pre-set spending limit
-      description: 'The card funding type specifies the method by which transactions are
-
-        financed.
-
-        '
-      example: debit
-    Address:
+    ThreeDSDirectoryServer:
       type: object
-      properties:
-        line1:
-          type: string
-          description: 'The first line of the address.
-
-            '
-          pattern: ^[À-ÖØ-öø-ǿa-zA-Z0-9().\-_#,;/@$!% ]+$
-          example: 123 Main St
-        line2:
-          type: string
-          description: 'The second line of the address.
-
-            '
-          pattern: ^[À-ÖØ-öø-ǿa-zA-Z0-9().\-_#,;/@$!% ]+$
-          example: Floor 4
-        city:
-          type: string
-          description: The city where the address is located.
-          pattern: "^[0-9a-zA-Z _\\-¡-\uFFFF]+$"
-          example: Springfield
-        state:
-          type: string
-          description: The state or province code. Required when `country` is `us`, `ca`, or `au`.
-          format: iso-3166-2-subdivision
-          example: ny
-        postalCode:
-          type: string
-          description: The postal code of the address.
-          pattern: ^[0-9a-zA-Z ]*$
-          example: 13468
-        country:
-          type: string
-          format: iso-3166-1-alpha-2
-          description: The country where the address is located.
-          example: us
-      required:
-      - line1
-      - city
-      - postalCode
-      - country
-    PaymentOneOff:
-      type: object
-      summary: One-Off Payment
-      description: A payment that is made in a single transaction.
-      properties:
-        type:
-          type: string
-          description: The value `one-off`.
-          enum:
-          - one-off
-          example: one-off
-        amount:
-          type: integer
-          description: The amount of the payment in the smallest currency unit (e.g. cents).
-          example: 1000
-        currency:
-          type: string
-          format: iso-4217-alphabetic
-          description: The currency of the payment.
-          example: gbp
-      required:
-      - type
-      - amount
-      - currency
-    CardBrand:
-      type: string
-      enum:
-      - visa
-      - mastercard
-      - american-express
-      - discover
-      - diners-club
-      - jcb
-      - unionpay
-      description: The card brand associated with the payment card.
-      example: visa
-    PaymentInstallment:
-      type: object
-      summary: Installment Payment
-      description: A repeating payment for paying a total amount in multiple installments.
-      properties:
-        type:
-          type: string
-          description: The value `installment`.
-          enum:
-          - installment
-        amount:
-          type: integer
-          description: The amount of the payment in the smallest currency unit (e.g. cents).
-          example: 1000
-        currency:
-          type: string
-          format: iso-4217-alphabetic
-          description: The currency of the payment.
-          example: gbp
-        installments:
-          type: integer
-          description: The number of installments.
-          example: 12
-        frequency:
-          type: string
-          description: Indicates the minimum time between authorizations.
-          enum:
-          - daily
-          - weekly
-          - monthly
-          - quarterly
-          - annually
-          example: monthly
-        expiry:
-          type: integer
-          description: The epoch time in seconds when the installment expires. Maximum value is 4102394400 (equivalent to 2099-12-31).
-      required:
-      - type
-      - amount
-      - currency
-      - installments
-      - frequency
-    Card:
-      x-section: Payments
-      x-group: Cards
-      type: object
-      summary: The Card Object
-      properties:
-        id:
-          type: string
-          description: The unique identifier for the card.
-          example: card_eead1d640d7c
-        number:
-          type: string
-          description: The Evervault encrypted card number. This can be decrypted using Relay decryption or using a function.
-          example: 'ev:'
-        expiry:
-          $ref: '#/components/schemas/CardExpiry'
-          description: The expiry date of the card.
-        bin:
-          type: string
-          description: The first 6 or 8 digits of the card number.
-          example: '424242'
-        lastFour:
-          type: string
-          description: The last 4 digits of the card number.
-          example: '4242'
-        brand:
-          $ref: '#/components/schemas/CardBrand'
-        funding:
-          $ref: '#/components/schemas/CardFunding'
-        segment:
-          $ref: '#/components/schemas/CardSegment'
-        country:
-          type: string
-          format: iso-3166-1-alpha-2
-          description: The country where the card was issued.
-          example: gb
-        currency:
-          type: string
-          format: iso-4217-alphabetic
-          description: The currency of the card.
-          example: gbp
-        issuer:
-          type: string
-          description: The name of the card issuer.
-          example: Gringotts Wizarding Bank and Trust Company
-        status:
-          type: string
-          description: The current status of the card.
-          enum:
-          - active
-          - replaced
-          - closed
-          - invalid
-          x-enum-description:
-            active: The card is active and can be used for transactions.
-            replaced: The card has been replaced by another card (e.g. expired, lost or stolen).
-            closed: The card account has been closed and can no longer be used for transactions.
-            invalid: The card is invalid and cannot be used for transactions or updated.
-          example: active
-        replacement:
-          type:
-          - string
-          - 'null'
-          description: The ID of the replacement card. This field is only present if the card has been replaced.
-          example: card_eead1d640d7c
-        automaticUpdates:
-          type: string
-          description: 'The status of Card Account Updater on this card. Evervault currently supports Card Account Updates for Visa, Mastercard and American Express cards.
-
-            '
-          enum:
-          - enabled
-          - issuer-not-enrolled
-          - disabled
-        createdAt:
-          type: integer
-          description: The Unix timestamp of when the card was created.
-          example: 1692972623233
-        updatedAt:
-          type:
-          - integer
-          - 'null'
-          description: The Unix timestamp of when the card was last updated.
-          example: 1692972623768
-      required:
-      - number
-      - bin
-      - lastFour
-      - createdAt
-      example:
-        id: card_eead1d640d7c
-        number: ev:debug:Tk9D:number:nTepvAI585M7lUVp:AkJ6Brzat0E7ui8DSKCSXO7AopU/+GFuBekQ6cGx7eTl:sfihK53itmHp+URxomnTITUpwQwM5nnRrnQ0qdIOUlA=:$
-        expiry:
-          month: '9'
-          year: '26'
-        bin: '424242'
-        lastFour: '4242'
-        brand: visa
-        funding: credit
-        segment: consumer
-        country: gb
-        currency: gbp
-        issuer: Gringotts Wizarding Bank and Trust Company
-        status: active
-        replacement: null
-        automaticUpdates: enabled
-        createdAt: 169297262323
-        updatedAt: null
-    CardExpiry:
-      type: object
-      properties:
-        month:
-          type: string
-          description: The card expiry month, in MM format (e.g. 12 for December)
-          example: 09
-        year:
-          type: string
-          description: The card expiry year, in YY format (e.g. 26 for 2026)
-          example: '26'
-      required:
-      - month
-      - year
-    ThreeDSInitiator:
-      type: object
-      description: Details about the transaction initiation process.
-      oneOf:
-      - type: object
-        summary: Customer-Initiated Transaction (CIT)
-        properties:
-          type:
-            type: string
-            enum:
-            - customer
-            description: The value `customer`.
-      - type: object
-        summary: Merchant-Initiated Transaction (MIT)
-        properties:
-          type:
-            type: string
-            enum:
-            - merchant
-            description: The value `merchant`.
-          reason:
-            type: string
-            enum:
-            - recurring
-            - installment
-            - mail-order
-            - telephone-order
-            - add-card
-            - maintain-card
-            - other-payment
-            - account-verification
-            - split-shipment
-            - delayed-shipment
-            description: The reason for the transaction to be initiated by the merchant. This field is mandatory when the `type` is `merchant`.
-          initialSession:
-            type: string
-            description: 'The ID of the initial session. This can either be an Evervault 3DS Session ID or a `threeDSServer.transactionIdentifier`. This field should be provided if the merchant has previously authenticated the cardholder using 3DS.
-
-              The API does not currently enforce this requirement, but it is recommended to always provide this field. In some cases Authentications will error if this field is not populated.
-
-              '
-    CardSegment:
-      type: string
-      enum:
-      - consumer
-      - commercial
-      - business
-      - government
-      - payouts
-      - all
-      x-enum-description:
-        consumer: Personal use cards
-        commercial: Cards used by large organizations or corporations
-        business: Small to medium-sized business use
-        government: Cards used by government entities
-        payouts: Cards designed to disburse payments like payroll or cashback
-        all: General-purpose cards not confined to a specific segment
-      description: 'The card segment indicates the primary market or usage category of the
-
-        card.
-
-        '
-      example: consumer
-    FunctionDeployment:
-      type: object
-      properties:
-        function:
-          type: object
-          properties:
-            id:
-              type: string
-              description: The id of the Function.
-              example: func_0aa6ff0fee57
-            name:
-              type: string
-              description: The name of the Function.
-              example: my-function
-        app:
-          type: object
-          properties:
-            id:
-              type: string
-              description: The id of the Application.
-              example: app_0aa6ff0fee57
-            name:
-              type: string
-              description: The name of the Application.
-              example: Production
-        team:
-          type: object
-          properties:
-            id:
-              type: string
-              description: The id of the Team.
-              example: team_0aa6ff0fee57
-            name:
-              type: string
-              description: The name of the Team.
-              example: My Team
-        message:
-          type: string
-          description: The latest message for the function deployment status.
-        status:
-          type: string
-          description: The status of the function deployment.
-        dashboardUrl:
-          type: string
-          description: A URL to the dashboard for the function deployment.
-        createdAt:
-          type: integer
-          format: int64
-          description: The time the deployment was started.
-        updatedAt:
-          type: integer
-          format: int64
-          description: The time the deployment was last updated.
-    MerchantNetworkTokenStatus:
-      type: object
-      properties:
-        enrolment:
-          type: array
-          description: 'An array detailing the Merchant''s enrollment status for network token issuance across different card brands.
-
-            '
-          items:
-            type: object
-            properties:
-              cardBrand:
-                $ref: '#/components/schemas/CardBrand'
-                description: The card brand (e.g., Visa, Mastercard, American Express) for which the enrollment status is being described. Currently, Network Tokens is only supported for Visa, Mastercard and American Express.
-              tokenRequestorIdentifier:
-                type:
-                - string
-                - 'null'
-                description: The unique Token Requestor Identifier (TRID) associated with the Merchant for the specific card brand. This identifier is used when creating Network Tokens for the Merchant.
-                example: '50165156978'
-              status:
-                type: string
-                enum:
-                - active
-                - inactive
-                description: 'The current stage of the Merchant''s enrolment process for network token issuance with the specified card brand.
-
-                  '
-                example: active
-                x-enum-description:
-                  active: The Merchant is fully enrolled and can create Network Tokens for the card brand.
-                  inactive: The Merchant is not enrolled for the card brand.
-    PaymentRecurring:
-      type: object
-      summary: Recurring Payment
-      description: A repeating payment with a regular interval.
-      properties:
-        type:
-          type: string
-          description: The value `recurring`.
-          enum:
-          - recurring
-        amount:
-          type: integer
-          description: The amount of the payment in the smallest currency unit (e.g. cents).
-          example: 1000
-        currency:
-          type: string
-          format: iso-4217-alphabetic
-          description: The currency of the payment.
-          example: gbp
-        frequency:
-          type: string
-          description: Indicates the minimum time between authorizations.
-          enum:
-          - daily
-          - weekly
-          - monthly
-          - quarterly
-          - annually
-          example: monthly
-        expiry:
-          type: integer
-          description: The epoch time in seconds when the recurring payment expires. Maximum value is 4102394400 (equivalent to 2099-12-31).
-      required:
-      - type
-      - amount
-      - currency
-      - frequency
-      - expiry
-    FunctionRun:
-      type: object
-      properties:
-        id:
-          type: string
-          description: A unique identifier representing this specific Function execution instance.
-          example: func_run_eead1d640d7c
-        status:
-          type: string
-          description: The outcome of the Function execution.
-          enum:
-          - success
-          - failure
-          - scheduled
-          x-enum-description:
-            success: The Function executed successfully
-            failure: The Function encountered an error
-            scheduled: The Function execution has been queued
-          example: success
-        result:
-          type: object
-          description: This field represents the output returned by the Function. This is provided only when the Function execution status is 'success'.
-          example:
-            message: Hello, World
-        error:
-          type:
-          - object
-          - 'null'
-          description: This field details any error that occurred during Function execution. This is present only if the status is 'failure'.
-          properties:
-            message:
-              type: string
-              description: A concise explanation of the error that occurred during Function execution.
-              example: Some error message!
-            stack:
-              type: string
-              description: A trace detailing the sequence of events leading to the error, useful for debugging purposes.
-              example: "Error: Some error message!\n    at exports.handler (/runtime/app/index.js:5:11)\n    at /runtime/index.js:64:26\n    at new Promise (<anonymous>)\n    at /runtime/index.js:51:16"
-        createdAt:
-          type: integer
-          format: int64
-          description: The exact time, in epoch milliseconds, when this Function execution was triggered.
-          example: 1692972623233
-    Merchant:
-      type: object
-      summary: The Merchant Object
-      properties:
-        id:
-          type: string
-          description: A unique identifier assigned to each Merchant.
-          example: merchant_eead1d640d7c
-        name:
-          type: string
-          description: The official name of the Merchant as recognized in transactions and communications. This name is used for display purposes and may be the company's trade name or a derived nickname.
-          pattern: ^[a-zA-Z0-9 ]{1,60}$
-          example: Acme
-        shortName:
-          type: string
-          description: 'A shorter version of the Merchant''s name. When creating a 3D Secure session that references this Merchant by ID, `shortName` is used in place of `name` if `name` exceeds the 40-character limit imposed by the 3D Secure specification.
-
-            '
-          pattern: ^[a-zA-Z0-9 ]{1,40}$
-          example: Acme
-        website:
-          type: string
-          description: The official website URL of the Merchant. The domain must use a valid IANA top-level domain. See https://data.iana.org/TLD/tlds-alpha-by-domain.txt
-          example: https://www.acme.com
-        business:
-          type: object
-          description: The business details of the Merchant.
-          properties:
-            legalName:
-              type: string
-              description: The legal name under which the Merchant's business is registered.
-              pattern: ^[a-zA-Z0-9 ]{1,60}$
-              example: Acme Corp
-            address:
-              $ref: '#/components/schemas/Address'
-              description: The physical address of the Merchant's principal place of business.
-        categoryCode:
-          type: string
-          description: The 4-digit Merchant Category Code (MCC).
-          example: '5945'
-        networkTokens:
-          $ref: '#/components/schemas/MerchantNetworkTokenStatus'
-          description: The Merchant's Network Token configuration.
-        applePay:
-          $ref: '#/components/schemas/MerchantApplePay'
-          description: The Merchant's Apple Pay configuration.
-        createdAt:
-          type: integer
-          format: int64
-          description: The exact time, in epoch milliseconds, when this Merchant was created.
-          example: 1692972623233
-        updatedAt:
-          type: integer
-          format: int64
-          description: The exact time, in epoch milliseconds, when this Merchant was last updated.
-          example: 1692972623768
-      required:
-      - id
-      - name
-      - website
-      - createdAt
-      example:
-        id: merchant_eead1d640d7c
-        name: Ollivanders Wand Shop
-        website: https://www.ollivanders.co.uk
-        categoryCode: '5945'
-        business:
-          legalName: Ollivanders Wand Shop Ltd
-          address:
-            line1: Diagon Alley
-            city: London
-            postalCode: WD1 1AA
-            country: gb
-        networkTokens:
-          enrolment:
-          - cardBrand: mastercard
-            tokenRequestorIdentifier: '50165156978'
-            status: active
-          - cardBrand: visa
-            tokenRequestorIdentifier: '40238123804'
-            status: active
-          - cardBrand: american-express
-            tokenRequestorIdentifier: null
-            status: inactive
-        applePay:
-          domains:
-          - domain: store.ollivanders.co.uk
-            status: active
-        createdAt: 1692972623233
-        updatedAt: 1692972623768
-    MerchantApplePay:
-      type: object
-      properties:
-        domains:
-          type: array
-          description: 'The domains the Merchant has enrolled with Apple Pay and the status of the enrollment.
-
-            '
-          items:
-            type: object
-            properties:
-              domain:
-                type: string
-                description: The top-level domain name of the Merchant's website.
-                example: ollivanders.co.uk
-              status:
-                type: string
-                enum:
-                - active
-                - pending
-                - failed
-                description: 'The current status of the Merchant''s Apple Pay enrollment for the
-
-                  specified domain. `active` means the Merchant is fully enrolled and
-
-                  can accept Apple Pay payments on the domain.
-
-                  '
-                example: active
-    ThreeDSAccessControlServer:
-      type: object
-      description: Details about the Access Control Server involved in the 3DS transaction.
+      description: Details about the Directory Server involved in the 3DS transaction.
       properties:
         transactionIdentifier:
           type: string
-          description: The Access Control Server's transaction identifier.
-          example: d351441b-f9e6-46e3-a726-9fc4f39bbaaa
+          description: The Directory Server's transaction identifier.
+          example: 18030e14-fafa-462e-bfc0-da733196e808
         referenceNumber:
           type: string
-          description: The Access Control Server's reference number assigned by EMVCo.
-          example: 3DS_LOA_ACS_STIN_020200_00417
-        operatorIdentifier:
-          type:
-          - 'null'
-          - string
-          description: The identifier of the Access Control Server's operator, when the ACS provides it.
-          example: Evervault
-    Acquirer:
-      type: object
-      description: The acquirer of the payment.
-      properties:
-        bin:
+          description: The Directory Server's reference number assigned by EMVCo.
+          example: 3DS_LOA_DIS_VISA_020200_00828
+        network:
           type: string
-          pattern: ^[0-9]{6,11}$
-          minLength: 6
-          maxLength: 11
-          description: The Bank Identification Number (BIN) of the acquirer. Must be 6 to 11 digits.
-          example: '42424242'
-        merchantIdentifier:
-          type: string
-          description: The merchant identifier assigned by the acquirer.
-          example: '5945'
-        country:
-          type: string
-          description: The country code of the acquirer
-          format: iso-3166-1-alpha-2
-          example: ie
-      required:
-      - bin
-      - merchantIdentifier
-      - country
+          enum:
+          - visa
+          - mastercard
+          - american-express
+          - discover
+          - jcb
+          - unionpay
+          - rupay
+          description: The network of the Directory Server.
+          example: visa
     ThreeDSSession:
       type: object
       summary: The 3DS Session Object
@@ -2026,32 +1611,447 @@ components:
       - version
       - status
       - createdAt
-    ThreeDSChallenge:
+    CardBrand:
+      type: string
+      enum:
+      - visa
+      - mastercard
+      - american-express
+      - discover
+      - diners-club
+      - jcb
+      - unionpay
+      description: The card brand associated with the payment card.
+      example: visa
+    EnclaveDeployment:
       type: object
-      description: Details about the 3DS challenge.
       properties:
-        preference:
+        id:
           type: string
-          description: The 3DS challenge preference.
-          enum:
-          - no-preference
-          - challenge-requested
-          - challenge-mandated
-          - no-challenge-requested
-        reason:
-          type:
-          - 'null'
-          - string
-          description: The reason for not requesting a challenge. This value should only be present when the preference is `no-challenge-requested`.
-          enum:
-          - null
-          - data-sharing
-          - low-value
-          - low-risk
-          - secure-corporate-payment
-          - authentication-already-performed
+          description: The id of the Enclave Deployment.
+          example: enclave_deployment_0aa6ff0fee57
+        enclave:
+          type: object
+          properties:
+            id:
+              type: string
+              description: The id of the Enclave.
+              example: enclave_0aa6ff0fee57
+            name:
+              type: string
+              description: The name of the Enclave.
+              example: My Enclave
+        app:
+          type: object
+          properties:
+            id:
+              type: string
+              description: The id of the Application.
+              example: app_0aa6ff0fee57
+            name:
+              type: string
+              description: The name of the Application.
+              example: Production
+        team:
+          type: object
+          properties:
+            id:
+              type: string
+              description: The id of the Team.
+              example: team_0aa6ff0fee57
+            name:
+              type: string
+              description: The name of the Team.
+              example: My Team
+        message:
+          type: string
+          description: The latest message for the enclave deployment status.
+        status:
+          type: string
+          description: The status of the enclave deployment.
+        stage:
+          type: string
+          description: The stage of the enclave deployment.
+        dashboardUrl:
+          type: string
+          description: A URL to the dashboard for the enclave deployment.
+        versionMetadata:
+          type: object
+          properties:
+            version:
+              type: integer
+              description: The version of the enclave deployment.
+            controlPlaneVersion:
+              type: string
+              description: The version of the control plane.
+            dataPlaneVersion:
+              type: string
+              description: The version of the data plane.
+            debugMode:
+              type: boolean
+              description: Whether the enclave is in debug mode.
+            pcrs:
+              type: object
+              properties:
+                pcr0:
+                  type: string
+                  description: The PCR0 value.
+                pcr1:
+                  type: string
+                  description: The PCR1 value.
+                pcr2:
+                  type: string
+                  description: The PCR2 value.
+                pcr8:
+                  type: string
+                  description: The PCR8 value.
+        createdAt:
+          type: string
+          description: The time the deployment was started.
+        updatedAt:
+          type: string
+          description: The time the deployment was last updated.
+        startedAt:
+          type: string
+          description: The time the deployment was started.
+    CardExpiry:
+      type: object
+      properties:
+        month:
+          type: string
+          description: The card expiry month, in MM format (e.g. 12 for December)
+          example: 09
+        year:
+          type: string
+          description: The card expiry year, in YY format (e.g. 26 for 2026)
+          example: '26'
       required:
-      - preference
+      - month
+      - year
+    PaymentOneOff:
+      type: object
+      summary: One-Off Payment
+      description: A payment that is made in a single transaction.
+      properties:
+        type:
+          type: string
+          description: The value `one-off`.
+          enum:
+          - one-off
+          example: one-off
+        amount:
+          type: integer
+          description: The amount of the payment in the smallest currency unit (e.g. cents).
+          example: 1000
+        currency:
+          type: string
+          format: iso-4217-alphabetic
+          description: The currency of the payment.
+          example: gbp
+      required:
+      - type
+      - amount
+      - currency
+    ThreeDSInitiator:
+      type: object
+      description: Details about the transaction initiation process.
+      oneOf:
+      - type: object
+        summary: Customer-Initiated Transaction (CIT)
+        properties:
+          type:
+            type: string
+            enum:
+            - customer
+            description: The value `customer`.
+      - type: object
+        summary: Merchant-Initiated Transaction (MIT)
+        properties:
+          type:
+            type: string
+            enum:
+            - merchant
+            description: The value `merchant`.
+          reason:
+            type: string
+            enum:
+            - recurring
+            - installment
+            - mail-order
+            - telephone-order
+            - add-card
+            - maintain-card
+            - other-payment
+            - account-verification
+            - split-shipment
+            - delayed-shipment
+            description: The reason for the transaction to be initiated by the merchant. This field is mandatory when the `type` is `merchant`.
+          initialSession:
+            type: string
+            description: 'The ID of the initial session. This can either be an Evervault 3DS Session ID or a `threeDSServer.transactionIdentifier`. This field should be provided if the merchant has previously authenticated the cardholder using 3DS.
+
+              The API does not currently enforce this requirement, but it is recommended to always provide this field. In some cases Authentications will error if this field is not populated.
+
+              '
+    MerchantNetworkTokenStatus:
+      type: object
+      properties:
+        enrolment:
+          type: array
+          description: 'An array detailing the Merchant''s enrollment status for network token issuance across different card brands.
+
+            '
+          items:
+            type: object
+            properties:
+              cardBrand:
+                $ref: '#/components/schemas/CardBrand'
+                description: The card brand (e.g., Visa, Mastercard, American Express) for which the enrollment status is being described. Currently, Network Tokens is only supported for Visa, Mastercard and American Express.
+              tokenRequestorIdentifier:
+                type:
+                - string
+                - 'null'
+                description: The unique Token Requestor Identifier (TRID) associated with the Merchant for the specific card brand. This identifier is used when creating Network Tokens for the Merchant.
+                example: '50165156978'
+              status:
+                type: string
+                enum:
+                - active
+                - inactive
+                description: 'The current stage of the Merchant''s enrolment process for network token issuance with the specified card brand.
+
+                  '
+                example: active
+                x-enum-description:
+                  active: The Merchant is fully enrolled and can create Network Tokens for the card brand.
+                  inactive: The Merchant is not enrolled for the card brand.
+    MerchantApplePay:
+      type: object
+      properties:
+        domains:
+          type: array
+          description: 'The domains the Merchant has enrolled with Apple Pay and the status of the enrollment.
+
+            '
+          items:
+            type: object
+            properties:
+              domain:
+                type: string
+                description: The top-level domain name of the Merchant's website.
+                example: ollivanders.co.uk
+              status:
+                type: string
+                enum:
+                - active
+                - pending
+                - failed
+                description: 'The current status of the Merchant''s Apple Pay enrollment for the
+
+                  specified domain. `active` means the Merchant is fully enrolled and
+
+                  can accept Apple Pay payments on the domain.
+
+                  '
+                example: active
+    Merchant:
+      type: object
+      summary: The Merchant Object
+      properties:
+        id:
+          type: string
+          description: A unique identifier assigned to each Merchant.
+          example: merchant_eead1d640d7c
+        name:
+          type: string
+          description: The official name of the Merchant as recognized in transactions and communications. This name is used for display purposes and may be the company's trade name or a derived nickname.
+          pattern: ^[a-zA-Z0-9 ]{1,60}$
+          example: Acme
+        shortName:
+          type: string
+          description: 'A shorter version of the Merchant''s name. When creating a 3D Secure session that references this Merchant by ID, `shortName` is used in place of `name` if `name` exceeds the 40-character limit imposed by the 3D Secure specification.
+
+            '
+          pattern: ^[a-zA-Z0-9 ]{1,40}$
+          example: Acme
+        website:
+          type: string
+          description: The official website URL of the Merchant. The domain must use a valid IANA top-level domain. See https://data.iana.org/TLD/tlds-alpha-by-domain.txt
+          example: https://www.acme.com
+        business:
+          type: object
+          description: The business details of the Merchant.
+          properties:
+            legalName:
+              type: string
+              description: The legal name under which the Merchant's business is registered.
+              pattern: ^[a-zA-Z0-9 ]{1,60}$
+              example: Acme Corp
+            address:
+              $ref: '#/components/schemas/Address'
+              description: The physical address of the Merchant's principal place of business.
+        categoryCode:
+          type: string
+          description: The 4-digit Merchant Category Code (MCC).
+          example: '5945'
+        networkTokens:
+          $ref: '#/components/schemas/MerchantNetworkTokenStatus'
+          description: The Merchant's Network Token configuration.
+        applePay:
+          $ref: '#/components/schemas/MerchantApplePay'
+          description: The Merchant's Apple Pay configuration.
+        createdAt:
+          type: integer
+          format: int64
+          description: The exact time, in epoch milliseconds, when this Merchant was created.
+          example: 1692972623233
+        updatedAt:
+          type: integer
+          format: int64
+          description: The exact time, in epoch milliseconds, when this Merchant was last updated.
+          example: 1692972623768
+      required:
+      - id
+      - name
+      - website
+      - createdAt
+      example:
+        id: merchant_eead1d640d7c
+        name: Ollivanders Wand Shop
+        website: https://www.ollivanders.co.uk
+        categoryCode: '5945'
+        business:
+          legalName: Ollivanders Wand Shop Ltd
+          address:
+            line1: Diagon Alley
+            city: London
+            postalCode: WD1 1AA
+            country: gb
+        networkTokens:
+          enrolment:
+          - cardBrand: mastercard
+            tokenRequestorIdentifier: '50165156978'
+            status: active
+          - cardBrand: visa
+            tokenRequestorIdentifier: '40238123804'
+            status: active
+          - cardBrand: american-express
+            tokenRequestorIdentifier: null
+            status: inactive
+        applePay:
+          domains:
+          - domain: store.ollivanders.co.uk
+            status: active
+        createdAt: 1692972623233
+        updatedAt: 1692972623768
+    Card:
+      x-section: Payments
+      x-group: Cards
+      type: object
+      summary: The Card Object
+      properties:
+        id:
+          type: string
+          description: The unique identifier for the card.
+          example: card_eead1d640d7c
+        number:
+          type: string
+          description: The Evervault encrypted card number. This can be decrypted using Relay decryption or using a function.
+          example: 'ev:'
+        expiry:
+          $ref: '#/components/schemas/CardExpiry'
+          description: The expiry date of the card.
+        bin:
+          type: string
+          description: The first 6 or 8 digits of the card number.
+          example: '424242'
+        lastFour:
+          type: string
+          description: The last 4 digits of the card number.
+          example: '4242'
+        brand:
+          $ref: '#/components/schemas/CardBrand'
+        funding:
+          $ref: '#/components/schemas/CardFunding'
+        segment:
+          $ref: '#/components/schemas/CardSegment'
+        country:
+          type: string
+          format: iso-3166-1-alpha-2
+          description: The country where the card was issued.
+          example: gb
+        currency:
+          type: string
+          format: iso-4217-alphabetic
+          description: The currency of the card.
+          example: gbp
+        issuer:
+          type: string
+          description: The name of the card issuer.
+          example: Gringotts Wizarding Bank and Trust Company
+        status:
+          type: string
+          description: The current status of the card.
+          enum:
+          - active
+          - replaced
+          - closed
+          - invalid
+          x-enum-description:
+            active: The card is active and can be used for transactions.
+            replaced: The card has been replaced by another card (e.g. expired, lost or stolen).
+            closed: The card account has been closed and can no longer be used for transactions.
+            invalid: The card is invalid and cannot be used for transactions or updated.
+          example: active
+        replacement:
+          type:
+          - string
+          - 'null'
+          description: The ID of the replacement card. This field is only present if the card has been replaced.
+          example: card_eead1d640d7c
+        automaticUpdates:
+          type: string
+          description: 'The status of Card Account Updater on this card. Evervault currently supports Card Account Updates for Visa, Mastercard and American Express cards.
+
+            '
+          enum:
+          - enabled
+          - issuer-not-enrolled
+          - disabled
+        createdAt:
+          type: integer
+          description: The Unix timestamp of when the card was created.
+          example: 1692972623233
+        updatedAt:
+          type:
+          - integer
+          - 'null'
+          description: The Unix timestamp of when the card was last updated.
+          example: 1692972623768
+      required:
+      - number
+      - bin
+      - lastFour
+      - createdAt
+      example:
+        id: card_eead1d640d7c
+        number: ev:debug:Tk9D:number:nTepvAI585M7lUVp:AkJ6Brzat0E7ui8DSKCSXO7AopU/+GFuBekQ6cGx7eTl:sfihK53itmHp+URxomnTITUpwQwM5nnRrnQ0qdIOUlA=:$
+        expiry:
+          month: '9'
+          year: '26'
+        bin: '424242'
+        lastFour: '4242'
+        brand: visa
+        funding: credit
+        segment: consumer
+        country: gb
+        currency: gbp
+        issuer: Gringotts Wizarding Bank and Trust Company
+        status: active
+        replacement: null
+        automaticUpdates: enabled
+        createdAt: 169297262323
+        updatedAt: null
   securitySchemes:
     ApiKey:
       type: http

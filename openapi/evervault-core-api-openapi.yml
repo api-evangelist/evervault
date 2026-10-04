@@ -937,6 +937,40 @@ paths:
           description: The custom domain has been deleted
 components:
   schemas:
+    RelayRoute:
+      type: object
+      properties:
+        method:
+          type: string
+          description: The HTTP method that must be matched for the operation to be performed. For any method, use null.
+          enum:
+          - GET
+          - HEAD
+          - POST
+          - PUT
+          - DELETE
+          - PATCH
+          example: POST
+        path:
+          type: string
+          description: The path that must be matched for the operation to be performed. For wildcards, use '*'. For a catchall of all subsequent paths, use '**'.
+          example: /**
+        request:
+          type: array
+          maxItems: 1
+          description: The actions to be performed on the data on request.
+          items:
+            $ref: '#/components/schemas/RelayAction'
+        response:
+          type: array
+          maxItems: 1
+          description: The actions to be performed on the data on response.
+          items:
+            $ref: '#/components/schemas/RelayAction'
+      required:
+      - path
+      - request
+      - response
     Relay:
       x-section: Relays
       type: object
@@ -1010,224 +1044,6 @@ components:
         app: app_cc7fcd533649
         createdAt: 1692972623233
         updatedAt: 1692972623234
-    RelayAction:
-      type: object
-      properties:
-        action:
-          type: string
-          description: The operation to perform on the selected data.
-          enum:
-          - encrypt
-          - decrypt
-          example: encrypt
-        selections:
-          type: array
-          description: The selections of data on which the operation will be performed.
-          items:
-            $ref: '#/components/schemas/RelaySelection'
-      required:
-      - action
-      - selections
-    CardSegment:
-      type: string
-      enum:
-      - consumer
-      - commercial
-      - business
-      - government
-      - payouts
-      - all
-      x-enum-description:
-        consumer: Personal use cards
-        commercial: Cards used by large organizations or corporations
-        business: Small to medium-sized business use
-        government: Cards used by government entities
-        payouts: Cards designed to disburse payments like payroll or cashback
-        all: General-purpose cards not confined to a specific segment
-      description: 'The card segment indicates the primary market or usage category of the
-
-        card.
-
-        '
-      example: consumer
-    Error:
-      type: object
-      properties:
-        code:
-          type: string
-          description: A distinct error code, presented in slug format, that identifies a specific error.
-          example: invalid-request
-        title:
-          type: string
-          description: A short, human-readable summary of the error.
-          example: Invalid Request
-        status:
-          type: integer
-          description: The HTTP status code for the error.
-          example: 400
-        detail:
-          type: string
-          description: A human-readable explanation of the error.
-          example: The provided action was invalid
-        fields:
-          type: array
-          items:
-            type: object
-            properties:
-              pointer:
-                type: string
-                description: The JSON pointer to the field that caused the error.
-                example: /card/number
-              reason:
-                type: string
-                description: A human-readable explanation of the error for this field.
-                example: The card number is required
-          example:
-          - pointer: /card/number
-            reason: The card number is required
-    CardFunding:
-      type: string
-      enum:
-      - debit
-      - credit
-      - prepaid
-      - deferred-debit
-      - charge
-      x-enum-description:
-        debit: Draw funds directly from a linked bank account
-        credit: Provide a line of credit from which users can borrow funds for transactions
-        prepaid: Loaded with a set amount of funds in advance and can be used until the balance is depleted
-        deferred-debit: Combine aspects of debit and credit cards, allowing transactions to be debited from a linked account at a later date, usually monthly
-        charge: Require full payment of the balance at the end of each billing cycle, but do not have a pre-set spending limit
-      description: 'The card funding type specifies the method by which transactions are
-
-        financed.
-
-        '
-      example: debit
-    RelayRoute:
-      type: object
-      properties:
-        method:
-          type: string
-          description: The HTTP method that must be matched for the operation to be performed. For any method, use null.
-          enum:
-          - GET
-          - HEAD
-          - POST
-          - PUT
-          - DELETE
-          - PATCH
-          example: POST
-        path:
-          type: string
-          description: The path that must be matched for the operation to be performed. For wildcards, use '*'. For a catchall of all subsequent paths, use '**'.
-          example: /**
-        request:
-          type: array
-          maxItems: 1
-          description: The actions to be performed on the data on request.
-          items:
-            $ref: '#/components/schemas/RelayAction'
-        response:
-          type: array
-          maxItems: 1
-          description: The actions to be performed on the data on response.
-          items:
-            $ref: '#/components/schemas/RelayAction'
-      required:
-      - path
-      - request
-      - response
-    FunctionRun:
-      type: object
-      properties:
-        id:
-          type: string
-          description: A unique identifier representing this specific Function execution instance.
-          example: func_run_eead1d640d7c
-        status:
-          type: string
-          description: The outcome of the Function execution.
-          enum:
-          - success
-          - failure
-          - scheduled
-          x-enum-description:
-            success: The Function executed successfully
-            failure: The Function encountered an error
-            scheduled: The Function execution has been queued
-          example: success
-        result:
-          type: object
-          description: This field represents the output returned by the Function. This is provided only when the Function execution status is 'success'.
-          example:
-            message: Hello, World
-        error:
-          type:
-          - object
-          - 'null'
-          description: This field details any error that occurred during Function execution. This is present only if the status is 'failure'.
-          properties:
-            message:
-              type: string
-              description: A concise explanation of the error that occurred during Function execution.
-              example: Some error message!
-            stack:
-              type: string
-              description: A trace detailing the sequence of events leading to the error, useful for debugging purposes.
-              example: "Error: Some error message!\n    at exports.handler (/runtime/app/index.js:5:11)\n    at /runtime/index.js:64:26\n    at new Promise (<anonymous>)\n    at /runtime/index.js:51:16"
-        createdAt:
-          type: integer
-          format: int64
-          description: The exact time, in epoch milliseconds, when this Function execution was triggered.
-          example: 1692972623233
-    RelaySelection:
-      type: object
-      properties:
-        type:
-          type: string
-          description: The type of the selector used to identify the data on which the action should be performed.
-          enum:
-          - header
-          - json
-          - form
-          x-enum-description:
-            header: '`selector` should be a case-insensitive header name'
-            json: '`selector` should be a valid JSONPath string to select fields in the JSON payload'
-            form: '`selector` should be an exact form field name'
-          example: json
-        role:
-          type: string
-          description: The role of the encrypted field that must be matched for the operation to be performed.
-          example: pci
-        selector:
-          type: string
-          description: 'The selector that identifies the data on which the action should be performed
-
-            '
-          example: $.cardNumber
-      required:
-      - selector
-    ClientSideToken:
-      type: object
-      properties:
-        id:
-          type: string
-          description: The id of the token
-          example: client_side_token_TDbEef6lgIs
-        token:
-          type: string
-          description: The token
-          example: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ2ZXJzaW9uIjoxLCJhcHBfdXVpZCI6ImFwcF82YWJlZDM1ZDc2YjkiLCJ0ZWFtX3V1aWQiOiJ0ZWFtX2FiZjU1YTk5MTY0NSIsImp0aSI6ImNsaWVudF9zaWRlX3Rva2VuX1REYkVlZjZsZ0lzIiwiZXhwIjoxNzA3MjMzODQxOTgxLCJhY3Rpb24iOiJhcGk6ZGVjcnlwdCIsInJlc291cmNlIjpudWxsLCJoYXNoZWRfYm9keSI6IlJCTnZvMVd6WjRvUlJxMFc5LWhrbnBUN1Q4SWY1MzZERU1CZzloeXFfNG8iLCJjbGllbnRfaXAiOm51bGx9.ea1w3TlZ7p-OLVs-NOAUMij4V5w-9vMAD8W2WEoklsDwwgy8HANXP4e8eAjTA0CkELoUL2FgNesS6S77Z-coG1Yw9TGnkEchgkA6RAXqF65t1bLrW0rvl2AzwFZNwJpEbJc37YqyC2xGeermmYKZCu6in97_fe4rAXSYQiuVtN6V8uLSlAgP9Mr0BmNIf49fnskbc0y2-2qewvZfRM7mPQ6NXcQE_jhUjy3OhaohdvU1FpaLs3OrzW2Ej8wE1hOjc5hRtT2cslaY4Bl2x4YNMRVObWg7GYCdETG280ilXTUu9jIPmkXt8QBzouZOP5nuhCjYxFJ2fYZMLj7vYukwdiyBtiUADXDzmnFyh7icAWib76z_hW3VLRjQSlq-fgvQJfM71j5RGBEmLrQNAPRREYjCiM8cwmOh5sFaLdmu4wM6-lgPn8dvHSqENwggs_nfxPyavHChNn8KOo4FS64YYeB28hqSvBAMT-umCdv7n2I-YF6fJOpgJrQOK35MPt4kKfqULJ45wpSnzsSpT9kTrLw0-9-6JpMtsQio0UJ27aXHMPErFcNMcW2hEhPdNsjSfIEmK7lCaUOed-wETkkfIaoTe5ly051baj-VWbAbNXH2jduia2rCZoofXTABADRzeBrFyDNRZXNQ205n0xh3PpIcazKw_vCAD_EDXmcCsFo
-        expiry:
-          type: integer
-          description: The expiry of the token in unix millis format
-          example: 1707233841981
-        createdAt:
-          type: integer
-          description: The creation time of the token in unix millis format
-          example: 1707233541981
     CardMetadata:
       type: object
       summary: Card Metadata
@@ -1264,6 +1080,72 @@ components:
       required:
       - bin
       - lastFour
+    ClientSideToken:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The id of the token
+          example: client_side_token_TDbEef6lgIs
+        token:
+          type: string
+          description: The token
+          example: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ2ZXJzaW9uIjoxLCJhcHBfdXVpZCI6ImFwcF82YWJlZDM1ZDc2YjkiLCJ0ZWFtX3V1aWQiOiJ0ZWFtX2FiZjU1YTk5MTY0NSIsImp0aSI6ImNsaWVudF9zaWRlX3Rva2VuX1REYkVlZjZsZ0lzIiwiZXhwIjoxNzA3MjMzODQxOTgxLCJhY3Rpb24iOiJhcGk6ZGVjcnlwdCIsInJlc291cmNlIjpudWxsLCJoYXNoZWRfYm9keSI6IlJCTnZvMVd6WjRvUlJxMFc5LWhrbnBUN1Q4SWY1MzZERU1CZzloeXFfNG8iLCJjbGllbnRfaXAiOm51bGx9.ea1w3TlZ7p-OLVs-NOAUMij4V5w-9vMAD8W2WEoklsDwwgy8HANXP4e8eAjTA0CkELoUL2FgNesS6S77Z-coG1Yw9TGnkEchgkA6RAXqF65t1bLrW0rvl2AzwFZNwJpEbJc37YqyC2xGeermmYKZCu6in97_fe4rAXSYQiuVtN6V8uLSlAgP9Mr0BmNIf49fnskbc0y2-2qewvZfRM7mPQ6NXcQE_jhUjy3OhaohdvU1FpaLs3OrzW2Ej8wE1hOjc5hRtT2cslaY4Bl2x4YNMRVObWg7GYCdETG280ilXTUu9jIPmkXt8QBzouZOP5nuhCjYxFJ2fYZMLj7vYukwdiyBtiUADXDzmnFyh7icAWib76z_hW3VLRjQSlq-fgvQJfM71j5RGBEmLrQNAPRREYjCiM8cwmOh5sFaLdmu4wM6-lgPn8dvHSqENwggs_nfxPyavHChNn8KOo4FS64YYeB28hqSvBAMT-umCdv7n2I-YF6fJOpgJrQOK35MPt4kKfqULJ45wpSnzsSpT9kTrLw0-9-6JpMtsQio0UJ27aXHMPErFcNMcW2hEhPdNsjSfIEmK7lCaUOed-wETkkfIaoTe5ly051baj-VWbAbNXH2jduia2rCZoofXTABADRzeBrFyDNRZXNQ205n0xh3PpIcazKw_vCAD_EDXmcCsFo
+        expiry:
+          type: integer
+          description: The expiry of the token in unix millis format
+          example: 1707233841981
+        createdAt:
+          type: integer
+          description: The creation time of the token in unix millis format
+          example: 1707233541981
+    CardFunding:
+      type: string
+      enum:
+      - debit
+      - credit
+      - prepaid
+      - deferred-debit
+      - charge
+      x-enum-description:
+        debit: Draw funds directly from a linked bank account
+        credit: Provide a line of credit from which users can borrow funds for transactions
+        prepaid: Loaded with a set amount of funds in advance and can be used until the balance is depleted
+        deferred-debit: Combine aspects of debit and credit cards, allowing transactions to be debited from a linked account at a later date, usually monthly
+        charge: Require full payment of the balance at the end of each billing cycle, but do not have a pre-set spending limit
+      description: 'The card funding type specifies the method by which transactions are
+
+        financed.
+
+        '
+      example: debit
+    RelaySelection:
+      type: object
+      properties:
+        type:
+          type: string
+          description: The type of the selector used to identify the data on which the action should be performed.
+          enum:
+          - header
+          - json
+          - form
+          x-enum-description:
+            header: '`selector` should be a case-insensitive header name'
+            json: '`selector` should be a valid JSONPath string to select fields in the JSON payload'
+            form: '`selector` should be an exact form field name'
+          example: json
+        role:
+          type: string
+          description: The role of the encrypted field that must be matched for the operation to be performed.
+          example: pci
+        selector:
+          type: string
+          description: 'The selector that identifies the data on which the action should be performed
+
+            '
+          example: $.cardNumber
+      required:
+      - selector
     CustomDomain:
       x-section: Relays
       x-group: Custom Domains
@@ -1314,6 +1196,102 @@ components:
         relay: relay_destination_d4ja57js9lnh
         createdAt: 1692972623233
         updatedAt: 1692972623233
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+          description: A distinct error code, presented in slug format, that identifies a specific error.
+          example: invalid-request
+        title:
+          type: string
+          description: A short, human-readable summary of the error.
+          example: Invalid Request
+        status:
+          type: integer
+          description: The HTTP status code for the error.
+          example: 400
+        detail:
+          type: string
+          description: A human-readable explanation of the error.
+          example: The provided action was invalid
+        fields:
+          type: array
+          items:
+            type: object
+            properties:
+              pointer:
+                type: string
+                description: The JSON pointer to the field that caused the error.
+                example: /card/number
+              reason:
+                type: string
+                description: A human-readable explanation of the error for this field.
+                example: The card number is required
+          example:
+          - pointer: /card/number
+            reason: The card number is required
+    FunctionRun:
+      type: object
+      properties:
+        id:
+          type: string
+          description: A unique identifier representing this specific Function execution instance.
+          example: func_run_eead1d640d7c
+        status:
+          type: string
+          description: The outcome of the Function execution.
+          enum:
+          - success
+          - failure
+          - scheduled
+          x-enum-description:
+            success: The Function executed successfully
+            failure: The Function encountered an error
+            scheduled: The Function execution has been queued
+          example: success
+        result:
+          type: object
+          description: This field represents the output returned by the Function. This is provided only when the Function execution status is 'success'.
+          example:
+            message: Hello, World
+        error:
+          type:
+          - object
+          - 'null'
+          description: This field details any error that occurred during Function execution. This is present only if the status is 'failure'.
+          properties:
+            message:
+              type: string
+              description: A concise explanation of the error that occurred during Function execution.
+              example: Some error message!
+            stack:
+              type: string
+              description: A trace detailing the sequence of events leading to the error, useful for debugging purposes.
+              example: "Error: Some error message!\n    at exports.handler (/runtime/app/index.js:5:11)\n    at /runtime/index.js:64:26\n    at new Promise (<anonymous>)\n    at /runtime/index.js:51:16"
+        createdAt:
+          type: integer
+          format: int64
+          description: The exact time, in epoch milliseconds, when this Function execution was triggered.
+          example: 1692972623233
+    RelayAction:
+      type: object
+      properties:
+        action:
+          type: string
+          description: The operation to perform on the selected data.
+          enum:
+          - encrypt
+          - decrypt
+          example: encrypt
+        selections:
+          type: array
+          description: The selections of data on which the operation will be performed.
+          items:
+            $ref: '#/components/schemas/RelaySelection'
+      required:
+      - action
+      - selections
     CardBrand:
       type: string
       enum:
@@ -1326,6 +1304,28 @@ components:
       - unionpay
       description: The card brand associated with the payment card.
       example: visa
+    CardSegment:
+      type: string
+      enum:
+      - consumer
+      - commercial
+      - business
+      - government
+      - payouts
+      - all
+      x-enum-description:
+        consumer: Personal use cards
+        commercial: Cards used by large organizations or corporations
+        business: Small to medium-sized business use
+        government: Cards used by government entities
+        payouts: Cards designed to disburse payments like payroll or cashback
+        all: General-purpose cards not confined to a specific segment
+      description: 'The card segment indicates the primary market or usage category of the
+
+        card.
+
+        '
+      example: consumer
   securitySchemes:
     ApiKey:
       type: http
