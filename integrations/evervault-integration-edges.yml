@@ -25,8 +25,162 @@ edges:
     builder: unknown (not in the directory record)
   detected_by: sweep-workflow-automation.py
   first_seen: '2026-10-15'
+- partner_name: Go module proxy
+  partner: null
+  partner_match: null
+  type: register
+  direction: provider-built
+  category: official SDK (Go)
+  evidence: https://pkg.go.dev/github.com/evervault/evervault-go
+  channel: package-registry
+  relationship: distribution-channel
+  contract_reference:
+    register: Go module proxy (public registry JSON)
+    spec_file: null
+    language: Go
+    packages:
+    - name: github.com/evervault/evervault-go
+      version: v1.3.2
+      released: '2025-09-15'
+      released_field: Time
+      lapsed: false
+      page: https://pkg.go.dev/github.com/evervault/evervault-go
+      repo_leg: github-org:evervault
+      publisher_leg: org:evervault
+      matched_by: github-org
+    current: true
+    signal_note: 'an official package on the registry: distribution, not an integration; lapsed = no release in
+      24 months'
+    detected_by: sweep-official-sdks.py
+    detected: '2026-10-18'
+  detected_by: sweep-official-sdks.py
+  first_seen: '2026-10-18'
+- partner_name: npm registry
+  partner: npm
+  partner_match: register
+  type: register
+  direction: provider-built
+  category: official SDK (JavaScript/TypeScript)
+  evidence: https://www.npmjs.com/package/@evervault/browser
+  channel: package-registry
+  relationship: distribution-channel
+  contract_reference:
+    register: npm registry (public registry JSON)
+    spec_file: null
+    language: JavaScript/TypeScript
+    packages:
+    - name: '@evervault/browser'
+      version: 2.9.0
+      released: '2026-03-03'
+      released_field: modified
+      lapsed: false
+      page: https://www.npmjs.com/package/@evervault/browser
+      repo_leg: github-org:evervault
+      publisher_leg: email:evervault.com
+      matched_by: domain
+    - name: '@evervault/react'
+      version: 2.33.0
+      released: '2026-10-05'
+      released_field: modified
+      lapsed: false
+      page: https://www.npmjs.com/package/@evervault/react
+      repo_leg: github-org:evervault
+      publisher_leg: email:evervault.com
+      matched_by: domain
+    - name: '@evervault/react-native'
+      version: 2.8.1
+      released: '2026-10-15'
+      released_field: modified
+      lapsed: false
+      page: https://www.npmjs.com/package/@evervault/react-native
+      repo_leg: domain:evervault.com
+      publisher_leg: email:evervault.com
+      matched_by: domain
+    - name: '@evervault/sdk'
+      version: 6.4.0
+      released: '2026-03-03'
+      released_field: modified
+      lapsed: false
+      page: https://www.npmjs.com/package/@evervault/sdk
+      repo_leg: github-org:evervault
+      publisher_leg: email:evervault.com
+      matched_by: domain
+    current: true
+    signal_note: 'an official package on the registry: distribution, not an integration; lapsed = no release in
+      24 months'
+    detected_by: sweep-official-sdks.py
+    detected: '2026-10-18'
+  detected_by: sweep-official-sdks.py
+  first_seen: '2026-10-18'
+- partner_name: PyPI
+  partner: pypi
+  partner_match: register
+  type: register
+  direction: provider-built
+  category: official SDK (Python)
+  evidence: https://pypi.org/project/evervault/
+  channel: package-registry
+  relationship: distribution-channel
+  contract_reference:
+    register: PyPI (public registry JSON)
+    spec_file: null
+    language: Python
+    packages:
+    - name: evervault
+      version: 5.1.3
+      released: '2026-08-05'
+      released_field: upload_time
+      lapsed: false
+      page: https://pypi.org/project/evervault/
+      repo_leg: domain:evervault.com
+      publisher_leg: email:evervault.com
+      matched_by: domain
+    current: true
+    signal_note: 'an official package on the registry: distribution, not an integration; lapsed = no release in
+      24 months'
+    detected_by: sweep-official-sdks.py
+    detected: '2026-10-18'
+  detected_by: sweep-official-sdks.py
+  first_seen: '2026-10-18'
+- partner_name: RubyGems
+  partner: rubygems
+  partner_match: register
+  type: register
+  direction: provider-built
+  category: official SDK (Ruby)
+  evidence: https://rubygems.org/gems/evervault
+  channel: package-registry
+  relationship: distribution-channel
+  contract_reference:
+    register: RubyGems (public registry JSON)
+    spec_file: null
+    language: Ruby
+    packages:
+    - name: evervault
+      version: 4.0.0
+      released: '2026-06-29'
+      released_field: version_created_at
+      lapsed: false
+      page: https://rubygems.org/gems/evervault
+      repo_leg: domain:evervault.com
+      publisher_leg: org:evervault
+      matched_by: domain
+    current: true
+    signal_note: 'an official package on the registry: distribution, not an integration; lapsed = no release in
+      24 months'
+    detected_by: sweep-official-sdks.py
+    detected: '2026-10-18'
+  detected_by: sweep-official-sdks.py
+  first_seen: '2026-10-18'
 method: searched
 checked:
+- https://api.nuget.org/v3
+- https://crates.io/api/v1
+- https://proxy.golang.org
+- https://pypi.org/pypi
+- https://registry.npmjs.org
+- https://repo1.maven.org/maven2
+- https://rubygems.org/api/v1
 - https://zapier.com/api/v4/apps/
 source:
 - https://zapier.com/api/v4/apps/
