@@ -7400,3 +7400,9 @@ components:
       scheme: bearer
       bearerFormat: Token
       description: 'Authentication using a short lived token that you can share with clients. The Authorization header must be formatted as follow: "Token <Client-Side Token>"'
+x-provenance:
+  method: harvested
+  publisher: Evervault
+  source: https://docs.evervault.com/api-spec.json
+  note: split by refine-openapis from the provider's own published document, verified by fetch (openapi/_original/*.fetch.json);
+    stamped by stamp-openapi-provenance.py (roadmap#793)
