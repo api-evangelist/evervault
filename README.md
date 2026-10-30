@@ -1,4 +1,4 @@
-# evervault
+# Evervault
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -64,6 +64,150 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-evervault is a company surfaced as a portfolio company of index-ventures, ribbit-capital and added to the API Evangelist network as a stub for enrichment. Sector: data. This profile is a lead awaiting the enrichment pipeline.
+Evervault is a data-security and payments-infrastructure platform that lets developers encrypt, tokenize, and process sensitive data - especially cardholder data - without it touching their own infrastructure. Its model stores encryption keys on Evervault's side while customers hold the ciphertext, reducing breach scope. Core products include Relay (an encrypting/decrypting proxy), Functions (secure serverless runtimes), Enclaves (AWS Nitro Enclave workloads), UI Components for PCI-compliant card collection, plus payments tooling: network tokens, 3D Secure, BIN lookup, card account updater, and multi-PSP routing. Evervault is PCI DSS Level 1 and SOC 2 Type II, and supports HIPAA and GDPR.
 
-Backed by: index-ventures, ribbit-capital — http://evervault.com
+**Areas:** Company · Data · Security · Encryption · Payments · PCI Compliance · Tokenization · Cards · Developer Tools
+
+## Evervault on APIs.io
+
+Everything profiled for Evervault is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/evervault/](https://apis.io/providers/evervault/)** — or go straight to one of the APIs or properties below.
+
+### APIs (4)
+
+- [Evervault Core API](https://apis.io/apis/evervault/evervault-core-api/) — The Core API from Evervault — 9 operation(s) for core.
+- [Evervault Payments API](https://apis.io/apis/evervault/evervault-payments-api/) — The Payments API from Evervault — 17 operation(s) for payments.
+- [Evervault Webhooks API](https://apis.io/apis/evervault/evervault-webhooks-api/) — The Webhooks API from Evervault — 2 operation(s) for webhooks.
+- [Evervault API](https://apis.io/apis/evervault/evervault-evervault-api-api/) — The Evervault API API from Evervault — 0 operation(s) for evervault api.
+
+### Published properties
+
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
+
+#### AsyncAPI (1)
+
+Event-driven and webhook contracts.
+
+- [Evervault Webhooks](https://apis.io/asyncapis/evervault/evervault-webhooks/)
+
+#### MCP servers (1)
+
+Model Context Protocol servers that expose the API to agents.
+
+- [evervault](https://apis.io/servers/evervault/evervault/)
+
+#### Collections (24)
+
+Postman and Open Collection request collections.
+
+- [Evervault 3D Secure API](https://apis.io/collections/evervault/open-evervault-3d-secure-api/)
+- [Evervault Acquirers API](https://apis.io/collections/evervault/open-evervault-acquirers-api/)
+- [Evervault Card Account Updates API](https://apis.io/collections/evervault/open-evervault-card-account-updates-api/)
+- [Evervault Client Tokens API](https://apis.io/collections/evervault/open-evervault-client-tokens-api/)
+- [Evervault Core API](https://apis.io/collections/evervault/open-evervault-core-api/)
+- [Evervault Functions API](https://apis.io/collections/evervault/open-evervault-functions-api/)
+- [Evervault Insights API](https://apis.io/collections/evervault/open-evervault-insights-api/)
+- [Evervault Merchants API](https://apis.io/collections/evervault/open-evervault-merchants-api/)
+- [Evervault Network Tokens API](https://apis.io/collections/evervault/open-evervault-network-tokens-api/)
+- [Evervault Payments API](https://apis.io/collections/evervault/open-evervault-payments-api/)
+- [Evervault Relays API](https://apis.io/collections/evervault/open-evervault-relays-api/)
+- [Evervault Webhooks API](https://apis.io/collections/evervault/open-evervault-webhooks-api/)
+- [Evervault 3D Secure API](https://apis.io/collections/evervault/postman-evervault-3d-secure-api/)
+- [Evervault Acquirers API](https://apis.io/collections/evervault/postman-evervault-acquirers-api/)
+- [Evervault Card Account Updates API](https://apis.io/collections/evervault/postman-evervault-card-account-updates-api/)
+- [Evervault Client Tokens API](https://apis.io/collections/evervault/postman-evervault-client-tokens-api/)
+- [Evervault Core API](https://apis.io/collections/evervault/postman-evervault-core-api/)
+- [Evervault Functions API](https://apis.io/collections/evervault/postman-evervault-functions-api/)
+- [Evervault Insights API](https://apis.io/collections/evervault/postman-evervault-insights-api/)
+- [Evervault Merchants API](https://apis.io/collections/evervault/postman-evervault-merchants-api/)
+- [Evervault Network Tokens API](https://apis.io/collections/evervault/postman-evervault-network-tokens-api/)
+- [Evervault Payments API](https://apis.io/collections/evervault/postman-evervault-payments-api/)
+- [Evervault Relays API](https://apis.io/collections/evervault/postman-evervault-relays-api/)
+- [Evervault Webhooks API](https://apis.io/collections/evervault/postman-evervault-webhooks-api/)
+
+#### Overlays (1)
+
+OpenAPI overlays, including conversational phrasing for each operation.
+
+- [Evervault Openapi Overlay](https://apis.io/overlays/evervault/evervault-openapi-overlay/)
+
+#### Security (3)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Evervault Authentication](https://apis.io/security/evervault/evervault-authentication/)
+- [Evervault Domain Security](https://apis.io/security/evervault/evervault-domain-security/)
+- [Evervault Vulnerability Disclosure](https://apis.io/security/evervault/evervault-vulnerability-disclosure/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://evervault.com)
+- [Documentation](https://docs.evervault.com)
+- [Getting started](https://docs.evervault.com/core-concepts)
+- [API reference](https://docs.evervault.com/api)
+- [Pricing](https://evervault.com/pricing)
+- [Sign up](https://app.evervault.com/register)
+- [Changelog](https://evervault.com/changelog)
+- [Blog](https://evervault.com/blog)
+- [Security](https://evervault.com/.well-known/security.txt)
+- [Compliance](https://docs.evervault.com/compliance/pci-compliance)
+- [Terms of service](https://evervault.com/legal/terms)
+- [Privacy policy](https://evervault.com/legal/privacy)
+- [GitHub](https://github.com/evervault)
+- [Status](https://status.evervault.com/)
+
+## API Evangelist rating
+
+**Kin Score 58.4** — strong · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 73.2 |
+| Contract quality | 61.6 |
+| Contract governance | 18.2 |
+| Operational transparency | 52.6 |
+| Developer ergonomics | 76.8 |
+| Access clarity | 39.5 |
+
+**Agent readiness 33.5** — agent-ready
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | — |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | verified |
+| OpenAPI Examples | verified |
+| Rate Limit Signal | — |
+| Event Surface Described | yes |
+| Agent Skills | derived (partial credit) |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | partial |
+| Operation Distinctiveness | distinct |
+
+**Regulatory alignment 39.3** — Payments
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/evervault/](https://apis.io/providers/evervault/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Evervault: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/evervault/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
